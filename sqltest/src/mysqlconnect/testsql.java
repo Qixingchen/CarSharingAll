@@ -149,8 +149,7 @@ public class testsql {
 							// System.out.println("address :" +
 							// json.get("address")+"รื");
 
-							// warning>>>>>>>>>>>>>>>>
-							distance = distance + json.get("address") + " ";
+							distance = distance + json.get("distance") + " ";
 
 						} catch (Exception ex) {
 							System.err.println("Exception:" + ex.getMessage());
@@ -165,7 +164,7 @@ public class testsql {
 					Map<String, String> json = maphttp.testPost(
 							StartPlacelng[it], StartPlacelat[it],
 							Destinationlng, Destinationlat, city3, city);
-					distance = distance + json.get("address") + " ";
+					distance = distance + json.get("distance") + " ";
 				}
 				// System.out.println(distance);
 				// System.out.println(totalPerson[j]);
