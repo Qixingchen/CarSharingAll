@@ -35,7 +35,6 @@ public class SendRequestWithHttpClient {
 			}
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			response = "error";
 			e.printStackTrace();
 		}

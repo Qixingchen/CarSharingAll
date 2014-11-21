@@ -11,10 +11,10 @@ import java.util.Map;
 public class testsql {
 public static Connection getConnection() throws SQLException ,
 java.lang.ClassNotFoundException{
-String url = "jdbc:mysql://localhost:3306/carsharing";
+String url = "jdbc:mysql://car.qixingchen.me:3306/carsharing";
 Class.forName("com.mysql.jdbc.Driver");
-String userName = "root";
-String password = "123456";
+String userName = "carsharingremote";
+String password = "qwQ!zlB*C5TOJoEc";
 Connection con = DriverManager.getConnection(url,userName,password);
 return con;
 }
@@ -131,7 +131,10 @@ try{
 //				System.out.println(city1+" "+city2);
 				Map<String, String> json = maphttp.testPost(StartPlacelng[it],StartPlacelat[it],StartPlacelng[it1],StartPlacelat[it1], city1, city2);
 //				System.out.println("address :" + json.get("address")+"รื");
+				
+//			warning>>>>>>>>>>>>>>>>
 				distance=distance+json.get("address")+" ";
+				
 			}catch(Exception ex){
 				System.err.println("Exception:" + ex.getMessage());
 				}

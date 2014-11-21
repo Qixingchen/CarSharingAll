@@ -2,19 +2,11 @@ package mysqlconnect;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Map;
 import java.util.HashMap;
 import java.net.URLEncoder;  
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLConnection;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.client.HttpClient;
 
 public class province {
 	
