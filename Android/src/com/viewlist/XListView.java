@@ -8,7 +8,6 @@
  */
 package com.viewlist;
 
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -24,8 +23,6 @@ import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.example.carsharing.R;
-
-
 
 public class XListView extends ListView implements OnScrollListener {
 
@@ -52,7 +49,7 @@ public class XListView extends ListView implements OnScrollListener {
 	private boolean mEnablePullLoad;
 	private boolean mPullLoading;
 	private boolean mIsFooterReady = false;
-	
+
 	// total list items, used to detect is at the bottom of listview.
 	private int mTotalItemCount;
 
@@ -98,7 +95,7 @@ public class XListView extends ListView implements OnScrollListener {
 				.findViewById(R.id.xlistview_header_content);
 		mHeaderTimeView = (TextView) mHeaderView
 				.findViewById(R.id.xlistview_header_time);
-		//addHeaderView(mHeaderView);
+		// addHeaderView(mHeaderView);
 		addHeaderView(mHeaderView, null, false);
 
 		// init footer view
@@ -122,7 +119,7 @@ public class XListView extends ListView implements OnScrollListener {
 		if (mIsFooterReady == false) {
 			if (mEnablePullLoad) {
 				mIsFooterReady = true;
-				//addFooterView(mFooterView);
+				// addFooterView(mFooterView);
 				addFooterView(mFooterView, null, false);
 			}
 		}
@@ -152,19 +149,18 @@ public class XListView extends ListView implements OnScrollListener {
 		mEnablePullLoad = enable;
 		if (!mEnablePullLoad) {
 			mFooterView.hide();
-//			removeFooterView(mFooterView);
-//			mFooterView.setClickable(false);
+			// removeFooterView(mFooterView);
+			// mFooterView.setClickable(false);
 		} else {
 			mPullLoading = false;
 			mFooterView.show();
 			mFooterView.setState(XListViewFooter.STATE_NORMAL);
 			// both "pull up" and "click" will invoke load more.
-			/*mFooterView.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					startLoadMore();
-				}
-			});*/
+			/*
+			 * mFooterView.setOnClickListener(new OnClickListener() {
+			 * 
+			 * @Override public void onClick(View v) { startLoadMore(); } });
+			 */
 		}
 	}
 
@@ -177,9 +173,8 @@ public class XListView extends ListView implements OnScrollListener {
 			resetHeaderHeight();
 		}
 	}
-	
-	
-	public void startRefresh(){
+
+	public void startRefresh() {
 		if (mPullRefreshing == false) {
 			mPullRefreshing = true;
 			mHeaderView.setState(XListViewHeader.STATE_REFRESHING);
@@ -273,9 +268,9 @@ public class XListView extends ListView implements OnScrollListener {
 			}
 		}
 		mFooterView.setBottomMargin(height);
-		//DLog.i(TAG, "mFooterView.setBottomMargin(height) with " + height);
+		// DLog.i(TAG, "mFooterView.setBottomMargin(height) with " + height);
 
-//		setSelection(mTotalItemCount - 1); // scroll to bottom
+		// setSelection(mTotalItemCount - 1); // scroll to bottom
 	}
 
 	private void resetFooterHeight() {
@@ -308,10 +303,12 @@ public class XListView extends ListView implements OnScrollListener {
 			break;
 		case MotionEvent.ACTION_MOVE:
 			final float deltaY = ev.getRawY() - mLastY;
-			//DLog.i(TAG, "deltaY is " + deltaY);
+			// DLog.i(TAG, "deltaY is " + deltaY);
 			mLastY = ev.getRawY();
-			//DLog.i(TAG, "FirstVisiblePosition is " + getFirstVisiblePosition());
-			//DLog.i(TAG, "LastVisiblePosition is " + getLastVisiblePosition());
+			// DLog.i(TAG, "FirstVisiblePosition is " +
+			// getFirstVisiblePosition());
+			// DLog.i(TAG, "LastVisiblePosition is " +
+			// getLastVisiblePosition());
 			if (getFirstVisiblePosition() == 0
 					&& (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
 				// the first item is showing, header has shown or pull down.
@@ -331,7 +328,7 @@ public class XListView extends ListView implements OnScrollListener {
 						&& mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
 					mPullRefreshing = true;
 					mHeaderView.setState(XListViewHeader.STATE_REFRESHING);
-					//DLog.i(TAG, "invoke refresh");
+					// DLog.i(TAG, "invoke refresh");
 					if (mListViewListener != null) {
 						mListViewListener.onRefresh();
 					}
@@ -341,7 +338,7 @@ public class XListView extends ListView implements OnScrollListener {
 				// invoke load more.
 				if (!mPullLoading && mEnablePullLoad && !mPullRefreshing
 						&& mFooterView.getBottomMargin() > PULL_LOAD_MORE_DELTA) {
-					//DLog.i(TAG, "invoke load more");
+					// DLog.i(TAG, "invoke load more");
 					startLoadMore();
 				}
 				resetFooterHeight();
@@ -375,10 +372,11 @@ public class XListView extends ListView implements OnScrollListener {
 		if (mScrollListener != null) {
 			mScrollListener.onScrollStateChanged(view, scrollState);
 		}
-		
-		if(getLastVisiblePosition() == mTotalItemCount - 1 && scrollState == SCROLL_STATE_IDLE){
+
+		if (getLastVisiblePosition() == mTotalItemCount - 1
+				&& scrollState == SCROLL_STATE_IDLE) {
 			if (!mPullLoading && mEnablePullLoad && !mPullRefreshing) {
-				//DLog.i(TAG, "invoke load more");
+				// DLog.i(TAG, "invoke load more");
 				startLoadMore();
 			}
 		}

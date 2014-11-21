@@ -4,7 +4,7 @@ package com.json.object;
  * LongwayPublish entity. @author MyEclipse Persistence Tools
  */
 
-public class LongwayPublishJSON{
+public class LongwayPublishJSON {
 
 	// Fields
 

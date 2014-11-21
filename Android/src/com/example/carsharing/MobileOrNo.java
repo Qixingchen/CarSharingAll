@@ -10,12 +10,13 @@ import java.util.regex.Pattern;
 
 public class MobileOrNo {
 
-	public boolean mobilejudging(String phonenum){
-		
-		Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$");
+	public boolean mobilejudging(String phonenum) {
+
+		Pattern p = Pattern
+				.compile("^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$");
 		Matcher m = p.matcher(phonenum);
 		return m.matches();
-		
+
 	}
-	
+
 }

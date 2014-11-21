@@ -45,25 +45,26 @@ public class ReOrderShortwayActivity extends Activity {
 	private Button startplace;
 	private Button endplace;
 	private Button next;
-	private TextView carbrand,model,color,licensenum,content;
+	private TextView carbrand, model, color, licensenum, content;
 	private RadioGroup shortway_group;
-	private RadioButton mRadio1,mRadio2;
+	private RadioButton mRadio1, mRadio2;
 	private Calendar c = Calendar.getInstance();
 	private float startplace_longitude;
-    private	float startplace_latitude;
+	private float startplace_latitude;
 	private float destination_longitude;
 	private float destination_latitude;
 	private String StartPointUserName, StartPointMapName, EndPointUserName,
-	EndPointMapName;
-	private String startdate,starttime,endtime;
-	private int sum=0;
+			EndPointMapName;
+	private String startdate, starttime, endtime;
+	private int sum = 0;
 	private TextView count;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_re_order_shortway);
-		
-		//getID
+
+		// getID
 		startplace = (Button) findViewById(R.id.re_shortway_startplace);
 		endplace = (Button) findViewById(R.id.re_shortway_endplace);
 		exchange = (ImageView) findViewById(R.id.re_shortway_exchange);
@@ -73,44 +74,47 @@ public class ReOrderShortwayActivity extends Activity {
 		increase = (Button) findViewById(R.id.re_shortway_increase);
 		decrease = (Button) findViewById(R.id.re_shortway_decrease);
 		count = (TextView) findViewById(R.id.re_shortway_count);
-		
+
 		carbrand = (EditText) findViewById(R.id.shortway_CarBrand);
 		model = (EditText) findViewById(R.id.shortway_CarModel);
 		color = (EditText) findViewById(R.id.shortway_color);
 		licensenum = (EditText) findViewById(R.id.shortway_Num);
 
-//		licensenum.addTextChangedListener(numTextWatcher);
-//		carbrand.addTextChangedListener(detTextWatcher);
-//		color.addTextChangedListener(coTextWatcher);
-//		model.addTextChangedListener(moTextWatcher);
+		// licensenum.addTextChangedListener(numTextWatcher);
+		// carbrand.addTextChangedListener(detTextWatcher);
+		// color.addTextChangedListener(coTextWatcher);
+		// model.addTextChangedListener(moTextWatcher);
 
 		next = (Button) findViewById(R.id.shortway_sure);
 		next.setEnabled(false);
-//		db = new DatabaseHelper(ReOrderShortwayActivity.this, "test", null, 1);
-//		db1 = db.getWritableDatabase();
+		// db = new DatabaseHelper(ReOrderShortwayActivity.this, "test", null,
+		// 1);
+		// db1 = db.getWritableDatabase();
 
 		content = (TextView) findViewById(R.id.shortway_content);
 		mRadio1 = (RadioButton) findViewById(R.id.shortway_radioButton1);
 		mRadio2 = (RadioButton) findViewById(R.id.shortway_radioButton2);
 		shortway_group = (RadioGroup) findViewById(R.id.shortway_radiobutton01);
-		//getID end
-		
-		//from arrangementActivity
+		// getID end
+
+		// from arrangementActivity
 		Bundle bundle = this.getIntent().getExtras();
-		startplace.setText(bundle.getString("stpusername")+","+bundle.getString("stpmapname"));
-		endplace.setText(bundle.getString("epusername")+","+bundle.getString("epmapname"));
-		startplace_longitude=bundle.getFloat("spx");
-		startplace_latitude=bundle.getFloat("spy");
-		destination_longitude=bundle.getFloat("epx");
-		destination_latitude=bundle.getFloat("epy");
-		startdate=bundle.getString("re_short_startdate");
-		starttime=bundle.getString("re_short_starttime");
-		endtime=bundle.getString("re_short_endtime");
+		startplace.setText(bundle.getString("stpusername") + ","
+				+ bundle.getString("stpmapname"));
+		endplace.setText(bundle.getString("epusername") + ","
+				+ bundle.getString("epmapname"));
+		startplace_longitude = bundle.getFloat("spx");
+		startplace_latitude = bundle.getFloat("spy");
+		destination_longitude = bundle.getFloat("epx");
+		destination_latitude = bundle.getFloat("epy");
+		startdate = bundle.getString("re_short_startdate");
+		starttime = bundle.getString("re_short_starttime");
+		endtime = bundle.getString("re_short_endtime");
 		datebutton.setText(startdate);
 		earlystarttime.setText(starttime);
 		latestarttime.setText(endtime);
-		//end from arrangementActivity
-		
+		// end from arrangementActivity
+
 		exchange.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -196,148 +200,149 @@ public class ReOrderShortwayActivity extends Activity {
 				count.setText("" + sum);
 			}
 		});
-		
-//		// 绑定一个RadioGroup监听器
-//				shortway_group
-//				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//					@Override
-//					public void onCheckedChanged(RadioGroup arg0, int checkedId) {
-//						// TODO Auto-generated method stub18
-//						// 获取变更后的选中项的ID
-//
-//						// "我能提供车"不变，"我不能提供车"使车牌号等编辑框不可编辑，并更改textView
-//						if (checkedId == mRadio2.getId()) {
-//							bpassenager = true;
-//							bdriver = false;
-//
-//							licensenum.setEnabled(false);
-//							carbrand.setEnabled(false);
-//							color.setEnabled(false);
-//							model.setEnabled(false);
-//
-//							licensenum
-//									.setFilters(new InputFilter[] { new InputFilter() {
-//										@Override
-//										public CharSequence filter(
-//												CharSequence source, int start,
-//												int end, Spanned dest,
-//												int dstart, int dend) {
-//											return source.length() < 1 ? dest
-//													.subSequence(dstart, dend)
-//													: "";
-//										}
-//									} });
-//							carbrand.setFilters(new InputFilter[] { new InputFilter() {
-//								@Override
-//								public CharSequence filter(CharSequence source,
-//										int start, int end, Spanned dest,
-//										int dstart, int dend) {
-//									return source.length() < 1 ? dest
-//											.subSequence(dstart, dend) : "";
-//								}
-//							} });
-//							color.setFilters(new InputFilter[] { new InputFilter() {
-//								@Override
-//								public CharSequence filter(CharSequence source,
-//										int start, int end, Spanned dest,
-//										int dstart, int dend) {
-//									return source.length() < 1 ? dest
-//											.subSequence(dstart, dend) : "";
-//								}
-//							} });
-//							model.setFilters(new InputFilter[] { new InputFilter() {
-//								@Override
-//								public CharSequence filter(CharSequence source,
-//										int start, int end, Spanned dest,
-//										int dstart, int dend) {
-//									return source.length() < 1 ? dest
-//											.subSequence(dstart, dend) : "";
-//								}
-//							} });
-//							content.setText(getString(R.string.warningInfo_seatNeed));
-//							licensenum.setHintTextColor(Color
-//									.parseColor("#cccccc"));
-//							carbrand.setHintTextColor(Color
-//									.parseColor("#cccccc"));
-//							color.setHintTextColor(Color.parseColor("#cccccc"));
-//							model.setHintTextColor(Color.parseColor("#cccccc"));
-//							licensenum.setInputType(InputType.TYPE_NULL);
-//							carbrand.setInputType(InputType.TYPE_NULL);
-//							color.setInputType(InputType.TYPE_NULL);
-//							model.setInputType(InputType.TYPE_NULL);
-//						} else {
-//							bpassenager = false;
-//							bdriver = true;
-//
-//							licensenum.setEnabled(true);
-//							carbrand.setEnabled(true);
-//							color.setEnabled(true);
-//							model.setEnabled(true);
-//
-//							licensenum
-//									.setFilters(new InputFilter[] { new InputFilter() {
-//										@Override
-//										public CharSequence filter(
-//												CharSequence source, int start,
-//												int end, Spanned dest,
-//												int dstart, int dend) {
-//
-//											return null;
-//										}
-//									} });
-//							carbrand.setFilters(new InputFilter[] { new InputFilter() {
-//								@Override
-//								public CharSequence filter(CharSequence source,
-//										int start, int end, Spanned dest,
-//										int dstart, int dend) {
-//									return null;
-//								}
-//							} });
-//							color.setFilters(new InputFilter[] { new InputFilter() {
-//								@Override
-//								public CharSequence filter(CharSequence source,
-//										int start, int end, Spanned dest,
-//										int dstart, int dend) {
-//
-//									return null;
-//								}
-//							} });
-//							model.setFilters(new InputFilter[] { new InputFilter() {
-//								@Override
-//								public CharSequence filter(CharSequence source,
-//										int start, int end, Spanned dest,
-//										int dstart, int dend) {
-//
-//									return null;
-//								}
-//							} });
-//							content.setText(getString(R.string.warningInfo_seatOffer));
-//							licensenum.setHintTextColor(Color
-//									.parseColor("#9F35FF"));
-//							carbrand.setHintTextColor(Color
-//									.parseColor("#9F35FF"));
-//							color.setHintTextColor(Color.parseColor("#9F35FF"));
-//							model.setHintTextColor(Color.parseColor("#9F35FF"));
-////							licensenum.setText("");
-////							carbrand.setText("");
-////							color.setText("");
-////							model.setText("");
-//							licensenum.setInputType(InputType.TYPE_CLASS_TEXT);
-//							carbrand.setInputType(InputType.TYPE_CLASS_TEXT);
-//							color.setInputType(InputType.TYPE_CLASS_TEXT);
-//							model.setInputType(InputType.TYPE_CLASS_TEXT);
-//							
-//							// 向服务器请求查询车辆信息表start!
-//							selectcarinfo(UserPhoneNumber);
-//							// 向服务器请求查询车辆信息表end!
-//						}
-//						confirm();
-//					}
-//					
-//				
-//				});
-		
+
+		// // 绑定一个RadioGroup监听器
+		// shortway_group
+		// .setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		// @Override
+		// public void onCheckedChanged(RadioGroup arg0, int checkedId) {
+		// // TODO Auto-generated method stub18
+		// // 获取变更后的选中项的ID
+		//
+		// // "我能提供车"不变，"我不能提供车"使车牌号等编辑框不可编辑，并更改textView
+		// if (checkedId == mRadio2.getId()) {
+		// bpassenager = true;
+		// bdriver = false;
+		//
+		// licensenum.setEnabled(false);
+		// carbrand.setEnabled(false);
+		// color.setEnabled(false);
+		// model.setEnabled(false);
+		//
+		// licensenum
+		// .setFilters(new InputFilter[] { new InputFilter() {
+		// @Override
+		// public CharSequence filter(
+		// CharSequence source, int start,
+		// int end, Spanned dest,
+		// int dstart, int dend) {
+		// return source.length() < 1 ? dest
+		// .subSequence(dstart, dend)
+		// : "";
+		// }
+		// } });
+		// carbrand.setFilters(new InputFilter[] { new InputFilter() {
+		// @Override
+		// public CharSequence filter(CharSequence source,
+		// int start, int end, Spanned dest,
+		// int dstart, int dend) {
+		// return source.length() < 1 ? dest
+		// .subSequence(dstart, dend) : "";
+		// }
+		// } });
+		// color.setFilters(new InputFilter[] { new InputFilter() {
+		// @Override
+		// public CharSequence filter(CharSequence source,
+		// int start, int end, Spanned dest,
+		// int dstart, int dend) {
+		// return source.length() < 1 ? dest
+		// .subSequence(dstart, dend) : "";
+		// }
+		// } });
+		// model.setFilters(new InputFilter[] { new InputFilter() {
+		// @Override
+		// public CharSequence filter(CharSequence source,
+		// int start, int end, Spanned dest,
+		// int dstart, int dend) {
+		// return source.length() < 1 ? dest
+		// .subSequence(dstart, dend) : "";
+		// }
+		// } });
+		// content.setText(getString(R.string.warningInfo_seatNeed));
+		// licensenum.setHintTextColor(Color
+		// .parseColor("#cccccc"));
+		// carbrand.setHintTextColor(Color
+		// .parseColor("#cccccc"));
+		// color.setHintTextColor(Color.parseColor("#cccccc"));
+		// model.setHintTextColor(Color.parseColor("#cccccc"));
+		// licensenum.setInputType(InputType.TYPE_NULL);
+		// carbrand.setInputType(InputType.TYPE_NULL);
+		// color.setInputType(InputType.TYPE_NULL);
+		// model.setInputType(InputType.TYPE_NULL);
+		// } else {
+		// bpassenager = false;
+		// bdriver = true;
+		//
+		// licensenum.setEnabled(true);
+		// carbrand.setEnabled(true);
+		// color.setEnabled(true);
+		// model.setEnabled(true);
+		//
+		// licensenum
+		// .setFilters(new InputFilter[] { new InputFilter() {
+		// @Override
+		// public CharSequence filter(
+		// CharSequence source, int start,
+		// int end, Spanned dest,
+		// int dstart, int dend) {
+		//
+		// return null;
+		// }
+		// } });
+		// carbrand.setFilters(new InputFilter[] { new InputFilter() {
+		// @Override
+		// public CharSequence filter(CharSequence source,
+		// int start, int end, Spanned dest,
+		// int dstart, int dend) {
+		// return null;
+		// }
+		// } });
+		// color.setFilters(new InputFilter[] { new InputFilter() {
+		// @Override
+		// public CharSequence filter(CharSequence source,
+		// int start, int end, Spanned dest,
+		// int dstart, int dend) {
+		//
+		// return null;
+		// }
+		// } });
+		// model.setFilters(new InputFilter[] { new InputFilter() {
+		// @Override
+		// public CharSequence filter(CharSequence source,
+		// int start, int end, Spanned dest,
+		// int dstart, int dend) {
+		//
+		// return null;
+		// }
+		// } });
+		// content.setText(getString(R.string.warningInfo_seatOffer));
+		// licensenum.setHintTextColor(Color
+		// .parseColor("#9F35FF"));
+		// carbrand.setHintTextColor(Color
+		// .parseColor("#9F35FF"));
+		// color.setHintTextColor(Color.parseColor("#9F35FF"));
+		// model.setHintTextColor(Color.parseColor("#9F35FF"));
+		// // licensenum.setText("");
+		// // carbrand.setText("");
+		// // color.setText("");
+		// // model.setText("");
+		// licensenum.setInputType(InputType.TYPE_CLASS_TEXT);
+		// carbrand.setInputType(InputType.TYPE_CLASS_TEXT);
+		// color.setInputType(InputType.TYPE_CLASS_TEXT);
+		// model.setInputType(InputType.TYPE_CLASS_TEXT);
+		//
+		// // 向服务器请求查询车辆信息表start!
+		// selectcarinfo(UserPhoneNumber);
+		// // 向服务器请求查询车辆信息表end!
+		// }
+		// confirm();
+		// }
+		//
+		//
+		// });
+
 	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -357,7 +362,6 @@ public class ReOrderShortwayActivity extends Activity {
 				startplace
 						.setText(StartPointUserName + "," + StartPointMapName);
 
-				
 				break;
 
 			}
@@ -380,8 +384,9 @@ public class ReOrderShortwayActivity extends Activity {
 			}
 
 		}
-		
+
 	}
+
 	@Override
 	protected Dialog onCreateDialog(int id) {
 
@@ -399,6 +404,7 @@ public class ReOrderShortwayActivity extends Activity {
 		}
 		return null;
 	}
+
 	private OnTimeSetListener mTimeSetListener = new OnTimeSetListener() {
 
 		@Override
@@ -437,150 +443,150 @@ public class ReOrderShortwayActivity extends Activity {
 					+ String.valueOf(dayofMonth) + "日");
 		}
 	};
-	
-//	TextWatcher numTextWatcher = new TextWatcher() {
-//		private CharSequence temp;
-//		private int editStart;
-//		private int editEnd;
-//
-//		@Override
-//		public void onTextChanged(CharSequence s, int start, int before,
-//				int count) {
-//			// TODO Auto-generated method stub
-//			temp = s;
-//		}
-//
-//		@Override
-//		public void beforeTextChanged(CharSequence s, int start, int count,
-//				int after) {
-//			// TODO Auto-generated method stub
-//			// mTextView.setText(s);//将输入的内容实时显示
-//		}
-//
-//		@Override
-//		public void afterTextChanged(Editable s) {
-//			// TODO Auto-generated method stub
-//			editStart = licensenum.getSelectionStart();
-//			editEnd = licensenum.getSelectionEnd();
-//			if (temp.length() > 0) {
-//				blicensenum = true;
-//			} else {
-//				blicensenum = false;
-//			}
-//			confirm();
-//
-//		}
-//	};
-//	TextWatcher detTextWatcher = new TextWatcher() {
-//		private CharSequence temp;
-//		private int editStart;
-//		private int editEnd;
-//
-//		@Override
-//		public void onTextChanged(CharSequence s, int start, int before,
-//				int count) {
-//			// TODO Auto-generated method stub
-//			temp = s;
-//		}
-//
-//		@Override
-//		public void beforeTextChanged(CharSequence s, int start, int count,
-//				int after) {
-//			// TODO Auto-generated method stub
-//			// mTextView.setText(s);//将输入的内容实时显示
-//		}
-//
-//		@Override
-//		public void afterTextChanged(Editable s) {
-//			// TODO Auto-generated method stub
-//			editStart = carbrand.getSelectionStart();
-//			editEnd = carbrand.getSelectionEnd();
-//			if (temp.length() != 0) {
-//				bcarbrand = true;
-//			} else {
-//				bcarbrand = false;
-//			}
-//			confirm();
-//
-//		}
-//	};
-//
-//	TextWatcher coTextWatcher = new TextWatcher() {
-//		private CharSequence temp;
-//		private int editStart;
-//		private int editEnd;
-//
-//		@Override
-//		public void onTextChanged(CharSequence s, int start, int before,
-//				int count) {
-//			// TODO Auto-generated method stub
-//			temp = s;
-//		}
-//
-//		@Override
-//		public void beforeTextChanged(CharSequence s, int start, int count,
-//				int after) {
-//			// TODO Auto-generated method stub
-//			// mTextView.setText(s);//将输入的内容实时显示
-//		}
-//
-//		@Override
-//		public void afterTextChanged(Editable s) {
-//			// TODO Auto-generated method stub
-//			editStart = carbrand.getSelectionStart();
-//			editEnd = carbrand.getSelectionEnd();
-//			if (temp.length() != 0) {
-//				bcolor = true;
-//			} else {
-//				bcolor = false;
-//			}
-//			confirm();
-//
-//		}
-//	};
-//
-//	TextWatcher moTextWatcher = new TextWatcher() {
-//		private CharSequence temp;
-//		private int editStart;
-//		private int editEnd;
-//
-//		@Override
-//		public void onTextChanged(CharSequence s, int start, int before,
-//				int count) {
-//			// TODO Auto-generated method stub
-//			temp = s;
-//		}
-//
-//		@Override
-//		public void beforeTextChanged(CharSequence s, int start, int count,
-//				int after) {
-//			// TODO Auto-generated method stub
-//			// mTextView.setText(s);//将输入的内容实时显示
-//		}
-//
-//		@Override
-//		public void afterTextChanged(Editable s) {
-//			// TODO Auto-generated method stub
-//			editStart = carbrand.getSelectionStart();
-//			editEnd = carbrand.getSelectionEnd();
-//			if (temp.length() != 0) {
-//				bmodel = true;
-//			} else {
-//				bmodel = false;
-//			}
-//			confirm();
-//
-//		}
-//	};
-//
-//	public void confirm() {
-//		if (bstart
-//				&& bend
-//				&& ((bdriver && blicensenum && bcolor && bcarbrand) || bpassenager)
-//				&& best && blst && bdate && (sum > 0)) {
-//			next.setEnabled(true);
-//		} else {
-//			next.setEnabled(false);
-//		}
-//	}
+
+	// TextWatcher numTextWatcher = new TextWatcher() {
+	// private CharSequence temp;
+	// private int editStart;
+	// private int editEnd;
+	//
+	// @Override
+	// public void onTextChanged(CharSequence s, int start, int before,
+	// int count) {
+	// // TODO Auto-generated method stub
+	// temp = s;
+	// }
+	//
+	// @Override
+	// public void beforeTextChanged(CharSequence s, int start, int count,
+	// int after) {
+	// // TODO Auto-generated method stub
+	// // mTextView.setText(s);//将输入的内容实时显示
+	// }
+	//
+	// @Override
+	// public void afterTextChanged(Editable s) {
+	// // TODO Auto-generated method stub
+	// editStart = licensenum.getSelectionStart();
+	// editEnd = licensenum.getSelectionEnd();
+	// if (temp.length() > 0) {
+	// blicensenum = true;
+	// } else {
+	// blicensenum = false;
+	// }
+	// confirm();
+	//
+	// }
+	// };
+	// TextWatcher detTextWatcher = new TextWatcher() {
+	// private CharSequence temp;
+	// private int editStart;
+	// private int editEnd;
+	//
+	// @Override
+	// public void onTextChanged(CharSequence s, int start, int before,
+	// int count) {
+	// // TODO Auto-generated method stub
+	// temp = s;
+	// }
+	//
+	// @Override
+	// public void beforeTextChanged(CharSequence s, int start, int count,
+	// int after) {
+	// // TODO Auto-generated method stub
+	// // mTextView.setText(s);//将输入的内容实时显示
+	// }
+	//
+	// @Override
+	// public void afterTextChanged(Editable s) {
+	// // TODO Auto-generated method stub
+	// editStart = carbrand.getSelectionStart();
+	// editEnd = carbrand.getSelectionEnd();
+	// if (temp.length() != 0) {
+	// bcarbrand = true;
+	// } else {
+	// bcarbrand = false;
+	// }
+	// confirm();
+	//
+	// }
+	// };
+	//
+	// TextWatcher coTextWatcher = new TextWatcher() {
+	// private CharSequence temp;
+	// private int editStart;
+	// private int editEnd;
+	//
+	// @Override
+	// public void onTextChanged(CharSequence s, int start, int before,
+	// int count) {
+	// // TODO Auto-generated method stub
+	// temp = s;
+	// }
+	//
+	// @Override
+	// public void beforeTextChanged(CharSequence s, int start, int count,
+	// int after) {
+	// // TODO Auto-generated method stub
+	// // mTextView.setText(s);//将输入的内容实时显示
+	// }
+	//
+	// @Override
+	// public void afterTextChanged(Editable s) {
+	// // TODO Auto-generated method stub
+	// editStart = carbrand.getSelectionStart();
+	// editEnd = carbrand.getSelectionEnd();
+	// if (temp.length() != 0) {
+	// bcolor = true;
+	// } else {
+	// bcolor = false;
+	// }
+	// confirm();
+	//
+	// }
+	// };
+	//
+	// TextWatcher moTextWatcher = new TextWatcher() {
+	// private CharSequence temp;
+	// private int editStart;
+	// private int editEnd;
+	//
+	// @Override
+	// public void onTextChanged(CharSequence s, int start, int before,
+	// int count) {
+	// // TODO Auto-generated method stub
+	// temp = s;
+	// }
+	//
+	// @Override
+	// public void beforeTextChanged(CharSequence s, int start, int count,
+	// int after) {
+	// // TODO Auto-generated method stub
+	// // mTextView.setText(s);//将输入的内容实时显示
+	// }
+	//
+	// @Override
+	// public void afterTextChanged(Editable s) {
+	// // TODO Auto-generated method stub
+	// editStart = carbrand.getSelectionStart();
+	// editEnd = carbrand.getSelectionEnd();
+	// if (temp.length() != 0) {
+	// bmodel = true;
+	// } else {
+	// bmodel = false;
+	// }
+	// confirm();
+	//
+	// }
+	// };
+	//
+	// public void confirm() {
+	// if (bstart
+	// && bend
+	// && ((bdriver && blicensenum && bcolor && bcarbrand) || bpassenager)
+	// && best && blst && bdate && (sum > 0)) {
+	// next.setEnabled(true);
+	// } else {
+	// next.setEnabled(false);
+	// }
+	// }
 }

@@ -17,7 +17,7 @@ public class Drawer {
 	private Activity activity;
 	private int viewid;
 
-	public Drawer(Activity act,int id) {
+	public Drawer(Activity act, int id) {
 		activity = act;
 		viewid = id;
 	}
@@ -28,8 +28,7 @@ public class Drawer {
 		mDrawerTitle = activity.getString(R.string.app_name);
 
 		// 需求修改!!
-		mDrawerLayout = (DrawerLayout) activity
-				.findViewById(viewid);
+		mDrawerLayout = (DrawerLayout) activity.findViewById(viewid);
 		mDrawerToggle = new ActionBarDrawerToggle(activity, /* 承载 Activity */
 		mDrawerLayout, /* DrawerLayout 对象 */
 		R.drawable.ic_drawer, /* nav drawer 图标用来替换'Up'符号 */
@@ -70,8 +69,7 @@ public class Drawer {
 		return mDrawerToggle;
 	}
 
-	public DrawerLayout setDrawerLayout()
-	{
+	public DrawerLayout setDrawerLayout() {
 		return mDrawerLayout;
 	}
 }

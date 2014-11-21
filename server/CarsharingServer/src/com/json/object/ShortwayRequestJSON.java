@@ -4,7 +4,7 @@ package com.json.object;
  * ShortwayRequest entity. @author MyEclipse Persistence Tools
  */
 
-public class ShortwayRequestJSON{
+public class ShortwayRequestJSON {
 
 	// Fields
 
@@ -33,8 +33,8 @@ public class ShortwayRequestJSON{
 	public ShortwayRequestJSON(String userId, String requestTime,
 			String userRole, String startPlaceX, String startPlaceY,
 			String startPlace, String destinationX, String destinationY,
-			String destination, String startDate, String startTime, String endTime,
-			String dealStatus) {
+			String destination, String startDate, String startTime,
+			String endTime, String dealStatus) {
 		this.userId = userId;
 		this.requestTime = requestTime;
 		this.userRole = userRole;

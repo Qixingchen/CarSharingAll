@@ -126,7 +126,7 @@ public class PersonalCenterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_personal_center);
-		activity_drawer = new Drawer(this,R.id.person_center_layout);
+		activity_drawer = new Drawer(this, R.id.person_center_layout);
 		mDrawerToggle = activity_drawer.newdrawer();
 		mDrawerLayout = activity_drawer.setDrawerLayout();
 
@@ -338,8 +338,6 @@ public class PersonalCenterActivity extends Activity {
 			}
 		});
 
-		
-
 		photouri = Uri.fromFile(new File(this
 				.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
 				IMAGE_FILE_NAME2));
@@ -435,8 +433,6 @@ public class PersonalCenterActivity extends Activity {
 
 		// 查询订单结果信息
 		sharingresult(UserPhoneNumber);
-
-			
 
 	}
 
@@ -666,7 +662,7 @@ public class PersonalCenterActivity extends Activity {
 									firsthistory.setText(
 									// jasitem
 									// .getString("requestTime")
-											// 首页不显示时间
+									// 首页不显示时间
 											startplace[0] + " 至  "
 													+ endplace[0]);
 									bfirsthistory = true;
@@ -746,7 +742,7 @@ public class PersonalCenterActivity extends Activity {
 									firsthistory.setText(
 									// jasitem
 									// .getString("requestTime")
-											// 首页不显示时间
+									// 首页不显示时间
 											startplace[0] + " 至  "
 													+ endplace[0]);
 									bfirsthistory = true;
@@ -807,8 +803,6 @@ public class PersonalCenterActivity extends Activity {
 		}
 
 	};
-
-
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {

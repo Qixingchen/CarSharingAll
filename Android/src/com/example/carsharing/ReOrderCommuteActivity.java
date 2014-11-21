@@ -40,22 +40,24 @@ public class ReOrderCommuteActivity extends Activity {
 	private Button endplace;
 	private Calendar c = Calendar.getInstance();
 	private float startplace_longitude;
-    private	float startplace_latitude;
+	private float startplace_latitude;
 	private float destination_longitude;
 	private float destination_latitude;
 	private String StartPointUserName, StartPointMapName, EndPointUserName,
-	EndPointMapName;
-	private String startdate,enddate,starttime,endtime,weekrepeat;
-	private CheckBox checkbox1,checkbox2,checkbox3,checkbox4,checkbox5,checkbox6,checkbox7;
-	private int sum=0;
+			EndPointMapName;
+	private String startdate, enddate, starttime, endtime, weekrepeat;
+	private CheckBox checkbox1, checkbox2, checkbox3, checkbox4, checkbox5,
+			checkbox6, checkbox7;
+	private int sum = 0;
 	private TextView count;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_re_order_commute);
-		
-		//getID
+
+		// getID
 		startplace = (Button) findViewById(R.id.re_commute_startplace);
 		endplace = (Button) findViewById(R.id.re_commute_endplace);
 		exchange = (ImageView) findViewById(R.id.re_commute_exchange);
@@ -66,61 +68,63 @@ public class ReOrderCommuteActivity extends Activity {
 		increase = (Button) findViewById(R.id.re_commute_increase);
 		decrease = (Button) findViewById(R.id.re_commute_decrease);
 		count = (TextView) findViewById(R.id.re_commute_count);
-		checkbox1=(CheckBox)findViewById(R.id.re_commute_checkBox1);
-		checkbox2=(CheckBox)findViewById(R.id.re_commute_checkBox2);
-		checkbox3=(CheckBox)findViewById(R.id.re_commute_checkBox3);
-		checkbox4=(CheckBox)findViewById(R.id.re_commute_checkBox4);
-		checkbox5=(CheckBox)findViewById(R.id.re_commute_checkBox5);
-		checkbox6=(CheckBox)findViewById(R.id.re_commute_checkBox6);
-		checkbox7=(CheckBox)findViewById(R.id.re_commute_checkBox7);
-		//getID end
-		
-		//from arrangementActivity
+		checkbox1 = (CheckBox) findViewById(R.id.re_commute_checkBox1);
+		checkbox2 = (CheckBox) findViewById(R.id.re_commute_checkBox2);
+		checkbox3 = (CheckBox) findViewById(R.id.re_commute_checkBox3);
+		checkbox4 = (CheckBox) findViewById(R.id.re_commute_checkBox4);
+		checkbox5 = (CheckBox) findViewById(R.id.re_commute_checkBox5);
+		checkbox6 = (CheckBox) findViewById(R.id.re_commute_checkBox6);
+		checkbox7 = (CheckBox) findViewById(R.id.re_commute_checkBox7);
+		// getID end
+
+		// from arrangementActivity
 		Bundle bundle = this.getIntent().getExtras();
-		startplace.setText(bundle.getString("stpusername")+","+bundle.getString("stpmapname"));
-		endplace.setText(bundle.getString("epusername")+","+bundle.getString("epmapname"));
-		startplace_longitude=bundle.getFloat("spx");
-		startplace_latitude=bundle.getFloat("spy");
-		destination_longitude=bundle.getFloat("epx");
-		destination_latitude=bundle.getFloat("epy");
-		startdate=bundle.getString("re_commute_startdate");
-		enddate=bundle.getString("re_commute_enddate");
-		starttime=bundle.getString("re_commute_starttime");
-		endtime=bundle.getString("re_commute_endtime");
-		weekrepeat=bundle.getString("weekrepeat");
+		startplace.setText(bundle.getString("stpusername") + ","
+				+ bundle.getString("stpmapname"));
+		endplace.setText(bundle.getString("epusername") + ","
+				+ bundle.getString("epmapname"));
+		startplace_longitude = bundle.getFloat("spx");
+		startplace_latitude = bundle.getFloat("spy");
+		destination_longitude = bundle.getFloat("epx");
+		destination_latitude = bundle.getFloat("epy");
+		startdate = bundle.getString("re_commute_startdate");
+		enddate = bundle.getString("re_commute_enddate");
+		starttime = bundle.getString("re_commute_starttime");
+		endtime = bundle.getString("re_commute_endtime");
+		weekrepeat = bundle.getString("weekrepeat");
 		startDate.setText(startdate);
 		endDate.setText(enddate);
 		earlystarttime.setText(starttime);
 		latestarttime.setText(endtime);
-		//end from arrangementActivity
-		
-		//weekrepeat中checkbox的勾选
-		int len=weekrepeat.length();
-		for(int i=0;i<len;i++){
-			if(weekrepeat.charAt(i)=='1'){
+		// end from arrangementActivity
+
+		// weekrepeat中checkbox的勾选
+		int len = weekrepeat.length();
+		for (int i = 0; i < len; i++) {
+			if (weekrepeat.charAt(i) == '1') {
 				checkbox1.setChecked(true);
 			}
-			if(weekrepeat.charAt(i)=='2'){
+			if (weekrepeat.charAt(i) == '2') {
 				checkbox2.setChecked(true);
 			}
-			if(weekrepeat.charAt(i)=='3'){
+			if (weekrepeat.charAt(i) == '3') {
 				checkbox3.setChecked(true);
 			}
-			if(weekrepeat.charAt(i)=='4'){
+			if (weekrepeat.charAt(i) == '4') {
 				checkbox4.setChecked(true);
 			}
-			if(weekrepeat.charAt(i)=='5'){
+			if (weekrepeat.charAt(i) == '5') {
 				checkbox5.setChecked(true);
 			}
-			if(weekrepeat.charAt(i)=='6'){
+			if (weekrepeat.charAt(i) == '6') {
 				checkbox6.setChecked(true);
 			}
-			if(weekrepeat.charAt(i)=='7'){
+			if (weekrepeat.charAt(i) == '7') {
 				checkbox7.setChecked(true);
 			}
 		}
-		//勾选end
-		
+		// 勾选end
+
 		exchange.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -169,7 +173,7 @@ public class ReOrderCommuteActivity extends Activity {
 			}
 		});
 		endDate.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -214,8 +218,9 @@ public class ReOrderCommuteActivity extends Activity {
 				count.setText("" + sum);
 			}
 		});
-		
+
 	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -235,7 +240,6 @@ public class ReOrderCommuteActivity extends Activity {
 				startplace
 						.setText(StartPointUserName + "," + StartPointMapName);
 
-				
 				break;
 
 			}
@@ -258,8 +262,9 @@ public class ReOrderCommuteActivity extends Activity {
 			}
 
 		}
-		
+
 	}
+
 	@Override
 	protected Dialog onCreateDialog(int id) {
 
@@ -277,6 +282,7 @@ public class ReOrderCommuteActivity extends Activity {
 		}
 		return null;
 	}
+
 	private OnTimeSetListener mTimeSetListener = new OnTimeSetListener() {
 
 		@Override

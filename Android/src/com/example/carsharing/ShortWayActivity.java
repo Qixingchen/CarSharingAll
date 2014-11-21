@@ -70,7 +70,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class ShortWayActivity extends Activity {
-	private boolean requestok,carinfook;
+	private boolean requestok, carinfook;
 	private boolean bstart, bend, blicensenum, bcarbrand, bcolor, bmodel, best,
 			blst, bdate, bdriver, bpassenager;
 	private EditText licensenum, carbrand;
@@ -80,8 +80,8 @@ public class ShortWayActivity extends Activity {
 	private RadioGroup shortway_group;
 
 	private RequestQueue queue;
-	
-	private int carinfochoosing_type;//作为车辆表信息修改方法的判别
+
+	private int carinfochoosing_type;// 作为车辆表信息修改方法的判别
 
 	SimpleDateFormat standard_date, standard_time, primary_date, primary_time;
 	String standard_shortway_startdate = null,
@@ -96,7 +96,7 @@ public class ShortWayActivity extends Activity {
 	View taxi;
 	View setting;
 	View about;
-	
+
 	ImageView drawericon;
 	Uri photouri;
 	boolean isExit;
@@ -166,10 +166,10 @@ public class ShortWayActivity extends Activity {
 				IMAGE_FILE_NAME2));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_short_way);
-		
-		activity_drawer = new Drawer(this,R.id.short_way_layout);
-		  mDrawerToggle = activity_drawer.newdrawer();
-		  mDrawerLayout = activity_drawer.setDrawerLayout();
+
+		activity_drawer = new Drawer(this, R.id.short_way_layout);
+		mDrawerToggle = activity_drawer.newdrawer();
+		mDrawerLayout = activity_drawer.setDrawerLayout();
 
 		bdriver = true;
 
@@ -225,7 +225,7 @@ public class ShortWayActivity extends Activity {
 		startplace = (Button) findViewById(R.id.shortway_startplace);
 		endplace = (Button) findViewById(R.id.shortway_endplace);
 		sure = (Button) findViewById(R.id.shortway_sure);
-		
+
 		commute = findViewById(R.id.drawer_commute);
 		shortway = findViewById(R.id.drawer_shortway);
 		longway = findViewById(R.id.drawer_longway);
@@ -233,8 +233,8 @@ public class ShortWayActivity extends Activity {
 		personalcenter = findViewById(R.id.drawer_personalcenter);
 		about = findViewById(R.id.drawer_respond);
 		taxi = findViewById(R.id.drawer_taxi);
-		
-		drawericon=(ImageView)findViewById(R.id.drawer_icon);
+
+		drawericon = (ImageView) findViewById(R.id.drawer_icon);
 		drawername = (TextView) findViewById(R.id.drawer_name);
 		drawernum = (TextView) findViewById(R.id.drawer_phone);
 		carbrand = (EditText) findViewById(R.id.shortway_CarBrand);
@@ -258,32 +258,35 @@ public class ShortWayActivity extends Activity {
 		shortway_group = (RadioGroup) findViewById(R.id.shortway_radiobutton01);
 		star1 = (ImageView) findViewById(R.id.shortway_star);
 		star2 = (ImageView) findViewById(R.id.shortway_star01);
-		
-		//judge the value of "pre_page"
+
+		// judge the value of "pre_page"
 		Bundle bundle = this.getIntent().getExtras();
 		String PRE_PAGE = bundle.getString("pre_page");
-		if(PRE_PAGE.compareTo("ReOrder") == 0){ //重新下单
-			startplace.setText(bundle.getString("stpusername")+","+bundle.getString("stpmapname"));
+		if (PRE_PAGE.compareTo("ReOrder") == 0) { // 重新下单
+			startplace.setText(bundle.getString("stpusername") + ","
+					+ bundle.getString("stpmapname"));
 			bstart = true;
-			endplace.setText(bundle.getString("epusername")+","+bundle.getString("epmapname"));
+			endplace.setText(bundle.getString("epusername") + ","
+					+ bundle.getString("epmapname"));
 			bend = true;
-			startplace_longitude=bundle.getFloat("stpx");
-			Log.e("startplace_longitude",String.valueOf(startplace_longitude));
-			startplace_latitude=bundle.getFloat("stpy");
-			Log.e("startplace_latitude",String.valueOf(startplace_latitude));
-			destination_longitude=bundle.getFloat("epx");
-			Log.e("destination_longitude",String.valueOf(destination_longitude));
-			destination_latitude=bundle.getFloat("epy");
-			Log.e("destination_latitude",String.valueOf(destination_latitude));
+			startplace_longitude = bundle.getFloat("stpx");
+			Log.e("startplace_longitude", String.valueOf(startplace_longitude));
+			startplace_latitude = bundle.getFloat("stpy");
+			Log.e("startplace_latitude", String.valueOf(startplace_latitude));
+			destination_longitude = bundle.getFloat("epx");
+			Log.e("destination_longitude",
+					String.valueOf(destination_longitude));
+			destination_latitude = bundle.getFloat("epy");
+			Log.e("destination_latitude", String.valueOf(destination_latitude));
 			datebutton.setText(bundle.getString("re_short_startdate"));
 			bdate = true;
 			earlystarttime.setText(bundle.getString("re_short_starttime"));
 			best = true;
-			latestarttime.setText(bundle.getString("re_short_endtime"));	
+			latestarttime.setText(bundle.getString("re_short_endtime"));
 			blst = true;
 		}
-	    //judge the value of "pre_page"
-		
+		// judge the value of "pre_page"
+
 		about.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -404,7 +407,7 @@ public class ShortWayActivity extends Activity {
 
 			}
 		});
-		
+
 		taxi.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -413,8 +416,6 @@ public class ShortWayActivity extends Activity {
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 			}
 		});
-
-		
 
 		personalcenter.setOnClickListener(new OnClickListener() {
 
@@ -465,144 +466,143 @@ public class ShortWayActivity extends Activity {
 
 		// 绑定一个RadioGroup监听器
 		shortway_group
-		.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(RadioGroup arg0, int checkedId) {
-				// TODO Auto-generated method stub18
-				// 获取变更后的选中项的ID
+				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+					@Override
+					public void onCheckedChanged(RadioGroup arg0, int checkedId) {
+						// TODO Auto-generated method stub18
+						// 获取变更后的选中项的ID
 
-				// "我能提供车"不变，"我不能提供车"使车牌号等编辑框不可编辑，并更改textView
-				if (checkedId == mRadio2.getId()) {
-					bpassenager = true;
-					bdriver = false;
+						// "我能提供车"不变，"我不能提供车"使车牌号等编辑框不可编辑，并更改textView
+						if (checkedId == mRadio2.getId()) {
+							bpassenager = true;
+							bdriver = false;
 
-					licensenum.setEnabled(false);
-					carbrand.setEnabled(false);
-					color.setEnabled(false);
-					model.setEnabled(false);
+							licensenum.setEnabled(false);
+							carbrand.setEnabled(false);
+							color.setEnabled(false);
+							model.setEnabled(false);
 
-					licensenum
-							.setFilters(new InputFilter[] { new InputFilter() {
+							licensenum
+									.setFilters(new InputFilter[] { new InputFilter() {
+										@Override
+										public CharSequence filter(
+												CharSequence source, int start,
+												int end, Spanned dest,
+												int dstart, int dend) {
+											return source.length() < 1 ? dest
+													.subSequence(dstart, dend)
+													: "";
+										}
+									} });
+							carbrand.setFilters(new InputFilter[] { new InputFilter() {
 								@Override
-								public CharSequence filter(
-										CharSequence source, int start,
-										int end, Spanned dest,
+								public CharSequence filter(CharSequence source,
+										int start, int end, Spanned dest,
 										int dstart, int dend) {
 									return source.length() < 1 ? dest
-											.subSequence(dstart, dend)
-											: "";
+											.subSequence(dstart, dend) : "";
 								}
 							} });
-					carbrand.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest,
-								int dstart, int dend) {
-							return source.length() < 1 ? dest
-									.subSequence(dstart, dend) : "";
-						}
-					} });
-					color.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest,
-								int dstart, int dend) {
-							return source.length() < 1 ? dest
-									.subSequence(dstart, dend) : "";
-						}
-					} });
-					model.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest,
-								int dstart, int dend) {
-							return source.length() < 1 ? dest
-									.subSequence(dstart, dend) : "";
-						}
-					} });
-					content.setText(getString(R.string.warningInfo_seatNeed));
-					licensenum.setHintTextColor(Color
-							.parseColor("#cccccc"));
-					carbrand.setHintTextColor(Color
-							.parseColor("#cccccc"));
-					color.setHintTextColor(Color.parseColor("#cccccc"));
-					model.setHintTextColor(Color.parseColor("#cccccc"));
-					licensenum.setInputType(InputType.TYPE_NULL);
-					carbrand.setInputType(InputType.TYPE_NULL);
-					color.setInputType(InputType.TYPE_NULL);
-					model.setInputType(InputType.TYPE_NULL);
-				} else {
-					bpassenager = false;
-					bdriver = true;
-
-					licensenum.setEnabled(true);
-					carbrand.setEnabled(true);
-					color.setEnabled(true);
-					model.setEnabled(true);
-
-					licensenum
-							.setFilters(new InputFilter[] { new InputFilter() {
+							color.setFilters(new InputFilter[] { new InputFilter() {
 								@Override
-								public CharSequence filter(
-										CharSequence source, int start,
-										int end, Spanned dest,
+								public CharSequence filter(CharSequence source,
+										int start, int end, Spanned dest,
+										int dstart, int dend) {
+									return source.length() < 1 ? dest
+											.subSequence(dstart, dend) : "";
+								}
+							} });
+							model.setFilters(new InputFilter[] { new InputFilter() {
+								@Override
+								public CharSequence filter(CharSequence source,
+										int start, int end, Spanned dest,
+										int dstart, int dend) {
+									return source.length() < 1 ? dest
+											.subSequence(dstart, dend) : "";
+								}
+							} });
+							content.setText(getString(R.string.warningInfo_seatNeed));
+							licensenum.setHintTextColor(Color
+									.parseColor("#cccccc"));
+							carbrand.setHintTextColor(Color
+									.parseColor("#cccccc"));
+							color.setHintTextColor(Color.parseColor("#cccccc"));
+							model.setHintTextColor(Color.parseColor("#cccccc"));
+							licensenum.setInputType(InputType.TYPE_NULL);
+							carbrand.setInputType(InputType.TYPE_NULL);
+							color.setInputType(InputType.TYPE_NULL);
+							model.setInputType(InputType.TYPE_NULL);
+						} else {
+							bpassenager = false;
+							bdriver = true;
+
+							licensenum.setEnabled(true);
+							carbrand.setEnabled(true);
+							color.setEnabled(true);
+							model.setEnabled(true);
+
+							licensenum
+									.setFilters(new InputFilter[] { new InputFilter() {
+										@Override
+										public CharSequence filter(
+												CharSequence source, int start,
+												int end, Spanned dest,
+												int dstart, int dend) {
+
+											return null;
+										}
+									} });
+							carbrand.setFilters(new InputFilter[] { new InputFilter() {
+								@Override
+								public CharSequence filter(CharSequence source,
+										int start, int end, Spanned dest,
+										int dstart, int dend) {
+									return null;
+								}
+							} });
+							color.setFilters(new InputFilter[] { new InputFilter() {
+								@Override
+								public CharSequence filter(CharSequence source,
+										int start, int end, Spanned dest,
 										int dstart, int dend) {
 
 									return null;
 								}
 							} });
-					carbrand.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest,
-								int dstart, int dend) {
-							return null;
-						}
-					} });
-					color.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest,
-								int dstart, int dend) {
+							model.setFilters(new InputFilter[] { new InputFilter() {
+								@Override
+								public CharSequence filter(CharSequence source,
+										int start, int end, Spanned dest,
+										int dstart, int dend) {
 
-							return null;
-						}
-					} });
-					model.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest,
-								int dstart, int dend) {
+									return null;
+								}
+							} });
+							content.setText(getString(R.string.warningInfo_seatOffer));
+							licensenum.setHintTextColor(Color
+									.parseColor("#9F35FF"));
+							carbrand.setHintTextColor(Color
+									.parseColor("#9F35FF"));
+							color.setHintTextColor(Color.parseColor("#9F35FF"));
+							model.setHintTextColor(Color.parseColor("#9F35FF"));
+							// licensenum.setText("");
+							// carbrand.setText("");
+							// color.setText("");
+							// model.setText("");
+							licensenum.setInputType(InputType.TYPE_CLASS_TEXT);
+							carbrand.setInputType(InputType.TYPE_CLASS_TEXT);
+							color.setInputType(InputType.TYPE_CLASS_TEXT);
+							model.setInputType(InputType.TYPE_CLASS_TEXT);
 
-							return null;
+							// 向服务器请求查询车辆信息表start!
+							selectcarinfo(UserPhoneNumber);
+							// 向服务器请求查询车辆信息表end!
 						}
-					} });
-					content.setText(getString(R.string.warningInfo_seatOffer));
-					licensenum.setHintTextColor(Color
-							.parseColor("#9F35FF"));
-					carbrand.setHintTextColor(Color
-							.parseColor("#9F35FF"));
-					color.setHintTextColor(Color.parseColor("#9F35FF"));
-					model.setHintTextColor(Color.parseColor("#9F35FF"));
-//					licensenum.setText("");
-//					carbrand.setText("");
-//					color.setText("");
-//					model.setText("");
-					licensenum.setInputType(InputType.TYPE_CLASS_TEXT);
-					carbrand.setInputType(InputType.TYPE_CLASS_TEXT);
-					color.setInputType(InputType.TYPE_CLASS_TEXT);
-					model.setInputType(InputType.TYPE_CLASS_TEXT);
-					
-					// 向服务器请求查询车辆信息表start!
-					selectcarinfo(UserPhoneNumber);
-					// 向服务器请求查询车辆信息表end!
-				}
-				confirm();
-			}
-			
-		
-		});
-		
+						confirm();
+					}
+
+				});
+
 		sure.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -677,24 +677,29 @@ public class ShortWayActivity extends Activity {
 									e.printStackTrace();
 								}
 								if (requestok == true) {
-									
-									if(carinfochoosing_type == 1){
-										//add
+
+									if (carinfochoosing_type == 1) {
+										// add
 										// 向服务器发送车辆信息修改请求start!
-										carinfo(shortway_phonenum,licensenum.getText().toString(),
-												carbrand.getText().toString(),model.getText().toString(),
-												color.getText().toString(),String.valueOf(sum),1);
+										carinfo(shortway_phonenum, licensenum
+												.getText().toString(), carbrand
+												.getText().toString(), model
+												.getText().toString(), color
+												.getText().toString(), String
+												.valueOf(sum), 1);
+										// 向服务器发送车辆信息修改end!
+									} else {
+										// update
+										// 向服务器发送车辆信息修改请求start!
+										carinfo(shortway_phonenum, licensenum
+												.getText().toString(), carbrand
+												.getText().toString(), model
+												.getText().toString(), color
+												.getText().toString(), String
+												.valueOf(sum), 2);
 										// 向服务器发送车辆信息修改end!
 									}
-									else{
-										//update
-										// 向服务器发送车辆信息修改请求start!
-										carinfo(shortway_phonenum,licensenum.getText().toString(),
-												carbrand.getText().toString(),model.getText().toString(),
-												color.getText().toString(),String.valueOf(sum),2);
-										// 向服务器发送车辆信息修改end!
-									}								
-									
+
 									Intent sure = new Intent(
 											ShortWayActivity.this,
 											OrderResponseActivity.class);
@@ -862,7 +867,6 @@ public class ShortWayActivity extends Activity {
 			}
 		});
 
-		
 	}
 
 	@Override
@@ -870,7 +874,8 @@ public class ShortWayActivity extends Activity {
 
 		super.onResume(); // Always call the superclass method first
 
-		shortway.setBackgroundDrawable(getResources().getDrawable(R.color.blue_0099cc));
+		shortway.setBackgroundDrawable(getResources().getDrawable(
+				R.color.blue_0099cc));
 		// Get the Camera instance as the activity achieves full user focus
 		Context phonenumber = ShortWayActivity.this;
 		SharedPreferences filename = phonenumber
@@ -889,11 +894,12 @@ public class ShortWayActivity extends Activity {
 				UserPhoneNumber);
 		if (photoFile.exists()) {
 			photouri = Uri.fromFile(photoFile);
-            drawericon.setImageURI(photouri);
+			drawericon.setImageURI(photouri);
 		} else {
 			drawericon.setImageResource(R.drawable.ic_launcher);
 		}
 	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -1017,147 +1023,138 @@ public class ShortWayActivity extends Activity {
 		}
 
 	}
-	
-	//carnum,phonenum,carbrand,carmodel,carcolor,capacity
-		public void carinfo(final String phonenum, final String carnum,
-				final String carbrand, final String carmodel, final String carcolor,
-				final String car_capacity,int type) {
-			// TODO Auto-generated method stub
-			
-			String carinfotype;
-			if(type==1){
-				carinfotype = getString(R.string.uri_addcarinfo_action);
-			}
-			else{
-				carinfotype = getString(R.string.uri_updatecarinfo_action);
-			}
-			
-			String carinfo_baseurl = getString(R.string.uri_base)
-					+ getString(R.string.uri_CarInfo)
-					+ carinfotype;
-//					+ "carnum=" + carnum +  "&phonenum=" 
-//			+ phonenum + "&carbrand=" + carbrand + "&carmodel=" + carmodel
-//			+ "&carcolor=" + carcolor +"&capacity=" + car_capacity;
-			
-			// "http://192.168.1.111:8080/CarsharingServer/CarInfo!changeinfo.action?";
 
-//			Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// 中文编码
+	// carnum,phonenum,carbrand,carmodel,carcolor,capacity
+	public void carinfo(final String phonenum, final String carnum,
+			final String carbrand, final String carmodel,
+			final String carcolor, final String car_capacity, int type) {
+		// TODO Auto-generated method stub
 
-			Log.d("carinfo_URL", carinfo_baseurl);
-			// Instantiate the RequestQueue.
-			// Request a string response from the provided URL.
-			StringRequest stringRequest = new StringRequest(
-					Request.Method.POST, carinfo_baseurl,
-					new Response.Listener<String>() {
-
-						@Override
-						public void onResponse(String response) {
-							Log.d("carinfo_result", response);
-							JSONObject json1 = null;
-							try {
-								json1 = new JSONObject(response);
-								carinfook = json1.getBoolean("result");
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							if (carinfook == false) {
-								Toast errorinfo = Toast.makeText(
-										getApplicationContext(), "车辆信息修改失败",
-										Toast.LENGTH_LONG);
-								errorinfo.show();
-							}
-							
-						}
-					}, new Response.ErrorListener() {
-						@Override
-						public void onErrorResponse(VolleyError error) {
-							Log.e("carinfo_result", error.getMessage(),
-									error);
-//							 Toast errorinfo = Toast.makeText(null,
-//							 "网络连接失败", Toast.LENGTH_LONG);
-//							 errorinfo.show();
-						}
-					})
-			{
-				protected Map<String, String> getParams() {
-					Map<String, String> params = new HashMap<String, String>();
-					params.put("carnum", carnum);
-					params.put("phonenum", phonenum);
-					params.put("carbrand", carbrand);
-					params.put("carmodel", carmodel);
-					params.put("carcolor", carcolor);
-					params.put("capacity", car_capacity);
-					return params;
-				}
-			};
-
-			queue.add(stringRequest);
+		String carinfotype;
+		if (type == 1) {
+			carinfotype = getString(R.string.uri_addcarinfo_action);
+		} else {
+			carinfotype = getString(R.string.uri_updatecarinfo_action);
 		}
 
-		private void selectcarinfo(final String phonenum) {
-			// TODO Auto-generated method stub
-			String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
-					+ getString(R.string.uri_CarInfo)
-					+ getString(R.string.uri_selectcarinfo_action);
-			
-			Log.d("carinfo_selectrequest_baseurl",carinfo_selectrequest_baseurl);
-			StringRequest stringRequest = new StringRequest(Request.Method.POST,
-					carinfo_selectrequest_baseurl,
-					new Response.Listener<String>(){
+		String carinfo_baseurl = getString(R.string.uri_base)
+				+ getString(R.string.uri_CarInfo) + carinfotype;
+		// + "carnum=" + carnum + "&phonenum="
+		// + phonenum + "&carbrand=" + carbrand + "&carmodel=" + carmodel
+		// + "&carcolor=" + carcolor +"&capacity=" + car_capacity;
 
-						@Override
-						public void onResponse(String response) {
-							// TODO Auto-generated method stub
-							Log.d("carinfo_select", response);
-							String jas_id = null;
-							JSONObject json1 = null;
-							try {
-								json1 = new JSONObject(response);
-								JSONObject json = json1.getJSONObject("result");   
-								jas_id= json.getString("id");  
-								
-								if(jas_id.compareTo("") != 0 ){ //服务器上存在车辆信息时
+		// "http://192.168.1.111:8080/CarsharingServer/CarInfo!changeinfo.action?";
 
-									carinfochoosing_type = 2;
-									
-									carbrand.setText( json.getString("carBrand"));
-									model.setText( json.getString("carModel"));
-									licensenum.setText( json.getString("carNum"));
-									color.setText( json.getString("carColor"));
+		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// 中文编码
 
-								}else{
-									carinfochoosing_type = 1;
-								}
-								
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+		Log.d("carinfo_URL", carinfo_baseurl);
+		// Instantiate the RequestQueue.
+		// Request a string response from the provided URL.
+		StringRequest stringRequest = new StringRequest(Request.Method.POST,
+				carinfo_baseurl, new Response.Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						Log.d("carinfo_result", response);
+						JSONObject json1 = null;
+						try {
+							json1 = new JSONObject(response);
+							carinfook = json1.getBoolean("result");
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
-						
-						
+						if (carinfook == false) {
+							Toast errorinfo = Toast.makeText(
+									getApplicationContext(), "车辆信息修改失败",
+									Toast.LENGTH_LONG);
+							errorinfo.show();
+						}
 
-			}, new Response.ErrorListener() {
+					}
+				}, new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.e("carinfo_result", error.getMessage(), error);
+						// Toast errorinfo = Toast.makeText(null,
+						// "网络连接失败", Toast.LENGTH_LONG);
+						// errorinfo.show();
+					}
+				}) {
+			protected Map<String, String> getParams() {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("carnum", carnum);
+				params.put("phonenum", phonenum);
+				params.put("carbrand", carbrand);
+				params.put("carmodel", carmodel);
+				params.put("carcolor", carcolor);
+				params.put("capacity", car_capacity);
+				return params;
+			}
+		};
 
-				@Override
-				public void onErrorResponse(VolleyError error) {
-					// TODO Auto-generated method stub
-					Log.e("carinfo_selectresult_result",
-							error.getMessage(), error);
-				}
-			})
-			{
-				protected Map<String, String> getParams() {
-					Map<String, String> params = new HashMap<String, String>();
-					params.put("phonenum", phonenum);
-					return params;
-				}
-			};
+		queue.add(stringRequest);
+	}
 
-			queue.add(stringRequest);
-		}
-		
+	private void selectcarinfo(final String phonenum) {
+		// TODO Auto-generated method stub
+		String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
+				+ getString(R.string.uri_CarInfo)
+				+ getString(R.string.uri_selectcarinfo_action);
+
+		Log.d("carinfo_selectrequest_baseurl", carinfo_selectrequest_baseurl);
+		StringRequest stringRequest = new StringRequest(Request.Method.POST,
+				carinfo_selectrequest_baseurl, new Response.Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						// TODO Auto-generated method stub
+						Log.d("carinfo_select", response);
+						String jas_id = null;
+						JSONObject json1 = null;
+						try {
+							json1 = new JSONObject(response);
+							JSONObject json = json1.getJSONObject("result");
+							jas_id = json.getString("id");
+
+							if (jas_id.compareTo("") != 0) { // 服务器上存在车辆信息时
+
+								carinfochoosing_type = 2;
+
+								carbrand.setText(json.getString("carBrand"));
+								model.setText(json.getString("carModel"));
+								licensenum.setText(json.getString("carNum"));
+								color.setText(json.getString("carColor"));
+
+							} else {
+								carinfochoosing_type = 1;
+							}
+
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						// TODO Auto-generated method stub
+						Log.e("carinfo_selectresult_result",
+								error.getMessage(), error);
+					}
+				}) {
+			protected Map<String, String> getParams() {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("phonenum", phonenum);
+				return params;
+			}
+		};
+
+		queue.add(stringRequest);
+	}
+
 	@Override
 	protected Dialog onCreateDialog(int id) {
 

@@ -4,7 +4,7 @@ package com.json.object;
  * CarInfo entity. @author MyEclipse Persistence Tools
  */
 
-public class CarInfoJSON{
+public class CarInfoJSON {
 
 	// Fields
 

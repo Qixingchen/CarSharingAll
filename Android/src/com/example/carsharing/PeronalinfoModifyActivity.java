@@ -60,7 +60,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	private EditText name, age, brand, model, color, num, capacity;
 	private boolean bname, bage, bbrand, bmodel, bcolor, bNum, bcapacity,
 			bmale, bfemale;
-	private static boolean modifyok,carinfook;
+	private static boolean modifyok, carinfook;
 	private RadioGroup genderGroup;
 	private RadioButton femaleRadioButton;
 	private RadioButton maleRadioButton;
@@ -75,8 +75,8 @@ public class PeronalinfoModifyActivity extends Activity {
 	private String userpassword;
 	public static RequestQueue queue;
 
-	private int carinfochoosing_type;//作为车辆表信息修改方法的判别
-	
+	private int carinfochoosing_type;// 作为车辆表信息修改方法的判别
+
 	Hash_pwd hash = new Hash_pwd();
 
 	private String[] items = new String[] { "选择本地图片", "拍照" };
@@ -92,37 +92,34 @@ public class PeronalinfoModifyActivity extends Activity {
 	public static Drawable fbm = null;
 	Uri photouri;
 
-	//carnum,phonenum,carbrand,carmodel,carcolor,capacity
+	// carnum,phonenum,carbrand,carmodel,carcolor,capacity
 	public void carinfo(final String phonenum, final String carnum,
-			final String carbrand, final String carmodel, final String carcolor,
-			final String car_capacity,int type) {
+			final String carbrand, final String carmodel,
+			final String carcolor, final String car_capacity, int type) {
 		// TODO Auto-generated method stub
-		
+
 		String carinfotype;
-		if(type==1){
+		if (type == 1) {
 			carinfotype = getString(R.string.uri_addcarinfo_action);
-		}
-		else{
+		} else {
 			carinfotype = getString(R.string.uri_updatecarinfo_action);
 		}
-		
+
 		String carinfo_baseurl = getString(R.string.uri_base)
-				+ getString(R.string.uri_CarInfo)
-				+ carinfotype;
-//				+ "carnum=" + carnum +  "&phonenum=" 
-//		+ phonenum + "&carbrand=" + carbrand + "&carmodel=" + carmodel
-//		+ "&carcolor=" + carcolor +"&capacity=" + car_capacity;
-		
+				+ getString(R.string.uri_CarInfo) + carinfotype;
+		// + "carnum=" + carnum + "&phonenum="
+		// + phonenum + "&carbrand=" + carbrand + "&carmodel=" + carmodel
+		// + "&carcolor=" + carcolor +"&capacity=" + car_capacity;
+
 		// "http://192.168.1.111:8080/CarsharingServer/CarInfo!changeinfo.action?";
 
-//		Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// 中文编码
+		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// 中文编码
 
 		Log.d("carinfo_URL", carinfo_baseurl);
 		// Instantiate the RequestQueue.
 		// Request a string response from the provided URL.
-		StringRequest stringRequest = new StringRequest(
-				Request.Method.POST, carinfo_baseurl,
-				new Response.Listener<String>() {
+		StringRequest stringRequest = new StringRequest(Request.Method.POST,
+				carinfo_baseurl, new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -140,25 +137,23 @@ public class PeronalinfoModifyActivity extends Activity {
 									getApplicationContext(), "车辆信息修改失败",
 									Toast.LENGTH_SHORT);
 							errorinfo.show();
-						}else{
+						} else {
 							Toast info = Toast.makeText(
 									getApplicationContext(), "车辆信息修改成功",
 									Toast.LENGTH_SHORT);
 							info.show();
 						}
-						
+
 					}
 				}, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Log.e("carinfo_result", error.getMessage(),
-								error);
-						 Toast errorinfo = Toast.makeText(null,
-						 "网络连接失败", Toast.LENGTH_LONG);
-						 errorinfo.show();
+						Log.e("carinfo_result", error.getMessage(), error);
+						Toast errorinfo = Toast.makeText(null, "网络连接失败",
+								Toast.LENGTH_LONG);
+						errorinfo.show();
 					}
-				})
-		{
+				}) {
 			protected Map<String, String> getParams() {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("carnum", carnum);
@@ -173,23 +168,22 @@ public class PeronalinfoModifyActivity extends Activity {
 
 		queue.add(stringRequest);
 	}
-	
-	private void changeinfo(final String phonenum, final String name, final String age,
-			final String sex) {
+
+	private void changeinfo(final String phonenum, final String name,
+			final String age, final String sex) {
 		// TODO Auto-generated method stub
 		String modify_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_UserInfo)
 				+ getString(R.string.uri_changeinfo_action);
-//	            + "phonenum=" + phonenum
-//				+ "&name=" + name + "&age=" + age + "&sex=" + sex;
-	// "http://192.168.1.111:8080/CarsharingServer/UserInfo!changeinfo.action?";
-		
+		// + "phonenum=" + phonenum
+		// + "&name=" + name + "&age=" + age + "&sex=" + sex;
+		// "http://192.168.1.111:8080/CarsharingServer/UserInfo!changeinfo.action?";
+
 		Log.d("changeinfo_URL", modify_baseurl);
 		// Instantiate the RequestQueue.
 		// Request a string response from the provided URL.
-		StringRequest stringRequest = new StringRequest(
-				Request.Method.POST, modify_baseurl,
-				new Response.Listener<String>() {
+		StringRequest stringRequest = new StringRequest(Request.Method.POST,
+				modify_baseurl, new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -207,7 +201,7 @@ public class PeronalinfoModifyActivity extends Activity {
 									getApplicationContext(), "个人信息修改失败",
 									Toast.LENGTH_SHORT);
 							errorinfo.show();
-						}else{
+						} else {
 							Toast info = Toast.makeText(
 									getApplicationContext(), "个人信息修改成功",
 									Toast.LENGTH_SHORT);
@@ -217,14 +211,12 @@ public class PeronalinfoModifyActivity extends Activity {
 				}, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Log.e("changeinfo_result", error.getMessage(),
-								error);
-						 Toast errorinfo = Toast.makeText(null,
-						 "网络连接失败", Toast.LENGTH_LONG);
-						 errorinfo.show();
+						Log.e("changeinfo_result", error.getMessage(), error);
+						Toast errorinfo = Toast.makeText(null, "网络连接失败",
+								Toast.LENGTH_LONG);
+						errorinfo.show();
 					}
-				})
-		{
+				}) {
 			protected Map<String, String> getParams() {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("phonenum", phonenum);
@@ -237,17 +229,16 @@ public class PeronalinfoModifyActivity extends Activity {
 
 		queue.add(stringRequest);
 	}
-	
+
 	private void selectcarinfo(final String phonenum) {
 		// TODO Auto-generated method stub
 		String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_CarInfo)
 				+ getString(R.string.uri_selectcarinfo_action);
-		
-	//	Log.d("carinfo_selectrequest_baseurl",carinfo_selectrequest_baseurl);
+
+		// Log.d("carinfo_selectrequest_baseurl",carinfo_selectrequest_baseurl);
 		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				carinfo_selectrequest_baseurl,
-				new Response.Listener<String>(){
+				carinfo_selectrequest_baseurl, new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -257,36 +248,32 @@ public class PeronalinfoModifyActivity extends Activity {
 						JSONObject json1 = null;
 						try {
 							json1 = new JSONObject(response);
-							JSONObject json = json1.getJSONObject("result");   
-							jas_id= json.getString("id");   
-							Log.d("jas_id",jas_id);
-							
-							if(jas_id.compareTo("") == 0){
-								carinfochoosing_type = 1;			
-								Log.e("carinfochoosing_type","1");
-							}
-							else{
-								carinfochoosing_type = 2;				
-								Log.e("carinfochoosing_type","2");
+							JSONObject json = json1.getJSONObject("result");
+							jas_id = json.getString("id");
+							Log.d("jas_id", jas_id);
+
+							if (jas_id.compareTo("") == 0) {
+								carinfochoosing_type = 1;
+								Log.e("carinfochoosing_type", "1");
+							} else {
+								carinfochoosing_type = 2;
+								Log.e("carinfochoosing_type", "2");
 							}
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
-					
-					
 
-		}, new Response.ErrorListener() {
+				}, new Response.ErrorListener() {
 
-			@Override
-			public void onErrorResponse(VolleyError error) {
-				// TODO Auto-generated method stub
-				Log.e("carinfo_selectresult_result",
-						error.getMessage(), error);
-			}
-		})
-		{
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						// TODO Auto-generated method stub
+						Log.e("carinfo_selectresult_result",
+								error.getMessage(), error);
+					}
+				}) {
 			protected Map<String, String> getParams() {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("phonenum", phonenum);
@@ -296,7 +283,7 @@ public class PeronalinfoModifyActivity extends Activity {
 
 		queue.add(stringRequest);
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -312,11 +299,11 @@ public class PeronalinfoModifyActivity extends Activity {
 		capacity = (EditText) findViewById(R.id.informodify_capacity);
 		name.addTextChangedListener(nameTextWatcher);
 		age.addTextChangedListener(ageTextWatcher);
-//		brand.addTextChangedListener(brandTextWatcher);
-//		model.addTextChangedListener(modelTextWatcher);
-//		color.addTextChangedListener(colorTextWatcher);
-//		num.addTextChangedListener(numTextWatcher);
-//		capacity.addTextChangedListener(capTextWatcher);
+		// brand.addTextChangedListener(brandTextWatcher);
+		// model.addTextChangedListener(modelTextWatcher);
+		// color.addTextChangedListener(colorTextWatcher);
+		// num.addTextChangedListener(numTextWatcher);
+		// capacity.addTextChangedListener(capTextWatcher);
 		genderGroup = (RadioGroup) findViewById(R.id.informodify_gender);
 		femaleRadioButton = (RadioButton) findViewById(R.id.informodify_female);
 		maleRadioButton = (RadioButton) findViewById(R.id.informodify_male);
@@ -379,28 +366,27 @@ public class PeronalinfoModifyActivity extends Activity {
 				}
 				editor.commit();
 				// TODO Auto-generated method stub
-		SharedPreferences filename = phonenumber
-						.getSharedPreferences(
-								getString(R.string.PreferenceDefaultName),
-								Context.MODE_PRIVATE);
+				SharedPreferences filename = phonenumber.getSharedPreferences(
+						getString(R.string.PreferenceDefaultName),
+						Context.MODE_PRIVATE);
 				username = filename.getString("refreshfilename", "0");
 				userpassword = filename.getString(
 						getString(R.string.PreferenceUserPassword), "0");
 
 				// 向服务器发送个人信息修改请求start!
-				changeinfo(username, name.getText().toString(),
-						age.getText().toString(), sex);
+				changeinfo(username, name.getText().toString(), age.getText()
+						.toString(), sex);
 				// 向服务器发送个人信息修改请求end!
-				
+
 				// 向服务器发送车辆信息修改请求start!
-				carinfo(username,num.getText().toString(),
-						brand.getText().toString(),model.getText().toString(),
-						color.getText().toString(),capacity.getText().toString(),carinfochoosing_type);
+				carinfo(username, num.getText().toString(), brand.getText()
+						.toString(), model.getText().toString(), color
+						.getText().toString(), capacity.getText().toString(),
+						carinfochoosing_type);
 				// 向服务器发送车辆信息修改end!
-				
+
 				Intent btn_login = new Intent();
-				btn_login.setClass(
-						PeronalinfoModifyActivity.this,
+				btn_login.setClass(PeronalinfoModifyActivity.this,
 						PersonalCenterActivity.class);
 				startActivity(btn_login);
 			}
@@ -411,13 +397,13 @@ public class PeronalinfoModifyActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume(); // Always call the superclass method first
-		
+
 		// 向服务器请求查询车辆信息表start!
 		selectcarinfo(UserPhoneNumber);
 		// 向服务器请求查询车辆信息表end!
 
 		// Get the Camera instance as the activity achieves full user focus
-		
+
 		Context phonenumber = PeronalinfoModifyActivity.this;
 		SharedPreferences filename = phonenumber
 				.getSharedPreferences(
@@ -659,173 +645,174 @@ public class PeronalinfoModifyActivity extends Activity {
 
 		}
 	};
-//	TextWatcher brandTextWatcher = new TextWatcher() {
-//		private CharSequence temp;
-//		private int editStart;
-//		private int editEnd;
-//
-//		@Override
-//		public void onTextChanged(CharSequence s, int start, int before,
-//				int count) {
-//			// TODO Auto-generated method stub
-//			temp = s;
-//		}
-//
-//		@Override
-//		public void beforeTextChanged(CharSequence s, int start, int count,
-//				int after) {
-//			// TODO Auto-generated method stub
-//			// mTextView.setText(s);//将输入的内容实时显示
-//		}
-//
-//		@Override
-//		public void afterTextChanged(Editable s) {
-//			// TODO Auto-generated method stub
-//			editStart = brand.getSelectionStart();
-//			editEnd = brand.getSelectionEnd();
-//			if (temp.length() > 0) {
-//				bbrand = true;
-//			} else {
-//				bbrand = false;
-//			}
-//			confirm();
-//
-//		}
-//	};
-//	TextWatcher modelTextWatcher = new TextWatcher() {
-//		private CharSequence temp;
-//		private int editStart;
-//		private int editEnd;
-//
-//		@Override
-//		public void onTextChanged(CharSequence s, int start, int before,
-//				int count) {
-//			// TODO Auto-generated method stub
-//			temp = s;
-//		}
-//
-//		@Override
-//		public void beforeTextChanged(CharSequence s, int start, int count,
-//				int after) {
-//			// TODO Auto-generated method stub
-//			// mTextView.setText(s);//将输入的内容实时显示
-//		}
-//
-//		@Override
-//		public void afterTextChanged(Editable s) {
-//			// TODO Auto-generated method stub
-//			editStart = model.getSelectionStart();
-//			editEnd = model.getSelectionEnd();
-//			if (temp.length() != 0) {
-//				bmodel = true;
-//			} else {
-//				bmodel = false;
-//			}
-//			confirm();
-//
-//		}
-//	};
-//	TextWatcher colorTextWatcher = new TextWatcher() {
-//		private CharSequence temp;
-//		private int editStart;
-//		private int editEnd;
-//
-//		@Override
-//		public void onTextChanged(CharSequence s, int start, int before,
-//				int count) {
-//			// TODO Auto-generated method stub
-//			temp = s;
-//		}
-//
-//		@Override
-//		public void beforeTextChanged(CharSequence s, int start, int count,
-//				int after) {
-//			// TODO Auto-generated method stub
-//			// mTextView.setText(s);//将输入的内容实时显示
-//		}
-//
-//		@Override
-//		public void afterTextChanged(Editable s) {
-//			// TODO Auto-generated method stub
-//			editStart = color.getSelectionStart();
-//			editEnd = color.getSelectionEnd();
-//			if (temp.length() > 0) {
-//				bcolor = true;
-//			} else {
-//				bcolor = false;
-//			}
-//			confirm();
-//		}
-//	};
-//	TextWatcher numTextWatcher = new TextWatcher() {
-//		private CharSequence temp;
-//		private int editStart;
-//		private int editEnd;
-//
-//		@Override
-//		public void onTextChanged(CharSequence s, int start, int before,
-//				int count) {
-//			// TODO Auto-generated method stub
-//			temp = s;
-//		}
-//
-//		@Override
-//		public void beforeTextChanged(CharSequence s, int start, int count,
-//				int after) {
-//			// TODO Auto-generated method stub
-//			// mTextView.setText(s);//将输入的内容实时显示
-//		}
-//
-//		@Override
-//		public void afterTextChanged(Editable s) {
-//			// TODO Auto-generated method stub
-//			editStart = num.getSelectionStart();
-//			editEnd = num.getSelectionEnd();
-//			if (temp.length() != 0) {
-//				bNum = true;
-//			} else {
-//				bNum = false;
-//			}
-//			confirm();
-//		}
-//	};
-//	TextWatcher capTextWatcher = new TextWatcher() {
-//		private CharSequence temp;
-//		private int editStart;
-//		private int editEnd;
-//
-//		@Override
-//		public void onTextChanged(CharSequence s, int start, int before,
-//				int count) {
-//			// TODO Auto-generated method stub
-//			temp = s;
-//		}
-//
-//		@Override
-//		public void beforeTextChanged(CharSequence s, int start, int count,
-//				int after) {
-//			// TODO Auto-generated method stub
-//			// mTextView.setText(s);//将输入的内容实时显示
-//		}
-//
-//		@Override
-//		public void afterTextChanged(Editable s) {
-//			// TODO Auto-generated method stub
-//			editStart = capacity.getSelectionStart();
-//			editEnd = capacity.getSelectionEnd();
-//			if (temp.length() != 0) {
-//				bcapacity = true;
-//			} else {
-//				bcapacity = false;
-//			}
-//			confirm();
-//		}
-//	};
+
+	// TextWatcher brandTextWatcher = new TextWatcher() {
+	// private CharSequence temp;
+	// private int editStart;
+	// private int editEnd;
+	//
+	// @Override
+	// public void onTextChanged(CharSequence s, int start, int before,
+	// int count) {
+	// // TODO Auto-generated method stub
+	// temp = s;
+	// }
+	//
+	// @Override
+	// public void beforeTextChanged(CharSequence s, int start, int count,
+	// int after) {
+	// // TODO Auto-generated method stub
+	// // mTextView.setText(s);//将输入的内容实时显示
+	// }
+	//
+	// @Override
+	// public void afterTextChanged(Editable s) {
+	// // TODO Auto-generated method stub
+	// editStart = brand.getSelectionStart();
+	// editEnd = brand.getSelectionEnd();
+	// if (temp.length() > 0) {
+	// bbrand = true;
+	// } else {
+	// bbrand = false;
+	// }
+	// confirm();
+	//
+	// }
+	// };
+	// TextWatcher modelTextWatcher = new TextWatcher() {
+	// private CharSequence temp;
+	// private int editStart;
+	// private int editEnd;
+	//
+	// @Override
+	// public void onTextChanged(CharSequence s, int start, int before,
+	// int count) {
+	// // TODO Auto-generated method stub
+	// temp = s;
+	// }
+	//
+	// @Override
+	// public void beforeTextChanged(CharSequence s, int start, int count,
+	// int after) {
+	// // TODO Auto-generated method stub
+	// // mTextView.setText(s);//将输入的内容实时显示
+	// }
+	//
+	// @Override
+	// public void afterTextChanged(Editable s) {
+	// // TODO Auto-generated method stub
+	// editStart = model.getSelectionStart();
+	// editEnd = model.getSelectionEnd();
+	// if (temp.length() != 0) {
+	// bmodel = true;
+	// } else {
+	// bmodel = false;
+	// }
+	// confirm();
+	//
+	// }
+	// };
+	// TextWatcher colorTextWatcher = new TextWatcher() {
+	// private CharSequence temp;
+	// private int editStart;
+	// private int editEnd;
+	//
+	// @Override
+	// public void onTextChanged(CharSequence s, int start, int before,
+	// int count) {
+	// // TODO Auto-generated method stub
+	// temp = s;
+	// }
+	//
+	// @Override
+	// public void beforeTextChanged(CharSequence s, int start, int count,
+	// int after) {
+	// // TODO Auto-generated method stub
+	// // mTextView.setText(s);//将输入的内容实时显示
+	// }
+	//
+	// @Override
+	// public void afterTextChanged(Editable s) {
+	// // TODO Auto-generated method stub
+	// editStart = color.getSelectionStart();
+	// editEnd = color.getSelectionEnd();
+	// if (temp.length() > 0) {
+	// bcolor = true;
+	// } else {
+	// bcolor = false;
+	// }
+	// confirm();
+	// }
+	// };
+	// TextWatcher numTextWatcher = new TextWatcher() {
+	// private CharSequence temp;
+	// private int editStart;
+	// private int editEnd;
+	//
+	// @Override
+	// public void onTextChanged(CharSequence s, int start, int before,
+	// int count) {
+	// // TODO Auto-generated method stub
+	// temp = s;
+	// }
+	//
+	// @Override
+	// public void beforeTextChanged(CharSequence s, int start, int count,
+	// int after) {
+	// // TODO Auto-generated method stub
+	// // mTextView.setText(s);//将输入的内容实时显示
+	// }
+	//
+	// @Override
+	// public void afterTextChanged(Editable s) {
+	// // TODO Auto-generated method stub
+	// editStart = num.getSelectionStart();
+	// editEnd = num.getSelectionEnd();
+	// if (temp.length() != 0) {
+	// bNum = true;
+	// } else {
+	// bNum = false;
+	// }
+	// confirm();
+	// }
+	// };
+	// TextWatcher capTextWatcher = new TextWatcher() {
+	// private CharSequence temp;
+	// private int editStart;
+	// private int editEnd;
+	//
+	// @Override
+	// public void onTextChanged(CharSequence s, int start, int before,
+	// int count) {
+	// // TODO Auto-generated method stub
+	// temp = s;
+	// }
+	//
+	// @Override
+	// public void beforeTextChanged(CharSequence s, int start, int count,
+	// int after) {
+	// // TODO Auto-generated method stub
+	// // mTextView.setText(s);//将输入的内容实时显示
+	// }
+	//
+	// @Override
+	// public void afterTextChanged(Editable s) {
+	// // TODO Auto-generated method stub
+	// editStart = capacity.getSelectionStart();
+	// editEnd = capacity.getSelectionEnd();
+	// if (temp.length() != 0) {
+	// bcapacity = true;
+	// } else {
+	// bcapacity = false;
+	// }
+	// confirm();
+	// }
+	// };
 
 	public void confirm() {
 		if (bname && bage &&
-//				 bbrand && bmodel && bcolor && bNum && bcapacity
-//				&& 
+		// bbrand && bmodel && bcolor && bNum && bcapacity
+		// &&
 				(bmale || bfemale)) {
 			btn_login.setEnabled(true);
 		} else {

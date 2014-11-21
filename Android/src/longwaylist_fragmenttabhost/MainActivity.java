@@ -54,12 +54,12 @@ public class MainActivity extends FragmentActivity {
 	public static final String PAGE2_ID = "page2";
 
 	public static RequestQueue queue;
-	
+
 	private TabHost tabHost; // TabHost
 	private List<View> views; // ViewPager内的View对象集合
 	private FragmentManager manager; // Activity管理器
 	private ViewPager pager; // ViewPager
-	
+
 	String UserPhoneNumber;
 
 	View commute;
@@ -74,13 +74,14 @@ public class MainActivity extends FragmentActivity {
 	ImageView drawericon;
 	private TextView drawername;
 	private TextView drawernum;
-	
+
 	// actionbar!!
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 	private static final String IMAGE_FILE_NAME2 = "faceImage2.jpg";
+
 	// actionbarend!!
 
 	@Override
@@ -92,8 +93,8 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 
 		queue = Volley.newRequestQueue(this);
-		
-		drawericon=(ImageView)findViewById(R.id.drawer_icon);
+
+		drawericon = (ImageView) findViewById(R.id.drawer_icon);
 		drawername = (TextView) findViewById(R.id.drawer_name);
 		drawernum = (TextView) findViewById(R.id.drawer_phone);
 		// 初始化资源
@@ -335,19 +336,19 @@ public class MainActivity extends FragmentActivity {
 
 		@Override
 		public void onPageSelected(int page_id) {
-			
-			if(page_id==1){//"我是乘客"
-			Log.d("page_id","1");
-			// 刷新所有司机发布的信息start!
-			lookuppublish("p");
-			// 刷新所有司机发布的信息end!
-			}else{//"我是司机"
-				Log.d("page_id","2");
+
+			if (page_id == 1) {// "我是乘客"
+				Log.d("page_id", "1");
+				// 刷新所有司机发布的信息start!
+				lookuppublish("p");
+				// 刷新所有司机发布的信息end!
+			} else {// "我是司机"
+				Log.d("page_id", "2");
 				// 刷新所有乘客发布的信息start!
 				lookuppublish("d");
 				// 刷新所有乘客发布的信息end!
 			}
-			
+
 			tabHost.setCurrentTab(page_id);
 		}
 
@@ -356,27 +357,27 @@ public class MainActivity extends FragmentActivity {
 			String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 					+ getString(R.string.uri_LongwayPublish)
 					+ getString(R.string.uri_lookuppublish_action);
-			
+
 			// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
-			
-			StringRequest stringRequest = new StringRequest(Request.Method.POST,
-					longwayway_selectpublish_baseurl,
+
+			StringRequest stringRequest = new StringRequest(
+					Request.Method.POST, longwayway_selectpublish_baseurl,
 					new Response.Listener<String>() {
 
 						@Override
 						public void onResponse(String response) {
 							Log.d("longway_lookuppublish_result", response);
-							//json
-							//json
+							// json
+							// json
 						}
 					}, new Response.ErrorListener() {
 						@Override
 						public void onErrorResponse(VolleyError error) {
 							Log.d("longway_lookuppublish_result",
 									error.getMessage(), error);
-							 Toast errorinfo = Toast.makeText(null, "网络连接失败",
-							 Toast.LENGTH_LONG);
-							 errorinfo.show();
+							Toast errorinfo = Toast.makeText(null, "网络连接失败",
+									Toast.LENGTH_LONG);
+							errorinfo.show();
 						}
 					}) {
 				protected Map<String, String> getParams() {
@@ -387,7 +388,7 @@ public class MainActivity extends FragmentActivity {
 			};
 
 			queue.add(stringRequest);
-			
+
 		}
 	}
 
@@ -403,104 +404,101 @@ public class MainActivity extends FragmentActivity {
 		textView.setText(name);
 		return tabView;
 	}
-	
-	
+
 	// actionbar!!
-		/* 当invalidateOptionsMenu()调用时调用 */
-		// @Override
-		// public boolean onPrepareOptionsMenu(Menu menu) {
-		// // 如果nav drawer是打开的, 隐藏与内容视图相关联的action items
-		// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-		// menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
-		// return super.onPrepareOptionsMenu(menu);
-		// }
+	/* 当invalidateOptionsMenu()调用时调用 */
+	// @Override
+	// public boolean onPrepareOptionsMenu(Menu menu) {
+	// // 如果nav drawer是打开的, 隐藏与内容视图相关联的action items
+	// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+	// menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+	// return super.onPrepareOptionsMenu(menu);
+	// }
 
-		@Override
-		protected void onPostCreate(Bundle savedInstanceState) {
-			super.onPostCreate(savedInstanceState);
-			// 在onRestoreInstanceState发生后，同步触发器状态.
-			mDrawerToggle.syncState();
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		// 在onRestoreInstanceState发生后，同步触发器状态.
+		mDrawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// 将事件传递给ActionBarDrawerToggle, 如果返回true，表示app 图标点击事件已经被处理
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
 		}
-
-		@Override
-		public void onConfigurationChanged(Configuration newConfig) {
-			super.onConfigurationChanged(newConfig);
-			mDrawerToggle.onConfigurationChanged(newConfig);
-		}
-
-		@Override
-		public boolean onOptionsItemSelected(MenuItem item) {
-			// 将事件传递给ActionBarDrawerToggle, 如果返回true，表示app 图标点击事件已经被处理
-			if (mDrawerToggle.onOptionsItemSelected(item)) {
-				return true;
-			}
 		// 处理你的其他action bar items...
 
-			    switch( item.getItemId( ) ){
+		switch (item.getItemId()) {
 
-			    case R.id.LongwayListAdd:{
-			    	Intent newlongway = new Intent(MainActivity.this,
-			    			LongWayActivity.class);
-			    	newlongway.putExtra("pre_page", "Main");
-			    	startActivity(newlongway);
-			    }
-			    break;
-			    
-			    case R.id.LongwayListFind:{
-			    }
-			    break;
-			    
+		case R.id.LongwayListAdd: {
+			Intent newlongway = new Intent(MainActivity.this,
+					LongWayActivity.class);
+			newlongway.putExtra("pre_page", "Main");
+			startActivity(newlongway);
+		}
+			break;
 
-			}
+		case R.id.LongwayListFind: {
+		}
+			break;
 
-			return super.onOptionsItemSelected(item);
 		}
 
-		// actionbarend!!
-		
-		// actionbar操作!!
-		
-		// 添加actionbar菜单
-		@Override
-		public boolean onCreateOptionsMenu(Menu menu) {
-			// Inflate the menu items for use in the action bar
-			MenuInflater inflater = getMenuInflater();
-			inflater.inflate(R.menu.longway_list_acbar_menu, menu);
-			return super.onCreateOptionsMenu(menu);
-		}
+		return super.onOptionsItemSelected(item);
+	}
 
-		// actionbarend!!
-		@SuppressWarnings("deprecation")
-		@Override
-		public void onResume() {
+	// actionbarend!!
 
-			super.onResume(); // Always call the superclass method first
-			
-			longway.setBackgroundDrawable(getResources().
-					getDrawable(R.color.blue_0099cc));
-			// Get the Camera instance as the activity achieves full user focus
-			Context phonenumber = MainActivity.this;
-			SharedPreferences filename = phonenumber
-					.getSharedPreferences(
-							getString(R.string.PreferenceDefaultName),
-							Context.MODE_PRIVATE);
-			UserPhoneNumber = filename.getString("refreshfilename", "0");
-			drawernum.setText(UserPhoneNumber);
-			Context context = MainActivity.this;
-			SharedPreferences sharedPref = context.getSharedPreferences(
-					UserPhoneNumber, Context.MODE_PRIVATE);
-			String fullname = sharedPref.getString(
-					"refreshname", "姓名");
-			drawername.setText(fullname);
-			File photoFile = new File(
-					this.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-					UserPhoneNumber);
-			if (photoFile.exists()) {
-				photouri = Uri.fromFile(photoFile);
-	            drawericon.setImageURI(photouri);
-			} else {
-				drawericon.setImageResource(R.drawable.ic_launcher);
-			}
+	// actionbar操作!!
+
+	// 添加actionbar菜单
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.longway_list_acbar_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	// actionbarend!!
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onResume() {
+
+		super.onResume(); // Always call the superclass method first
+
+		longway.setBackgroundDrawable(getResources().getDrawable(
+				R.color.blue_0099cc));
+		// Get the Camera instance as the activity achieves full user focus
+		Context phonenumber = MainActivity.this;
+		SharedPreferences filename = phonenumber
+				.getSharedPreferences(
+						getString(R.string.PreferenceDefaultName),
+						Context.MODE_PRIVATE);
+		UserPhoneNumber = filename.getString("refreshfilename", "0");
+		drawernum.setText(UserPhoneNumber);
+		Context context = MainActivity.this;
+		SharedPreferences sharedPref = context.getSharedPreferences(
+				UserPhoneNumber, Context.MODE_PRIVATE);
+		String fullname = sharedPref.getString("refreshname", "姓名");
+		drawername.setText(fullname);
+		File photoFile = new File(
+				this.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+				UserPhoneNumber);
+		if (photoFile.exists()) {
+			photouri = Uri.fromFile(photoFile);
+			drawericon.setImageURI(photouri);
+		} else {
+			drawericon.setImageResource(R.drawable.ic_launcher);
 		}
-	
+	}
+
 }

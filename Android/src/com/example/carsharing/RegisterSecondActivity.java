@@ -84,11 +84,11 @@ public class RegisterSecondActivity extends Activity {
 		next.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				if (m1.getText().toString().compareTo(m2.getText().toString()) == 0 
+				if (m1.getText().toString().compareTo(m2.getText().toString()) == 0
 						&& m1.getText().toString().compareTo("") != 0) {
 					// TODO Auto-generated method stub
 
-					// 向服务器发送注册信息start					
+					// 向服务器发送注册信息start
 					Intent userregister_second = getIntent();
 					String register_phonenum = userregister_second
 							.getStringExtra(getString(R.string.user_phonenum));
@@ -141,7 +141,7 @@ public class RegisterSecondActivity extends Activity {
 											getString(R.string.PreferenceUserPassword),
 											pwd);
 									editor2.commit();
-									
+
 									Intent next = new Intent(
 											RegisterSecondActivity.this,
 											PersonalCenterActivity.class);

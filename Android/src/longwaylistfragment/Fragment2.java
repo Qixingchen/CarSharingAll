@@ -41,8 +41,8 @@ import com.viewlist.XListView.IXListViewListener;
 
 public class Fragment2 extends Fragment implements IXListViewListener {
 	private static List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-	boolean over=false;
-	private int pos=0;
+	boolean over = false;
+	private int pos = 0;
 	public static RequestQueue queue;
 	private XListView mListView;
 	private SimpleAdapter mAdapter;
@@ -68,18 +68,20 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v=inflater.inflate(R.layout.activity_longway_list2, container, false);
+		View v = inflater.inflate(R.layout.activity_longway_list2, container,
+				false);
 		return v;
 	}
+
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {  
+	public void onActivityCreated(Bundle savedInstanceState) {
 		queue = Volley.newRequestQueue(this.getActivity());
-        super.onActivityCreated(savedInstanceState);  
+		super.onActivityCreated(savedInstanceState);
 		mListView = (XListView) getActivity().findViewById(R.id.xListView2);
 		mListView.setPullLoadEnable(true);
 		list.clear();
-		lookuppublish("p",pos,pos+10);
-		pos=pos+10;
+		lookuppublish("p", pos, pos + 10);
+		pos = pos + 10;
 		mAdapter = new SimpleAdapter(getActivity(), list,
 				R.layout.choose_start_vlist, new String[] { "re_address",
 						"detail" }, new int[] { R.id.re_address, R.id.detail });
@@ -96,10 +98,10 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				// TODO Auto-generated method stub
-				String requesttime = Fragment2.list.get(
-						position-1).get("requst");
-				longwaylookup_intent("p",requesttime);
-				
+				String requesttime = Fragment2.list.get(position - 1).get(
+						"requst");
+				longwaylookup_intent("p", requesttime);
+
 			}
 		});
 
@@ -123,12 +125,13 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 			@Override
 			public void run() {
 				list.clear();
-				pos=0;
-				lookuppublish("p",pos,pos+10);
-				pos=pos+10;
+				pos = 0;
+				lookuppublish("p", pos, pos + 10);
+				pos = pos + 10;
 				mAdapter = new SimpleAdapter(getActivity(), list,
-						R.layout.choose_start_vlist, new String[] { "re_address",
-								"detail" }, new int[] { R.id.re_address, R.id.detail });
+						R.layout.choose_start_vlist, new String[] {
+								"re_address", "detail" }, new int[] {
+								R.id.re_address, R.id.detail });
 				mAdapter.notifyDataSetChanged();
 				onLoad();
 			}
@@ -140,24 +143,26 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				lookuppublish("p",pos,pos+10);
-				pos=pos+10;
+				lookuppublish("p", pos, pos + 10);
+				pos = pos + 10;
 				mAdapter = new SimpleAdapter(getActivity(), list,
-						R.layout.choose_start_vlist, new String[] { "re_address",
-								"detail" }, new int[] { R.id.re_address, R.id.detail });
+						R.layout.choose_start_vlist, new String[] {
+								"re_address", "detail" }, new int[] {
+								R.id.re_address, R.id.detail });
 				mAdapter.notifyDataSetChanged();
 				onLoad();
 			}
 		}, 2000);
 	}
-	private void lookuppublish(final String role,final int start,final int end) {
+
+	private void lookuppublish(final String role, final int start, final int end) {
 		// TODO Auto-generated method stub
 		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_LongwayPublish)
 				+ getString(R.string.uri_lookuppublish_action);
-		
+
 		// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
-		
+
 		StringRequest stringRequest = new StringRequest(Request.Method.POST,
 				longwayway_selectpublish_baseurl,
 				new Response.Listener<String>() {
@@ -165,32 +170,33 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 					@Override
 					public void onResponse(String response) {
 						Log.d("longway_lookuppublish_result", response);
-						//json
+						// json
 						try {
 
 							JSONObject jasitem = null;
 							JSONObject jas = new JSONObject(response);
 							JSONArray jasA = jas.getJSONArray("result");
-							if(end>jasA.length())
-								over=true;
+							if (end > jasA.length())
+								over = true;
 							else
-								over=false;
+								over = false;
 							for (int i = 0; i < jasA.length(); i++) {
-								if(i>=start&&i<end){
+								if (i >= start && i < end) {
 
-								jasitem = jasA.getJSONObject(i);
-								HashMap<String, String> map = new HashMap<String, String>();
-								map.put("detail", jasitem.getString("startDate"));
-								map.put("re_address",
-										jasitem.getString("startPlace")
-												+ "  "
-												+ " 至 "
-												+ jasitem
-														.getString("destination")
-												+ "  ");
-								map.put("requst",
-										jasitem.getString("publishTime"));
-								list.add(map);
+									jasitem = jasA.getJSONObject(i);
+									HashMap<String, String> map = new HashMap<String, String>();
+									map.put("detail",
+											jasitem.getString("startDate"));
+									map.put("re_address",
+											jasitem.getString("startPlace")
+													+ "  "
+													+ " 至 "
+													+ jasitem
+															.getString("destination")
+													+ "  ");
+									map.put("requst",
+											jasitem.getString("publishTime"));
+									list.add(map);
 								}
 							}
 						} catch (JSONException e) {
@@ -203,9 +209,9 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 					public void onErrorResponse(VolleyError error) {
 						Log.d("longway_lookuppublish_result",
 								error.getMessage(), error);
-						 Toast errorinfo = Toast.makeText(null, "网络连接失败",
-						 Toast.LENGTH_LONG);
-						 errorinfo.show();
+						Toast errorinfo = Toast.makeText(null, "网络连接失败",
+								Toast.LENGTH_LONG);
+						errorinfo.show();
 					}
 				}) {
 			protected Map<String, String> getParams() {
@@ -218,23 +224,23 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 		queue.add(stringRequest);
 
 	}
-	
-	private void longwaylookup_intent(final String role,final String request) {
-		// TODO Auto-generated method stub
-				String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
-						+ getString(R.string.uri_LongwayPublish)
-						+ getString(R.string.uri_lookuppublish_action);
-				
-				// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
-				
-				StringRequest stringRequest = new StringRequest(Request.Method.POST,
-						longwayway_selectpublish_baseurl,
-						new Response.Listener<String>() {
 
-							@Override
-							public void onResponse(String response) {
-								Log.d("longway_lookuppublish_result", response);
-								//json
+	private void longwaylookup_intent(final String role, final String request) {
+		// TODO Auto-generated method stub
+		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
+				+ getString(R.string.uri_LongwayPublish)
+				+ getString(R.string.uri_lookuppublish_action);
+
+		// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
+
+		StringRequest stringRequest = new StringRequest(Request.Method.POST,
+				longwayway_selectpublish_baseurl,
+				new Response.Listener<String>() {
+
+					@Override
+					public void onResponse(String response) {
+						Log.d("longway_lookuppublish_result", response);
+						// json
 						try {
 							int i;
 							Bundle bundle = new Bundle();
@@ -245,32 +251,31 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 								jasitem = jasA.getJSONObject(i);
 								if (jasitem.getString("publishTime").equals(
 										request)) {
-									
-									bundle.putString("carsharing_type", "longway");
-									
-									bundle.putString("userid", jasitem.getString("userId"));
-									
+
+									bundle.putString("carsharing_type",
+											"longway");
+
+									bundle.putString("userid",
+											jasitem.getString("userId"));
+
 									bundle.putString("requesttime", request);
-									
-									bundle.putString(
-											"tsp",jasitem
-															.getString("startPlace"));
-									bundle.putString(
-											"tep",jasitem
-															.getString("destination"));
-									bundle.putString(
-											"tst",
+
+									bundle.putString("tsp",
+											jasitem.getString("startPlace"));
+									bundle.putString("tep",
+											jasitem.getString("destination"));
+									bundle.putString("tst",
 											jasitem.getString("startDate"));
 									bundle.putString("trs", "xx");
 									break;
 								}
 							}
 							if (i == jasA.length()) {
-								Toast.makeText(getActivity().getApplicationContext(),
+								Toast.makeText(
+										getActivity().getApplicationContext(),
 										"该订单已不存在", Toast.LENGTH_SHORT).show();
 							} else {
-								Intent intent = new Intent(
-										getActivity(),
+								Intent intent = new Intent(getActivity(),
 										LongWayArrangementDetail.class);
 								intent.putExtras(bundle);
 								startActivity(intent);
@@ -301,5 +306,5 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 		queue.add(stringRequest);
 
 	}
-	
+
 }
