@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="about_function">功能介绍</string>
+    <string name="about_content">\t\t这是一款方便人们生活，解决人们生活中经常遇到的拼车问题的便捷软件。区别于其他拼车软件的是，这款软件利用了计算机当中的高级算法，在您发布了拼车信息之后，我们将根据您的要求匹配出一条最优的线路，让您的拼车之路全程无忧！</string>
+    <string name="about_retroaction">联系我们</string>
+    <string name="about_contect">\t\t邮箱tctcdtc@163.com\n\t\t添加微信公共账号wmstc</string>
+
+</resources>

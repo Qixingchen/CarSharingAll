@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="routeline_title_startplace">起点：</string>
+    <string name="routeline_startplace">厦大学生公寓</string>
+    <string name="routeline_title_endplace">终点：</string>
+    <string name="routeline_endplace">厦大西村</string>
+    <string name="routeline_title_starttime">出发时间:：</string>
+    <string name="routeline_starttime">2014-09-11 15:24:12.0</string>
+    <string name="routeline_title_via">途径点：</string>
+    <string name="routeline_via">海韵园；厦大白城</string>
+    <string name="routeline_title_passengerorder">您的乘车顺序：</string>
+    <string name="routeline_passengerorder">2</string>
+    <string name="routeline_title_driverphone">车主联系电话：</string>
+    <string name="routeline_driverphone">004</string>
+    <string name="routeline_title_carinfo">车辆信息：</string>
+    <string name="routeline_carinfo">颜色，品牌型号，车牌号，颜色</string>
+    <string name="routeline_title_driver_authentication">司机身份认证</string>
+    <string name="routeline_title_otherinfo">备注：</string>
+    <string name="routeline_otherinfo">无</string>
+    <string name="routeline_btn_receive">接受</string>
+    <string name="routeline_btn_reject">拒绝</string>
+    <string name="routeline_btn_assess">评价</string>
+</resources>

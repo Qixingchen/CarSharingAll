@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="setting_message">新消息提醒</string>
+    <string name="setting_voice">声音</string>
+    <string name="setting_zhendong">振动</string>
+    <string name="setting_clearstore">清除缓存</string>
+    <string name="setting_othersettings">其他设置</string>
+    <string name="setting_clickclear">点击清除缓存</string>
+
+</resources>
