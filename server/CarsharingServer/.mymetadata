@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="CarsharingServer"
+  id="myeclipse.1407145153924"
+  context-root="/CarsharingServer"
+  j2ee-spec="6.0"
+  archive="CarsharingServer.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+    <package name="struts"  extends="json-default" >
+		<action name="UserInfo"  class="com.struts.action.UserinfoAction">
+			<result name="register" type="json"></result>
+			<result name="checkphonenum" type="json"></result>
+			<result name="login" type="json"></result>
+			<result name="userinfo" type="json"></result>
+			<result name="changeinfo" type="json"></result>
+			<result name="alterpassword" type="json"></result>
+		</action>	
+		<action name="CommuteRequest" class="com.struts.action.CommuteAction">
+		    <result name="commuterequest" type="json"></result>	
+		    <result name="selectrequest" type="json"></result>	
+		    <result name="commutedelete" type="json"></result>	
+		    <result name="updatestatus" type="json"></result>	
+		</action>
+		
+		<action name="ShortwayRequest" class="com.struts.action.ShortwayAction">
+		    <result name="shortwayrequest" type="json"></result>	
+		    <result name="selectrequest" type="json"></result>	
+		    <result name="shortwaydelete" type="json"></result>	
+		    <result name="updatestatus" type="json"></result>	
+		</action>
+		
+		<action name="LongwayPublish" class="com.struts.action.LongwayAction">
+		    <result name="longwaypublish" type="json"></result>
+		    <result name="longwaydelete" type="json"></result>	
+		    <result name="selectpublish" type="json"></result>	
+		    <result name="lookuppublish" type="json"></result>		
+		</action>
+		
+		<action name="CarInfo" class="com.struts.action.CarinfoAction">
+		    <result name="carinfoadd" type="json"></result>
+		    <result name="updatecarinfo" type="json"></result>
+		    <result name="selectcarinfo" type="json"></result>
+		</action>
+		<action name="CarTake" class="com.struts.action.CartakeAction">
+		    <result name="selectcartake" type="json"></result>
+		    <result name="selectpassnode" type="json"></result>
+		</action>
+		
+		<action name="CarShare" class="com.struts.action.CarshareAction">
+		    <result name="lookuprouteinfo" type="json"></result>
+		</action>
+		
+		<action name="UploadFile" class="com.struts.action.FileUploadAction">
+		    <result name="uploadfinish" type="json"></result>
+        </action>
+		
+	</package>
+</struts>    

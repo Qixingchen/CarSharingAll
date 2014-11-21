@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sex">女</string>
+    <string name="person_name">姓名</string>
+    <string name="person_age">年龄</string>
+    <string name="i_want_car">我要拼车</string>
+    <string name="my_message">我发布的信息</string>
+    <string name="first_history">没有历史记录</string>
+    <string name="history_more">点击查看全部并进行管理</string>
+    <string name="receiving">我收到的匹配</string>
+    <string name="first_receiving">没有配对</string>
+    <string name="receiving_more">点击查看全部并进行管理</string>
+    <string name="frequent_address">我收藏的地点</string>
+    <string name="first_address">没有收藏</string>
+    <string name="address_more">点击查看全部并进行管理</string>
+    <string name="assess">您共收到x条评价</string>
+    <string name="quit">注销/更换账号</string>
+
+</resources>

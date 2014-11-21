@@ -1,0 +1,208 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}"
+    android:background="@color/white_ffffff" >
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/UserInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"        
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/photolayout"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"           
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:contentDescription="@string/app_name"
+                android:id="@+id/Userbadge"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.16"
+                android:src="@drawable/ic_launcher" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/NameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/informodify_FullName"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="43.2dp"
+                android:ems="10"
+                android:hint="@string/fullname"
+                android:inputType="textPersonName"
+                android:maxLength="10"
+                android:textSize="16sp" >
+
+                <requestFocus android:layout_width="wrap_content" />
+
+            </EditText>
+
+          
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/AgeAndGenderChoiceLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:orientation="horizontal" >
+            
+            <EditText
+                android:id="@+id/informodify_age"
+                android:layout_marginLeft="45dp"
+                android:hint="@string/age"
+                android:textSize="16sp"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:maxLength="3" />
+			
+            <RadioGroup 
+                android:orientation="horizontal"
+                android:id="@+id/informodify_gender" 
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent">
+	            <RadioButton
+	                android:id="@+id/informodify_male"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="5dp"
+	                android:text="@string/male"
+	                android:textSize="16sp" />
+	
+	            <RadioButton
+	                android:id="@+id/informodify_female"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="5dp"
+	                android:text="@string/female"
+	                android:textSize="16sp" />
+	        </RadioGroup>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/CarInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/UserInformation"
+        
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/CarInfo" />
+
+        <LinearLayout
+            android:id="@+id/CarBrandAndModel"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/informodify_CarBrand"
+                android:layout_marginLeft="40dp"
+                android:hint="品牌"
+                android:textSize="14sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:ems="10" />
+
+            <EditText
+                android:id="@+id/informodify_CarModel"
+                android:layout_marginRight="5dp"
+                android:hint="@string/Model"
+                android:textSize="14sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.45"
+                android:ems="10" />
+            
+            <EditText
+                android:id="@+id/informodify_color"
+                android:layout_marginRight="30dp"
+                android:hint="@string/Color"
+                android:textSize="14sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:ems="6" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/CarColorAndNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            
+            android:orientation="horizontal" >
+            
+            <EditText
+                android:id="@+id/informodify_Num"
+                android:layout_marginLeft="40dp"
+                android:hint="@string/Num"
+                android:textSize="14sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.53"
+                android:ems="10" />
+
+            <EditText
+                android:id="@+id/informodify_capacity"
+                android:layout_marginRight="100dp"
+                android:hint="@string/Cap"
+                android:textSize="14sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:ems="3"
+                android:inputType="number" />
+            
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/informodify_btn_login"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/CarInformation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:text="@string/confirm"
+        android:background="@drawable/blue_btn_selector"
+        android:textColor="#f8f8f8"
+        android:textSize="24sp" />
+    
+<!--     android:background="#0090d8" -->
+
+</RelativeLayout>
