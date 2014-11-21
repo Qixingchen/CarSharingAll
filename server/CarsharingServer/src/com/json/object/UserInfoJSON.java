@@ -4,7 +4,7 @@ package com.json.object;
  * UserInfo entity. @author MyEclipse Persistence Tools
  */
 
-public class UserInfoJSON{
+public class UserInfoJSON {
 
 	// Fields
 
@@ -31,8 +31,8 @@ public class UserInfoJSON{
 	}
 
 	/** full constructor */
-	public UserInfoJSON(String phoneNum, String passWord, String name, String sex,
-			String age, String photoAddress, String identifyNum,
+	public UserInfoJSON(String phoneNum, String passWord, String name,
+			String sex, String age, String photoAddress, String identifyNum,
 			String creditScore) {
 		this.phoneNum = phoneNum;
 		this.passWord = passWord;

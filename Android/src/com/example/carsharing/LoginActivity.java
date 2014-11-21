@@ -49,18 +49,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class LoginActivity extends Activity {
-	
+
 	private EditText phonenumber, password;
-	private boolean bphn, bpw, suc = false,loadok;
+	private boolean bphn, bpw, suc = false, loadok;
 	private Button next;
 	boolean isExit;
 	public static RequestQueue queue;
 	Hash_pwd hash = new Hash_pwd();
 	String UserPhoneNumber;
-	//progressbar
-	private static MyProgressDialog pd ;
+	// progressbar
+	private static MyProgressDialog pd;
 	Context context = LoginActivity.this;
-	//progressbar end
+	// progressbar end
 
 	// 图片更改
 	ImageView login_personpicture;
@@ -74,7 +74,7 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 
 		login_personpicture = (ImageView) findViewById(R.id.login_personpicture);
-		
+
 		phonenumber = (EditText) findViewById(R.id.login_phonenumedittext);
 		queue = Volley.newRequestQueue(this);
 		password = (EditText) findViewById(R.id.login_pwdedtitext);
@@ -93,7 +93,8 @@ public class LoginActivity extends Activity {
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
 						Context.MODE_PRIVATE);
-		String UserNameForAutoLogin = sharedPref1.getString("refreshfilename", "0");
+		String UserNameForAutoLogin = sharedPref1.getString("refreshfilename",
+				"0");
 		if (UserNameForAutoLogin.compareTo("0") != 0) {
 			phonenumber.setText(UserNameForAutoLogin);
 		}
@@ -108,7 +109,8 @@ public class LoginActivity extends Activity {
 				// TODO Auto-generated method stub
 
 				// 向服务器发送登陆请求start!
-				login(phonenumber.getText().toString(), hash.hashans(password.getText().toString()));
+				login(phonenumber.getText().toString(),
+						hash.hashans(password.getText().toString()));
 				// 向服务器发送登陆请求end!
 
 			}
@@ -307,16 +309,17 @@ public class LoginActivity extends Activity {
 
 	private void login(final String phonenum, final String pwd) {
 		// TODO Auto-generated method stub
-		
-//		Toast.makeText(getApplicationContext(), "正在登陆", Toast.LENGTH_SHORT)
-//				.show();
-		pd= new MyProgressDialog( context );
+
+		// Toast.makeText(getApplicationContext(), "正在登陆", Toast.LENGTH_SHORT)
+		// .show();
+		pd = new MyProgressDialog(context);
 		pd.setMessage("正在登陆");
 		pd.show();
 
-
-		String login_baseurl = getString(R.string.uri_base) + getString(R.string.uri_UserInfo) + getString(R.string.uri_login_action);
-				//"http://192.168.1.111:8080/CarsharingServer/UserInfo!login.action?";
+		String login_baseurl = getString(R.string.uri_base)
+				+ getString(R.string.uri_UserInfo)
+				+ getString(R.string.uri_login_action);
+		// "http://192.168.1.111:8080/CarsharingServer/UserInfo!login.action?";
 		// login_baseurl = login_baseurl + "phonenum=" + phonenum +
 		// "&pwd=" +pwd;
 
@@ -338,9 +341,9 @@ public class LoginActivity extends Activity {
 							e.printStackTrace();
 						}
 						if (suc == true) {
-							
+
 							// 向服务器请求查询车辆信息表start!
-						//	selectuserinfo(phonenum);
+							// selectuserinfo(phonenum);
 							selectcarinfo(phonenum);
 							selectuserimage("13210891397");
 							// 向服务器请求查询车辆信息表end!
@@ -363,9 +366,9 @@ public class LoginActivity extends Activity {
 									pwd);
 							editor2.commit();
 
-						//	if(loadok == true){
+							// if(loadok == true){
 
-//							}
+							// }
 
 						} else {
 							Toast errorinfo = Toast.makeText(
@@ -380,7 +383,7 @@ public class LoginActivity extends Activity {
 				}, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						
+
 						Log.e("login_result", error.getMessage(), error);
 						Toast.makeText(getApplicationContext(),
 								getString(R.string.warningInfo_networkError),
@@ -401,69 +404,70 @@ public class LoginActivity extends Activity {
 		queue.add(stringRequest);
 		// 登陆按钮触发end!
 	}
-	
+
 	private void selectuserimage(final String phonenum) {
 		// TODO Auto-generated method stub
-	//	String imageUrl = "http://i.imgur.com/7spzG.png";
+		// String imageUrl = "http://i.imgur.com/7spzG.png";
 		String imageUrl = "http://192.168.1.111:8080/CarsharingServer/images/Userphoto/"
-				+phonenum+".jpg";
-		
+				+ phonenum + ".jpg";
+
 		ImageRequest imageRequest = new ImageRequest(imageUrl,
-			    new Response.Listener<Bitmap>() {
+				new Response.Listener<Bitmap>() {
 
 					@Override
 					public void onResponse(Bitmap bitmap) {
 						// TODO Auto-generated method stub
-						//login_personpicture.setImageResource(R.drawable.ic_action_back);
+						// login_personpicture.setImageResource(R.drawable.ic_action_back);
 						login_personpicture.setImageBitmap(bitmap);
-						
-						//把头像写在本地start！
+
+						// 把头像写在本地start！
 						saveMyBitmap(bitmap);
-						//把头像写在本地end！	
-						
+						// 把头像写在本地end！
+
 					}
- 
-			    }, 0, 0, null,
-			    new Response.ErrorListener() {
-			        public void onErrorResponse(VolleyError error) {
-			            login_personpicture.setImageResource(R.drawable.ic_launcher);
-			        }
-			    });
+
+				}, 0, 0, null, new Response.ErrorListener() {
+					public void onErrorResponse(VolleyError error) {
+						login_personpicture
+								.setImageResource(R.drawable.ic_launcher);
+					}
+				});
 		queue.add(imageRequest);
 	}
-	
-	public void saveMyBitmap(Bitmap mBitmap){
-		File f = new File("/storage/emulated/0/Android/data/com.example.carsharing/files/Pictures"+".jpg");
-		FileOutputStream fOut=null;
-		try{
+
+	public void saveMyBitmap(Bitmap mBitmap) {
+		File f = new File(
+				"/storage/emulated/0/Android/data/com.example.carsharing/files/Pictures"
+						+ ".jpg");
+		FileOutputStream fOut = null;
+		try {
 			fOut = new FileOutputStream(f);
-		}catch(FileNotFoundException e){
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-		try{
+		try {
 			fOut.flush();
-		}catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		try{
+		try {
 			fOut.close();
-		}catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void selectcarinfo(final String phonenum) {
 		// TODO Auto-generated method stub
 		String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_CarInfo)
 				+ getString(R.string.uri_selectcarinfo_action);
-		
-		Log.d("carinfo_selectrequest_baseurl",carinfo_selectrequest_baseurl);
+
+		Log.d("carinfo_selectrequest_baseurl", carinfo_selectrequest_baseurl);
 		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				carinfo_selectrequest_baseurl,
-				new Response.Listener<String>(){
+				carinfo_selectrequest_baseurl, new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -472,21 +476,28 @@ public class LoginActivity extends Activity {
 						JSONObject json1 = null;
 						try {
 							json1 = new JSONObject(response);
-							JSONObject json = json1.getJSONObject("result");   
+							JSONObject json = json1.getJSONObject("result");
 							Context phonenumber = LoginActivity.this;
 							SharedPreferences filename = phonenumber
 									.getSharedPreferences(
 											getString(R.string.PreferenceDefaultName),
 											Context.MODE_PRIVATE);
-							UserPhoneNumber = filename.getString("refreshfilename", "文件名");
-							SharedPreferences sharedPref = context.getSharedPreferences(
-									UserPhoneNumber, Context.MODE_PRIVATE);
+							UserPhoneNumber = filename.getString(
+									"refreshfilename", "文件名");
+							SharedPreferences sharedPref = context
+									.getSharedPreferences(UserPhoneNumber,
+											Context.MODE_PRIVATE);
 							SharedPreferences.Editor editor = sharedPref.edit();
-							editor.putString("refreshdescription", json.getString("carBrand"));
-							editor.putString("refreshmodel", json.getString("carModel"));
-							editor.putString("refreshcolor", json.getString("carColor"));
-							editor.putString("refreshnum", json.getString("carNum"));
-							editor.putString("refreshcapacity", json.getString("carCapacity"));
+							editor.putString("refreshdescription",
+									json.getString("carBrand"));
+							editor.putString("refreshmodel",
+									json.getString("carModel"));
+							editor.putString("refreshcolor",
+									json.getString("carColor"));
+							editor.putString("refreshnum",
+									json.getString("carNum"));
+							editor.putString("refreshcapacity",
+									json.getString("carCapacity"));
 							editor.commit();
 							// 向服务器请求查询个人信息（姓名年龄性别）start!
 							selectuserinfo(phonenum);
@@ -495,18 +506,17 @@ public class LoginActivity extends Activity {
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						}				
+						}
 					}
-		}, new Response.ErrorListener() {
+				}, new Response.ErrorListener() {
 
-			@Override
-			public void onErrorResponse(VolleyError error) {
-				// TODO Auto-generated method stub
-				Log.e("carinfo_selectresult_result",
-						error.getMessage(), error);
-			}
-		})
-		{
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						// TODO Auto-generated method stub
+						Log.e("carinfo_selectresult_result",
+								error.getMessage(), error);
+					}
+				}) {
 			protected Map<String, String> getParams() {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("phonenum", phonenum);
@@ -516,17 +526,17 @@ public class LoginActivity extends Activity {
 
 		queue.add(stringRequest);
 	}
-	
+
 	private void selectuserinfo(final String phonenum) {
 		// TODO Auto-generated method stub
 		String userinfo_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_UserInfo)
 				+ getString(R.string.uri_selectuserinfo_action);
-		
-		Log.d("userinfo_selectrequest_baseurl",userinfo_selectrequest_baseurl);
+
+		Log.d("userinfo_selectrequest_baseurl", userinfo_selectrequest_baseurl);
 		StringRequest stringRequest = new StringRequest(Request.Method.POST,
 				userinfo_selectrequest_baseurl,
-				new Response.Listener<String>(){
+				new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -535,23 +545,27 @@ public class LoginActivity extends Activity {
 						JSONObject json1 = null;
 						try {
 							json1 = new JSONObject(response);
-							JSONObject json = json1.getJSONObject("result");   
+							JSONObject json = json1.getJSONObject("result");
 							Context phonenumber = LoginActivity.this;
 							SharedPreferences filename = phonenumber
 									.getSharedPreferences(
 											getString(R.string.PreferenceDefaultName),
 											Context.MODE_PRIVATE);
-							UserPhoneNumber = filename.getString("refreshfilename", "文件名");
-							SharedPreferences sharedPref = context.getSharedPreferences(
-									UserPhoneNumber, Context.MODE_PRIVATE);
+							UserPhoneNumber = filename.getString(
+									"refreshfilename", "文件名");
+							SharedPreferences sharedPref = context
+									.getSharedPreferences(UserPhoneNumber,
+											Context.MODE_PRIVATE);
 							SharedPreferences.Editor editor = sharedPref.edit();
-							if(json.getString("sex").compareTo("w") == 0){//性别：女
+							if (json.getString("sex").compareTo("w") == 0) {// 性别：女
 								editor.putString("refreshsex", "女");
-							}else if(json.getString("sex").compareTo("m") == 0){
+							} else if (json.getString("sex").compareTo("m") == 0) {
 								editor.putString("refreshsex", "男");
 							}
-							editor.putString("refreshname", json.getString("name"));
-							editor.putString("refreshage", json.getString("age"));
+							editor.putString("refreshname",
+									json.getString("name"));
+							editor.putString("refreshage",
+									json.getString("age"));
 							editor.commit();
 							Intent login = new Intent(LoginActivity.this,
 									PersonalCenterActivity.class);
@@ -562,18 +576,17 @@ public class LoginActivity extends Activity {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
-					}
-		}, new Response.ErrorListener() {
 
-			@Override
-			public void onErrorResponse(VolleyError error) {
-				// TODO Auto-generated method stub
-				Log.e("carinfo_selectresult_result",
-						error.getMessage(), error);
-			}
-		})
-		{
+					}
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						// TODO Auto-generated method stub
+						Log.e("carinfo_selectresult_result",
+								error.getMessage(), error);
+					}
+				}) {
 			protected Map<String, String> getParams() {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("phonenum", phonenum);
@@ -583,6 +596,5 @@ public class LoginActivity extends Activity {
 
 		queue.add(stringRequest);
 	}
-
 
 }

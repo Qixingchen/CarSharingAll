@@ -55,7 +55,7 @@ import android.widget.Toast;
 
 public class RoutelineDisplayActivity extends Activity implements
 		BaiduMap.OnMapClickListener, OnGetRoutePlanResultListener {
-	
+
 	private String userid;
 
 	private int position;
@@ -101,7 +101,7 @@ public class RoutelineDisplayActivity extends Activity implements
 		routeline_otherInfo = (TextView) findViewById(R.id.routeline_otherinfo);
 		routeline_dealsign = (ImageView) findViewById(R.id.routeline_dealsign);
 		routeline_dealsign.setVisibility(View.GONE);
-		
+
 		routeline_assess = (Button) findViewById(R.id.routeline_btn_assess);
 		routeline_assess.setVisibility(View.GONE);
 		routeline_assess.setOnClickListener(new OnClickListener() {
@@ -109,36 +109,36 @@ public class RoutelineDisplayActivity extends Activity implements
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				
-//				Intent receiveIntent = new Intent(
-//						RoutelineDisplayActivity.this,
-//						PersonCenterDetaillistActivity.class);
-//				receiveIntent.putExtra("deal_readstatus", "receive");
-//				receiveIntent.putExtra("intent", 2);
-		//		RoutelineDisplayActivity.this.setResult(1, receiveIntent);
-		//		RoutelineDisplayActivity.this.finish();
+
+				// Intent receiveIntent = new Intent(
+				// RoutelineDisplayActivity.this,
+				// PersonCenterDetaillistActivity.class);
+				// receiveIntent.putExtra("deal_readstatus", "receive");
+				// receiveIntent.putExtra("intent", 2);
+				// RoutelineDisplayActivity.this.setResult(1, receiveIntent);
+				// RoutelineDisplayActivity.this.finish();
 
 			}
 		});
-		
+
 		routeline_receive = (Button) findViewById(R.id.routeline_btn_receive);
 		routeline_receive.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				
+
 				routeline_reject.setVisibility(View.GONE);
 				routeline_receive.setVisibility(View.GONE);
 				routeline_assess.setVisibility(View.VISIBLE);
-				
-//				Intent receiveIntent = new Intent(
-//						RoutelineDisplayActivity.this,
-//						PersonCenterDetaillistActivity.class);
-//				receiveIntent.putExtra("deal_readstatus", "receive");
-//				receiveIntent.putExtra("intent", 2);
-		//		RoutelineDisplayActivity.this.setResult(1, receiveIntent);
-		//		RoutelineDisplayActivity.this.finish();
+
+				// Intent receiveIntent = new Intent(
+				// RoutelineDisplayActivity.this,
+				// PersonCenterDetaillistActivity.class);
+				// receiveIntent.putExtra("deal_readstatus", "receive");
+				// receiveIntent.putExtra("intent", 2);
+				// RoutelineDisplayActivity.this.setResult(1, receiveIntent);
+				// RoutelineDisplayActivity.this.finish();
 
 			}
 		});
@@ -149,46 +149,50 @@ public class RoutelineDisplayActivity extends Activity implements
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				
+
 				routeline_reject.setVisibility(View.GONE);
 				routeline_receive.setVisibility(View.GONE);
 				routeline_dealsign.setVisibility(View.VISIBLE);
-				
-//				Intent rejectIntent = new Intent(
-//						RoutelineDisplayActivity.this,
-//						PersonCenterDetaillistActivity.class);
-//				rejectIntent.putExtra("deal_readstatus", "reject");
-//				rejectIntent.putExtra("intent", 2);
-			//	RoutelineDisplayActivity.this.setResult(1, rejectIntent);
-            //    RoutelineDisplayActivity.this.finish();
+
+				// Intent rejectIntent = new Intent(
+				// RoutelineDisplayActivity.this,
+				// PersonCenterDetaillistActivity.class);
+				// rejectIntent.putExtra("deal_readstatus", "reject");
+				// rejectIntent.putExtra("intent", 2);
+				// RoutelineDisplayActivity.this.setResult(1, rejectIntent);
+				// RoutelineDisplayActivity.this.finish();
 			}
 		});
-		
-		Log.e("deal_readstatus", getIntent().getExtras().getString("deal_readstatus"));
-		//¶©µ¥×´Ì¬ÅÐ¶Ïstart£¡£¡
-		if(getIntent().getExtras().getString("deal_readstatus").compareTo("receive") == 0){
+
+		Log.e("deal_readstatus",
+				getIntent().getExtras().getString("deal_readstatus"));
+		// ¶©µ¥×´Ì¬ÅÐ¶Ïstart£¡£¡
+		if (getIntent().getExtras().getString("deal_readstatus")
+				.compareTo("receive") == 0) {
 			routeline_reject.setVisibility(View.GONE);
 			routeline_receive.setVisibility(View.GONE);
 			routeline_assess.setVisibility(View.VISIBLE);
 			routeline_dealsign.setVisibility(View.GONE);
-		}else if(getIntent().getExtras().getString("deal_readstatus").compareTo("reject") == 0){
+		} else if (getIntent().getExtras().getString("deal_readstatus")
+				.compareTo("reject") == 0) {
 			routeline_reject.setVisibility(View.GONE);
 			routeline_receive.setVisibility(View.GONE);
 			routeline_assess.setVisibility(View.GONE);
 			routeline_dealsign.setVisibility(View.VISIBLE);
-		}else if(getIntent().getExtras().getString("deal_readstatus").compareTo("unread") == 0){
+		} else if (getIntent().getExtras().getString("deal_readstatus")
+				.compareTo("unread") == 0) {
 			routeline_reject.setVisibility(View.VISIBLE);
 			routeline_receive.setVisibility(View.VISIBLE);
 			routeline_assess.setVisibility(View.GONE);
 			routeline_dealsign.setVisibility(View.GONE);
-		}else{
+		} else {
 			routeline_reject.setVisibility(View.GONE);
 			routeline_receive.setVisibility(View.GONE);
 			routeline_assess.setVisibility(View.GONE);
 			routeline_dealsign.setVisibility(View.GONE);
 		}
-		//¶©µ¥×´Ì¬ÅÐ¶Ïend£¡£¡
-		
+		// ¶©µ¥×´Ì¬ÅÐ¶Ïend£¡£¡
+
 		/*
 		 * Called when the activity is first created.
 		 */
@@ -319,22 +323,34 @@ public class RoutelineDisplayActivity extends Activity implements
 							TextOptions textoverlay = null;
 							for (int i = 0; i < passnodes.length(); i++) {
 								passnode = (JSONObject) passnodes.get(i);
-								//pyj start
-								if(i==0){
-									routeline_startPlace.setText(passnode.getString("posionX")+","+passnode.getString("posionY"));
-								}else if(i==passnodes.length()-1){
-									routeline_endPlace.setText(passnode.getString("posionX")+","+passnode.getString("posionY"));
+								// pyj start
+								if (i == 0) {
+									routeline_startPlace.setText(passnode
+											.getString("posionX")
+											+ ","
+											+ passnode.getString("posionY"));
+								} else if (i == passnodes.length() - 1) {
+									routeline_endPlace.setText(passnode
+											.getString("posionX")
+											+ ","
+											+ passnode.getString("posionY"));
 									routeline_Via.setText(via);
-								}else{
-									via = via +"  "+passnode.getString("posionX")+","+passnode.getString("posionY");
+								} else {
+									via = via + "  "
+											+ passnode.getString("posionX")
+											+ ","
+											+ passnode.getString("posionY");
 								}
-								if(userid==passnode.get("passengerId")||userid==passnode.get("driverId")){
-									if(userid==passnode.get("passengerId"))
-										routeline_passengerOrder.setText("passengerOrder");
-									else 
-										routeline_passengerOrder.setVisibility(View.GONE);
+								if (userid == passnode.get("passengerId")
+										|| userid == passnode.get("driverId")) {
+									if (userid == passnode.get("passengerId"))
+										routeline_passengerOrder
+												.setText("passengerOrder");
+									else
+										routeline_passengerOrder
+												.setVisibility(View.GONE);
 								}
-								//pyj end
+								// pyj end
 								passnodelist.add(PlanNode
 										.withLocation(new LatLng(passnode
 												.getDouble("posionY"), passnode
@@ -416,17 +432,16 @@ public class RoutelineDisplayActivity extends Activity implements
 			return;
 		}
 	}
-	
+
 	private void selectcarinfo(final String phonenum) {
 		// TODO Auto-generated method stub
 		String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_CarInfo)
 				+ getString(R.string.uri_selectcarinfo_action);
-		
-	//	Log.d("carinfo_selectrequest_baseurl",carinfo_selectrequest_baseurl);
+
+		// Log.d("carinfo_selectrequest_baseurl",carinfo_selectrequest_baseurl);
 		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				carinfo_selectrequest_baseurl,
-				new Response.Listener<String>(){
+				carinfo_selectrequest_baseurl, new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -436,28 +451,25 @@ public class RoutelineDisplayActivity extends Activity implements
 						JSONObject json1 = null;
 						try {
 							json1 = new JSONObject(response);
-							JSONObject json = json1.getJSONObject("result");   
-							jas_id= json.getString("id");   
-							Log.d("jas_id",jas_id);
-							
+							JSONObject json = json1.getJSONObject("result");
+							jas_id = json.getString("id");
+							Log.d("jas_id", jas_id);
+
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
-					
-					
 
-		}, new Response.ErrorListener() {
+				}, new Response.ErrorListener() {
 
-			@Override
-			public void onErrorResponse(VolleyError error) {
-				// TODO Auto-generated method stub
-				Log.e("carinfo_selectresult_result",
-						error.getMessage(), error);
-			}
-		})
-		{
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						// TODO Auto-generated method stub
+						Log.e("carinfo_selectresult_result",
+								error.getMessage(), error);
+					}
+				}) {
 			protected Map<String, String> getParams() {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("phonenum", phonenum);

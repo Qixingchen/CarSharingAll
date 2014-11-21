@@ -56,13 +56,13 @@ public class RegisterActivity extends Activity {
 	public static String checkphone_result;
 
 	MobileOrNo mobliejudging = new MobileOrNo();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 
-		get_auth = (Button) findViewById(R.id.register_getauthbutton); //获取验证码
+		get_auth = (Button) findViewById(R.id.register_getauthbutton); // 获取验证码
 		next = (Button) findViewById(R.id.register_nextbutton);
 		next.setEnabled(false);
 		PhoneNum = (EditText) findViewById(R.id.register_phonenumeditText);
@@ -90,34 +90,33 @@ public class RegisterActivity extends Activity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 
-					checkphone(PhoneNum.getText().toString());
-					// json
-					if (chcp == true) {
-						SharedPreferences sharedPref = context
-								.getSharedPreferences("file_text",
-										Context.MODE_PRIVATE);
-						SharedPreferences.Editor editor = sharedPref.edit();
-						editor.putString("refreshfilename", PhoneNum
-								.getText().toString());
-						editor.commit();
+				checkphone(PhoneNum.getText().toString());
+				// json
+				if (chcp == true) {
+					SharedPreferences sharedPref = context
+							.getSharedPreferences("file_text",
+									Context.MODE_PRIVATE);
+					SharedPreferences.Editor editor = sharedPref.edit();
+					editor.putString("refreshfilename", PhoneNum.getText()
+							.toString());
+					editor.commit();
 
-						Intent next = new Intent(RegisterActivity.this,
-								RegisterSecondActivity.class);
+					Intent next = new Intent(RegisterActivity.this,
+							RegisterSecondActivity.class);
 
-						next.putExtra(getString(R.string.user_phonenum),
-								PhoneNum.getText().toString());// 传值
+					next.putExtra(getString(R.string.user_phonenum), PhoneNum
+							.getText().toString());// 传值
 
-						next.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						startActivity(next);
-					}
-					// json
+					next.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(next);
 				}
-			
-			
+				// json
+			}
+
 		});
-		
+
 		// 页面跳转end!
-		
+
 		// 获取验证码start!
 		get_auth.setOnClickListener(new OnClickListener() {
 
@@ -128,17 +127,15 @@ public class RegisterActivity extends Activity {
 				// 判断是否为一个合法的电话号码
 				if (mobliejudging.mobilejudging(PhoneNum.getText().toString())) {
 					checkphone(PhoneNum.getText().toString());
-				}else{
-					Toast.makeText(
-							getApplicationContext(),
+				} else {
+					Toast.makeText(getApplicationContext(),
 							getString(R.string.warningInfo_phonumerror),
 							Toast.LENGTH_LONG).show();
 				}
-				}
-			
-			
+			}
+
 		});
-		
+
 		// 获取验证码end!
 
 		Agreement
@@ -156,23 +153,24 @@ public class RegisterActivity extends Activity {
 					}
 				});
 
-//		PhoneNum.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
-//
-//			@Override
-//			public void onFocusChange(View v, boolean hasFocus) {
-//
-//				if (hasFocus) {
-//
-//					// 此处为得到焦点时的处理内容
-//
-//				} else {
-//
-//					// 此处为失去焦点时的处理内容
-//					checkphone(PhoneNum.getText().toString());
-//				}
-//
-//			}
-//		});
+		// PhoneNum.setOnFocusChangeListener(new
+		// android.view.View.OnFocusChangeListener() {
+		//
+		// @Override
+		// public void onFocusChange(View v, boolean hasFocus) {
+		//
+		// if (hasFocus) {
+		//
+		// // 此处为得到焦点时的处理内容
+		//
+		// } else {
+		//
+		// // 此处为失去焦点时的处理内容
+		// checkphone(PhoneNum.getText().toString());
+		// }
+		//
+		// }
+		// });
 
 		// actionbar操作!!
 
@@ -297,9 +295,6 @@ public class RegisterActivity extends Activity {
 		}
 	}
 
-
-	
-	
 	public void checkphone(final String phonenum) {
 
 		String checkphone_baseurl = getString(R.string.uri_base)

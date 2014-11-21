@@ -4,7 +4,7 @@ package com.json.object;
  * CartakeDeal entity. @author MyEclipse Persistence Tools
  */
 
-public class CartakeDealJSON{
+public class CartakeDealJSON {
 
 	// Fields
 

@@ -31,7 +31,7 @@ public class SettingActivity extends Activity {
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	// actionbarend!!
-	
+
 	private static final String IMAGE_FILE_NAME2 = "faceImage2.jpg";
 	String UserPhoneNumber;
 
@@ -47,9 +47,6 @@ public class SettingActivity extends Activity {
 	private TextView drawername;
 	private TextView drawernum;
 
-
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		photouri = Uri.fromFile(new File(this
@@ -57,15 +54,14 @@ public class SettingActivity extends Activity {
 				IMAGE_FILE_NAME2));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting);
-		drawericon=(ImageView)findViewById(R.id.drawer_icon);
+		drawericon = (ImageView) findViewById(R.id.drawer_icon);
 		drawername = (TextView) findViewById(R.id.drawer_name);
 		drawernum = (TextView) findViewById(R.id.drawer_phone);
-		
 
-		activity_drawer = new Drawer(this,R.id.setting_layout);
-		  mDrawerToggle = activity_drawer.newdrawer();
-		  mDrawerLayout = activity_drawer.setDrawerLayout();
-		  
+		activity_drawer = new Drawer(this, R.id.setting_layout);
+		mDrawerToggle = activity_drawer.newdrawer();
+		mDrawerLayout = activity_drawer.setDrawerLayout();
+
 		commute = findViewById(R.id.drawer_commute);
 		shortway = findViewById(R.id.drawer_shortway);
 		longway = findViewById(R.id.drawer_longway);
@@ -188,8 +184,9 @@ public class SettingActivity extends Activity {
 	public void onResume() {
 
 		super.onResume(); // Always call the superclass method first
-		
-		setting.setBackgroundDrawable(getResources().getDrawable(R.color.blue_0099cc));
+
+		setting.setBackgroundDrawable(getResources().getDrawable(
+				R.color.blue_0099cc));
 		// Get the Camera instance as the activity achieves full user focus
 		Context phonenumber = SettingActivity.this;
 		SharedPreferences filename = phonenumber
@@ -201,15 +198,14 @@ public class SettingActivity extends Activity {
 		Context context = SettingActivity.this;
 		SharedPreferences sharedPref = context.getSharedPreferences(
 				UserPhoneNumber, Context.MODE_PRIVATE);
-		String fullname = sharedPref.getString(
-				"refreshname", "ÐÕÃû");
+		String fullname = sharedPref.getString("refreshname", "ÐÕÃû");
 		drawername.setText(fullname);
 		File photoFile = new File(
 				this.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
 				UserPhoneNumber);
 		if (photoFile.exists()) {
 			photouri = Uri.fromFile(photoFile);
-            drawericon.setImageURI(photouri);
+			drawericon.setImageURI(photouri);
 		} else {
 			drawericon.setImageResource(R.drawable.ic_launcher);
 		}

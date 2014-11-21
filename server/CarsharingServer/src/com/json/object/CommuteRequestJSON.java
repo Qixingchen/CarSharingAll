@@ -4,7 +4,7 @@ package com.json.object;
  * CommuteRequest entity. @author MyEclipse Persistence Tools
  */
 
-public class CommuteRequestJSON{
+public class CommuteRequestJSON {
 
 	// Fields
 

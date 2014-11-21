@@ -51,13 +51,12 @@ public class ForgetPasswordActivity extends Activity {
 	private Button btn_login;
 	private EditText first_rePassword;
 	private EditText second_rePassword;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_forget_password);
-		
+
 		queue = Volley.newRequestQueue(this);
 		phonenum = (EditText) findViewById(R.id.forget_password_phonenumeditText);
 		authcode = (EditText) findViewById(R.id.forget_password_inputauthnumedittext);
@@ -66,26 +65,28 @@ public class ForgetPasswordActivity extends Activity {
 		second_rePassword = (EditText) findViewById(R.id.forget_password2_passwordeditText);
 
 		authcode_btn.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 
-					checkphone(phonenum.getText().toString());
+				checkphone(phonenum.getText().toString());
 			}
-			
+
 		});
-		
+
 		btn_login = (Button) findViewById(R.id.forget_password_confirmbutton);
 		btn_login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				if (first_rePassword.getText().toString().compareTo(second_rePassword.getText().toString()) == 0
+				if (first_rePassword.getText().toString()
+						.compareTo(second_rePassword.getText().toString()) == 0
 						&& first_rePassword.getText().toString().compareTo("") != 0) {
 					// TODO Auto-generated method stub
-					
-					alterpassword(phonenum.getText().toString(),hash.hashans(first_rePassword.getText().toString()));
-					
+
+					alterpassword(phonenum.getText().toString(),
+							hash.hashans(first_rePassword.getText().toString()));
+
 				} else {
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.warnningInfo_pwdTwiError),
@@ -93,7 +94,7 @@ public class ForgetPasswordActivity extends Activity {
 				}
 			}
 		});
-		
+
 		cancelx1 = (ImageView) findViewById(R.id.forget_password_clearphonenumimageView);
 		cancelx1.setOnClickListener(new OnClickListener() {
 
@@ -124,13 +125,13 @@ public class ForgetPasswordActivity extends Activity {
 			}
 		});
 	}
-	
+
 	public void checkphone(final String phonenum) {
 
 		String checkphone_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_UserInfo)
 				+ getString(R.string.uri_checkphone_action);
-		Log.e("checkphone_url",checkphone_baseurl );
+		Log.e("checkphone_url", checkphone_baseurl);
 		// "http://192.168.1.111:8080/CarsharingServer/UserInfo!checkphone.action?";
 		// checkphone_baseurl = checkphone_baseurl + "phonenum=" + phonenum ;
 
@@ -163,11 +164,11 @@ public class ForgetPasswordActivity extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						Log.e("checkphone_result", error.getMessage(), error);
-//						 Toast errorinfo = Toast.makeText(null, "Õ¯¬Á¡¨Ω” ß∞‹",
-//						 Toast.LENGTH_LONG);
-//						 errorinfo.show();
+						// Toast errorinfo = Toast.makeText(null, "Õ¯¬Á¡¨Ω” ß∞‹",
+						// Toast.LENGTH_LONG);
+						// errorinfo.show();
 					}
-				}){
+				}) {
 			protected Map<String, String> getParams() {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("phonenum", phonenum);
@@ -181,10 +182,10 @@ public class ForgetPasswordActivity extends Activity {
 
 		// volleyend!!
 	}
-	
+
 	private void alterpassword(final String phonenum, final String pwd) {
 		// TODO Auto-generated method stub
-		
+
 		String login_baseurl = "http://192.168.1.111:8080/CarsharingServer/UserInfo!alterpassword.action?";
 
 		// Request a string response from the provided URL.
@@ -203,24 +204,23 @@ public class ForgetPasswordActivity extends Activity {
 							e.printStackTrace();
 						}
 						if (suc == true) {
-							Intent btn_login = new Intent(ForgetPasswordActivity.this,
+							Intent btn_login = new Intent(
+									ForgetPasswordActivity.this,
 									PersonalCenterActivity.class);
 							startActivity(btn_login);
-						}else{
-							Toast.makeText(
-									getApplicationContext(),
-									"√‹¬Î–ﬁ∏ƒ ß∞‹£°",
+						} else {
+							Toast.makeText(getApplicationContext(), "√‹¬Î–ﬁ∏ƒ ß∞‹£°",
 									Toast.LENGTH_LONG).show();
 						}
-						}
-					}, new Response.ErrorListener() {
+					}
+				}, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						
+
 						Log.e("alterpassword_result", error.getMessage(), error);
 
 					}
-				}){
+				}) {
 			protected Map<String, String> getParams() {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("phonenum", phonenum);

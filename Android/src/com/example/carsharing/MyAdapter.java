@@ -126,13 +126,12 @@ public class MyAdapter extends BaseAdapter {
 				SharedPreferences sharedPref = context.getSharedPreferences(
 						context.getString(R.string.PreferenceDefaultName),
 						Context.MODE_PRIVATE);
-				UserPhoneNumber = sharedPref.getString("refreshfilename",
-						"0");
+				UserPhoneNumber = sharedPref.getString("refreshfilename", "0");
 
 				if (intentcall == 1) {
-					
-					//主要是用time的值来辨识应该执行什么删除
-					
+
+					// 主要是用time的值来辨识应该执行什么删除
+
 					// 向服务器发起删除上下班拼车订单的请求start!
 					commute_deleterequest(UserPhoneNumber, time);
 					// 向服务器发起删除上下班拼车订单的请求end!
@@ -140,7 +139,7 @@ public class MyAdapter extends BaseAdapter {
 					// 向服务器发起删除短途拼车的请求start!
 					shortway_deleterequest(UserPhoneNumber, time);
 					// 向服务器发起删除短途拼车的请求end!
-					
+
 					// 向服务器发起删除短途拼车的请求start!
 					longway_deleterequest(UserPhoneNumber, time);
 					// 向服务器发起删除短途拼车的请求end!
@@ -177,7 +176,7 @@ public class MyAdapter extends BaseAdapter {
 						.getString(R.string.uri_base)
 						+ context.getString(R.string.uri_LongwayPublish)
 						+ context.getString(R.string.uri_deletepublish_action);
-				
+
 				// Instantiate the RequestQueue.
 				// Request a string response from the provided URL.
 				StringRequest stringRequest = new StringRequest(
@@ -283,12 +282,13 @@ public class MyAdapter extends BaseAdapter {
 					final String time) {
 				// TODO Auto-generated method stub
 
-				String commute_deleterequst_baseurl = context.getString(R.string.uri_base)
+				String commute_deleterequst_baseurl = context
+						.getString(R.string.uri_base)
 						+ context.getString(R.string.uri_CommuteRequest)
 						+ context.getString(R.string.uri_deleterequest_action);
 				// "http://192.168.1.111:8080/CarsharingServer/CommuteRequest!deleterequest.action?";
 
-				 Log.d("commute_deleterequest_URL", commute_deleterequst_baseurl);
+				Log.d("commute_deleterequest_URL", commute_deleterequst_baseurl);
 				// Instantiate the RequestQueue.
 				// Request a string response from the provided URL.
 				StringRequest stringRequest = new StringRequest(
@@ -304,21 +304,21 @@ public class MyAdapter extends BaseAdapter {
 										// by-pyj
 										data.remove(position);
 										notifyDataSetChanged();
-										Log.e("deletewrong","ok");
+										Log.e("deletewrong", "ok");
 										// pyj-end
 									}
 								} catch (JSONException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
-									Log.e("deletewrong","not errorresponse");
+									Log.e("deletewrong", "not errorresponse");
 								}
 							}
 						}, new Response.ErrorListener() {
 							@Override
 							public void onErrorResponse(VolleyError error) {
-//								Log.e("deleterequest_result",
-//										error.getMessage(), error);
-								Log.e("deletewrong","errorresponse");
+								// Log.e("deleterequest_result",
+								// error.getMessage(), error);
+								Log.e("deletewrong", "errorresponse");
 								// Toast errorinfo = Toast.makeText(null,
 								// "网络连接失败", Toast.LENGTH_LONG);
 								// errorinfo.show();
@@ -345,8 +345,8 @@ public class MyAdapter extends BaseAdapter {
 		public TextView placename;
 		public ImageButton delete_button;
 
-//		public TextView tv_1;
-//		public TextView tv_2;
+		// public TextView tv_1;
+		// public TextView tv_2;
 
 	}
 

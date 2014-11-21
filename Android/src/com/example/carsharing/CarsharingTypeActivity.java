@@ -1,6 +1,6 @@
 /*
  * 拼车类型选择界面，实现简单的界面跳转
-*/
+ */
 
 package com.example.carsharing;
 
