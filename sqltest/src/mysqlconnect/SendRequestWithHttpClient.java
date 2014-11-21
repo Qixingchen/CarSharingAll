@@ -7,6 +7,8 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.params.CookiePolicy;
+import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
@@ -20,6 +22,8 @@ public class SendRequestWithHttpClient {
 		// 用HttpClient发送请求，分为五步
 		// 第一步：创建HttpClient对象
 		HttpClient httpCient = new DefaultHttpClient();
+		HttpClientParams.setCookiePolicy(httpCient.getParams(),
+				CookiePolicy.BROWSER_COMPATIBILITY);
 		// 第二步：创建代表请求的对象,参数是访问的服务器地址
 		HttpGet httpGet = new HttpGet(httpgeturi);
 
