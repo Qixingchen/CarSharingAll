@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+   <LinearLayout 
+         xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+           android:layout_margin="7dp"
+           android:background="#ffffff"
+           android:orientation="vertical"  >
+           
+         <TextView
+         android:id="@+id/re_address"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_margin="7dp"        
+         android:layout_gravity="center"
+         android:textSize="15sp" />
+<!--                   android:text="常用位置" -->
+
+         <TextView 
+         android:id="@+id/detail"
+         android:layout_weight="1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_margin="7dp" 
+         android:layout_gravity="center"
+         android:gravity="center"
+         android:textSize="12sp"/>
+<!--                   android:text="详细地址" -->
+         
+<!--  <TextView -->
+<!--          android:id="@+id/re_address2" -->
+<!--          android:layout_width="wrap_content" -->
+<!--          android:layout_height="wrap_content" -->
+<!--          android:layout_margin="7dp"         -->
+<!--          android:text="常用位置2" -->
+<!--          android:layout_gravity="center" -->
+<!--          android:textSize="15sp" /> -->
+
+<!--          <TextView  -->
+<!--          android:id="@+id/detail2" -->
+<!--          android:layout_weight="1" -->
+<!--          android:layout_width="wrap_content" -->
+<!--          android:layout_height="wrap_content" -->
+<!--          android:layout_margin="7dp"  -->
+<!--          android:text="详细地址" -->
+<!--          android:layout_gravity="center" -->
+<!--          android:gravity="center" -->
+<!--          android:textSize="12sp"/> -->
+     </LinearLayout>

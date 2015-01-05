@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="firstOfThreeStep">1/2</string>
+    <string name="secondOfThreeStep">2/2</string>
+    <string name="progress">进度</string>
+    <string name="drawer_open">开启抽屉</string>
+    <string name="drawer_close">关闭抽屉</string>
+    <string name="LongwayListFind">查找长途拼车信息search_label</string>
+    <string name="LongwayListAdd">发布一个新消息</string>
+    <string name="search_label">移动拼车www</string>
+    <string name="search_hint">搜索长途拼车信息</string>
+
+    <string-array name="Drawerxuanxiang">
+        <item>@string/title_activity_short_way</item>
+        <item>@string/title_activity_commute</item>
+        <item>@string/title_activity_long_way_main</item>
+        <item>帮助</item>
+        <item>反馈</item>
+    </string-array>
+
+</resources>

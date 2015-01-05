@@ -1,0 +1,313 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/long_way_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <!-- 界面主布局 -->
+
+
+    <!-- <RelativeLayout -->
+    <!-- xmlns:android="http://schemas.android.com/apk/res/android" -->
+    <!-- xmlns:tools="http://schemas.android.com/tools" -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="match_parent" -->
+    <!-- android:orientation="vertical" > -->
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".LinearLayoutActivity" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/longway_exchange"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:src="@drawable/ic_action_import_export" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/longway_start_place"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginTop="20dp"
+                        android:ems="10"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/textviewlike_blue"
+                        android:hint="@string/longway_start_place"
+                        android:textColorHint="#46A3FF"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/longway_end_place"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/textviewlike_blue"
+                        android:ems="10"
+                        android:gravity="center_vertical"
+                        android:hint="@string/longway_start_place"
+                        android:textColorHint="#46A3FF"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="280dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/start_date"
+                    android:textColor="#9D9D9D"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/longway_dates"
+                        android:layout_width="180dp"
+                        android:layout_height="40dp"
+                        android:onClick="showDatePickerDialog"
+                        android:text="@string/pick_date" />
+                    
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center" >
+
+                <RadioGroup
+                    android:id="@+id/longway_radiobutton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/longway_radioButton01"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:checked="false"
+                        android:text="@string/i_want_to_be_driver"
+                        android:textColor="#000000"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/longway_radioButton02"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="35dp"
+                        android:checked="false"
+                        android:text="@string/i_want_to_be_passanger"
+                        android:textColor="#000000"
+                        android:textSize="12sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/longway_CarInformation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/longway_carinfo_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/CarInfo" />
+
+                <LinearLayout
+                    android:id="@+id/longway_CarBrandAndModel"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/longway_CarBrand"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_weight="0.4"
+                        android:ems="10"
+                        android:hint="品牌"
+                        android:textColorHint="#9F35FF"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/longway_CarModel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.45"
+                        android:ems="10"
+                        android:hint="@string/Model"
+                        android:textColorHint="#9F35FF"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/longway_CarColorAndNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/longway_Num"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_weight="0.53"
+                        android:ems="10"
+                        android:hint="@string/Num"
+                        android:textColorHint="#9F35FF"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/longway_color"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30dp"
+                        android:layout_weight="0.3"
+                        android:ems="6"
+                        android:hint="@string/Color"
+                        android:textColorHint="#9F35FF"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/longway_content"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/content"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/longway_decrease"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#ff4444"
+                    android:text="—"
+                    android:textColor="@color/white_ffffff" />
+
+                <TextView
+                    android:id="@+id/longway_count"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="0" />
+
+                <Button
+                    android:id="@+id/longway_increase"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#99cc00"
+                    android:text="+"
+                    android:textColor="@color/white_ffffff" />
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/people"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/remark"
+                    android:textColor="#46A3FF"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/longway_remarkText"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:ems="100"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/longway_sure"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/blue_btn_selector"
+                android:text="确认提交"
+                android:textColor="#F8F8F8" />
+            <!-- android:background="#46A3FF" -->
+
+        </LinearLayout>
+    </ScrollView>
+    <!-- </RelativeLayout> -->
+    <!-- 抽屉导航布局 -->
+
+    <include layout="@layout/drawer_layout" />
+
+</android.support.v4.widget.DrawerLayout>

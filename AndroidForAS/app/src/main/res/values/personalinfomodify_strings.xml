@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fullname">姓名</string>
+    <string name="firstname">名</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="CarInfo">车辆信息</string>
+    <string name="Category">品牌</string>
+    <string name="Model">型号</string>
+    <string name="Num">车牌号</string>
+    <string name="Cap">座位数</string>
+    <string name="Color">颜色</string>
+    <string name="age">年龄</string>
+    <string name="confirm">确    认</string>
+</resources>
