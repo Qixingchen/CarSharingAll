@@ -40,8 +40,8 @@ public class LongWayArrangementDetail extends Activity {
 		queue = Volley.newRequestQueue(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_long_way_arrangement_detail);
-		// actionbar²Ù×÷!!
-		// »æÖÆÏòÉÏ!!
+		// actionbaræ“ä½œ!!
+		// ç»˜åˆ¶å‘ä¸Š!!
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		// actionbarEND!!
@@ -84,13 +84,13 @@ public class LongWayArrangementDetail extends Activity {
 							TextView username = (TextView) findViewById(R.id.long_arrangementdetail_name), usergender = (TextView) findViewById(R.id.long_arrangementdetail_gender), userintro = (TextView) findViewById(R.id.long_arrangementdetail_intro);
 							json1 = new JSONObject(response);
 							JSONObject json = json1.getJSONObject("result");
-							if (json.getString("sex").compareTo("w") == 0) {// ĞÔ±ğ£ºÅ®
-								usergender.setText("Å®");
+							if (json.getString("sex").compareTo("w") == 0) {// æ€§åˆ«ï¼šå¥³
+								usergender.setText("å¥³");
 							} else if (json.getString("sex").compareTo("m") == 0) {
-								usergender.setText("ÄĞ");
+								usergender.setText("ç”·");
 							}
 							username.setText(json.getString("name"));
-							userintro.setText("Õâ¸öÈËÕæµÄºÜÀÁ");
+							userintro.setText("è¿™ä¸ªäººçœŸçš„å¾ˆæ‡’");
 
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block

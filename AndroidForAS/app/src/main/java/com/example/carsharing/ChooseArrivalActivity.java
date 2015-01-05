@@ -1,8 +1,8 @@
 /*
- * Ñ¡ÔñÖÕµã½çÃæ£¬ÎªÉÏÏÂ°àÆ´³µ£¬¶ÌÍ¾Æ´³µ£¬³ö×â³µÆ´³µ¹«ÓÃ½çÃæ
- * ½ÓÈëÁË°Ù¶È½Ó¿Ú
- * Á½¸öListView·Ö±ğ´æ´¢ÊÕ²ØµÄµØÖ·ºÍÀúÊ·µØÖ·£¬ÕâĞ©ĞÅÏ¢´æÔÚ±¾µØ£¬»áËæ×ÅÈí¼şµÄĞ¶ÔØÏûÊ§¡£
- * ¡°ÎÒµÄÎ»ÖÃ¡±ÊµÏÖ¶¨Î»
+ * é€‰æ‹©ç»ˆç‚¹ç•Œé¢ï¼Œä¸ºä¸Šä¸‹ç­æ‹¼è½¦ï¼ŒçŸ­é€”æ‹¼è½¦ï¼Œå‡ºç§Ÿè½¦æ‹¼è½¦å…¬ç”¨ç•Œé¢
+ * æ¥å…¥äº†ç™¾åº¦æ¥å£
+ * ä¸¤ä¸ªListViewåˆ†åˆ«å­˜å‚¨æ”¶è—çš„åœ°å€å’Œå†å²åœ°å€ï¼Œè¿™äº›ä¿¡æ¯å­˜åœ¨æœ¬åœ°ï¼Œä¼šéšç€è½¯ä»¶çš„å¸è½½æ¶ˆå¤±ã€‚
+ * â€œæˆ‘çš„ä½ç½®â€å®ç°å®šä½
  */
 
 package com.example.carsharing;
@@ -84,7 +84,7 @@ public class ChooseArrivalActivity extends Activity implements
 	View position;
 	ImageView fanhui;
 
-	// ÓÃ»§ÊÖ»úºÅ
+	// ç”¨æˆ·æ‰‹æœºå·
 	String UserPhoneNumber;
 
 	// database
@@ -97,36 +97,36 @@ public class ChooseArrivalActivity extends Activity implements
 
 	// database end!!
 
-	// °Ù¶Èmap
+	// ç™¾åº¦map
 	String PointUserName, PointMapName;
 	float longitude, latitude;
 
 	// private PoiSearch mPoiSearch = null;
 	private SuggestionSearch mSuggestionSearch = null;
 	private BaiduMap mBaiduMap = null;
-	private GeoCoder mSearch = null; // ËÑË÷Ä£¿é£¬Ò²¿ÉÈ¥µôµØÍ¼Ä£¿é¶ÀÁ¢Ê¹ÓÃ
+	private GeoCoder mSearch = null; // æœç´¢æ¨¡å—ï¼Œä¹Ÿå¯å»æ‰åœ°å›¾æ¨¡å—ç‹¬ç«‹ä½¿ç”¨
 	/**
-	 * ËÑË÷¹Ø¼ü×ÖÊäÈë´°¿Ú
+	 * æœç´¢å…³é”®å­—è¾“å…¥çª—å£
 	 */
 	private AutoCompleteTextView keyWorldsView = null;
 	private ArrayAdapter<String> sugAdapter = null;
 	private int load_Index = 0;
 
-	// °Ù¶Èmapend
+	// ç™¾åº¦mapend
 
-	// °Ù¶È¶¨Î»
+	// ç™¾åº¦å®šä½
 
 	public LocationClient mLocationClient = null;
 	public BDLocationListener myListener = new MyLocationListener();
 	String UserCity, city;
 	LocationClientOption option;
 
-	// °Ù¶È¶¨Î»end
+	// ç™¾åº¦å®šä½end
 
-	// database intent ¸¨Öú
+	// database intent è¾…åŠ©
 	int Locationcount;
 
-	// database intent ¸¨Öúend
+	// database intent è¾…åŠ©end
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +139,7 @@ public class ChooseArrivalActivity extends Activity implements
 		position = findViewById(R.id.choosearrival_mylocation);
 		fanhui = (ImageView) findViewById(android.R.id.home);
 
-		// ÌáÈ¡ÓÃ»§ÊÖ»úºÅ
+		// æå–ç”¨æˆ·æ‰‹æœºå·
 		SharedPreferences sharedPref = this
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
@@ -164,17 +164,17 @@ public class ChooseArrivalActivity extends Activity implements
 			}
 		});
 
-		// °Ù¶ÈµØÍ¼²Ù×÷
+		// ç™¾åº¦åœ°å›¾æ“ä½œ
 
-		// ÔÚÊ¹ÓÃSDK¸÷×é¼şÖ®Ç°³õÊ¼»¯contextĞÅÏ¢£¬´«ÈëApplicationContext
-		// ×¢Òâ¸Ã·½·¨ÒªÔÙsetContentView·½·¨Ö®Ç°ÊµÏÖ
+		// åœ¨ä½¿ç”¨SDKå„ç»„ä»¶ä¹‹å‰åˆå§‹åŒ–contextä¿¡æ¯ï¼Œä¼ å…¥ApplicationContext
+		// æ³¨æ„è¯¥æ–¹æ³•è¦å†setContentViewæ–¹æ³•ä¹‹å‰å®ç°
 		SDKInitializer.initialize(getApplicationContext());
 
-		// ³õÊ¼»¯ËÑË÷Ä£¿é£¬×¢²áËÑË÷ÊÂ¼ş¼àÌı
+		// åˆå§‹åŒ–æœç´¢æ¨¡å—ï¼Œæ³¨å†Œæœç´¢äº‹ä»¶ç›‘å¬
 		// mPoiSearch = PoiSearch.newInstance();
 		// mPoiSearch.setOnGetPoiSearchResultListener(this);
 
-		// ³õÊ¼»¯ËÑË÷Ä£¿é£¬×¢²áÊÂ¼ş¼àÌı
+		// åˆå§‹åŒ–æœç´¢æ¨¡å—ï¼Œæ³¨å†Œäº‹ä»¶ç›‘å¬
 		mSearch = GeoCoder.newInstance();
 		mSearch.setOnGetGeoCodeResultListener(this);
 
@@ -212,7 +212,7 @@ public class ChooseArrivalActivity extends Activity implements
 					city = "";
 				}
 				/**
-				 * Ê¹ÓÃ½¨ÒéËÑË÷·şÎñ»ñÈ¡½¨ÒéÁĞ±í£¬½á¹ûÔÚonSuggestionResult()ÖĞ¸üĞÂ
+				 * ä½¿ç”¨å»ºè®®æœç´¢æœåŠ¡è·å–å»ºè®®åˆ—è¡¨ï¼Œç»“æœåœ¨onSuggestionResult()ä¸­æ›´æ–°
 				 */
 				mSuggestionSearch
 						.requestSuggestion((new SuggestionSearchOption())
@@ -220,19 +220,19 @@ public class ChooseArrivalActivity extends Activity implements
 			}
 		});
 
-		// °Ù¶ÈµØÍ¼end
+		// ç™¾åº¦åœ°å›¾end
 
-		// °Ù¶È¶¨Î»
+		// ç™¾åº¦å®šä½
 
-		mLocationClient = new LocationClient(getApplicationContext()); // ÉùÃ÷LocationClientÀà
-		mLocationClient.registerLocationListener(myListener); // ×¢²á¼àÌıº¯Êı
+		mLocationClient = new LocationClient(getApplicationContext()); // å£°æ˜LocationClientç±»
+		mLocationClient.registerLocationListener(myListener); // æ³¨å†Œç›‘å¬å‡½æ•°
 		mLocationClient.start();
 
-		// °Ù¶È¶¨Î»end
+		// ç™¾åº¦å®šä½end
 
-		// actionbar²Ù×÷!!
+		// actionbaræ“ä½œ!!
 
-		// »æÖÆÏòÉÏ!!
+		// ç»˜åˆ¶å‘ä¸Š!!
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -244,23 +244,23 @@ public class ChooseArrivalActivity extends Activity implements
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 
-				// °Ù¶È¶¨Î»
+				// ç™¾åº¦å®šä½
 				Toast.makeText(getApplicationContext(),
 						getString(R.string.warningInfo_waitForLocation),
 						Toast.LENGTH_SHORT).show();
 
 				LocationClientOption option = new LocationClientOption();
-				option.setLocationMode(LocationMode.Hight_Accuracy);// ÉèÖÃ¶¨Î»Ä£Ê½
-				option.setCoorType("bd09ll");// ·µ»ØµÄ¶¨Î»½á¹ûÊÇ°Ù¶È¾­Î³¶È,Ä¬ÈÏÖµgcj02
-				option.setScanSpan(1024);// ÉèÖÃ·¢Æğ¶¨Î»ÇëÇóµÄ¼ä¸ôÊ±¼äÎª5000ms
-				option.setIsNeedAddress(true);// ·µ»ØµÄ¶¨Î»½á¹û°üº¬µØÖ·ĞÅÏ¢
+				option.setLocationMode(LocationMode.Hight_Accuracy);// è®¾ç½®å®šä½æ¨¡å¼
+				option.setCoorType("bd09ll");// è¿”å›çš„å®šä½ç»“æœæ˜¯ç™¾åº¦ç»çº¬åº¦,é»˜è®¤å€¼gcj02
+				option.setScanSpan(1024);// è®¾ç½®å‘èµ·å®šä½è¯·æ±‚çš„é—´éš”æ—¶é—´ä¸º5000ms
+				option.setIsNeedAddress(true);// è¿”å›çš„å®šä½ç»“æœåŒ…å«åœ°å€ä¿¡æ¯
 				mLocationClient.setLocOption(option);
 				if (mLocationClient != null && mLocationClient.isStarted()) {
 					mLocationClient.requestLocation();
 				} else {
-					Log.w("°Ù¶È¶¨Î»", "¶¨Î»¿Í»§¶Ë¿Õ»òÃ»Æô¶¯");
+					Log.w("ç™¾åº¦å®šä½", "å®šä½å®¢æˆ·ç«¯ç©ºæˆ–æ²¡å¯åŠ¨");
 				}
-				// °Ù¶È¶¨Î»½áÊø
+				// ç™¾åº¦å®šä½ç»“æŸ
 
 				// Intent myposition = new Intent(ChooseArrivalActivity.this,
 				// FindPositionActivity.class);
@@ -274,7 +274,7 @@ public class ChooseArrivalActivity extends Activity implements
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 
-				// °Ù¶Èmap
+				// ç™¾åº¦map
 				if (!choose.getText().toString().isEmpty()) {
 					PointUserName = choose.getText().toString();
 					if (UserCity != null && !UserCity.isEmpty()) {
@@ -305,8 +305,8 @@ public class ChooseArrivalActivity extends Activity implements
 				// TODO Auto-generated method stub
 				Intent endplace = new Intent();
 
-				// ±íÃû ,Òª»ñÈ¡µÄ×Ö¶ÎÃû£¬WHERE Ìõ¼ş£¬WHereÖµ£¬don't group the rows£¬
-				// don't filter by row groups£¬ÅÅĞòÌõ¼ş¡£
+				// è¡¨å ,è¦è·å–çš„å­—æ®µåï¼ŒWHERE æ¡ä»¶ï¼ŒWHereå€¼ï¼Œdon't group the rowsï¼Œ
+				// don't filter by row groupsï¼Œæ’åºæ¡ä»¶ã€‚
 
 				result.moveToPosition(arg2);
 
@@ -323,9 +323,9 @@ public class ChooseArrivalActivity extends Activity implements
 						String.valueOf(longitude));
 				endplace.putExtra(getString(R.string.dbstring_latitude),
 						String.valueOf(latitude));
-				Log.w("STintent·¢ËÍ¾­¶È", endplace
+				Log.w("STintentå‘é€ç»åº¦", endplace
 						.getStringExtra(getString(R.string.dbstring_longitude)));
-				Log.w("STintent·¢ËÍÎ³¶È", endplace
+				Log.w("STintentå‘é€çº¬åº¦", endplace
 						.getStringExtra(getString(R.string.dbstring_latitude)));
 				ChooseArrivalActivity.this.setResult(RESULT_OK, endplace);
 				ChooseArrivalActivity.this.finish();
@@ -342,8 +342,8 @@ public class ChooseArrivalActivity extends Activity implements
 				// TODO Auto-generated method stub
 				Intent endplace = new Intent();
 
-				// ±íÃû ,Òª»ñÈ¡µÄ×Ö¶ÎÃû£¬WHERE Ìõ¼ş£¬WHereÖµ£¬don't group the rows£¬
-				// don't filter by row groups£¬ÅÅĞòÌõ¼ş¡£
+				// è¡¨å ,è¦è·å–çš„å­—æ®µåï¼ŒWHERE æ¡ä»¶ï¼ŒWHereå€¼ï¼Œdon't group the rowsï¼Œ
+				// don't filter by row groupsï¼Œæ’åºæ¡ä»¶ã€‚
 
 				result2.moveToPosition(arg2);
 
@@ -360,9 +360,9 @@ public class ChooseArrivalActivity extends Activity implements
 						String.valueOf(longitude));
 				endplace.putExtra(getString(R.string.dbstring_latitude),
 						String.valueOf(latitude));
-				Log.w("STintent·¢ËÍ¾­¶È", endplace
+				Log.w("STintentå‘é€ç»åº¦", endplace
 						.getStringExtra(getString(R.string.dbstring_longitude)));
-				Log.w("STintent·¢ËÍÎ³¶È", endplace
+				Log.w("STintentå‘é€çº¬åº¦", endplace
 						.getStringExtra(getString(R.string.dbstring_latitude)));
 				ChooseArrivalActivity.this.setResult(RESULT_OK, endplace);
 				ChooseArrivalActivity.this.finish();
@@ -374,7 +374,7 @@ public class ChooseArrivalActivity extends Activity implements
 
 	}
 
-	// °Ù¶ÈµØˆDé_Ê¼
+	// ç™¾åº¦åœ°åœ–é–‹å§‹
 
 	public void onGetPoiResult(PoiResult result) {
 		if (result == null
@@ -392,13 +392,13 @@ public class ChooseArrivalActivity extends Activity implements
 		}
 		if (result.error == SearchResult.ERRORNO.AMBIGUOUS_KEYWORD) {
 
-			// µ±ÊäÈë¹Ø¼ü×ÖÔÚ±¾ÊĞÃ»ÓĞÕÒµ½£¬µ«ÔÚÆäËû³ÇÊĞÕÒµ½Ê±£¬·µ»Ø°üº¬¸Ã¹Ø¼ü×ÖĞÅÏ¢µÄ³ÇÊĞÁĞ±í
-			String strInfo = "ÔÚ";
+			// å½“è¾“å…¥å…³é”®å­—åœ¨æœ¬å¸‚æ²¡æœ‰æ‰¾åˆ°ï¼Œä½†åœ¨å…¶ä»–åŸå¸‚æ‰¾åˆ°æ—¶ï¼Œè¿”å›åŒ…å«è¯¥å…³é”®å­—ä¿¡æ¯çš„åŸå¸‚åˆ—è¡¨
+			String strInfo = "åœ¨";
 			for (CityInfo cityInfo : result.getSuggestCityList()) {
 				strInfo += cityInfo.city;
 				strInfo += ",";
 			}
-			strInfo += "ÕÒµ½½á¹û";
+			strInfo += "æ‰¾åˆ°ç»“æœ";
 			Toast.makeText(getApplicationContext(), strInfo, Toast.LENGTH_LONG)
 					.show();
 		}
@@ -443,10 +443,10 @@ public class ChooseArrivalActivity extends Activity implements
 
 		LatLng ptCenter = new LatLng(latitude, longitude);
 		mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(ptCenter));
-		String strInfo = String.format("Î³¶È£º%f ¾­¶È£º%f",
+		String strInfo = String.format("çº¬åº¦ï¼š%f ç»åº¦ï¼š%f",
 				result.getLocation().latitude, result.getLocation().longitude);
 		// Toast.makeText(this, strInfo, Toast.LENGTH_LONG).show();
-		Log.w("¾­Î³¶È", strInfo);
+		Log.w("ç»çº¬åº¦", strInfo);
 	}
 
 	@Override
@@ -460,8 +460,8 @@ public class ChooseArrivalActivity extends Activity implements
 		Log.w("mapname", PointMapName);
 		// database
 
-		// ±íÃû ,Òª»ñÈ¡µÄ×Ö¶ÎÃû£¬WHERE Ìõ¼ş£¬WHereÖµ£¬don't group the rows£¬
-		// don't filter by row groups£¬ÅÅĞòÌõ¼ş¡£
+		// è¡¨å ,è¦è·å–çš„å­—æ®µåï¼ŒWHERE æ¡ä»¶ï¼ŒWHereå€¼ï¼Œdon't group the rowsï¼Œ
+		// don't filter by row groupsï¼Œæ’åºæ¡ä»¶ã€‚
 
 		Cursor dbresult = db1.query(getString(R.string.dbtable_placeliked),
 				null, getString(R.string.dbstring_PlaceMapName) + "=?",
@@ -480,8 +480,8 @@ public class ChooseArrivalActivity extends Activity implements
 				content.put(getString(R.string.dbstring_latitude), latitude);
 				db1.insert(getString(R.string.dbtable_placehistory), null,
 						content);
-				Log.w("ÀúÊ·Êı¾İ¿â",
-						"Ìí¼Ó" + PointUserName + "  map:" + PointMapName
+				Log.w("å†å²æ•°æ®åº“",
+						"æ·»åŠ " + PointUserName + "  map:" + PointMapName
 								+ String.valueOf(longitude) + "&"
 								+ String.valueOf(latitude));
 
@@ -489,8 +489,8 @@ public class ChooseArrivalActivity extends Activity implements
 			// debug!!!
 			// else {
 			// dbresult.moveToFirst();
-			// Log.w("ÀúÊ·¾­¶È", String.valueOf(dbresult.getFloat(3)));
-			// Log.w("ÀúÊ·Î³¶È", String.valueOf(dbresult.getFloat(4)));
+			// Log.w("å†å²ç»åº¦", String.valueOf(dbresult.getFloat(3)));
+			// Log.w("å†å²çº¬åº¦", String.valueOf(dbresult.getFloat(4)));
 			// }
 			// debug end!!
 		}
@@ -517,9 +517,9 @@ public class ChooseArrivalActivity extends Activity implements
 
 	}
 
-	// °Ù¶ÈµØˆD½YÊø
+	// ç™¾åº¦åœ°åœ–çµæŸ
 
-	// °Ù¶È¶¨Î»
+	// ç™¾åº¦å®šä½
 
 	public class MyLocationListener implements BDLocationListener {
 		@Override
@@ -548,29 +548,29 @@ public class ChooseArrivalActivity extends Activity implements
 			}
 
 			PointMapName = location.getAddrStr();
-			PointUserName = location.getTime() + "Ê±µÄÎ»ÖÃ";
+			PointUserName = location.getTime() + "æ—¶çš„ä½ç½®";
 			longitude = (float) location.getLongitude();
 			latitude = (float) location.getLatitude();
 
 			if (location.getCity() == null) {
-				Log.e("³ÇÊĞÃû", "¿Õ!");
+				Log.e("åŸå¸‚å", "ç©º!");
 			} else {
-				Log.w("³ÇÊĞÃû", location.getCity());
+				Log.w("åŸå¸‚å", location.getCity());
 				UserCity = location.getCity();
 			}
 
-			Log.w("°Ù¶È¶¨Î»", sb.toString());
+			Log.w("ç™¾åº¦å®šä½", sb.toString());
 
-			// database intent ¸¨Öú
+			// database intent è¾…åŠ©
 			Locationcount++;
-			Log.w("¶¨Î»¼ÆÊı", String.valueOf(Locationcount));
+			Log.w("å®šä½è®¡æ•°", String.valueOf(Locationcount));
 
-			// database intent ¸¨Öúend
+			// database intent è¾…åŠ©end
 
 			// database
 
-			// ±íÃû ,Òª»ñÈ¡µÄ×Ö¶ÎÃû£¬WHERE Ìõ¼ş£¬WHereÖµ£¬don't group the rows£¬
-			// don't filter by row groups£¬ÅÅĞòÌõ¼ş¡£
+			// è¡¨å ,è¦è·å–çš„å­—æ®µåï¼ŒWHERE æ¡ä»¶ï¼ŒWHereå€¼ï¼Œdon't group the rowsï¼Œ
+			// don't filter by row groupsï¼Œæ’åºæ¡ä»¶ã€‚
 
 			if (Locationcount >= 3) {
 				Cursor dbresult = db1.query(
@@ -594,7 +594,7 @@ public class ChooseArrivalActivity extends Activity implements
 								latitude);
 						db1.insert(getString(R.string.dbtable_placehistory),
 								null, content);
-						Log.w("ÀúÊ·Êı¾İ¿â", "Ìí¼Ó" + PointUserName + "  map:"
+						Log.w("å†å²æ•°æ®åº“", "æ·»åŠ " + PointUserName + "  map:"
 								+ PointMapName + String.valueOf(longitude)
 								+ "&" + String.valueOf(latitude));
 
@@ -625,9 +625,9 @@ public class ChooseArrivalActivity extends Activity implements
 		}
 	}
 
-	// °Ù¶È¶¨Î»½áÊø
+	// ç™¾åº¦å®šä½ç»“æŸ
 
-	// ÉúÃüÖÜÆÚ!!
+	// ç”Ÿå‘½å‘¨æœŸ!!
 
 	@Override
 	protected void onStop() {
@@ -653,32 +653,32 @@ public class ChooseArrivalActivity extends Activity implements
 		super.onResume(); // Always call the superclass method first
 		mLocationClient.start();
 
-		// database intent ¸¨Öú
+		// database intent è¾…åŠ©
 		Locationcount = 0;
-		// database intent ¸¨Öúend
-		// °Ù¶È¶¨Î»
+		// database intent è¾…åŠ©end
+		// ç™¾åº¦å®šä½
 
 		option = new LocationClientOption();
-		option.setLocationMode(LocationMode.Hight_Accuracy);// ÉèÖÃ¶¨Î»Ä£Ê½
-		option.setCoorType("bd09ll");// ·µ»ØµÄ¶¨Î»½á¹ûÊÇ°Ù¶È¾­Î³¶È,Ä¬ÈÏÖµgcj02
-		option.setScanSpan(0);// ÉèÖÃ·¢Æğ¶¨Î»ÇëÇóµÄ¼ä¸ôÊ±¼äÎª5000ms
-		option.setIsNeedAddress(true);// ·µ»ØµÄ¶¨Î»½á¹û°üº¬µØÖ·ĞÅÏ¢
+		option.setLocationMode(LocationMode.Hight_Accuracy);// è®¾ç½®å®šä½æ¨¡å¼
+		option.setCoorType("bd09ll");// è¿”å›çš„å®šä½ç»“æœæ˜¯ç™¾åº¦ç»çº¬åº¦,é»˜è®¤å€¼gcj02
+		option.setScanSpan(0);// è®¾ç½®å‘èµ·å®šä½è¯·æ±‚çš„é—´éš”æ—¶é—´ä¸º5000ms
+		option.setIsNeedAddress(true);// è¿”å›çš„å®šä½ç»“æœåŒ…å«åœ°å€ä¿¡æ¯
 		mLocationClient.setLocOption(option);
 		if (mLocationClient != null && mLocationClient.isStarted()) {
 			mLocationClient.requestLocation();
 		} else {
-			Log.w("°Ù¶È¶¨Î»", "¶¨Î»¿Í»§¶Ë¿Õ»òÃ»Æô¶¯");
+			Log.w("ç™¾åº¦å®šä½", "å®šä½å®¢æˆ·ç«¯ç©ºæˆ–æ²¡å¯åŠ¨");
 		}
-		// °Ù¶È¶¨Î»½áÊø
+		// ç™¾åº¦å®šä½ç»“æŸ
 
-		// list¸³Öµ
+		// listèµ‹å€¼
 
 		// database
-		// ±íÃû ,Òª»ñÈ¡µÄ×Ö¶ÎÃû£¬WHERE Ìõ¼ş£¬WHereÖµ£¬don't group the rows£¬don't filter by row
-		// groups£¬ÅÅĞòÌõ¼ş¡£
+		// è¡¨å ,è¦è·å–çš„å­—æ®µåï¼ŒWHERE æ¡ä»¶ï¼ŒWHereå€¼ï¼Œdon't group the rowsï¼Œdon't filter by row
+		// groupsï¼Œæ’åºæ¡ä»¶ã€‚
 		result = db1.query(getString(R.string.dbtable_placeliked), null, null,
 				null, null, null, null);
-		Log.w("Ï²»¶ÊıÁ¿", String.valueOf(result.getCount()));
+		Log.w("å–œæ¬¢æ•°é‡", String.valueOf(result.getCount()));
 
 		@SuppressWarnings("deprecation")
 		ListAdapter adapter1 = new SimpleCursorAdapter(this,
@@ -690,7 +690,7 @@ public class ChooseArrivalActivity extends Activity implements
 
 		result2 = db1.query(getString(R.string.dbtable_placehistory), null,
 				null, null, null, null, null);
-		Log.w("ÀúÊ·ÊıÁ¿", String.valueOf(result2.getCount()));
+		Log.w("å†å²æ•°é‡", String.valueOf(result2.getCount()));
 
 		@SuppressWarnings("deprecation")
 		ListAdapter adapter2 = new SimpleCursorAdapter(this,
@@ -702,10 +702,10 @@ public class ChooseArrivalActivity extends Activity implements
 		list2.setAdapter(adapter2);
 
 		// database end
-		// list¸³Öµ½áÊø
+		// listèµ‹å€¼ç»“æŸ
 
 	}
 
-	// ÉúÃüÖÜÆÚend!!
+	// ç”Ÿå‘½å‘¨æœŸend!!
 
 }

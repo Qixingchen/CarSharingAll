@@ -4,11 +4,11 @@ import android.os.Environment;
 
 /**
  * 
- * @author XuZhiwei (xuzw13@gmail.com) Create at 2012-8-17 上午10:14:40
+ * @author XuZhiwei (xuzw13@gmail.com) Create at 2012-8-17 涓婂崍10:14:40
  */
 public class Tool {
 	/**
-	 * 检查是否存在SDCard
+	 * 妫�鏌ユ槸鍚﹀瓨鍦⊿DCard
 	 * 
 	 * @return
 	 */

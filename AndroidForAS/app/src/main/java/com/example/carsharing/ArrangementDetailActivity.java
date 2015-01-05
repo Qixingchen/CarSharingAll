@@ -1,5 +1,5 @@
-/*¶©µ¥ÏêÇé½çÃæ£¬ÓÉlistitemµã»÷´«ÖµÉú³ÉµÄ½çÃæ
- * ËùÏÔÊ¾µÄ¶©µ¥ÔÚ½øÈë¸Ã½çÃæÊ±·ÃÎÊÒ»±é·şÎñÆ÷ÒÔË¢ĞÂ×´Ì¬
+/*è®¢å•è¯¦æƒ…ç•Œé¢ï¼Œç”±listitemç‚¹å‡»ä¼ å€¼ç”Ÿæˆçš„ç•Œé¢
+ * æ‰€æ˜¾ç¤ºçš„è®¢å•åœ¨è¿›å…¥è¯¥ç•Œé¢æ—¶è®¿é—®ä¸€éæœåŠ¡å™¨ä»¥åˆ·æ–°çŠ¶æ€
  */
 
 package com.example.carsharing;
@@ -78,51 +78,51 @@ public class ArrangementDetailActivity extends Activity {
 
 		final String role;
 
-		// actionbar²Ù×÷!!
-		// »æÖÆÏòÉÏ!!
+		// actionbaræ“ä½œ!!
+		// ç»˜åˆ¶å‘ä¸Š!!
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		// actionbarEND!!
 
-		// ÈÕÆÚ¡¢Ê±¼ä±ê×¼¸ñÊ½
+		// æ—¥æœŸã€æ—¶é—´æ ‡å‡†æ ¼å¼
 		standard_date = new SimpleDateFormat("yyyy-MM-dd",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_date = new SimpleDateFormat("yyyyÄêMMÔÂddÈÕ",
+		primary_date = new SimpleDateFormat("yyyyå¹´MMæœˆddæ—¥",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_date1 = new SimpleDateFormat("yyyyÄêMÔÂdÈÕ",
+		primary_date1 = new SimpleDateFormat("yyyyå¹´Mæœˆdæ—¥",
 				Locale.SIMPLIFIED_CHINESE);
 		standard_time = new SimpleDateFormat("HH:mm:ss",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_time = new SimpleDateFormat("HHÊ±mm·ÖssÃë",
+		primary_time = new SimpleDateFormat("HHæ—¶mmåˆ†ssç§’",
 				Locale.SIMPLIFIED_CHINESE);
 
 		Bundle bundle = this.getIntent().getExtras();
-		sp.setText(bundle.getString("tsp")); // Æğµã
-		ep.setText(bundle.getString("tep")); // ÖÕµã
-		st.setText(bundle.getString("tst")); // ¿ªÊ¼Ê±¼ä
-		rs.setText(bundle.getString("trs")); // ĞèÒª×ùÎ»
+		sp.setText(bundle.getString("tsp")); // èµ·ç‚¹
+		ep.setText(bundle.getString("tep")); // ç»ˆç‚¹
+		st.setText(bundle.getString("tst")); // å¼€å§‹æ—¶é—´
+		rs.setText(bundle.getString("trs")); // éœ€è¦åº§ä½
 		role = bundle.getString("userrole");
 		mdealstatus = bundle.getString("dealstatus");
 		if ((role.compareTo("p") == 0)
-				|| (bundle.getString("userrole").compareTo("n") == 0)) {// Éí·İ
-			userrole.setText("³Ë¿Í");
+				|| (bundle.getString("userrole").compareTo("n") == 0)) {// èº«ä»½
+			userrole.setText("ä¹˜å®¢");
 		} else {
-			userrole.setText("Ë¾»ú");
+			userrole.setText("å¸æœº");
 		}
-		if (mdealstatus.compareTo("0") == 0) {// ¶©µ¥×´Ì¬
-			dealstatus.setText("·şÎñÆ÷ÕıÔÚ¾¡¿ìÎªÄúÆ¥Åä£¬ÇëÉÔµÈ£¡");
+		if (mdealstatus.compareTo("0") == 0) {// è®¢å•çŠ¶æ€
+			dealstatus.setText("æœåŠ¡å™¨æ­£åœ¨å°½å¿«ä¸ºæ‚¨åŒ¹é…ï¼Œè¯·ç¨ç­‰ï¼");
 		} else if (mdealstatus.compareTo("1") == 0) {
-			dealstatus.setText("¶©µ¥ÒÑÆ¥Åä£¬Çë²éÊÕ£¡");
+			dealstatus.setText("è®¢å•å·²åŒ¹é…ï¼Œè¯·æŸ¥æ”¶ï¼");
 		} else if (mdealstatus.compareTo("2") == 0) {
-			dealstatus.setText("³¤Í¾Æ´³µ");
+			dealstatus.setText("é•¿é€”æ‹¼è½¦");
 		}
 
 		final String stp[] = bundle.getString("tsp").split(",");
 		final String ep[] = bundle.getString("tep").split(",");
-		SPX = bundle.getFloat("SPX"); // Æğµã¾­¶È
-		SPY = bundle.getFloat("SPY"); // ÆğµãÎ³¶È
-		DSX = bundle.getFloat("DSX"); // ÖÕµã¾­¶È
-		DSY = bundle.getFloat("DSY"); // ÖÕµãÎ³¶È
+		SPX = bundle.getFloat("SPX"); // èµ·ç‚¹ç»åº¦
+		SPY = bundle.getFloat("SPY"); // èµ·ç‚¹çº¬åº¦
+		DSX = bundle.getFloat("DSX"); // ç»ˆç‚¹ç»åº¦
+		DSY = bundle.getFloat("DSY"); // ç»ˆç‚¹çº¬åº¦
 		startDate = bundle.getString("startdate");
 		endDate = bundle.getString("enddate");
 		startTime = bundle.getString("starttime");
@@ -131,7 +131,7 @@ public class ArrangementDetailActivity extends Activity {
 		carsharing_type = bundle.getString("carsharing_type");
 		requesttime = bundle.getString("requesttime");
 
-		// actionbarÖĞ·µ»Ø¼ü¼àÌı
+		// actionbarä¸­è¿”å›é”®ç›‘å¬
 
 		fanhui.setOnClickListener(new OnClickListener() {
 
@@ -144,16 +144,16 @@ public class ArrangementDetailActivity extends Activity {
 		// end
 
 		// if (carsharing_type.compareTo("shortway") == 0) {
-		// // ²éÑ¯¶ÌÍ¾¶©µ¥×´Ì¬start!
+		// // æŸ¥è¯¢çŸ­é€”è®¢å•çŠ¶æ€start!
 		// shortway_updatestatus(UserPhoneNumber, requesttime);
-		// // ²éÑ¯¶ÌÍ¾¶©µ¥×´Ì¬end!
+		// // æŸ¥è¯¢çŸ­é€”è®¢å•çŠ¶æ€end!
 		// } else {
-		// // ²éÑ¯³¤Í¾¶©µ¥×´Ì¬start!
+		// // æŸ¥è¯¢é•¿é€”è®¢å•çŠ¶æ€start!
 		// commute_updatestatus(UserPhoneNumber, requesttime);
-		// // ²éÑ¯³¤Í¾¶©µ¥×´Ì¬end!
+		// // æŸ¥è¯¢é•¿é€”è®¢å•çŠ¶æ€end!
 		// }
 
-		// reorder°´Å¥µÄ¼àÌı
+		// reorderæŒ‰é’®çš„ç›‘å¬
 		reorder.setOnClickListener(new OnClickListener() {
 
 			@Override

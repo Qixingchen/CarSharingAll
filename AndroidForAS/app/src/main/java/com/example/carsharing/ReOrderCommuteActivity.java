@@ -98,7 +98,7 @@ public class ReOrderCommuteActivity extends Activity {
 		latestarttime.setText(endtime);
 		// end from arrangementActivity
 
-		// weekrepeatÖÐcheckboxµÄ¹´Ñ¡
+		// weekrepeatä¸­checkboxçš„å‹¾é€‰
 		int len = weekrepeat.length();
 		for (int i = 0; i < len; i++) {
 			if (weekrepeat.charAt(i) == '1') {
@@ -123,7 +123,7 @@ public class ReOrderCommuteActivity extends Activity {
 				checkbox7.setChecked(true);
 			}
 		}
-		// ¹´Ñ¡end
+		// å‹¾é€‰end
 
 		exchange.setOnClickListener(new OnClickListener() {
 
@@ -131,8 +131,8 @@ public class ReOrderCommuteActivity extends Activity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				String temp = startplace.getText().toString();
-				if (!temp.equals("Ñ¡ÔñÆðµã")
-						&& !endplace.getText().toString().equals("Ñ¡ÔñÖÕµã")) {
+				if (!temp.equals("é€‰æ‹©èµ·ç‚¹")
+						&& !endplace.getText().toString().equals("é€‰æ‹©ç»ˆç‚¹")) {
 					startplace.setText(endplace.getText().toString());
 					endplace.setText(temp);
 					float a, b;
@@ -290,8 +290,8 @@ public class ReOrderCommuteActivity extends Activity {
 			// TODO Auto-generated method stub
 			mHour = hourOfDay;
 			mMinute = minute;
-			earlystarttime.setText(String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö" + "00" + "Ãë");
+			earlystarttime.setText(String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†" + "00" + "ç§’");
 		}
 	};
 
@@ -302,8 +302,8 @@ public class ReOrderCommuteActivity extends Activity {
 			// TODO Auto-generated method stub
 			mHour = hourOfDay;
 			mMinute = minute;
-			latestarttime.setText(String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö" + "00" + "Ãë");
+			latestarttime.setText(String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†" + "00" + "ç§’");
 		}
 	};
 
@@ -316,9 +316,9 @@ public class ReOrderCommuteActivity extends Activity {
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
-			startDate.setText(String.valueOf(year) + "Äê"
-					+ String.valueOf(monthofYear + 1) + "ÔÂ"
-					+ String.valueOf(dayofMonth) + "ÈÕ");
+			startDate.setText(String.valueOf(year) + "å¹´"
+					+ String.valueOf(monthofYear + 1) + "æœˆ"
+					+ String.valueOf(dayofMonth) + "æ—¥");
 		}
 	};
 	private OnDateSetListener mDateSetListener1 = new OnDateSetListener() {
@@ -330,9 +330,9 @@ public class ReOrderCommuteActivity extends Activity {
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
-			endDate.setText(String.valueOf(year) + "Äê"
-					+ String.valueOf(monthofYear + 1) + "ÔÂ"
-					+ String.valueOf(dayofMonth) + "ÈÕ");
+			endDate.setText(String.valueOf(year) + "å¹´"
+					+ String.valueOf(monthofYear + 1) + "æœˆ"
+					+ String.valueOf(dayofMonth) + "æ—¥");
 		}
 	};
 }

@@ -1,9 +1,9 @@
 /*
-f * µÇÂ½½çÃæ
- * ¸ù¾İÓÃ»§ÃûÏÔÊ¾¶ÔÓ¦Í·Ïñ
- * µÇÂ½³É¹¦µ½½çÃæÌø×ªÖ´ĞĞµÄ¼äÏ¶£º·ÃÎÊ·şÎñÆ÷»ñÈ¡³µÁ¾±íºÍ¸öÈËĞÅÏ¢±íĞ´ÔÚ±¾µØ£¨ÓÃÓÚÈí¼şĞ¶ÔØºóµÚÒ»´Î´ò¿ª£©
- * µÇÂ½·ÃÎÊ·şÎñÆ÷£¬³É¹¦ÔòÌø×ª½çÃæ
- * Ìí¼Óprogress bar¼ÓÔØĞ§¹û
+f * ç™»é™†ç•Œé¢
+ * æ ¹æ®ç”¨æˆ·åæ˜¾ç¤ºå¯¹åº”å¤´åƒ
+ * ç™»é™†æˆåŠŸåˆ°ç•Œé¢è·³è½¬æ‰§è¡Œçš„é—´éš™ï¼šè®¿é—®æœåŠ¡å™¨è·å–è½¦è¾†è¡¨å’Œä¸ªäººä¿¡æ¯è¡¨å†™åœ¨æœ¬åœ°ï¼ˆç”¨äºè½¯ä»¶å¸è½½åç¬¬ä¸€æ¬¡æ‰“å¼€ï¼‰
+ * ç™»é™†è®¿é—®æœåŠ¡å™¨ï¼ŒæˆåŠŸåˆ™è·³è½¬ç•Œé¢
+ * æ·»åŠ progress baråŠ è½½æ•ˆæœ
  */
 
 package com.example.carsharing;
@@ -62,11 +62,11 @@ public class LoginActivity extends Activity {
 	Context context = LoginActivity.this;
 	// progressbar end
 
-	// Í¼Æ¬¸ü¸Ä
+	// å›¾ç‰‡æ›´æ”¹
 	ImageView login_personpicture;
 	Uri PhotoUri;
 
-	// Í¼Æ¬¸ü¸Äend!!
+	// å›¾ç‰‡æ›´æ”¹end!!
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,17 +101,17 @@ public class LoginActivity extends Activity {
 
 		autologin(UserNameForAutoLogin);
 
-		// µÇÂ½°´Å¥´¥·¢start!
+		// ç™»é™†æŒ‰é’®è§¦å‘start!
 		next.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 
-				// Ïò·şÎñÆ÷·¢ËÍµÇÂ½ÇëÇóstart!
+				// å‘æœåŠ¡å™¨å‘é€ç™»é™†è¯·æ±‚start!
 				login(phonenumber.getText().toString(),
 						hash.hashans(password.getText().toString()));
-				// Ïò·şÎñÆ÷·¢ËÍµÇÂ½ÇëÇóend!
+				// å‘æœåŠ¡å™¨å‘é€ç™»é™†è¯·æ±‚end!
 
 			}
 		});
@@ -161,7 +161,7 @@ public class LoginActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -195,7 +195,7 @@ public class LoginActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -233,7 +233,7 @@ public class LoginActivity extends Activity {
 	public void exit() {
 		if (!isExit) {
 			isExit = true;
-			Toast toast = Toast.makeText(getApplicationContext(), "ÔÙ°´Ò»´ÎÍË³ö³ÌĞò",
+			Toast toast = Toast.makeText(getApplicationContext(), "å†æŒ‰ä¸€æ¬¡é€€å‡ºç¨‹åº",
 					Toast.LENGTH_SHORT);
 			toast.setGravity(Gravity.BOTTOM, 0, 50);
 			toast.show();
@@ -266,7 +266,7 @@ public class LoginActivity extends Activity {
 		UserPhotoChange(phonenumber.getText().toString());
 	}
 
-	// Í¼Æ¬¸ü¸Ä
+	// å›¾ç‰‡æ›´æ”¹
 
 	private void UserPhotoChange(String UserName) {
 
@@ -286,10 +286,10 @@ public class LoginActivity extends Activity {
 			login_personpicture.setImageResource(R.drawable.ic_launcher);
 		}
 
-		// Í¼Æ¬¸ü¸Äend!!
+		// å›¾ç‰‡æ›´æ”¹end!!
 	}
 
-	// ×Ô¶¯µÇÂ¼
+	// è‡ªåŠ¨ç™»å½•
 	private void autologin(String UserName) {
 		if (UserName.compareTo("0") == 0) {
 			return;
@@ -305,15 +305,15 @@ public class LoginActivity extends Activity {
 
 	}
 
-	// ×Ô¶¯µÇÂ¼end
+	// è‡ªåŠ¨ç™»å½•end
 
 	private void login(final String phonenum, final String pwd) {
 		// TODO Auto-generated method stub
 
-		// Toast.makeText(getApplicationContext(), "ÕıÔÚµÇÂ½", Toast.LENGTH_SHORT)
+		// Toast.makeText(getApplicationContext(), "æ­£åœ¨ç™»é™†", Toast.LENGTH_SHORT)
 		// .show();
 		pd = new MyProgressDialog(context);
-		pd.setMessage("ÕıÔÚµÇÂ½");
+		pd.setMessage("æ­£åœ¨ç™»é™†");
 		pd.show();
 
 		String login_baseurl = getString(R.string.uri_base)
@@ -342,11 +342,11 @@ public class LoginActivity extends Activity {
 						}
 						if (suc == true) {
 
-							// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±ístart!
+							// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨start!
 							// selectuserinfo(phonenum);
 							selectcarinfo(phonenum);
 							selectuserimage("13210891397");
-							// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±íend!
+							// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨end!
 
 							Context context = LoginActivity.this;
 							SharedPreferences sharedPref = context
@@ -402,7 +402,7 @@ public class LoginActivity extends Activity {
 		};
 
 		queue.add(stringRequest);
-		// µÇÂ½°´Å¥´¥·¢end!
+		// ç™»é™†æŒ‰é’®è§¦å‘end!
 	}
 
 	private void selectuserimage(final String phonenum) {
@@ -420,9 +420,9 @@ public class LoginActivity extends Activity {
 						// login_personpicture.setImageResource(R.drawable.ic_action_back);
 						login_personpicture.setImageBitmap(bitmap);
 
-						// °ÑÍ·ÏñĞ´ÔÚ±¾µØstart£¡
+						// æŠŠå¤´åƒå†™åœ¨æœ¬åœ°startï¼
 						saveMyBitmap(bitmap);
-						// °ÑÍ·ÏñĞ´ÔÚ±¾µØend£¡
+						// æŠŠå¤´åƒå†™åœ¨æœ¬åœ°endï¼
 
 					}
 
@@ -483,7 +483,7 @@ public class LoginActivity extends Activity {
 											getString(R.string.PreferenceDefaultName),
 											Context.MODE_PRIVATE);
 							UserPhoneNumber = filename.getString(
-									"refreshfilename", "ÎÄ¼şÃû");
+									"refreshfilename", "æ–‡ä»¶å");
 							SharedPreferences sharedPref = context
 									.getSharedPreferences(UserPhoneNumber,
 											Context.MODE_PRIVATE);
@@ -499,9 +499,9 @@ public class LoginActivity extends Activity {
 							editor.putString("refreshcapacity",
 									json.getString("carCapacity"));
 							editor.commit();
-							// Ïò·şÎñÆ÷ÇëÇó²éÑ¯¸öÈËĞÅÏ¢£¨ĞÕÃûÄêÁäĞÔ±ğ£©start!
+							// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢ä¸ªäººä¿¡æ¯ï¼ˆå§“åå¹´é¾„æ€§åˆ«ï¼‰start!
 							selectuserinfo(phonenum);
-							// Ïò·şÎñÆ÷ÇëÇó²éÑ¯¸öÈËĞÅÏ¢£¨ĞÕÃûÄêÁäĞÔ±ğ£©end!
+							// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢ä¸ªäººä¿¡æ¯ï¼ˆå§“åå¹´é¾„æ€§åˆ«ï¼‰end!
 
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
@@ -552,15 +552,15 @@ public class LoginActivity extends Activity {
 											getString(R.string.PreferenceDefaultName),
 											Context.MODE_PRIVATE);
 							UserPhoneNumber = filename.getString(
-									"refreshfilename", "ÎÄ¼şÃû");
+									"refreshfilename", "æ–‡ä»¶å");
 							SharedPreferences sharedPref = context
 									.getSharedPreferences(UserPhoneNumber,
 											Context.MODE_PRIVATE);
 							SharedPreferences.Editor editor = sharedPref.edit();
-							if (json.getString("sex").compareTo("w") == 0) {// ĞÔ±ğ£ºÅ®
-								editor.putString("refreshsex", "Å®");
+							if (json.getString("sex").compareTo("w") == 0) {// æ€§åˆ«ï¼šå¥³
+								editor.putString("refreshsex", "å¥³");
 							} else if (json.getString("sex").compareTo("m") == 0) {
-								editor.putString("refreshsex", "ÄĞ");
+								editor.putString("refreshsex", "ç”·");
 							}
 							editor.putString("refreshname",
 									json.getString("name"));

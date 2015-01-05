@@ -1,8 +1,8 @@
 /*
- * ×Ô¶¨ÒåÊÊÅäÆ÷
- * ¸öÈËÖĞĞÄµÄ3¸ö¡°¸ü¶à¡±¹²ÓÃ
- * ¸ù¾İintentcallÖ´ĞĞ²»Í¬²Ù×÷
- * ¼àÌıÀ¬»øÍ°£¬·ÃÎÊ·şÎñÆ÷£¬ÔÚ·şÎñÆ÷ºÍ±¾µØÍ¬Ê±É¾³ı¸ÃÌõĞÅÏ¢
+ * è‡ªå®šä¹‰é€‚é…å™¨
+ * ä¸ªäººä¸­å¿ƒçš„3ä¸ªâ€œæ›´å¤šâ€å…±ç”¨
+ * æ ¹æ®intentcallæ‰§è¡Œä¸åŒæ“ä½œ
+ * ç›‘å¬åƒåœ¾æ¡¶ï¼Œè®¿é—®æœåŠ¡å™¨ï¼Œåœ¨æœåŠ¡å™¨å’Œæœ¬åœ°åŒæ—¶åˆ é™¤è¯¥æ¡ä¿¡æ¯
  */
 
 package com.example.carsharing;
@@ -44,7 +44,7 @@ public class MyAdapter extends BaseAdapter {
 	private String username;
 	private int intentcall;
 
-	// ÓÃ»§ÊÖ»úºÅ
+	// ç”¨æˆ·æ‰‹æœºå·
 	String UserPhoneNumber;
 
 	// database
@@ -94,7 +94,7 @@ public class MyAdapter extends BaseAdapter {
 		if (convertView == null) {
 			mylayout = new MyLayout();
 
-			// »ñÈ¡×é¼ş²¼¾Ö
+			// è·å–ç»„ä»¶å¸ƒå±€
 			convertView = layoutInflater.inflate(R.layout.messagesent_listitem,
 					null);
 			mylayout.date_time = (TextView) convertView
@@ -106,7 +106,7 @@ public class MyAdapter extends BaseAdapter {
 			mylayout.delete_button = (ImageButton) convertView
 					.findViewById(R.id.mymessage_delete);
 
-			// ÕâÀïÒª×¢Òâ£¬ÊÇÊ¹ÓÃµÄtagÀ´´æ´¢Êı¾İµÄ¡£
+			// è¿™é‡Œè¦æ³¨æ„ï¼Œæ˜¯ä½¿ç”¨çš„tagæ¥å­˜å‚¨æ•°æ®çš„ã€‚
 			convertView.setTag(mylayout);
 		} else {
 			mylayout = (MyLayout) convertView.getTag();
@@ -122,7 +122,7 @@ public class MyAdapter extends BaseAdapter {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				queue = Volley.newRequestQueue(context);
-				// ÌáÈ¡ÓÃ»§ÊÖ»úºÅ
+				// æå–ç”¨æˆ·æ‰‹æœºå·
 				SharedPreferences sharedPref = context.getSharedPreferences(
 						context.getString(R.string.PreferenceDefaultName),
 						Context.MODE_PRIVATE);
@@ -130,19 +130,19 @@ public class MyAdapter extends BaseAdapter {
 
 				if (intentcall == 1) {
 
-					// Ö÷ÒªÊÇÓÃtimeµÄÖµÀ´±æÊ¶Ó¦¸ÃÖ´ĞĞÊ²Ã´É¾³ı
+					// ä¸»è¦æ˜¯ç”¨timeçš„å€¼æ¥è¾¨è¯†åº”è¯¥æ‰§è¡Œä»€ä¹ˆåˆ é™¤
 
-					// Ïò·şÎñÆ÷·¢ÆğÉ¾³ıÉÏÏÂ°àÆ´³µ¶©µ¥µÄÇëÇóstart!
+					// å‘æœåŠ¡å™¨å‘èµ·åˆ é™¤ä¸Šä¸‹ç­æ‹¼è½¦è®¢å•çš„è¯·æ±‚start!
 					commute_deleterequest(UserPhoneNumber, time);
-					// Ïò·şÎñÆ÷·¢ÆğÉ¾³ıÉÏÏÂ°àÆ´³µ¶©µ¥µÄÇëÇóend!
+					// å‘æœåŠ¡å™¨å‘èµ·åˆ é™¤ä¸Šä¸‹ç­æ‹¼è½¦è®¢å•çš„è¯·æ±‚end!
 
-					// Ïò·şÎñÆ÷·¢ÆğÉ¾³ı¶ÌÍ¾Æ´³µµÄÇëÇóstart!
+					// å‘æœåŠ¡å™¨å‘èµ·åˆ é™¤çŸ­é€”æ‹¼è½¦çš„è¯·æ±‚start!
 					shortway_deleterequest(UserPhoneNumber, time);
-					// Ïò·şÎñÆ÷·¢ÆğÉ¾³ı¶ÌÍ¾Æ´³µµÄÇëÇóend!
+					// å‘æœåŠ¡å™¨å‘èµ·åˆ é™¤çŸ­é€”æ‹¼è½¦çš„è¯·æ±‚end!
 
-					// Ïò·şÎñÆ÷·¢ÆğÉ¾³ı¶ÌÍ¾Æ´³µµÄÇëÇóstart!
+					// å‘æœåŠ¡å™¨å‘èµ·åˆ é™¤çŸ­é€”æ‹¼è½¦çš„è¯·æ±‚start!
 					longway_deleterequest(UserPhoneNumber, time);
-					// Ïò·şÎñÆ÷·¢ÆğÉ¾³ı¶ÌÍ¾Æ´³µµÄÇëÇóend!
+					// å‘æœåŠ¡å™¨å‘èµ·åˆ é™¤çŸ­é€”æ‹¼è½¦çš„è¯·æ±‚end!
 
 				}
 				if (intentcall == 3) {
@@ -205,7 +205,7 @@ public class MyAdapter extends BaseAdapter {
 								Log.e("longway_deleterequest_result",
 										error.getMessage(), error);
 								// Toast errorinfo = Toast.makeText(null,
-								// "ÍøÂçÁ¬½ÓÊ§°Ü", Toast.LENGTH_LONG);
+								// "ç½‘ç»œè¿æ¥å¤±è´¥", Toast.LENGTH_LONG);
 								// errorinfo.show();
 							}
 						}) {
@@ -260,7 +260,7 @@ public class MyAdapter extends BaseAdapter {
 								Log.e("shortway_deleterequest_result",
 										error.getMessage(), error);
 								// Toast errorinfo = Toast.makeText(null,
-								// "ÍøÂçÁ¬½ÓÊ§°Ü", Toast.LENGTH_LONG);
+								// "ç½‘ç»œè¿æ¥å¤±è´¥", Toast.LENGTH_LONG);
 								// errorinfo.show();
 							}
 						}) {
@@ -320,7 +320,7 @@ public class MyAdapter extends BaseAdapter {
 								// error.getMessage(), error);
 								Log.e("deletewrong", "errorresponse");
 								// Toast errorinfo = Toast.makeText(null,
-								// "ÍøÂçÁ¬½ÓÊ§°Ü", Toast.LENGTH_LONG);
+								// "ç½‘ç»œè¿æ¥å¤±è´¥", Toast.LENGTH_LONG);
 								// errorinfo.show();
 							}
 						}) {

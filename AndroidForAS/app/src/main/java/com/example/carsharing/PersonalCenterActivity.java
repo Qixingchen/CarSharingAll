@@ -1,10 +1,10 @@
 /*
- * ¸öÈËÖĞĞÄ
- * 1.Í·Ïñ£¬ĞÔ±ğ£¬ĞÕÃû£¬ÄêÁä£¬Æ·ÅÆ£¬³µÅÆºÅ´Ó±¾µØ»ñÈ¡£¬¸öÈËĞÅÏ¢¿É±à¼­
- * 2.onresume ¸üĞÂÉÏÏÂ°àÆ´³µ£¬¶ÌÍ¾Æ´³µ£¬³¤Í¾Æ´³µ¸öÈË·¢²¼µÄĞÅÏ¢£¬ÏÔÊ¾µÚÒ»ÌõÔÚ¸ÃÒ³
- * 3.onresume ÊÕ²ØµÄµØÖ·´Ó±¾µØ»ñÈ¡£¬ÏÔÊ¾µÚÒ»ÌõÔÚ¸ÃÒ³
- * 4.ÆÀ¼ÛËø¶¨£¬ÆÀ¼ÛÓÉ¶©µ¥½áÊø»ñÈ¡
- * 5.×¢Ïú¸ü»»ÕËºÅ
+ * ä¸ªäººä¸­å¿ƒ
+ * 1.å¤´åƒï¼Œæ€§åˆ«ï¼Œå§“åï¼Œå¹´é¾„ï¼Œå“ç‰Œï¼Œè½¦ç‰Œå·ä»æœ¬åœ°è·å–ï¼Œä¸ªäººä¿¡æ¯å¯ç¼–è¾‘
+ * 2.onresume æ›´æ–°ä¸Šä¸‹ç­æ‹¼è½¦ï¼ŒçŸ­é€”æ‹¼è½¦ï¼Œé•¿é€”æ‹¼è½¦ä¸ªäººå‘å¸ƒçš„ä¿¡æ¯ï¼Œæ˜¾ç¤ºç¬¬ä¸€æ¡åœ¨è¯¥é¡µ
+ * 3.onresume æ”¶è—çš„åœ°å€ä»æœ¬åœ°è·å–ï¼Œæ˜¾ç¤ºç¬¬ä¸€æ¡åœ¨è¯¥é¡µ
+ * 4.è¯„ä»·é”å®šï¼Œè¯„ä»·ç”±è®¢å•ç»“æŸè·å–
+ * 5.æ³¨é”€æ›´æ¢è´¦å·
  */
 
 package com.example.carsharing;
@@ -109,7 +109,7 @@ public class PersonalCenterActivity extends Activity {
 
 	// actionbarend!!
 
-	// ÓÃ»§ÊÖ»úºÅ
+	// ç”¨æˆ·æ‰‹æœºå·
 	String UserPhoneNumber;
 
 	// database
@@ -159,7 +159,7 @@ public class PersonalCenterActivity extends Activity {
 		drawernum = (TextView) findViewById(R.id.drawer_phone);
 		about = findViewById(R.id.drawer_respond);
 
-		// ratingbar ÉèÖÃ
+		// ratingbar è®¾ç½®
 		ratingbar.setRating(1.0f);
 		// database
 
@@ -354,20 +354,20 @@ public class PersonalCenterActivity extends Activity {
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
 						Context.MODE_PRIVATE);
-		UserPhoneNumber = filename.getString("refreshfilename", "ÎÄ¼şÃû");
+		UserPhoneNumber = filename.getString("refreshfilename", "æ–‡ä»¶å");
 		SharedPreferences sharedPref = context.getSharedPreferences(
 				UserPhoneNumber, Context.MODE_PRIVATE);
-		String newfullname = sharedPref.getString("refreshname", "ĞÕÃû");
+		String newfullname = sharedPref.getString("refreshname", "å§“å");
 		drawernum.setText(UserPhoneNumber);
 		drawername.setText(newfullname);
-		String newage = sharedPref.getString("refreshage", "ÄêÁä");
+		String newage = sharedPref.getString("refreshage", "å¹´é¾„");
 
 		String newdescription = sharedPref.getString("refreshdescription",
-				"³µÁ¾ÃèÊö");
+				"è½¦è¾†æè¿°");
 
-		String newcarnum = sharedPref.getString("refreshnum", "³µÅÆºÅ");
+		String newcarnum = sharedPref.getString("refreshnum", "è½¦ç‰Œå·");
 
-		String newsex = sharedPref.getString("refreshsex", "ĞÔ±ğ");
+		String newsex = sharedPref.getString("refreshsex", "æ€§åˆ«");
 		Log.e("carnum", newcarnum);
 		name.setText(newfullname);
 		age.setText(newage);
@@ -402,11 +402,11 @@ public class PersonalCenterActivity extends Activity {
 				editor.putString(getString(R.string.PreferenceUserPassword),
 						"0");
 				editor.commit();
-				// progressbar¿ªÊ¼
+				// progressbarå¼€å§‹
 				pd = new MyProgressDialog(context);
-				pd.setMessage("ÕıÔÚ×¢Ïú");
+				pd.setMessage("æ­£åœ¨æ³¨é”€");
 				pd.show();
-				// progressbar½áÊø
+				// progressbarç»“æŸ
 				Intent quit = new Intent();
 				quit.setClass(PersonalCenterActivity.this, LoginActivity.class);
 				startActivity(quit);
@@ -416,7 +416,7 @@ public class PersonalCenterActivity extends Activity {
 		mylist1.clear();
 		mylist2.clear();
 		firsthistory.setText(R.string.first_history);
-		bfirsthistory = false;// ³õÊ¼»¯
+		bfirsthistory = false;// åˆå§‹åŒ–
 		firstdeal.setText(R.string.first_receiving);
 		bfirstdeal = false;
 		firstfavorite.setText(R.string.first_address);
@@ -427,11 +427,11 @@ public class PersonalCenterActivity extends Activity {
 			bfirstfavorite = true;
 		}
 
-		// Ïò·şÎñÆ÷·¢Æğ²éÑ¯ÉÏÏÂ°àÆ´³µ¶©µ¥ÇëÇóstart!
+		// å‘æœåŠ¡å™¨å‘èµ·æŸ¥è¯¢ä¸Šä¸‹ç­æ‹¼è½¦è®¢å•è¯·æ±‚start!
 		selectrequest(UserPhoneNumber);
-		// Ïò·şÎñÆ÷·¢Æğ²éÑ¯ÉÏÏÂ°àÆ´³µ¶©µ¥ÇëÇóend!
+		// å‘æœåŠ¡å™¨å‘èµ·æŸ¥è¯¢ä¸Šä¸‹ç­æ‹¼è½¦è®¢å•è¯·æ±‚end!
 
-		// ²éÑ¯¶©µ¥½á¹ûĞÅÏ¢
+		// æŸ¥è¯¢è®¢å•ç»“æœä¿¡æ¯
 		sharingresult(UserPhoneNumber);
 
 	}
@@ -459,42 +459,42 @@ public class PersonalCenterActivity extends Activity {
 
 								if (jasitem.getString("sharingType").compareTo(
 										"commute") == 0) {
-									map.put("text", "ÒÑÆ¥Åä¶©µ¥£ºÉÏÏÂ°àÆ´³µ");
+									map.put("text", "å·²åŒ¹é…è®¢å•ï¼šä¸Šä¸‹ç­æ‹¼è½¦");
 								} else if (jasitem.getString("sharingType")
 										.compareTo("shortway") == 0) {
-									map.put("text", "ÒÑÆ¥Åä¶©µ¥£º¶ÌÍ¾Æ´³µ");
+									map.put("text", "å·²åŒ¹é…è®¢å•ï¼šçŸ­é€”æ‹¼è½¦");
 								}
 
-								map.put("requst", jasitem.getString("dealId")); // Òş²ØµÄ
+								map.put("requst", jasitem.getString("dealId")); // éšè—çš„
 
 								String deal_readstatus = null;
 								if (i == 0) {
 									deal_readstatus = "receive";
-									map.put("deal_readstatus", "receive");// Òş²ØµÄ
+									map.put("deal_readstatus", "receive");// éšè—çš„
 								} else if (i == 3) {
 									deal_readstatus = "reject";
-									map.put("deal_readstatus", "reject");// Òş²ØµÄ
+									map.put("deal_readstatus", "reject");// éšè—çš„
 								} else if (i == 2) {
 									deal_readstatus = "assessOK";
-									map.put("deal_readstatus", "assessOK");// Òş²ØµÄ
+									map.put("deal_readstatus", "assessOK");// éšè—çš„
 								} else if (i == 1) {
 									deal_readstatus = "unread";
-									map.put("deal_readstatus", "unread");// Òş²ØµÄ
+									map.put("deal_readstatus", "unread");// éšè—çš„
 								}
 
 								Log.e("deal_readstatuspersoncenter",
 										deal_readstatus);
-								if (deal_readstatus.compareTo("unread") == 0) {// Î´¶ÁÏûÏ¢
+								if (deal_readstatus.compareTo("unread") == 0) {// æœªè¯»æ¶ˆæ¯
 									map.put("deal_readstatusIcon",
 											R.drawable.ic_dealunread);
-								} else if (deal_readstatus.compareTo("receive") == 0) {// ÒÑ½ÓÊÕ¶©µ¥£¨µÈ¼ÛÓÚ¡°Î´ÆÀ¼Û¡±£©
+								} else if (deal_readstatus.compareTo("receive") == 0) {// å·²æ¥æ”¶è®¢å•ï¼ˆç­‰ä»·äºâ€œæœªè¯„ä»·â€ï¼‰
 									map.put("deal_readstatusIcon",
 											R.drawable.ic_noneassess);
-								} else if (deal_readstatus.compareTo("reject") == 0) {// ÒÑ¾Ü¾ø¶©µ¥
+								} else if (deal_readstatus.compareTo("reject") == 0) {// å·²æ‹’ç»è®¢å•
 									map.put("deal_readstatusIcon",
 											R.drawable.ic_action_dealreject);
 								} else if (deal_readstatus
-										.compareTo("assessOK") == 0) {// ¶©µ¥Íê³É£¨°üÀ¨¡°ÆÀ¼ÛÍê±Ï¡±£©
+										.compareTo("assessOK") == 0) {// è®¢å•å®Œæˆï¼ˆåŒ…æ‹¬â€œè¯„ä»·å®Œæ¯•â€ï¼‰
 									map.put("deal_readstatusIcon",
 											R.drawable.ic_dealread);
 								}
@@ -508,14 +508,14 @@ public class PersonalCenterActivity extends Activity {
 									firstdeal.setText(jasitem
 											.getString("dealTime")
 											+ "  "
-											+ "ÉÏÏÂ°àÆ´³µ¶©µ¥");
+											+ "ä¸Šä¸‹ç­æ‹¼è½¦è®¢å•");
 									bfirstdeal = true;
 								} else if (jasitem.getString("sharingType")
 										.compareTo("shortway") == 0) {
 									firstdeal.setText(jasitem
 											.getString("dealTime")
 											+ "  "
-											+ "¶ÌÍ¾Æ´³µ¶©µ¥");
+											+ "çŸ­é€”æ‹¼è½¦è®¢å•");
 									bfirstdeal = true;
 								} else {
 									firstdeal.setText(R.string.first_receiving);
@@ -530,7 +530,7 @@ public class PersonalCenterActivity extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						Log.e("sharingresult", error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -573,7 +573,7 @@ public class PersonalCenterActivity extends Activity {
 								map.put("text",
 										jasitem.getString("startPlace")
 												+ "  "
-												+ " ÖÁ "
+												+ " è‡³ "
 												+ "  "
 												+ jasitem
 														.getString("destination")
@@ -587,7 +587,7 @@ public class PersonalCenterActivity extends Activity {
 											"startPlace").split(",");
 									String endplace[] = jasitem.getString(
 											"destination").split(",");
-									firsthistory.setText(startplace[0] + " ÖÁ  "
+									firsthistory.setText(startplace[0] + " è‡³  "
 											+ endplace[0]);
 									bfirsthistory = true;
 								}
@@ -603,7 +603,7 @@ public class PersonalCenterActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("longwayway_selectpublish_result",
 								error.getMessage(), error);
-						Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 								Toast.LENGTH_LONG);
 						errorinfo.show();
 					}
@@ -644,7 +644,7 @@ public class PersonalCenterActivity extends Activity {
 								map.put("text",
 										jasitem.getString("startPlace")
 												+ "  "
-												+ " ÖÁ  "
+												+ " è‡³  "
 												+ "  "
 												+ jasitem
 														.getString("destination")
@@ -662,8 +662,8 @@ public class PersonalCenterActivity extends Activity {
 									firsthistory.setText(
 									// jasitem
 									// .getString("requestTime")
-									// Ê×Ò³²»ÏÔÊ¾Ê±¼ä
-											startplace[0] + " ÖÁ  "
+									// é¦–é¡µä¸æ˜¾ç¤ºæ—¶é—´
+											startplace[0] + " è‡³  "
 													+ endplace[0]);
 									bfirsthistory = true;
 								}
@@ -680,7 +680,7 @@ public class PersonalCenterActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("shortway_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -719,13 +719,13 @@ public class PersonalCenterActivity extends Activity {
 								HashMap<String, String> map = new HashMap<String, String>();
 								map.put("Title",
 										jasitem.getString("requestTime")
-												+ " Ã¿ÖÜ"
+												+ " æ¯å‘¨"
 												+ jasitem
 														.getString("weekRepeat"));
 								map.put("text",
 										jasitem.getString("startPlace")
 												+ "  "
-												+ " ÖÁ "
+												+ " è‡³ "
 												+ jasitem
 														.getString("destination")
 												+ "  ");
@@ -742,8 +742,8 @@ public class PersonalCenterActivity extends Activity {
 									firsthistory.setText(
 									// jasitem
 									// .getString("requestTime")
-									// Ê×Ò³²»ÏÔÊ¾Ê±¼ä
-											startplace[0] + " ÖÁ  "
+									// é¦–é¡µä¸æ˜¾ç¤ºæ—¶é—´
+											startplace[0] + " è‡³  "
 													+ endplace[0]);
 									bfirsthistory = true;
 								}
@@ -759,7 +759,7 @@ public class PersonalCenterActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("commute_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -807,7 +807,7 @@ public class PersonalCenterActivity extends Activity {
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		// ÔÚonRestoreInstanceState·¢Éúºó£¬Í¬²½´¥·¢Æ÷×´Ì¬.
+		// åœ¨onRestoreInstanceStateå‘ç”Ÿåï¼ŒåŒæ­¥è§¦å‘å™¨çŠ¶æ€.
 		mDrawerToggle.syncState();
 	}
 
@@ -819,11 +819,11 @@ public class PersonalCenterActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// ½«ÊÂ¼ş´«µİ¸øActionBarDrawerToggle, Èç¹û·µ»Øtrue£¬±íÊ¾app Í¼±êµã»÷ÊÂ¼şÒÑ¾­±»´¦Àí
+		// å°†äº‹ä»¶ä¼ é€’ç»™ActionBarDrawerToggle, å¦‚æœè¿”å›trueï¼Œè¡¨ç¤ºapp å›¾æ ‡ç‚¹å‡»äº‹ä»¶å·²ç»è¢«å¤„ç†
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		// ´¦ÀíÄãµÄÆäËûaction bar items...
+		// å¤„ç†ä½ çš„å…¶ä»–action bar items...
 
 		return super.onOptionsItemSelected(item);
 	}
@@ -843,7 +843,7 @@ public class PersonalCenterActivity extends Activity {
 	public void exit() {
 		if (!isExit) {
 			isExit = true;
-			Toast toast = Toast.makeText(getApplicationContext(), "ÔÙ°´Ò»´ÎÍË³ö³ÌĞò",
+			Toast toast = Toast.makeText(getApplicationContext(), "å†æŒ‰ä¸€æ¬¡é€€å‡ºç¨‹åº",
 					Toast.LENGTH_SHORT);
 			toast.setGravity(Gravity.BOTTOM, 0, 50);
 			toast.show();

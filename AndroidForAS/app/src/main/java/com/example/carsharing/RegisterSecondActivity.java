@@ -1,7 +1,7 @@
 /*
- * ×¢²á2
- * ÌîĞ´ÃÜÂë£¬¼ì²éÁ½´ÎÃÜÂëÊäÈëÊÇ·ñÒ»Ñù£¬ÃÜÂëÊÇ·ñÎª¿Õ
- * Ïë·şÎñÆ÷·¢ËÍ×¢²áĞÅÏ¢£¬·şÎñÆ÷ÉÏĞ´Èë¸ÃºÅÂë
+ * æ³¨å†Œ2
+ * å¡«å†™å¯†ç ï¼Œæ£€æŸ¥ä¸¤æ¬¡å¯†ç è¾“å…¥æ˜¯å¦ä¸€æ ·ï¼Œå¯†ç æ˜¯å¦ä¸ºç©º
+ * æƒ³æœåŠ¡å™¨å‘é€æ³¨å†Œä¿¡æ¯ï¼ŒæœåŠ¡å™¨ä¸Šå†™å…¥è¯¥å·ç 
  */
 
 package com.example.carsharing;
@@ -71,15 +71,15 @@ public class RegisterSecondActivity extends Activity {
 				m2.setText("");
 			}
 		});
-		// actionbar²Ù×÷!!
+		// actionbaræ“ä½œ!!
 
-		// »æÖÆÏòÉÏ!!
+		// ç»˜åˆ¶å‘ä¸Š!!
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		// actionbarEND!!
 
-		// Ò³ÃæÌø×ªstart!
+		// é¡µé¢è·³è½¬start!
 		Button next = (Button) findViewById(R.id.registersecond_nextbutton);
 		next.setOnClickListener(new OnClickListener() {
 			@Override
@@ -88,14 +88,14 @@ public class RegisterSecondActivity extends Activity {
 						&& m1.getText().toString().compareTo("") != 0) {
 					// TODO Auto-generated method stub
 
-					// Ïò·şÎñÆ÷·¢ËÍ×¢²áĞÅÏ¢start
+					// å‘æœåŠ¡å™¨å‘é€æ³¨å†Œä¿¡æ¯start
 					Intent userregister_second = getIntent();
 					String register_phonenum = userregister_second
 							.getStringExtra(getString(R.string.user_phonenum));
-					// ´Ó×¢²áµÚÒ»Ò³»ñÈ¡µç»°ºÅÂë
+					// ä»æ³¨å†Œç¬¬ä¸€é¡µè·å–ç”µè¯å·ç 
 					userregister(register_phonenum,
 							hash.hashans(m1.getText().toString()));
-					// Ïò·şÎñÆ÷·¢ËÍ×¢²áĞÅÏ¢end
+					// å‘æœåŠ¡å™¨å‘é€æ³¨å†Œä¿¡æ¯end
 
 				} else {
 					Toast.makeText(getApplicationContext(),
@@ -149,7 +149,7 @@ public class RegisterSecondActivity extends Activity {
 									startActivity(next);
 								} else {
 									Toast errorinfo = Toast.makeText(
-											getApplicationContext(), "×¢²áÊ§°Ü",
+											getApplicationContext(), "æ³¨å†Œå¤±è´¥",
 											Toast.LENGTH_LONG);
 									errorinfo.show();
 								}
@@ -160,7 +160,7 @@ public class RegisterSecondActivity extends Activity {
 								Log.e("userregister_result",
 										error.getMessage(), error);
 								// Toast errorinfo = Toast.makeText(null,
-								// "ÍøÂçÁ¬½ÓÊ§°Ü", Toast.LENGTH_LONG);
+								// "ç½‘ç»œè¿æ¥å¤±è´¥", Toast.LENGTH_LONG);
 								// errorinfo.show();
 							}
 						}) {
@@ -177,13 +177,13 @@ public class RegisterSecondActivity extends Activity {
 
 			}
 		});
-		// Ò³ÃæÌø×ªend!
+		// é¡µé¢è·³è½¬end!
 
 	}
 
 	public void setActionBarLayout(int layoutId) {
 
-		// actionbar²Ù×÷!!
+		// actionbaræ“ä½œ!!
 		ActionBar actionBar = getActionBar();
 
 		if (null != actionBar) {
@@ -211,7 +211,7 @@ public class RegisterSecondActivity extends Activity {
 
 	}
 
-	// actionbar²Ù×÷!!
+	// actionbaræ“ä½œ!!
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar

@@ -1,5 +1,5 @@
 /*
- * progress bar¼ÓÔØĞ§¹û
+ * progress baråŠ è½½æ•ˆæœ
  */
 
 package com.example.carsharing;
@@ -20,7 +20,7 @@ public class MyProgressDialog extends Dialog {
 
 		setContentView(R.layout.progress_dialog);
 		getWindow().getAttributes().gravity = Gravity.CENTER;
-		setMessage("ÕıÔÚ¼ÓÔØÖĞ...");
+		setMessage("æ­£åœ¨åŠ è½½ä¸­...");
 	}
 
 	public void setMessage(String strMessage) {

@@ -1,6 +1,6 @@
 /*
- * ����
- * �ж������û����Ƿ�Ϊ�Ϸ��ĺ���
+ * 函数
+ * 判断输入用户名是否为合法的号码
  */
 
 package com.example.carsharing;

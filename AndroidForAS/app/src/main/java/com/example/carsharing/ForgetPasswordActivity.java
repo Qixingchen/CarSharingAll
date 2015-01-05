@@ -1,6 +1,6 @@
 /*
- * Íü¼ÇÃÜÂë
- * ·¢ËÍÑéÖ¤Âë£¬ÃÜÂëÖØÉè
+ * å¿˜è®°å¯†ç 
+ * å‘é€éªŒè¯ç ï¼Œå¯†ç é‡è®¾
  */
 
 package com.example.carsharing;
@@ -164,7 +164,7 @@ public class ForgetPasswordActivity extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						Log.e("checkphone_result", error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -209,7 +209,7 @@ public class ForgetPasswordActivity extends Activity {
 									PersonalCenterActivity.class);
 							startActivity(btn_login);
 						} else {
-							Toast.makeText(getApplicationContext(), "ÃÜÂëĞŞ¸ÄÊ§°Ü£¡",
+							Toast.makeText(getApplicationContext(), "å¯†ç ä¿®æ”¹å¤±è´¥ï¼",
 									Toast.LENGTH_LONG).show();
 						}
 					}

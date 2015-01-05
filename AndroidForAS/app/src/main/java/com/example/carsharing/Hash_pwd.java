@@ -1,6 +1,6 @@
 /*
- * 密码加密函数
- * 两次哈希
+ * 瀵嗙爜鍔犲瘑鍑芥暟
+ * 涓ゆ鍝堝笇
  */
 
 package com.example.carsharing;

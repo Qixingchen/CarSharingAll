@@ -1,5 +1,5 @@
 /*
- * ±¾µØÊı¾İ¿â
+ * æœ¬åœ°æ•°æ®åº“
  */
 
 package com.example.carsharing;
@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// TODO ´´½¨Êı¾İ¿âºó£¬¶ÔÊı¾İ¿âµÄ²Ù×÷
+		// TODO åˆ›å»ºæ•°æ®åº“åï¼Œå¯¹æ•°æ®åº“çš„æ“ä½œ
 
 		db.execSQL("CREATE TABLE placeLiked (_id INTEGER PRIMARY KEY AUTOINCREMENT, PlaceUserName TEXT, PlaceMapName TEXT ,longitude  REAL, latitude REAL);");
 		db.execSQL("CREATE TABLE placeHistroy (_id INTEGER PRIMARY KEY AUTOINCREMENT, PlaceUserName TEXT, PlaceMapName TEXT ,longitude  REAL, latitude REAL);");
@@ -25,12 +25,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO ¸ü¸ÄÊı¾İ¿â°æ±¾µÄ²Ù×÷
+		// TODO æ›´æ”¹æ•°æ®åº“ç‰ˆæœ¬çš„æ“ä½œ
 	}
 
 	@Override
 	public void onOpen(SQLiteDatabase db) {
 		super.onOpen(db);
-		// TODO Ã¿´Î³É¹¦´ò¿ªÊı¾İ¿âºóÊ×ÏÈ±»Ö´ĞĞ
+		// TODO æ¯æ¬¡æˆåŠŸæ‰“å¼€æ•°æ®åº“åé¦–å…ˆè¢«æ‰§è¡Œ
 	}
 }

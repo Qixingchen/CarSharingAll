@@ -1,8 +1,8 @@
 /*
- * ¶ÌÍ¾Æ´³µ½çÃæ
- * ¶©µ¥ÌîĞ´Ò³
- * ·ÃÎÊ·şÎñÆ÷»ñÈ¡³µÁ¾ĞÅÏ¢£¬×Ô¶¯Ìî³ä³µÁ¾ĞÅÏ¢
- * ·ÃÎÊ·şÎñÆ÷Ìá½»¶©µ¥
+ * çŸ­é€”æ‹¼è½¦ç•Œé¢
+ * è®¢å•å¡«å†™é¡µ
+ * è®¿é—®æœåŠ¡å™¨è·å–è½¦è¾†ä¿¡æ¯ï¼Œè‡ªåŠ¨å¡«å……è½¦è¾†ä¿¡æ¯
+ * è®¿é—®æœåŠ¡å™¨æäº¤è®¢å•
  */
 
 package com.example.carsharing;
@@ -81,7 +81,7 @@ public class ShortWayActivity extends Activity {
 
 	private RequestQueue queue;
 
-	private int carinfochoosing_type;// ×÷Îª³µÁ¾±íĞÅÏ¢ĞŞ¸Ä·½·¨µÄÅĞ±ğ
+	private int carinfochoosing_type;// ä½œä¸ºè½¦è¾†è¡¨ä¿¡æ¯ä¿®æ”¹æ–¹æ³•çš„åˆ¤åˆ«
 
 	SimpleDateFormat standard_date, standard_time, primary_date, primary_time;
 	String standard_shortway_startdate = null,
@@ -137,20 +137,20 @@ public class ShortWayActivity extends Activity {
 	TextView s2;
 
 	Calendar c = Calendar.getInstance();
-	// ÓÃ»§ÊÖ»úºÅ
+	// ç”¨æˆ·æ‰‹æœºå·
 	String UserPhoneNumber;
 
-	// ÊÕ²Ø
+	// æ”¶è—
 	ImageView star1, star2;
-	// ÊÕ²Øend
+	// æ”¶è—end
 
-	// ±íµ¥Êı¾İ±£´æ
+	// è¡¨å•æ•°æ®ä¿å­˜
 
 	String StartPointUserName, StartPointMapName, EndPointUserName,
 			EndPointMapName;
 	// float StartLongitude, EndLongitude, StartLatitude, EndLatitude;
 
-	// ±íµ¥Êı¾İ±£´æend
+	// è¡¨å•æ•°æ®ä¿å­˜end
 
 	// database
 
@@ -173,7 +173,7 @@ public class ShortWayActivity extends Activity {
 
 		bdriver = true;
 
-		// ÌáÈ¡ÓÃ»§ÊÖ»úºÅ
+		// æå–ç”¨æˆ·æ‰‹æœºå·
 		SharedPreferences sharedPref = this
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
@@ -181,14 +181,14 @@ public class ShortWayActivity extends Activity {
 		UserPhoneNumber = sharedPref.getString(
 				getString(R.string.PreferenceUserPhoneNumber), "0");
 
-		// ÈÕÆÚ¡¢Ê±¼ä±ê×¼¸ñÊ½
+		// æ—¥æœŸã€æ—¶é—´æ ‡å‡†æ ¼å¼
 		standard_date = new SimpleDateFormat("yyyy-MM-dd",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_date = new SimpleDateFormat("yyyyÄêMMÔÂddÈÕ",
+		primary_date = new SimpleDateFormat("yyyyå¹´MMæœˆddæ—¥",
 				Locale.SIMPLIFIED_CHINESE);
 		standard_time = new SimpleDateFormat("HH:mm:ss",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_time = new SimpleDateFormat("HHÊ±mm·ÖssÃë",
+		primary_time = new SimpleDateFormat("HHæ—¶mmåˆ†ssç§’",
 				Locale.SIMPLIFIED_CHINESE);
 
 		queue = Volley.newRequestQueue(this);
@@ -200,8 +200,8 @@ public class ShortWayActivity extends Activity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				String temp = startplace.getText().toString();
-				if (!temp.equals("Ñ¡ÔñÆğµã")
-						&& !endplace.getText().toString().equals("Ñ¡ÔñÖÕµã")) {
+				if (!temp.equals("é€‰æ‹©èµ·ç‚¹")
+						&& !endplace.getText().toString().equals("é€‰æ‹©ç»ˆç‚¹")) {
 					startplace.setText(endplace.getText().toString());
 					endplace.setText(temp);
 					float a, b;
@@ -262,7 +262,7 @@ public class ShortWayActivity extends Activity {
 		// judge the value of "pre_page"
 		Bundle bundle = this.getIntent().getExtras();
 		String PRE_PAGE = bundle.getString("pre_page");
-		if (PRE_PAGE.compareTo("ReOrder") == 0) { // ÖØĞÂÏÂµ¥
+		if (PRE_PAGE.compareTo("ReOrder") == 0) { // é‡æ–°ä¸‹å•
 			startplace.setText(bundle.getString("stpusername") + ","
 					+ bundle.getString("stpmapname"));
 			bstart = true;
@@ -464,15 +464,15 @@ public class ShortWayActivity extends Activity {
 			}
 		});
 
-		// °ó¶¨Ò»¸öRadioGroup¼àÌıÆ÷
+		// ç»‘å®šä¸€ä¸ªRadioGroupç›‘å¬å™¨
 		shortway_group
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 					@Override
 					public void onCheckedChanged(RadioGroup arg0, int checkedId) {
 						// TODO Auto-generated method stub18
-						// »ñÈ¡±ä¸üºóµÄÑ¡ÖĞÏîµÄID
+						// è·å–å˜æ›´åçš„é€‰ä¸­é¡¹çš„ID
 
-						// "ÎÒÄÜÌá¹©³µ"²»±ä£¬"ÎÒ²»ÄÜÌá¹©³µ"Ê¹³µÅÆºÅµÈ±à¼­¿ò²»¿É±à¼­£¬²¢¸ü¸ÄtextView
+						// "æˆ‘èƒ½æä¾›è½¦"ä¸å˜ï¼Œ"æˆ‘ä¸èƒ½æä¾›è½¦"ä½¿è½¦ç‰Œå·ç­‰ç¼–è¾‘æ¡†ä¸å¯ç¼–è¾‘ï¼Œå¹¶æ›´æ”¹textView
 						if (checkedId == mRadio2.getId()) {
 							bpassenager = true;
 							bdriver = false;
@@ -594,9 +594,9 @@ public class ShortWayActivity extends Activity {
 							color.setInputType(InputType.TYPE_CLASS_TEXT);
 							model.setInputType(InputType.TYPE_CLASS_TEXT);
 
-							// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±ístart!
+							// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨start!
 							selectcarinfo(UserPhoneNumber);
-							// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±íend!
+							// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨end!
 						}
 						confirm();
 					}
@@ -613,11 +613,11 @@ public class ShortWayActivity extends Activity {
 				else
 					userrole = "p";
 
-				// Ïò·şÎñÆ÷Ìá½»ÉÏÏÂ°àÆ´³µ¶©µ¥ÇëÇóstart!
+				// å‘æœåŠ¡å™¨æäº¤ä¸Šä¸‹ç­æ‹¼è½¦è®¢å•è¯·æ±‚start!
 				shortway_request(UserPhoneNumber, datebutton.getText()
 						.toString(), earlystarttime.getText().toString(),
 						latestarttime.getText().toString());
-				// Ïò·şÎñÆ÷Ìá½»ÉÏÏÂ°àÆ´³µ¶©µ¥ÇëÇóend!
+				// å‘æœåŠ¡å™¨æäº¤ä¸Šä¸‹ç­æ‹¼è½¦è®¢å•è¯·æ±‚end!
 
 			}
 
@@ -627,7 +627,7 @@ public class ShortWayActivity extends Activity {
 					final String shortway_endtime) {
 				// TODO Auto-generated method stub
 
-				// Ç¿ÖÆ×ª»»ÈÕÆÚ¸ñÊ½start
+				// å¼ºåˆ¶è½¬æ¢æ—¥æœŸæ ¼å¼start
 				try {
 					test_date = primary_date.parse(shortway_date);
 					standard_shortway_startdate = standard_date
@@ -653,7 +653,7 @@ public class ShortWayActivity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				// Ç¿ÖÆ×ª»»ÈÕÆÚ¸ñÊ½end!
+				// å¼ºåˆ¶è½¬æ¢æ—¥æœŸæ ¼å¼end!
 
 				String shortway_baseurl = getString(R.string.uri_base)
 						+ getString(R.string.uri_ShortwayRequest)
@@ -680,24 +680,24 @@ public class ShortWayActivity extends Activity {
 
 									if (carinfochoosing_type == 1) {
 										// add
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸ÄÇëÇóstart!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹è¯·æ±‚start!
 										carinfo(shortway_phonenum, licensenum
 												.getText().toString(), carbrand
 												.getText().toString(), model
 												.getText().toString(), color
 												.getText().toString(), String
 												.valueOf(sum), 1);
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸Äend!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹end!
 									} else {
 										// update
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸ÄÇëÇóstart!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹è¯·æ±‚start!
 										carinfo(shortway_phonenum, licensenum
 												.getText().toString(), carbrand
 												.getText().toString(), model
 												.getText().toString(), color
 												.getText().toString(), String
 												.valueOf(sum), 2);
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸Äend!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹end!
 									}
 
 									Intent sure = new Intent(
@@ -711,7 +711,7 @@ public class ShortWayActivity extends Activity {
 								} else {
 									// Toast errorinfo =
 									// Toast.makeText(getApplicationContext(),
-									// "Ìá½»Ê§°Ü", Toast.LENGTH_LONG);
+									// "æäº¤å¤±è´¥", Toast.LENGTH_LONG);
 									// errorinfo.show();
 									Intent sure = new Intent(
 											ShortWayActivity.this,
@@ -728,7 +728,7 @@ public class ShortWayActivity extends Activity {
 								Log.e("shortway_result", error.getMessage(),
 										error);
 								// Toast errorinfo = Toast.makeText(null,
-								// "ÍøÂçÁ¬½ÓÊ§°Ü", Toast.LENGTH_LONG);
+								// "ç½‘ç»œè¿æ¥å¤±è´¥", Toast.LENGTH_LONG);
 								// errorinfo.show();
 								Intent sure = new Intent(ShortWayActivity.this,
 										OrderResponseActivity.class);
@@ -740,9 +740,9 @@ public class ShortWayActivity extends Activity {
 							}
 						}) {
 					protected Map<String, String> getParams() {
-						// POST·½·¨ÖØĞ´getParamsº¯Êı
+						// POSTæ–¹æ³•é‡å†™getParamså‡½æ•°
 
-						// Ç¿ÖÆ×ª»»ÈÕÆÚ¸ñÊ½start
+						// å¼ºåˆ¶è½¬æ¢æ—¥æœŸæ ¼å¼start
 						try {
 							test_date = primary_date.parse(shortway_date);
 							standard_shortway_startdate = standard_date
@@ -769,7 +769,7 @@ public class ShortWayActivity extends Activity {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						// Ç¿ÖÆ×ª»»ÈÕÆÚ¸ñÊ½end!
+						// å¼ºåˆ¶è½¬æ¢æ—¥æœŸæ ¼å¼end!
 
 						Map<String, String> params = new HashMap<String, String>();
 						params.put("phonenum", shortway_phonenum);
@@ -887,7 +887,7 @@ public class ShortWayActivity extends Activity {
 		Context context = ShortWayActivity.this;
 		SharedPreferences sharedPref = context.getSharedPreferences(
 				UserPhoneNumber, Context.MODE_PRIVATE);
-		String fullname = sharedPref.getString("refreshname", "ĞÕÃû");
+		String fullname = sharedPref.getString("refreshname", "å§“å");
 		drawername.setText(fullname);
 		File photoFile = new File(
 				this.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
@@ -918,11 +918,11 @@ public class ShortWayActivity extends Activity {
 
 				startplace
 						.setText(StartPointUserName + "," + StartPointMapName);
-				Log.w("STintent»Ø±¨¾­¶È", String.valueOf(startplace_longitude));
-				Log.w("STintent»Ø±¨Î³¶È", String.valueOf(startplace_latitude));
+				Log.w("STintentå›æŠ¥ç»åº¦", String.valueOf(startplace_longitude));
+				Log.w("STintentå›æŠ¥çº¬åº¦", String.valueOf(startplace_latitude));
 				Log.w("MapName", StartPointMapName);
 
-				// ÊÕ²Ø
+				// æ”¶è—
 
 				if (Pointisliked(StartPointMapName)) {
 					star1.setImageResource(R.drawable.ic_action_important);
@@ -930,7 +930,7 @@ public class ShortWayActivity extends Activity {
 					star1.setImageResource(R.drawable.ic_action_not_important);
 				}
 
-				// ÊÕ²Øend
+				// æ”¶è—end
 				bstart = true;
 				break;
 
@@ -948,10 +948,10 @@ public class ShortWayActivity extends Activity {
 						.getStringExtra(getString(R.string.dbstring_latitude)));
 
 				endplace.setText(EndPointUserName + "," + EndPointMapName);
-				Log.w("ENDintent»Ø±¨¾­¶È", String.valueOf(destination_longitude));
-				Log.w("ENDintent»Ø±¨Î³¶È", String.valueOf(destination_latitude));
+				Log.w("ENDintentå›æŠ¥ç»åº¦", String.valueOf(destination_longitude));
+				Log.w("ENDintentå›æŠ¥çº¬åº¦", String.valueOf(destination_latitude));
 
-				// ÊÕ²Ø
+				// æ”¶è—
 
 				if (Pointisliked(EndPointMapName)) {
 					star2.setImageResource(R.drawable.ic_action_important);
@@ -959,7 +959,7 @@ public class ShortWayActivity extends Activity {
 					star2.setImageResource(R.drawable.ic_action_not_important);
 				}
 
-				// ÊÕ²Øend
+				// æ”¶è—end
 
 				bend = true;
 				break;
@@ -1006,11 +1006,11 @@ public class ShortWayActivity extends Activity {
 		// }
 	}
 
-	// ÅĞ¶ÏÊÇ·ñÊÕ²Ø
+	// åˆ¤æ–­æ˜¯å¦æ”¶è—
 	private Boolean Pointisliked(String mapname) {
 
-		// ±íÃû ,Òª»ñÈ¡µÄ×Ö¶ÎÃû£¬WHERE Ìõ¼ş£¬WHereÖµ£¬don't group the rows£¬don't filter by row
-		// groups£¬ÅÅĞòÌõ¼ş¡£
+		// è¡¨å ,è¦è·å–çš„å­—æ®µåï¼ŒWHERE æ¡ä»¶ï¼ŒWHereå€¼ï¼Œdon't group the rowsï¼Œdon't filter by row
+		// groupsï¼Œæ’åºæ¡ä»¶ã€‚
 		Log.e("curMapName", mapname);
 		Cursor isliked = db1.query(getString(R.string.dbtable_placeliked),
 				null, getString(R.string.dbstring_PlaceMapName) + "=?",
@@ -1045,7 +1045,7 @@ public class ShortWayActivity extends Activity {
 
 		// "http://192.168.1.111:8080/CarsharingServer/CarInfo!changeinfo.action?";
 
-		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// ÖĞÎÄ±àÂë
+		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// ä¸­æ–‡ç¼–ç 
 
 		Log.d("carinfo_URL", carinfo_baseurl);
 		// Instantiate the RequestQueue.
@@ -1066,7 +1066,7 @@ public class ShortWayActivity extends Activity {
 						}
 						if (carinfook == false) {
 							Toast errorinfo = Toast.makeText(
-									getApplicationContext(), "³µÁ¾ĞÅÏ¢ĞŞ¸ÄÊ§°Ü",
+									getApplicationContext(), "è½¦è¾†ä¿¡æ¯ä¿®æ”¹å¤±è´¥",
 									Toast.LENGTH_LONG);
 							errorinfo.show();
 						}
@@ -1077,7 +1077,7 @@ public class ShortWayActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("carinfo_result", error.getMessage(), error);
 						// Toast errorinfo = Toast.makeText(null,
-						// "ÍøÂçÁ¬½ÓÊ§°Ü", Toast.LENGTH_LONG);
+						// "ç½‘ç»œè¿æ¥å¤±è´¥", Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
 				}) {
@@ -1117,7 +1117,7 @@ public class ShortWayActivity extends Activity {
 							JSONObject json = json1.getJSONObject("result");
 							jas_id = json.getString("id");
 
-							if (jas_id.compareTo("") != 0) { // ·şÎñÆ÷ÉÏ´æÔÚ³µÁ¾ĞÅÏ¢Ê±
+							if (jas_id.compareTo("") != 0) { // æœåŠ¡å™¨ä¸Šå­˜åœ¨è½¦è¾†ä¿¡æ¯æ—¶
 
 								carinfochoosing_type = 2;
 
@@ -1186,10 +1186,10 @@ public class ShortWayActivity extends Activity {
 			// TODO Auto-generated method stub
 			mHour = hourOfDay;
 			mMinute = minute;
-			DisplayToast("Ê±¼äÎª:" + String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö");
-			earlystarttime.setText(String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö" + "00" + "Ãë");
+			DisplayToast("æ—¶é—´ä¸º:" + String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†");
+			earlystarttime.setText(String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†" + "00" + "ç§’");
 
 			best = true;
 			confirm();
@@ -1203,10 +1203,10 @@ public class ShortWayActivity extends Activity {
 			// TODO Auto-generated method stub
 			mHour = hourOfDay;
 			mMinute = minute;
-			DisplayToast("Ê±¼äÎª:" + String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö" + "00" + "Ãë");
-			latestarttime.setText(String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö" + "00" + "Ãë");
+			DisplayToast("æ—¶é—´ä¸º:" + String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†" + "00" + "ç§’");
+			latestarttime.setText(String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†" + "00" + "ç§’");
 
 			blst = true;
 			confirm();
@@ -1222,12 +1222,12 @@ public class ShortWayActivity extends Activity {
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
-			DisplayToast(String.valueOf(year) + "Äê"
-					+ String.valueOf(monthofYear + 1) + "ÔÂ"
-					+ String.valueOf(dayofMonth) + "ÈÕ");
-			datebutton.setText(String.valueOf(year) + "Äê"
-					+ String.valueOf(monthofYear + 1) + "ÔÂ"
-					+ String.valueOf(dayofMonth) + "ÈÕ");
+			DisplayToast(String.valueOf(year) + "å¹´"
+					+ String.valueOf(monthofYear + 1) + "æœˆ"
+					+ String.valueOf(dayofMonth) + "æ—¥");
+			datebutton.setText(String.valueOf(year) + "å¹´"
+					+ String.valueOf(monthofYear + 1) + "æœˆ"
+					+ String.valueOf(dayofMonth) + "æ—¥");
 			bdate = true;
 			confirm();
 		}
@@ -1249,7 +1249,7 @@ public class ShortWayActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -1282,7 +1282,7 @@ public class ShortWayActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -1316,7 +1316,7 @@ public class ShortWayActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -1350,7 +1350,7 @@ public class ShortWayActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -1380,10 +1380,10 @@ public class ShortWayActivity extends Activity {
 	}
 
 	// actionbar!!
-	/* µ±invalidateOptionsMenu()µ÷ÓÃÊ±µ÷ÓÃ */
+	/* å½“invalidateOptionsMenu()è°ƒç”¨æ—¶è°ƒç”¨ */
 	// @Override
 	// public boolean onPrepareOptionsMenu(Menu menu) {
-	// // Èç¹ûnav drawerÊÇ´ò¿ªµÄ, Òş²ØÓëÄÚÈİÊÓÍ¼Ïà¹ØÁªµÄaction items
+	// // å¦‚æœnav draweræ˜¯æ‰“å¼€çš„, éšè—ä¸å†…å®¹è§†å›¾ç›¸å…³è”çš„action items
 	// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
 	// menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
 	// return super.onPrepareOptionsMenu(menu);
@@ -1392,7 +1392,7 @@ public class ShortWayActivity extends Activity {
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		// ÔÚonRestoreInstanceState·¢Éúºó£¬Í¬²½´¥·¢Æ÷×´Ì¬.
+		// åœ¨onRestoreInstanceStateå‘ç”Ÿåï¼ŒåŒæ­¥è§¦å‘å™¨çŠ¶æ€.
 		mDrawerToggle.syncState();
 	}
 
@@ -1404,11 +1404,11 @@ public class ShortWayActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// ½«ÊÂ¼ş´«µİ¸øActionBarDrawerToggle, Èç¹û·µ»Øtrue£¬±íÊ¾app Í¼±êµã»÷ÊÂ¼şÒÑ¾­±»´¦Àí
+		// å°†äº‹ä»¶ä¼ é€’ç»™ActionBarDrawerToggle, å¦‚æœè¿”å›trueï¼Œè¡¨ç¤ºapp å›¾æ ‡ç‚¹å‡»äº‹ä»¶å·²ç»è¢«å¤„ç†
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		// ´¦ÀíÄãµÄÆäËûaction bar items...
+		// å¤„ç†ä½ çš„å…¶ä»–action bar items...
 
 		return super.onOptionsItemSelected(item);
 	}

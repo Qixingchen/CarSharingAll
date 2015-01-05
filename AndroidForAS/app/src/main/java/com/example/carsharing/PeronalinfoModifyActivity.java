@@ -1,8 +1,8 @@
 /*
- * ĞÅÏ¢ĞŞ¸Ä
- * Í·ÏñĞŞ¸Ä£¬´æÔÚ±¾µØ
- * ¸öÈËĞÅÏ¢ĞŞ¸ÄÓë³µÁ¾ĞÅÏ¢ĞŞ¸Ä£¬Í¬Ê±´æÔÚ±¾µØºÍ·şÎñÆ÷
- * ·ÃÎÊ·şÎñÆ÷»ñÈ¡³µÁ¾±í£¬¼ì²é·şÎñÆ÷ÉÏÊÇ·ñÒÑ´æÔÚ³µÁ¾±í£¬Ñ¡Ôñ³µÁ¾±íµÄÌá½»·½Ê½ÊÇadd»¹ÊÇupdate
+ * ä¿¡æ¯ä¿®æ”¹
+ * å¤´åƒä¿®æ”¹ï¼Œå­˜åœ¨æœ¬åœ°
+ * ä¸ªäººä¿¡æ¯ä¿®æ”¹ä¸è½¦è¾†ä¿¡æ¯ä¿®æ”¹ï¼ŒåŒæ—¶å­˜åœ¨æœ¬åœ°å’ŒæœåŠ¡å™¨
+ * è®¿é—®æœåŠ¡å™¨è·å–è½¦è¾†è¡¨ï¼Œæ£€æŸ¥æœåŠ¡å™¨ä¸Šæ˜¯å¦å·²å­˜åœ¨è½¦è¾†è¡¨ï¼Œé€‰æ‹©è½¦è¾†è¡¨çš„æäº¤æ–¹å¼æ˜¯addè¿˜æ˜¯update
  */
 
 package com.example.carsharing;
@@ -75,16 +75,16 @@ public class PeronalinfoModifyActivity extends Activity {
 	private String userpassword;
 	public static RequestQueue queue;
 
-	private int carinfochoosing_type;// ×÷Îª³µÁ¾±íĞÅÏ¢ĞŞ¸Ä·½·¨µÄÅĞ±ğ
+	private int carinfochoosing_type;// ä½œä¸ºè½¦è¾†è¡¨ä¿¡æ¯ä¿®æ”¹æ–¹æ³•çš„åˆ¤åˆ«
 
 	Hash_pwd hash = new Hash_pwd();
 
-	private String[] items = new String[] { "Ñ¡Ôñ±¾µØÍ¼Æ¬", "ÅÄÕÕ" };
-	/* Í·ÏñÃû³Æ */
+	private String[] items = new String[] { "é€‰æ‹©æœ¬åœ°å›¾ç‰‡", "æ‹ç…§" };
+	/* å¤´åƒåç§° */
 	private static final String IMAGE_FILE_NAME = "faceImage.jpg";
 	private String UserPhoneNumber;
 
-	/* ÇëÇóÂë */
+	/* è¯·æ±‚ç  */
 	private static final int IMAGE_REQUEST_CODE = 0;
 	private static final int CAMERA_REQUEST_CODE = 1;
 	private static final int RESULT_REQUEST_CODE = 2;
@@ -113,7 +113,7 @@ public class PeronalinfoModifyActivity extends Activity {
 
 		// "http://192.168.1.111:8080/CarsharingServer/CarInfo!changeinfo.action?";
 
-		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// ÖĞÎÄ±àÂë
+		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// ä¸­æ–‡ç¼–ç 
 
 		Log.d("carinfo_URL", carinfo_baseurl);
 		// Instantiate the RequestQueue.
@@ -134,12 +134,12 @@ public class PeronalinfoModifyActivity extends Activity {
 						}
 						if (carinfook == false) {
 							Toast errorinfo = Toast.makeText(
-									getApplicationContext(), "³µÁ¾ĞÅÏ¢ĞŞ¸ÄÊ§°Ü",
+									getApplicationContext(), "è½¦è¾†ä¿¡æ¯ä¿®æ”¹å¤±è´¥",
 									Toast.LENGTH_SHORT);
 							errorinfo.show();
 						} else {
 							Toast info = Toast.makeText(
-									getApplicationContext(), "³µÁ¾ĞÅÏ¢ĞŞ¸Ä³É¹¦",
+									getApplicationContext(), "è½¦è¾†ä¿¡æ¯ä¿®æ”¹æˆåŠŸ",
 									Toast.LENGTH_SHORT);
 							info.show();
 						}
@@ -149,7 +149,7 @@ public class PeronalinfoModifyActivity extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						Log.e("carinfo_result", error.getMessage(), error);
-						Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 								Toast.LENGTH_LONG);
 						errorinfo.show();
 					}
@@ -198,12 +198,12 @@ public class PeronalinfoModifyActivity extends Activity {
 						}
 						if (modifyok == false) {
 							Toast errorinfo = Toast.makeText(
-									getApplicationContext(), "¸öÈËĞÅÏ¢ĞŞ¸ÄÊ§°Ü",
+									getApplicationContext(), "ä¸ªäººä¿¡æ¯ä¿®æ”¹å¤±è´¥",
 									Toast.LENGTH_SHORT);
 							errorinfo.show();
 						} else {
 							Toast info = Toast.makeText(
-									getApplicationContext(), "¸öÈËĞÅÏ¢ĞŞ¸Ä³É¹¦",
+									getApplicationContext(), "ä¸ªäººä¿¡æ¯ä¿®æ”¹æˆåŠŸ",
 									Toast.LENGTH_SHORT);
 							info.show();
 						}
@@ -212,7 +212,7 @@ public class PeronalinfoModifyActivity extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						Log.e("changeinfo_result", error.getMessage(), error);
-						Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 								Toast.LENGTH_LONG);
 						errorinfo.show();
 					}
@@ -309,9 +309,9 @@ public class PeronalinfoModifyActivity extends Activity {
 		maleRadioButton = (RadioButton) findViewById(R.id.informodify_male);
 		switchAvatar = (LinearLayout) findViewById(R.id.photolayout);
 		faceImage = (ImageView) findViewById(R.id.Userbadge);
-		// ÉèÖÃÊÂ¼ş¼àÌı
+		// è®¾ç½®äº‹ä»¶ç›‘å¬
 		switchAvatar.setOnClickListener(listener);
-		// ÌáÈ¡ÓÃ»§ÊÖ»úºÅ
+		// æå–ç”¨æˆ·æ‰‹æœºå·
 		SharedPreferences sharedPref = this
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
@@ -358,10 +358,10 @@ public class PeronalinfoModifyActivity extends Activity {
 						.toString());
 
 				if (femaleRadioButton.isChecked() == true) {
-					editor.putString("refreshsex", "Å®");
+					editor.putString("refreshsex", "å¥³");
 					sex = "w";
 				} else {
-					editor.putString("refreshsex", "ÄĞ");
+					editor.putString("refreshsex", "ç”·");
 					sex = "m";
 				}
 				editor.commit();
@@ -373,17 +373,17 @@ public class PeronalinfoModifyActivity extends Activity {
 				userpassword = filename.getString(
 						getString(R.string.PreferenceUserPassword), "0");
 
-				// Ïò·şÎñÆ÷·¢ËÍ¸öÈËĞÅÏ¢ĞŞ¸ÄÇëÇóstart!
+				// å‘æœåŠ¡å™¨å‘é€ä¸ªäººä¿¡æ¯ä¿®æ”¹è¯·æ±‚start!
 				changeinfo(username, name.getText().toString(), age.getText()
 						.toString(), sex);
-				// Ïò·şÎñÆ÷·¢ËÍ¸öÈËĞÅÏ¢ĞŞ¸ÄÇëÇóend!
+				// å‘æœåŠ¡å™¨å‘é€ä¸ªäººä¿¡æ¯ä¿®æ”¹è¯·æ±‚end!
 
-				// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸ÄÇëÇóstart!
+				// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹è¯·æ±‚start!
 				carinfo(username, num.getText().toString(), brand.getText()
 						.toString(), model.getText().toString(), color
 						.getText().toString(), capacity.getText().toString(),
 						carinfochoosing_type);
-				// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸Äend!
+				// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹end!
 
 				Intent btn_login = new Intent();
 				btn_login.setClass(PeronalinfoModifyActivity.this,
@@ -398,9 +398,9 @@ public class PeronalinfoModifyActivity extends Activity {
 	public void onResume() {
 		super.onResume(); // Always call the superclass method first
 
-		// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±ístart!
+		// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨start!
 		selectcarinfo(UserPhoneNumber);
-		// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±íend!
+		// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨end!
 
 		// Get the Camera instance as the activity achieves full user focus
 
@@ -409,7 +409,7 @@ public class PeronalinfoModifyActivity extends Activity {
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
 						Context.MODE_PRIVATE);
-		UserPhoneNumber = filename.getString("refreshfilename", "ÎÄ¼şÃû");
+		UserPhoneNumber = filename.getString("refreshfilename", "æ–‡ä»¶å");
 		SharedPreferences sharedPref = context.getSharedPreferences(
 				UserPhoneNumber, Context.MODE_PRIVATE);
 		String newfullname = sharedPref.getString("refreshname", "");
@@ -426,8 +426,8 @@ public class PeronalinfoModifyActivity extends Activity {
 		num.setText(newnum);
 		String newcapacity = sharedPref.getString("refreshcapacity", "");
 		capacity.setText(newcapacity);
-		String sex = sharedPref.getString("refreshsex", "Å®");
-		if (sex.compareTo("Å®") == 0) {
+		String sex = sharedPref.getString("refreshsex", "å¥³");
+		if (sex.compareTo("å¥³") == 0) {
 			femaleRadioButton.setChecked(true);
 		} else {
 			maleRadioButton.setChecked(true);
@@ -454,12 +454,12 @@ public class PeronalinfoModifyActivity extends Activity {
 	};
 
 	/**
-	 * ÏÔÊ¾Ñ¡Ôñ¶Ô»°¿ò
+	 * æ˜¾ç¤ºé€‰æ‹©å¯¹è¯æ¡†
 	 */
 	private void showDialog() {
 
 		new AlertDialog.Builder(this)
-				.setTitle("ÉèÖÃÍ·Ïñ")
+				.setTitle("è®¾ç½®å¤´åƒ")
 				.setItems(items, new DialogInterface.OnClickListener() {
 
 					@Override
@@ -467,7 +467,7 @@ public class PeronalinfoModifyActivity extends Activity {
 						switch (which) {
 						case 0:
 							Intent intentFromGallery = new Intent();
-							intentFromGallery.setType("image/*"); // ÉèÖÃÎÄ¼şÀàĞÍ
+							intentFromGallery.setType("image/*"); // è®¾ç½®æ–‡ä»¶ç±»å‹
 							intentFromGallery
 									.setAction(Intent.ACTION_GET_CONTENT);
 							startActivityForResult(intentFromGallery,
@@ -477,7 +477,7 @@ public class PeronalinfoModifyActivity extends Activity {
 
 							Intent intentFromCapture = new Intent(
 									MediaStore.ACTION_IMAGE_CAPTURE);
-							// ÅĞ¶Ï´æ´¢¿¨ÊÇ·ñ¿ÉÒÔÓÃ£¬¿ÉÓÃ½øĞĞ´æ´¢
+							// åˆ¤æ–­å­˜å‚¨å¡æ˜¯å¦å¯ä»¥ç”¨ï¼Œå¯ç”¨è¿›è¡Œå­˜å‚¨
 							if (Tool.hasSdcard()) {
 
 								intentFromCapture.putExtra(
@@ -493,7 +493,7 @@ public class PeronalinfoModifyActivity extends Activity {
 						}
 					}
 				})
-				.setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
+				.setNegativeButton("å–æ¶ˆ", new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -518,7 +518,7 @@ public class PeronalinfoModifyActivity extends Activity {
 					startPhotoZoom(Uri.fromFile(tempFile));
 				} else {
 					Toast.makeText(PeronalinfoModifyActivity.this,
-							"Î´ÕÒµ½´æ´¢¿¨£¬ÎŞ·¨´æ´¢ÕÕÆ¬£¡", Toast.LENGTH_LONG).show();
+							"æœªæ‰¾åˆ°å­˜å‚¨å¡ï¼Œæ— æ³•å­˜å‚¨ç…§ç‰‡ï¼", Toast.LENGTH_LONG).show();
 				}
 
 				break;
@@ -533,7 +533,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	}
 
 	/**
-	 * ²Ã¼ôÍ¼Æ¬·½·¨ÊµÏÖ
+	 * è£å‰ªå›¾ç‰‡æ–¹æ³•å®ç°
 	 * 
 	 * @param uri
 	 */
@@ -541,12 +541,12 @@ public class PeronalinfoModifyActivity extends Activity {
 
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
-		// ÉèÖÃ²Ã¼ô
+		// è®¾ç½®è£å‰ª
 		intent.putExtra("crop", "true");
-		// aspectX aspectY ÊÇ¿í¸ßµÄ±ÈÀı
+		// aspectX aspectY æ˜¯å®½é«˜çš„æ¯”ä¾‹
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
-		// outputX outputY ÊÇ²Ã¼ôÍ¼Æ¬¿í¸ß
+		// outputX outputY æ˜¯è£å‰ªå›¾ç‰‡å®½é«˜
 		intent.putExtra("outputX", 320);
 		intent.putExtra("outputY", 320);
 		intent.putExtra("return-data", true);
@@ -557,7 +557,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	}
 
 	/**
-	 * ±£´æ²Ã¼ôÖ®ºóµÄÍ¼Æ¬Êı¾İ
+	 * ä¿å­˜è£å‰ªä¹‹åçš„å›¾ç‰‡æ•°æ®
 	 * 
 	 * @param picdata
 	 */
@@ -595,7 +595,7 @@ public class PeronalinfoModifyActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -628,7 +628,7 @@ public class PeronalinfoModifyActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -662,7 +662,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
 	// // TODO Auto-generated method stub
-	// // mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+	// // mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 	// }
 	//
 	// @Override
@@ -695,7 +695,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
 	// // TODO Auto-generated method stub
-	// // mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+	// // mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 	// }
 	//
 	// @Override
@@ -728,7 +728,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
 	// // TODO Auto-generated method stub
-	// // mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+	// // mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 	// }
 	//
 	// @Override
@@ -760,7 +760,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
 	// // TODO Auto-generated method stub
-	// // mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+	// // mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 	// }
 	//
 	// @Override
@@ -792,7 +792,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
 	// // TODO Auto-generated method stub
-	// // mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+	// // mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 	// }
 	//
 	// @Override

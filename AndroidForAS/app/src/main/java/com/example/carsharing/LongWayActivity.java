@@ -1,8 +1,8 @@
 /*
- * ³¤Í¾Æ´³µ½çÃæ
- * ¶©µ¥ÌîĞ´Ò³
- * ·ÃÎÊ·şÎñÆ÷»ñÈ¡³µÁ¾ĞÅÏ¢£¬×Ô¶¯Ìî³ä³µÁ¾ĞÅÏ¢
- * ·ÃÎÊ·şÎñÆ÷Ìá½»¶©µ¥
+ * é•¿é€”æ‹¼è½¦ç•Œé¢
+ * è®¢å•å¡«å†™é¡µ
+ * è®¿é—®æœåŠ¡å™¨è·å–è½¦è¾†ä¿¡æ¯ï¼Œè‡ªåŠ¨å¡«å……è½¦è¾†ä¿¡æ¯
+ * è®¿é—®æœåŠ¡å™¨æäº¤è®¢å•
  */
 
 package com.example.carsharing;
@@ -88,7 +88,7 @@ public class LongWayActivity extends Activity {
 
 	private RequestQueue queue;
 
-	private int carinfochoosing_type;// ×÷Îª³µÁ¾±íĞÅÏ¢ĞŞ¸Ä·½·¨µÄÅĞ±ğ
+	private int carinfochoosing_type;// ä½œä¸ºè½¦è¾†è¡¨ä¿¡æ¯ä¿®æ”¹æ–¹æ³•çš„åˆ¤åˆ«
 
 	Date test_date, now = new Date();
 
@@ -117,7 +117,7 @@ public class LongWayActivity extends Activity {
 	private TextView drawernum;
 	private static final String IMAGE_FILE_NAME2 = "faceImage2.jpg";
 
-	// ÓÃ»§ÊÖ»úºÅ
+	// ç”¨æˆ·æ‰‹æœºå·
 	String UserPhoneNumber;
 	String userrole;
 
@@ -132,12 +132,12 @@ public class LongWayActivity extends Activity {
 
 	// actionbarend!!
 
-	// ±íµ¥Êı¾İ±£´æ
+	// è¡¨å•æ•°æ®ä¿å­˜
 
 	String StartPointUserName, StartPointMapName, EndPointUserName,
 			EndPointMapName;
 
-	// ±íµ¥Êı¾İ±£´æend
+	// è¡¨å•æ•°æ®ä¿å­˜end
 
 	// database
 
@@ -159,10 +159,10 @@ public class LongWayActivity extends Activity {
 		mDrawerToggle = activity_drawer.newdrawer();
 		mDrawerLayout = activity_drawer.setDrawerLayout();
 
-		// ÈÕÆÚ¡¢Ê±¼ä±ê×¼¸ñÊ½
+		// æ—¥æœŸã€æ—¶é—´æ ‡å‡†æ ¼å¼
 		standard_date = new SimpleDateFormat("yyyy-MM-dd",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_date = new SimpleDateFormat("yyyyÄêMMÔÂddÈÕ",
+		primary_date = new SimpleDateFormat("yyyyå¹´MMæœˆddæ—¥",
 				Locale.SIMPLIFIED_CHINESE);
 
 		queue = Volley.newRequestQueue(this);
@@ -220,7 +220,7 @@ public class LongWayActivity extends Activity {
 		// judge the value of "pre_page"
 		Bundle bundle = this.getIntent().getExtras();
 		String PRE_PAGE = bundle.getString("pre_page");
-		if (PRE_PAGE.compareTo("ReOrder") == 0) { // ÖØĞÂÏÂµ¥
+		if (PRE_PAGE.compareTo("ReOrder") == 0) { // é‡æ–°ä¸‹å•
 			startplace.setText(bundle.getString("stpmapname"));
 			bstart = true;
 			endplace.setText(bundle.getString("epmapname"));
@@ -230,7 +230,7 @@ public class LongWayActivity extends Activity {
 		}
 		// judge the value of "pre_page"
 
-		// ÌáÈ¡ÓÃ»§ÊÖ»úºÅ
+		// æå–ç”¨æˆ·æ‰‹æœºå·
 		SharedPreferences sharedPref = this
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
@@ -290,15 +290,15 @@ public class LongWayActivity extends Activity {
 			}
 		});
 
-		// °ó¶¨Ò»¸öRadioGroup¼àÌıÆ÷
+		// ç»‘å®šä¸€ä¸ªRadioGroupç›‘å¬å™¨
 
 		longway_group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup arg0, int checkedId) {
 				// TODO Auto-generated method stub18
-				// »ñÈ¡±ä¸üºóµÄÑ¡ÖĞÏîµÄID
+				// è·å–å˜æ›´åçš„é€‰ä¸­é¡¹çš„ID
 
-				// "ÎÒÄÜÌá¹©³µ"²»±ä£¬"ÎÒ²»ÄÜÌá¹©³µ"Ê¹³µÅÆºÅµÈ±à¼­¿ò²»¿É±à¼­£¬²¢¸ü¸ÄtextView
+				// "æˆ‘èƒ½æä¾›è½¦"ä¸å˜ï¼Œ"æˆ‘ä¸èƒ½æä¾›è½¦"ä½¿è½¦ç‰Œå·ç­‰ç¼–è¾‘æ¡†ä¸å¯ç¼–è¾‘ï¼Œå¹¶æ›´æ”¹textView
 				if (checkedId == passangerRadioButton.getId()) {
 					bpassenager = true;
 					bdriver = false;
@@ -413,9 +413,9 @@ public class LongWayActivity extends Activity {
 					color.setInputType(InputType.TYPE_CLASS_TEXT);
 					model.setInputType(InputType.TYPE_CLASS_TEXT);
 
-					// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±ístart!
+					// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨start!
 					selectcarinfo(UserPhoneNumber);
-					// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±íend!
+					// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨end!
 				}
 				confirm();
 			}
@@ -444,7 +444,7 @@ public class LongWayActivity extends Activity {
 											.getJSONObject("result");
 									jas_id = json.getString("id");
 
-									if (jas_id.compareTo("") != 0) { // ·şÎñÆ÷ÉÏ´æÔÚ³µÁ¾ĞÅÏ¢Ê±
+									if (jas_id.compareTo("") != 0) { // æœåŠ¡å™¨ä¸Šå­˜åœ¨è½¦è¾†ä¿¡æ¯æ—¶
 
 										carinfochoosing_type = 2;
 
@@ -500,7 +500,7 @@ public class LongWayActivity extends Activity {
 				else
 					userrole = "d";
 
-				// Ïò·şÎñÆ÷Ìá½»³¤Í¾Æ´³µ¶©µ¥ÇëÇóstart!
+				// å‘æœåŠ¡å™¨æäº¤é•¿é€”æ‹¼è½¦è®¢å•è¯·æ±‚start!
 				Context phonenumber = LongWayActivity.this;
 				SharedPreferences filename = phonenumber.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
@@ -509,7 +509,7 @@ public class LongWayActivity extends Activity {
 				longway_request(username, userrole, datebutton.getText()
 						.toString(), startplace.getText().toString(), endplace
 						.getText().toString(), noteinfo.getText().toString());
-				// Ïò·şÎñÆ÷Ìá½»³¤Í¾Æ´³µ¶©µ¥ÇëÇóend!
+				// å‘æœåŠ¡å™¨æäº¤é•¿é€”æ‹¼è½¦è®¢å•è¯·æ±‚end!
 			}
 
 			private void longway_request(final String longway_phonenum,
@@ -551,24 +551,24 @@ public class LongWayActivity extends Activity {
 
 									if (carinfochoosing_type == 1) {
 										// add
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸ÄÇëÇóstart!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹è¯·æ±‚start!
 										carinfo(longway_phonenum, licensenum
 												.getText().toString(), carbrand
 												.getText().toString(), model
 												.getText().toString(), color
 												.getText().toString(), String
 												.valueOf(sum), 1);
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸Äend!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹end!
 									} else {
 										// update
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸ÄÇëÇóstart!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹è¯·æ±‚start!
 										carinfo(longway_phonenum, licensenum
 												.getText().toString(), carbrand
 												.getText().toString(), model
 												.getText().toString(), color
 												.getText().toString(), String
 												.valueOf(sum), 2);
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸Äend!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹end!
 									}
 
 									Intent sure = new Intent(
@@ -582,7 +582,7 @@ public class LongWayActivity extends Activity {
 								} else {
 									// Toast errorinfo =
 									// Toast.makeText(getApplicationContext(),
-									// "Ìá½»Ê§°Ü", Toast.LENGTH_LONG);
+									// "æäº¤å¤±è´¥", Toast.LENGTH_LONG);
 									// errorinfo.show();
 									Intent sure = new Intent(
 											LongWayActivity.this,
@@ -600,7 +600,7 @@ public class LongWayActivity extends Activity {
 								Log.e("longway_result", error.getMessage(),
 										error);
 								// Toast errorinfo = Toast.makeText(null,
-								// "ÍøÂçÁ¬½ÓÊ§°Ü", Toast.LENGTH_LONG);
+								// "ç½‘ç»œè¿æ¥å¤±è´¥", Toast.LENGTH_LONG);
 								// errorinfo.show();
 								Intent sure = new Intent(LongWayActivity.this,
 										OrderResponseActivity.class);
@@ -612,9 +612,9 @@ public class LongWayActivity extends Activity {
 							}
 						}) {
 					protected Map<String, String> getParams() {
-						// POST·½·¨ÖØĞ´getParamsº¯Êı
+						// POSTæ–¹æ³•é‡å†™getParamså‡½æ•°
 
-						// Ç¿ÖÆ×ª»»ÈÕÆÚ¸ñÊ½start
+						// å¼ºåˆ¶è½¬æ¢æ—¥æœŸæ ¼å¼start
 						try {
 							test_date = primary_date.parse(longway_startdate);
 							standard_longway_startdate = standard_date
@@ -624,7 +624,7 @@ public class LongWayActivity extends Activity {
 							e.printStackTrace();
 						}
 
-						// Ç¿ÖÆ×ª»»ÈÕÆÚ¸ñÊ½end!
+						// å¼ºåˆ¶è½¬æ¢æ—¥æœŸæ ¼å¼end!
 
 						Map<String, String> params = new HashMap<String, String>();
 						params.put(getString(R.string.uri_phonenum),
@@ -647,7 +647,7 @@ public class LongWayActivity extends Activity {
 			}
 		});
 
-		// ³éÌëÌø×ªstart!
+		// æŠ½å±‰è·³è½¬start!
 		shortway.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -681,7 +681,7 @@ public class LongWayActivity extends Activity {
 			}
 		});
 
-		// ³éÌëÌø×ªend!
+		// æŠ½å±‰è·³è½¬end!
 
 		increase.setOnClickListener(new OnClickListener() {
 
@@ -733,7 +733,7 @@ public class LongWayActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -767,7 +767,7 @@ public class LongWayActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -801,7 +801,7 @@ public class LongWayActivity extends Activity {
 		Context context = LongWayActivity.this;
 		SharedPreferences sharedPref = context.getSharedPreferences(
 				UserPhoneNumber, Context.MODE_PRIVATE);
-		String fullname = sharedPref.getString("refreshname", "ĞÕÃû");
+		String fullname = sharedPref.getString("refreshname", "å§“å");
 		drawername.setText(fullname);
 		File photoFile = new File(
 				this.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
@@ -835,7 +835,7 @@ public class LongWayActivity extends Activity {
 
 		// "http://192.168.1.111:8080/CarsharingServer/CarInfo!changeinfo.action?";
 
-		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// ÖĞÎÄ±àÂë
+		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// ä¸­æ–‡ç¼–ç 
 
 		Log.d("carinfo_URL", carinfo_baseurl);
 		// Instantiate the RequestQueue.
@@ -856,7 +856,7 @@ public class LongWayActivity extends Activity {
 						}
 						if (carinfook == false) {
 							Toast errorinfo = Toast.makeText(
-									getApplicationContext(), "³µÁ¾ĞÅÏ¢ĞŞ¸ÄÊ§°Ü",
+									getApplicationContext(), "è½¦è¾†ä¿¡æ¯ä¿®æ”¹å¤±è´¥",
 									Toast.LENGTH_LONG);
 							errorinfo.show();
 						}
@@ -867,7 +867,7 @@ public class LongWayActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("carinfo_result", error.getMessage(), error);
 						// Toast errorinfo = Toast.makeText(null,
-						// "ÍøÂçÁ¬½ÓÊ§°Ü", Toast.LENGTH_LONG);
+						// "ç½‘ç»œè¿æ¥å¤±è´¥", Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
 				}) {
@@ -914,12 +914,12 @@ public class LongWayActivity extends Activity {
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
-			DisplayToast(String.valueOf(year) + "Äê"
-					+ String.valueOf(monthofYear + 1) + "ÔÂ"
-					+ String.valueOf(dayofMonth) + "ÈÕ");
-			datebutton.setText(String.valueOf(year) + "Äê"
-					+ String.valueOf(monthofYear + 1) + "ÔÂ"
-					+ String.valueOf(dayofMonth) + "ÈÕ");
+			DisplayToast(String.valueOf(year) + "å¹´"
+					+ String.valueOf(monthofYear + 1) + "æœˆ"
+					+ String.valueOf(dayofMonth) + "æ—¥");
+			datebutton.setText(String.valueOf(year) + "å¹´"
+					+ String.valueOf(monthofYear + 1) + "æœˆ"
+					+ String.valueOf(dayofMonth) + "æ—¥");
 			bdate = true;
 			confirm();
 		}
@@ -940,7 +940,7 @@ public class LongWayActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -973,7 +973,7 @@ public class LongWayActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -1007,7 +1007,7 @@ public class LongWayActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -1041,7 +1041,7 @@ public class LongWayActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -1070,10 +1070,10 @@ public class LongWayActivity extends Activity {
 	}
 
 	// actionbar!!
-	/* µ±invalidateOptionsMenu()µ÷ÓÃÊ±µ÷ÓÃ */
+	/* å½“invalidateOptionsMenu()è°ƒç”¨æ—¶è°ƒç”¨ */
 	// @Override
 	// public boolean onPrepareOptionsMenu(Menu menu) {
-	// // Èç¹ûnav drawerÊÇ´ò¿ªµÄ, Òş²ØÓëÄÚÈİÊÓÍ¼Ïà¹ØÁªµÄaction items
+	// // å¦‚æœnav draweræ˜¯æ‰“å¼€çš„, éšè—ä¸å†…å®¹è§†å›¾ç›¸å…³è”çš„action items
 	// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
 	// menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
 	// return super.onPrepareOptionsMenu(menu);
@@ -1082,7 +1082,7 @@ public class LongWayActivity extends Activity {
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		// ÔÚonRestoreInstanceState·¢Éúºó£¬Í¬²½´¥·¢Æ÷×´Ì¬.
+		// åœ¨onRestoreInstanceStateå‘ç”Ÿåï¼ŒåŒæ­¥è§¦å‘å™¨çŠ¶æ€.
 		mDrawerToggle.syncState();
 	}
 
@@ -1094,11 +1094,11 @@ public class LongWayActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// ½«ÊÂ¼ş´«µİ¸øActionBarDrawerToggle, Èç¹û·µ»Øtrue£¬±íÊ¾app Í¼±êµã»÷ÊÂ¼şÒÑ¾­±»´¦Àí
+		// å°†äº‹ä»¶ä¼ é€’ç»™ActionBarDrawerToggle, å¦‚æœè¿”å›trueï¼Œè¡¨ç¤ºapp å›¾æ ‡ç‚¹å‡»äº‹ä»¶å·²ç»è¢«å¤„ç†
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		// ´¦ÀíÄãµÄÆäËûaction bar items...
+		// å¤„ç†ä½ çš„å…¶ä»–action bar items...
 
 		return super.onOptionsItemSelected(item);
 	}

@@ -1,9 +1,9 @@
 /*
- * ¡°¸ü¶à¡±
- * Îª¸öÈËÖĞĞÄÈı¸ö¡°µã»÷²é¿´¡±¹²ÓÃ
- * 1.intentcall=1  ¼àÌıÃ¿Ò»Ìõitem£¬µã»÷¸ÃÌõitemÊ±°´Ğò·ÃÎÊ·şÎñÆ÷µÄÈıÖÖÀàĞÍ¶©µ¥£¬¸ù¾İÇëÇóÊ±¼ä»ñÈ¡¾ßÌå¶©µ¥ĞÅÏ¢£¬´«Öµµ½¶©µ¥ÏêÇé½çÃæ
+ * â€œæ›´å¤šâ€
+ * ä¸ºä¸ªäººä¸­å¿ƒä¸‰ä¸ªâ€œç‚¹å‡»æŸ¥çœ‹â€å…±ç”¨
+ * 1.intentcall=1  ç›‘å¬æ¯ä¸€æ¡itemï¼Œç‚¹å‡»è¯¥æ¡itemæ—¶æŒ‰åºè®¿é—®æœåŠ¡å™¨çš„ä¸‰ç§ç±»å‹è®¢å•ï¼Œæ ¹æ®è¯·æ±‚æ—¶é—´è·å–å…·ä½“è®¢å•ä¿¡æ¯ï¼Œä¼ å€¼åˆ°è®¢å•è¯¦æƒ…ç•Œé¢
  * 2.intentcall=2
- * 3.intentcall=3 µ÷ÓÃÊÊÅäÆ÷ÏÔÊ¾ÔÚ±¾µØÒÑ´æ´¢µÄÊÕ²ØµÄµØÖ·
+ * 3.intentcall=3 è°ƒç”¨é€‚é…å™¨æ˜¾ç¤ºåœ¨æœ¬åœ°å·²å­˜å‚¨çš„æ”¶è—çš„åœ°å€
  */
 
 package com.example.carsharing;
@@ -79,28 +79,28 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 		int intentcall = bundle.getInt("intent");
 
-		// actionbar²Ù×÷!!
+		// actionbaræ“ä½œ!!
 
-		// »æÖÆÏòÉÏ!!
+		// ç»˜åˆ¶å‘ä¸Š!!
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		// actionbarEND!!
 
-		// °ó¶¨XMLÖĞµÄListView£¬×÷ÎªItemµÄÈİÆ÷
+		// ç»‘å®šXMLä¸­çš„ListViewï¼Œä½œä¸ºItemçš„å®¹å™¨
 		ListView list = (ListView) findViewById(R.id.WacthAllMessSent);
-		// Éú³É¶¯Ì¬Êı×é£¬²¢ÇÒ×ªÔØÊı¾İ
+		// ç”ŸæˆåŠ¨æ€æ•°ç»„ï¼Œå¹¶ä¸”è½¬è½½æ•°æ®
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 		ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
 
 		if (1 == intentcall) {
 
 			MyAdapter sAdapter_messSent = new MyAdapter(this,
-					PersonalCenterActivity.mylist1, 1); // Êı¾İÀ´Ô´
-			// Ìí¼Ó²¢ÇÒÏÔÊ¾
+					PersonalCenterActivity.mylist1, 1); // æ•°æ®æ¥æº
+			// æ·»åŠ å¹¶ä¸”æ˜¾ç¤º
 			list.setAdapter(sAdapter_messSent);
 
-			// Item¼àÌıÌø×ªstart!
+			// Itemç›‘å¬è·³è½¬start!
 			list.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -112,7 +112,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					shortway_selectrequest(UserPhoneNumber, requesttime);
 				}
 			});
-			// Item¼àÌıÌø×ªend!
+			// Itemç›‘å¬è·³è½¬end!
 
 		}
 
@@ -121,9 +121,9 @@ public class PersonCenterDetaillistActivity extends Activity {
 			// Bundle dealbundle = this.getIntent().getExtras();
 			// deal_readstatus = dealbundle.getString("deal_readstatus");
 
-			// Éú³ÉÊÊÅäÆ÷£¬Êı×é===¡·ListItem
+			// ç”Ÿæˆé€‚é…å™¨ï¼Œæ•°ç»„===ã€‹ListItem
 			// MyAdapter sAdapter_messSent = new MyAdapter(this,
-			// PersonalCenterActivity.mylist2, 2); // Êı¾İÀ´Ô´
+			// PersonalCenterActivity.mylist2, 2); // æ•°æ®æ¥æº
 			SimpleAdapter sAdapter_messSent = new SimpleAdapter(this,
 					PersonalCenterActivity.mylist2,
 					R.layout.dealstatus_listitem, new String[] { "Title",
@@ -132,10 +132,10 @@ public class PersonCenterDetaillistActivity extends Activity {
 							R.id.dealkind, R.id.dealid, R.id.dealstatus,
 							R.id.list_dealstatus });
 
-			// Ìí¼Ó²¢ÇÒÏÔÊ¾
+			// æ·»åŠ å¹¶ä¸”æ˜¾ç¤º
 			list.setAdapter(sAdapter_messSent);
 
-			// ¼àÌıitem
+			// ç›‘å¬item
 			list.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
@@ -174,11 +174,11 @@ public class PersonCenterDetaillistActivity extends Activity {
 		if (3 == intentcall) {
 
 			MyAdapter sAdapter_messSent = new MyAdapter(this,
-					PersonalCenterActivity.mylist3, 3); // Êı¾İÀ´Ô´
-			// Ìí¼Ó²¢ÇÒÏÔÊ¾
+					PersonalCenterActivity.mylist3, 3); // æ•°æ®æ¥æº
+			// æ·»åŠ å¹¶ä¸”æ˜¾ç¤º
 			list.setAdapter(sAdapter_messSent);
 
-			// Éú³ÉÊÊÅäÆ÷£¬Êı×é===¡·ListItem
+			// ç”Ÿæˆé€‚é…å™¨ï¼Œæ•°ç»„===ã€‹ListItem
 
 		}
 
@@ -282,7 +282,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("shortway_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -345,7 +345,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 									bundle.putString(
 											"tst",
 											jasitem.getString("startDate")
-													+ "ÖÁ"
+													+ "è‡³"
 													+ jasitem
 															.getString("endDate")
 													+ "  "
@@ -355,7 +355,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 													+ jasitem
 															.getString("endTime")
 													+ "  "
-													+ "Ã¿ÖÜ:"
+													+ "æ¯å‘¨:"
 													+ jasitem
 															.getString("weekRepeat"));
 									bundle.putString("startdate",
@@ -396,7 +396,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("commute_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -461,7 +461,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 							}
 							if (i == jasA.length()) {
 								Toast.makeText(getApplicationContext(),
-										"¸Ã¶©µ¥ÒÑ²»´æÔÚ", Toast.LENGTH_SHORT).show();
+										"è¯¥è®¢å•å·²ä¸å­˜åœ¨", Toast.LENGTH_SHORT).show();
 							} else {
 								Intent intent = new Intent(
 										PersonCenterDetaillistActivity.this,
@@ -480,7 +480,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("commute_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -500,7 +500,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 	// data) {
 	// if(requestCode==1){
 	// switch(resultCode){
-	// case 1 :{//½ÓÊÜ»ò¾Ü¾ø
+	// case 1 :{//æ¥å—æˆ–æ‹’ç»
 	// Log.e("aaa","a");
 	// statusImage.setImageResource(R.drawable.ic_dealread);
 	// break;

@@ -1,5 +1,5 @@
 /*
- * µØÍ¼ÏÔÊ¾½çÃæ
+ * åœ°å›¾æ˜¾ç¤ºç•Œé¢
  */
 
 package com.example.carsharing;
@@ -24,21 +24,21 @@ public class FindPositionActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		// ÔÚactivityÖ´ĞĞonDestroyÊ±Ö´ĞĞmMapView.onDestroy()£¬ÊµÏÖµØÍ¼ÉúÃüÖÜÆÚ¹ÜÀí
+		// åœ¨activityæ‰§è¡ŒonDestroyæ—¶æ‰§è¡ŒmMapView.onDestroy()ï¼Œå®ç°åœ°å›¾ç”Ÿå‘½å‘¨æœŸç®¡ç†
 		mapview.onDestroy();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		// ÔÚactivityÖ´ĞĞonResumeÊ±Ö´ĞĞmMapView. onResume ()£¬ÊµÏÖµØÍ¼ÉúÃüÖÜÆÚ¹ÜÀí
+		// åœ¨activityæ‰§è¡ŒonResumeæ—¶æ‰§è¡ŒmMapView. onResume ()ï¼Œå®ç°åœ°å›¾ç”Ÿå‘½å‘¨æœŸç®¡ç†
 		mapview.onResume();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		// ÔÚactivityÖ´ĞĞonPauseÊ±Ö´ĞĞmMapView. onPause ()£¬ÊµÏÖµØÍ¼ÉúÃüÖÜÆÚ¹ÜÀí
+		// åœ¨activityæ‰§è¡ŒonPauseæ—¶æ‰§è¡ŒmMapView. onPause ()ï¼Œå®ç°åœ°å›¾ç”Ÿå‘½å‘¨æœŸç®¡ç†
 		mapview.onPause();
 	}
 

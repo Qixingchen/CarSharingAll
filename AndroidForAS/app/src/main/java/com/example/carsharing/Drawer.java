@@ -27,23 +27,23 @@ public class Drawer {
 		mTitle = activity.getTitle();
 		mDrawerTitle = activity.getString(R.string.app_name);
 
-		// ĞèÇóĞŞ¸Ä!!
+		// éœ€æ±‚ä¿®æ”¹!!
 		mDrawerLayout = (DrawerLayout) activity.findViewById(viewid);
-		mDrawerToggle = new ActionBarDrawerToggle(activity, /* ³ĞÔØ Activity */
-		mDrawerLayout, /* DrawerLayout ¶ÔÏó */
-		R.drawable.ic_drawer, /* nav drawer Í¼±êÓÃÀ´Ìæ»»'Up'·ûºÅ */
-		R.string.drawer_open, /* "´ò¿ª drawer" ÃèÊö */
-		R.string.drawer_close /* "¹Ø±Õ drawer" ÃèÊö */
+		mDrawerToggle = new ActionBarDrawerToggle(activity, /* æ‰¿è½½ Activity */
+		mDrawerLayout, /* DrawerLayout å¯¹è±¡ */
+		R.drawable.ic_drawer, /* nav drawer å›¾æ ‡ç”¨æ¥æ›¿æ¢'Up'ç¬¦å· */
+		R.string.drawer_open, /* "æ‰“å¼€ drawer" æè¿° */
+		R.string.drawer_close /* "å…³é—­ drawer" æè¿° */
 		) {
 
-			/** µ±drawer´¦ÓÚÍêÈ«¹Ø±ÕµÄ×´Ì¬Ê±µ÷ÓÃ */
+			/** å½“drawerå¤„äºå®Œå…¨å…³é—­çš„çŠ¶æ€æ—¶è°ƒç”¨ */
 			@Override
 			public void onDrawerClosed(View view) {
 				super.onDrawerClosed(view);
 				activity.getActionBar().setTitle(mTitle);
 			}
 
-			/** µ±drawer´¦ÓÚÍêÈ«´ò¿ªµÄ×´Ì¬Ê±µ÷ÓÃ */
+			/** å½“drawerå¤„äºå®Œå…¨æ‰“å¼€çš„çŠ¶æ€æ—¶è°ƒç”¨ */
 			@Override
 			public void onDrawerOpened(View drawerView) {
 				super.onDrawerOpened(drawerView);
@@ -51,17 +51,17 @@ public class Drawer {
 			}
 		};
 
-		// ÉèÖÃdrawer´¥·¢Æ÷ÎªDrawerListener
+		// è®¾ç½®drawerè§¦å‘å™¨ä¸ºDrawerListener
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		activity.getActionBar().setDisplayHomeAsUpEnabled(true);
 		activity.getActionBar().setHomeButtonEnabled(true);
 
 		// actionbar!!
-		/* µ±invalidateOptionsMenu()µ÷ÓÃÊ±µ÷ÓÃ */
+		/* å½“invalidateOptionsMenu()è°ƒç”¨æ—¶è°ƒç”¨ */
 		// @Override
 		// public boolean onPrepareOptionsMenu(Menu menu) {
-		// // Èç¹ûnav drawerÊÇ´ò¿ªµÄ, Òş²ØÓëÄÚÈİÊÓÍ¼Ïà¹ØÁªµÄaction items
+		// // å¦‚æœnav draweræ˜¯æ‰“å¼€çš„, éšè—ä¸å†…å®¹è§†å›¾ç›¸å…³è”çš„action items
 		// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
 		// menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
 		// return super.onPrepareOptionsMenu(menu);

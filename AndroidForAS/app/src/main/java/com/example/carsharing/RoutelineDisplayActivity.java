@@ -64,7 +64,7 @@ public class RoutelineDisplayActivity extends Activity implements
 	private ImageView fanhui;// actionbar id
 	private ImageView routeline_dealsign;
 	/*
-	 * ¶©µ¥ÏêÇéid
+	 * è®¢å•è¯¦æƒ…id
 	 */
 	private ImageButton dialerButton;
 	private TextView driverPhone;
@@ -166,7 +166,7 @@ public class RoutelineDisplayActivity extends Activity implements
 
 		Log.e("deal_readstatus",
 				getIntent().getExtras().getString("deal_readstatus"));
-		// ¶©µ¥×´Ì¬ÅĞ¶Ïstart£¡£¡
+		// è®¢å•çŠ¶æ€åˆ¤æ–­startï¼ï¼
 		if (getIntent().getExtras().getString("deal_readstatus")
 				.compareTo("receive") == 0) {
 			routeline_reject.setVisibility(View.GONE);
@@ -191,7 +191,7 @@ public class RoutelineDisplayActivity extends Activity implements
 			routeline_assess.setVisibility(View.GONE);
 			routeline_dealsign.setVisibility(View.GONE);
 		}
-		// ¶©µ¥×´Ì¬ÅĞ¶Ïend£¡£¡
+		// è®¢å•çŠ¶æ€åˆ¤æ–­endï¼ï¼
 
 		/*
 		 * Called when the activity is first created.
@@ -206,7 +206,7 @@ public class RoutelineDisplayActivity extends Activity implements
 			}
 		});
 
-		// actionbarÖĞ·µ»Ø¼ü¼àÌı
+		// actionbarä¸­è¿”å›é”®ç›‘å¬
 		fanhui = (ImageView) findViewById(android.R.id.home);
 		fanhui.setOnClickListener(new OnClickListener() {
 
@@ -220,12 +220,12 @@ public class RoutelineDisplayActivity extends Activity implements
 		mapview = (MapView) findViewById(R.id.routelinemap);
 		mBaidumap = mapview.getMap();
 		mBaidumap.setMyLocationEnabled(true);
-		// ¶¨Î»³õÊ¼»¯
+		// å®šä½åˆå§‹åŒ–
 		LocationClient mLocClient = new LocationClient(this);
 		mLocClient.registerLocationListener(new MyLocationListenner());
 		LocationClientOption option = new LocationClientOption();
-		option.setOpenGps(true);// ´ò¿ªgps
-		option.setCoorType("bd09ll"); // ÉèÖÃ×ø±êÀàĞÍ
+		option.setOpenGps(true);// æ‰“å¼€gps
+		option.setCoorType("bd09ll"); // è®¾ç½®åæ ‡ç±»å‹
 		option.setScanSpan(1000);
 		mLocClient.setLocOption(option);
 		mLocClient.start();
@@ -236,18 +236,18 @@ public class RoutelineDisplayActivity extends Activity implements
 	}
 
 	/**
-	 * ¶¨Î»SDK¼àÌıº¯Êı
+	 * å®šä½SDKç›‘å¬å‡½æ•°
 	 */
 	public class MyLocationListenner implements BDLocationListener {
 
 		@Override
 		public void onReceiveLocation(BDLocation location) {
-			// map view Ïú»Ùºó²»ÔÚ´¦ÀíĞÂ½ÓÊÕµÄÎ»ÖÃ
+			// map view é”€æ¯åä¸åœ¨å¤„ç†æ–°æ¥æ”¶çš„ä½ç½®
 			if (location == null || mapview == null)
 				return;
 			MyLocationData locData = new MyLocationData.Builder()
 					.accuracy(location.getRadius())
-					// ´Ë´¦ÉèÖÃ¿ª·¢Õß»ñÈ¡µ½µÄ·½ÏòĞÅÏ¢£¬Ë³Ê±Õë0-360
+					// æ­¤å¤„è®¾ç½®å¼€å‘è€…è·å–åˆ°çš„æ–¹å‘ä¿¡æ¯ï¼Œé¡ºæ—¶é’ˆ0-360
 					.direction(100).latitude(location.getLatitude())
 					.longitude(location.getLongitude()).build();
 			mBaidumap.setMyLocationData(locData);
@@ -399,14 +399,14 @@ public class RoutelineDisplayActivity extends Activity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-		// ÔÚactivityÖ´ĞĞonResumeÊ±Ö´ĞĞmMapView. onResume ()£¬ÊµÏÖµØÍ¼ÉúÃüÖÜÆÚ¹ÜÀí
+		// åœ¨activityæ‰§è¡ŒonResumeæ—¶æ‰§è¡ŒmMapView. onResume ()ï¼Œå®ç°åœ°å›¾ç”Ÿå‘½å‘¨æœŸç®¡ç†
 		mapview.onResume();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		// ÔÚactivityÖ´ĞĞonPauseÊ±Ö´ĞĞmMapView. onPause ()£¬ÊµÏÖµØÍ¼ÉúÃüÖÜÆÚ¹ÜÀí
+		// åœ¨activityæ‰§è¡ŒonPauseæ—¶æ‰§è¡ŒmMapView. onPause ()ï¼Œå®ç°åœ°å›¾ç”Ÿå‘½å‘¨æœŸç®¡ç†
 		mapview.onPause();
 	}
 

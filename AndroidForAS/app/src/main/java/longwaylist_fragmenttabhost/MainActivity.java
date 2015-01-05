@@ -56,8 +56,8 @@ public class MainActivity extends FragmentActivity {
 	public static RequestQueue queue;
 
 	private TabHost tabHost; // TabHost
-	private List<View> views; // ViewPagerÄÚµÄView¶ÔÏó¼¯ºÏ
-	private FragmentManager manager; // Activity¹ÜÀíÆ÷
+	private List<View> views; // ViewPagerå†…çš„Viewå¯¹è±¡é›†åˆ
+	private FragmentManager manager; // Activityç®¡ç†å™¨
 	private ViewPager pager; // ViewPager
 
 	String UserPhoneNumber;
@@ -97,7 +97,7 @@ public class MainActivity extends FragmentActivity {
 		drawericon = (ImageView) findViewById(R.id.drawer_icon);
 		drawername = (TextView) findViewById(R.id.drawer_name);
 		drawernum = (TextView) findViewById(R.id.drawer_phone);
-		// ³õÊ¼»¯×ÊÔ´
+		// åˆå§‹åŒ–èµ„æº
 		pager = (ViewPager) findViewById(R.id.viewpager);
 		tabHost = (TabHost) findViewById(R.id.tab_host);
 		manager = getSupportFragmentManager();
@@ -106,10 +106,10 @@ public class MainActivity extends FragmentActivity {
 		views.add(manager.findFragmentById(R.id.fragment1).getView());
 		views.add(manager.findFragmentById(R.id.fragment2).getView());
 
-		// ¹ÜÀítabHost¿ªÊ¼
+		// ç®¡ç†tabHostå¼€å§‹
 		tabHost.setup();
 
-		// ´«Ò»¸ö¿ÕµÄÄÚÈİ¸øTabHost£¬²»ÄÜÓÃÉÏÃæÁ½¸öfragment
+		// ä¼ ä¸€ä¸ªç©ºçš„å†…å®¹ç»™TabHostï¼Œä¸èƒ½ç”¨ä¸Šé¢ä¸¤ä¸ªfragment
 		TabContentFactory factory = new TabContentFactory() {
 			@Override
 			public View createTabContent(String tag) {
@@ -118,19 +118,19 @@ public class MainActivity extends FragmentActivity {
 		};
 
 		TabSpec tabSpec = tabHost.newTabSpec(PAGE1_ID);
-		tabSpec.setIndicator(createTabView("ÎÒÊÇ³Ë¿Í"));
+		tabSpec.setIndicator(createTabView("æˆ‘æ˜¯ä¹˜å®¢"));
 		tabSpec.setContent(factory);
 		tabHost.addTab(tabSpec);
 
 		tabSpec = tabHost.newTabSpec(PAGE2_ID);
-		tabSpec.setIndicator(createTabView("ÎÒÊÇË¾»ú"));
+		tabSpec.setIndicator(createTabView("æˆ‘æ˜¯å¸æœº"));
 		tabSpec.setContent(factory);
 		tabHost.addTab(tabSpec);
 
 		tabHost.setCurrentTab(0);
-		// ¹ÜÀítabHost½áÊø
+		// ç®¡ç†tabHostç»“æŸ
 
-		// ÉèÖÃ¼àÌıÆ÷ºÍÊÊÅäÆ÷
+		// è®¾ç½®ç›‘å¬å™¨å’Œé€‚é…å™¨
 		pager.setAdapter(new PageAdapter());
 		pager.setOnPageChangeListener(new PageChangeListener());
 		tabHost.setOnTabChangedListener(new TabChangeListener());
@@ -138,23 +138,23 @@ public class MainActivity extends FragmentActivity {
 		// actionbar!!
 		mTitle = mDrawerTitle = getTitle();
 
-		// ĞèÇóĞŞ¸Ä!!
+		// éœ€æ±‚ä¿®æ”¹!!
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.longway_list_layout);
-		mDrawerToggle = new ActionBarDrawerToggle(this, /* ³ĞÔØ Activity */
-		mDrawerLayout, /* DrawerLayout ¶ÔÏó */
-		R.drawable.ic_drawer, /* nav drawer Í¼±êÓÃÀ´Ìæ»»'Up'·ûºÅ */
-		R.string.drawer_open, /* "´ò¿ª drawer" ÃèÊö */
-		R.string.drawer_close /* "¹Ø±Õ drawer" ÃèÊö */
+		mDrawerToggle = new ActionBarDrawerToggle(this, /* æ‰¿è½½ Activity */
+		mDrawerLayout, /* DrawerLayout å¯¹è±¡ */
+		R.drawable.ic_drawer, /* nav drawer å›¾æ ‡ç”¨æ¥æ›¿æ¢'Up'ç¬¦å· */
+		R.string.drawer_open, /* "æ‰“å¼€ drawer" æè¿° */
+		R.string.drawer_close /* "å…³é—­ drawer" æè¿° */
 		) {
 
-			/** µ±drawer´¦ÓÚÍêÈ«¹Ø±ÕµÄ×´Ì¬Ê±µ÷ÓÃ */
+			/** å½“drawerå¤„äºå®Œå…¨å…³é—­çš„çŠ¶æ€æ—¶è°ƒç”¨ */
 			@Override
 			public void onDrawerClosed(View view) {
 				super.onDrawerClosed(view);
 				getActionBar().setTitle(mTitle);
 			}
 
-			/** µ±drawer´¦ÓÚÍêÈ«´ò¿ªµÄ×´Ì¬Ê±µ÷ÓÃ */
+			/** å½“drawerå¤„äºå®Œå…¨æ‰“å¼€çš„çŠ¶æ€æ—¶è°ƒç”¨ */
 			@Override
 			public void onDrawerOpened(View drawerView) {
 				super.onDrawerOpened(drawerView);
@@ -162,7 +162,7 @@ public class MainActivity extends FragmentActivity {
 			}
 		};
 
-		// ÉèÖÃdrawer´¥·¢Æ÷ÎªDrawerListener
+		// è®¾ç½®drawerè§¦å‘å™¨ä¸ºDrawerListener
 		if (mDrawerLayout == null) {
 			Log.e("mDrawerLayout", "isNull");
 		}
@@ -303,7 +303,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
-	 * ±êÇ©Ò³µã»÷ÇĞ»»¼àÌıÆ÷
+	 * æ ‡ç­¾é¡µç‚¹å‡»åˆ‡æ¢ç›‘å¬å™¨
 	 * 
 	 * @author Administrator
 	 * 
@@ -320,7 +320,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
-	 * ViewPager»¬¶¯ÇĞ»»¼àÌıÆ÷
+	 * ViewPageræ»‘åŠ¨åˆ‡æ¢ç›‘å¬å™¨
 	 * 
 	 * @author Administrator
 	 * 
@@ -337,16 +337,16 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		public void onPageSelected(int page_id) {
 
-			if (page_id == 1) {// "ÎÒÊÇ³Ë¿Í"
+			if (page_id == 1) {// "æˆ‘æ˜¯ä¹˜å®¢"
 				Log.d("page_id", "1");
-				// Ë¢ĞÂËùÓĞË¾»ú·¢²¼µÄĞÅÏ¢start!
+				// åˆ·æ–°æ‰€æœ‰å¸æœºå‘å¸ƒçš„ä¿¡æ¯start!
 				lookuppublish("p");
-				// Ë¢ĞÂËùÓĞË¾»ú·¢²¼µÄĞÅÏ¢end!
-			} else {// "ÎÒÊÇË¾»ú"
+				// åˆ·æ–°æ‰€æœ‰å¸æœºå‘å¸ƒçš„ä¿¡æ¯end!
+			} else {// "æˆ‘æ˜¯å¸æœº"
 				Log.d("page_id", "2");
-				// Ë¢ĞÂËùÓĞ³Ë¿Í·¢²¼µÄĞÅÏ¢start!
+				// åˆ·æ–°æ‰€æœ‰ä¹˜å®¢å‘å¸ƒçš„ä¿¡æ¯start!
 				lookuppublish("d");
-				// Ë¢ĞÂËùÓĞ³Ë¿Í·¢²¼µÄĞÅÏ¢end!
+				// åˆ·æ–°æ‰€æœ‰ä¹˜å®¢å‘å¸ƒçš„ä¿¡æ¯end!
 			}
 
 			tabHost.setCurrentTab(page_id);
@@ -375,7 +375,7 @@ public class MainActivity extends FragmentActivity {
 						public void onErrorResponse(VolleyError error) {
 							Log.d("longway_lookuppublish_result",
 									error.getMessage(), error);
-							Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+							Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 									Toast.LENGTH_LONG);
 							errorinfo.show();
 						}
@@ -393,7 +393,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
-	 * ´´½¨tab View
+	 * åˆ›å»ºtab View
 	 * 
 	 * @param string
 	 * @return
@@ -406,10 +406,10 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	// actionbar!!
-	/* µ±invalidateOptionsMenu()µ÷ÓÃÊ±µ÷ÓÃ */
+	/* å½“invalidateOptionsMenu()è°ƒç”¨æ—¶è°ƒç”¨ */
 	// @Override
 	// public boolean onPrepareOptionsMenu(Menu menu) {
-	// // Èç¹ûnav drawerÊÇ´ò¿ªµÄ, Òş²ØÓëÄÚÈİÊÓÍ¼Ïà¹ØÁªµÄaction items
+	// // å¦‚æœnav draweræ˜¯æ‰“å¼€çš„, éšè—ä¸å†…å®¹è§†å›¾ç›¸å…³è”çš„action items
 	// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
 	// menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
 	// return super.onPrepareOptionsMenu(menu);
@@ -418,7 +418,7 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		// ÔÚonRestoreInstanceState·¢Éúºó£¬Í¬²½´¥·¢Æ÷×´Ì¬.
+		// åœ¨onRestoreInstanceStateå‘ç”Ÿåï¼ŒåŒæ­¥è§¦å‘å™¨çŠ¶æ€.
 		mDrawerToggle.syncState();
 	}
 
@@ -430,11 +430,11 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// ½«ÊÂ¼ş´«µİ¸øActionBarDrawerToggle, Èç¹û·µ»Øtrue£¬±íÊ¾app Í¼±êµã»÷ÊÂ¼şÒÑ¾­±»´¦Àí
+		// å°†äº‹ä»¶ä¼ é€’ç»™ActionBarDrawerToggle, å¦‚æœè¿”å›trueï¼Œè¡¨ç¤ºapp å›¾æ ‡ç‚¹å‡»äº‹ä»¶å·²ç»è¢«å¤„ç†
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		// ´¦ÀíÄãµÄÆäËûaction bar items...
+		// å¤„ç†ä½ çš„å…¶ä»–action bar items...
 
 		switch (item.getItemId()) {
 
@@ -457,9 +457,9 @@ public class MainActivity extends FragmentActivity {
 
 	// actionbarend!!
 
-	// actionbar²Ù×÷!!
+	// actionbaræ“ä½œ!!
 
-	// Ìí¼Óactionbar²Ëµ¥
+	// æ·»åŠ actionbarèœå•
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
@@ -488,7 +488,7 @@ public class MainActivity extends FragmentActivity {
 		Context context = MainActivity.this;
 		SharedPreferences sharedPref = context.getSharedPreferences(
 				UserPhoneNumber, Context.MODE_PRIVATE);
-		String fullname = sharedPref.getString("refreshname", "ĞÕÃû");
+		String fullname = sharedPref.getString("refreshname", "å§“å");
 		drawername.setText(fullname);
 		File photoFile = new File(
 				this.getExternalFilesDir(Environment.DIRECTORY_PICTURES),

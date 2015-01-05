@@ -1,7 +1,7 @@
 /*
- * ¶©µ¥Ìá½»·´À¡½çÃæ
- * ¸ù¾İ¶©µ¥Ìá½»½çÃæ·ÃÎÊ·şÎñÆ÷µÃµ½µÄ½á¹û´òÓ¡³ö¶©µ¥Ìá½»³É¹¦Óë·ñ
- * ´Ó·şÎñÆ÷¶ÁÈ¡³µÁ¾±íÊµÊ±¸üĞÂ±¾µØµÄ³µÁ¾±í£¨¶©µ¥ÌîĞ´Ò³¿ÉÄÜ¶Ô³µÁ¾±í×ø³µÁË¸ü¸Ä£©
+ * è®¢å•æäº¤åé¦ˆç•Œé¢
+ * æ ¹æ®è®¢å•æäº¤ç•Œé¢è®¿é—®æœåŠ¡å™¨å¾—åˆ°çš„ç»“æœæ‰“å°å‡ºè®¢å•æäº¤æˆåŠŸä¸å¦
+ * ä»æœåŠ¡å™¨è¯»å–è½¦è¾†è¡¨å®æ—¶æ›´æ–°æœ¬åœ°çš„è½¦è¾†è¡¨ï¼ˆè®¢å•å¡«å†™é¡µå¯èƒ½å¯¹è½¦è¾†è¡¨åè½¦äº†æ›´æ”¹ï¼‰
  */
 
 package com.example.carsharing;
@@ -107,14 +107,14 @@ public class OrderResponseActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_response);
 
-		// »ñÈ¡ÓÃ»§ºÅÂë
+		// è·å–ç”¨æˆ·å·ç 
 
 		Context phonenumber = OrderResponseActivity.this;
 		SharedPreferences filename = phonenumber
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
 						Context.MODE_PRIVATE);
-		UserPhoneNumber = filename.getString("refreshfilename", "ÎÄ¼şÃû");
+		UserPhoneNumber = filename.getString("refreshfilename", "æ–‡ä»¶å");
 
 		queue = Volley.newRequestQueue(this);
 
@@ -122,9 +122,9 @@ public class OrderResponseActivity extends Activity {
 		text = (TextView) findViewById(R.id.order_response_textView);
 		backbtn = (Button) findViewById(R.id.order_response_back);
 
-		// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±ístart!
+		// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨start!
 		selectcarinfo(UserPhoneNumber);
-		// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±íend!
+		// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨end!
 
 		Intent request_response = getIntent();
 		String judging = request_response
@@ -133,7 +133,7 @@ public class OrderResponseActivity extends Activity {
 		if (judging.compareTo("false") == 0) {
 
 			image.setImageResource(R.drawable.ic_error);
-			text.setText("¶©µ¥Ìá½»Ê§°Ü£¡Çë¼ì²éÄúµÄÍøÂçÁ¬½Ó£¡");
+			text.setText("è®¢å•æäº¤å¤±è´¥ï¼è¯·æ£€æŸ¥æ‚¨çš„ç½‘ç»œè¿æ¥ï¼");
 
 			backbtn.setOnClickListener(new OnClickListener() {
 
@@ -145,7 +145,7 @@ public class OrderResponseActivity extends Activity {
 			});
 		} else {
 			image.setImageResource(R.drawable.ic_ok);
-			text.setText("ÄúµÄ¶©µ¥Ìá½»³É¹¦£¡ÇëÄÍĞÄµÈ´ı£¬ÎÒÃÇ»á¾¡¿ì·´À¡ÏûÏ¢¸øÄú£¡");
+			text.setText("æ‚¨çš„è®¢å•æäº¤æˆåŠŸï¼è¯·è€å¿ƒç­‰å¾…ï¼Œæˆ‘ä»¬ä¼šå°½å¿«åé¦ˆæ¶ˆæ¯ç»™æ‚¨ï¼");
 
 			backbtn.setOnClickListener(new OnClickListener() {
 

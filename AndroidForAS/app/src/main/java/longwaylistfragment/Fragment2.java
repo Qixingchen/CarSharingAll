@@ -51,7 +51,7 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 	private Handler mHandler;
 	private int start = 0;
 	private int refreshtime = 0;
-	private String lastrefreshtime = "¸Õ¸Õ";
+	private String lastrefreshtime = "åˆšåˆš";
 
 	// actionbar!!
 	private DrawerLayout mDrawerLayout;
@@ -114,7 +114,7 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 		mListView.stopLoadMore();
 		mListView.setRefreshTime((lastrefreshtime));
 		SimpleDateFormat formatter = new SimpleDateFormat(
-				"yyyyÄêMMÔÂddÈÕ   HH:mm:ss     ");
+				"yyyyå¹´MMæœˆddæ—¥   HH:mm:ss     ");
 		Date curDate = new Date(System.currentTimeMillis());
 		lastrefreshtime = formatter.format(curDate);
 	}
@@ -190,7 +190,7 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 									map.put("re_address",
 											jasitem.getString("startPlace")
 													+ "  "
-													+ " ÖÁ "
+													+ " è‡³ "
 													+ jasitem
 															.getString("destination")
 													+ "  ");
@@ -209,7 +209,7 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 					public void onErrorResponse(VolleyError error) {
 						Log.d("longway_lookuppublish_result",
 								error.getMessage(), error);
-						Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 								Toast.LENGTH_LONG);
 						errorinfo.show();
 					}
@@ -273,7 +273,7 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 							if (i == jasA.length()) {
 								Toast.makeText(
 										getActivity().getApplicationContext(),
-										"¸Ã¶©µ¥ÒÑ²»´æÔÚ", Toast.LENGTH_SHORT).show();
+										"è¯¥è®¢å•å·²ä¸å­˜åœ¨", Toast.LENGTH_SHORT).show();
 							} else {
 								Intent intent = new Intent(getActivity(),
 										LongWayArrangementDetail.class);
@@ -291,7 +291,7 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("commute_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}

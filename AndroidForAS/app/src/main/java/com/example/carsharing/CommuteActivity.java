@@ -1,8 +1,8 @@
 /*
- * ÉÏÏÂ°àÆ´³µ½çÃæ
- * ¶©µ¥ÌîĞ´Ò³
- * ·ÃÎÊ·şÎñÆ÷»ñÈ¡³µÁ¾ĞÅÏ¢£¬×Ô¶¯Ìî³ä³µÁ¾ĞÅÏ¢
- * ·ÃÎÊ·şÎñÆ÷Ìá½»¶©µ¥
+ * ä¸Šä¸‹ç­æ‹¼è½¦ç•Œé¢
+ * è®¢å•å¡«å†™é¡µ
+ * è®¿é—®æœåŠ¡å™¨è·å–è½¦è¾†ä¿¡æ¯ï¼Œè‡ªåŠ¨å¡«å……è½¦è¾†ä¿¡æ¯
+ * è®¿é—®æœåŠ¡å™¨æäº¤è®¢å•
  */
 
 package com.example.carsharing;
@@ -141,19 +141,19 @@ public class CommuteActivity extends Activity {
 
 	Calendar c = Calendar.getInstance();
 
-	// ÓÃ»§ÊÖ»úºÅ
+	// ç”¨æˆ·æ‰‹æœºå·
 	String UserPhoneNumber;
 
-	// ÊÕ²Ø
+	// æ”¶è—
 	ImageView star1, star2;
-	// ÊÕ²Øend
+	// æ”¶è—end
 
-	// ±íµ¥Êı¾İ±£´æ
+	// è¡¨å•æ•°æ®ä¿å­˜
 
 	String StartPointUserName, StartPointMapName, EndPointUserName,
 			EndPointMapName;
 
-	// ±íµ¥Êı¾İ±£´æend
+	// è¡¨å•æ•°æ®ä¿å­˜end
 
 	// database
 
@@ -190,7 +190,7 @@ public class CommuteActivity extends Activity {
 
 		// "http://192.168.1.111:8080/CarsharingServer/CarInfo!changeinfo.action?";
 
-		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// ÖĞÎÄ±àÂë
+		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// ä¸­æ–‡ç¼–ç 
 
 		Log.d("carinfo_URL", carinfo_baseurl);
 		// Instantiate the RequestQueue.
@@ -211,7 +211,7 @@ public class CommuteActivity extends Activity {
 						}
 						if (carinfook == false) {
 							Toast errorinfo = Toast.makeText(
-									getApplicationContext(), "³µÁ¾ĞÅÏ¢ĞŞ¸ÄÊ§°Ü",
+									getApplicationContext(), "è½¦è¾†ä¿¡æ¯ä¿®æ”¹å¤±è´¥",
 									Toast.LENGTH_LONG);
 							errorinfo.show();
 						}
@@ -222,7 +222,7 @@ public class CommuteActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("carinfo_result", error.getMessage(), error);
 						// Toast errorinfo = Toast.makeText(null,
-						// "ÍøÂçÁ¬½ÓÊ§°Ü", Toast.LENGTH_LONG);
+						// "ç½‘ç»œè¿æ¥å¤±è´¥", Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
 				}) {
@@ -253,14 +253,14 @@ public class CommuteActivity extends Activity {
 		mDrawerToggle = activity_drawer.newdrawer();
 		mDrawerLayout = activity_drawer.setDrawerLayout();
 
-		// ÈÕÆÚ¡¢Ê±¼ä±ê×¼¸ñÊ½
+		// æ—¥æœŸã€æ—¶é—´æ ‡å‡†æ ¼å¼
 		standard_date = new SimpleDateFormat("yyyy-MM-dd",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_date = new SimpleDateFormat("yyyyÄêMMÔÂddÈÕ",
+		primary_date = new SimpleDateFormat("yyyyå¹´MMæœˆddæ—¥",
 				Locale.SIMPLIFIED_CHINESE);
 		standard_time = new SimpleDateFormat("HH:mm:ss",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_time = new SimpleDateFormat("HHÊ±mm·ÖssÃë",
+		primary_time = new SimpleDateFormat("HHæ—¶mmåˆ†ssç§’",
 				Locale.SIMPLIFIED_CHINESE);
 
 		drawername = (TextView) findViewById(R.id.drawer_name);
@@ -273,8 +273,8 @@ public class CommuteActivity extends Activity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				String temp = startplace.getText().toString();
-				if (!temp.equals("Ñ¡ÔñÆğµã")
-						&& !endplace.getText().toString().equals("Ñ¡ÔñÖÕµã")) {
+				if (!temp.equals("é€‰æ‹©èµ·ç‚¹")
+						&& !endplace.getText().toString().equals("é€‰æ‹©ç»ˆç‚¹")) {
 					startplace.setText(endplace.getText().toString());
 					endplace.setText(temp);
 					float a, b;
@@ -323,7 +323,7 @@ public class CommuteActivity extends Activity {
 
 		commute_group = (RadioGroup) findViewById(R.id.commute_radiobutton);
 		mRadio1 = (RadioButton) findViewById(R.id.commute_radioButton1);
-		mRadio2 = (RadioButton) findViewById(R.id.commute_radioButton2);// °ó¶¨Ò»¸öRadioGroup¼àÌıÆ÷
+		mRadio2 = (RadioButton) findViewById(R.id.commute_radioButton2);// ç»‘å®šä¸€ä¸ªRadioGroupç›‘å¬å™¨
 
 		mon = (CheckBox) findViewById(R.id.commute_checkBox1);
 		tue = (CheckBox) findViewById(R.id.commute_checkBox2);
@@ -343,7 +343,7 @@ public class CommuteActivity extends Activity {
 		star1 = (ImageView) findViewById(R.id.cummute_star);
 		star2 = (ImageView) findViewById(R.id.commute_star01);
 
-		// ÌáÈ¡ÓÃ»§ÊÖ»úºÅ
+		// æå–ç”¨æˆ·æ‰‹æœºå·
 		SharedPreferences sharedPref = this
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
@@ -354,7 +354,7 @@ public class CommuteActivity extends Activity {
 		// judge the value of "pre_page"
 		Bundle bundle = this.getIntent().getExtras();
 		String PRE_PAGE = bundle.getString("pre_page");
-		if (PRE_PAGE.compareTo("ReOrder") == 0) { // ÖØĞÂÏÂµ¥
+		if (PRE_PAGE.compareTo("ReOrder") == 0) { // é‡æ–°ä¸‹å•
 			startplace.setText(bundle.getString("stpusername") + ","
 					+ bundle.getString("stpmapname"));
 			bstart = true;
@@ -380,7 +380,7 @@ public class CommuteActivity extends Activity {
 			latestarttime.setText(bundle.getString("re_commute_endtime"));
 			blatestarttime = true;
 
-			// weekrepeatÖĞcheckboxµÄ¹´Ñ¡
+			// weekrepeatä¸­checkboxçš„å‹¾é€‰
 			int len = weekrepeat.length();
 			for (int i = 0; i < len; i++) {
 				if (weekrepeat.charAt(i) == '1') {
@@ -412,7 +412,7 @@ public class CommuteActivity extends Activity {
 					bsun = true;
 				}
 			}
-			// ¹´Ñ¡end
+			// å‹¾é€‰end
 		}
 		// judge the value of "pre_page"
 
@@ -690,9 +690,9 @@ public class CommuteActivity extends Activity {
 			@Override
 			public void onCheckedChanged(RadioGroup arg0, int checkedId) {
 				// TODO Auto-generated method stub18
-				// »ñÈ¡±ä¸üºóµÄÑ¡ÖĞÏîµÄID
+				// è·å–å˜æ›´åçš„é€‰ä¸­é¡¹çš„ID
 
-				// "ÎÒÄÜÌá¹©³µ"²»±ä£¬"ÎÒ²»ÄÜÌá¹©³µ"Ê¹³µÅÆºÅµÈ±à¼­¿ò²»¿É±à¼­£¬²¢¸ü¸ÄtextView
+				// "æˆ‘èƒ½æä¾›è½¦"ä¸å˜ï¼Œ"æˆ‘ä¸èƒ½æä¾›è½¦"ä½¿è½¦ç‰Œå·ç­‰ç¼–è¾‘æ¡†ä¸å¯ç¼–è¾‘ï¼Œå¹¶æ›´æ”¹textView
 				if (checkedId == mRadio2.getId()) {
 
 					bpassenager = true;
@@ -817,9 +817,9 @@ public class CommuteActivity extends Activity {
 					color.setInputType(InputType.TYPE_CLASS_TEXT);
 					model.setInputType(InputType.TYPE_CLASS_TEXT);
 
-					// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±ístart!
+					// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨start!
 					selectcarinfo(UserPhoneNumber);
-					// Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±íend!
+					// å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨end!
 				}
 				confirm();
 			}
@@ -848,7 +848,7 @@ public class CommuteActivity extends Activity {
 											.getJSONObject("result");
 									jas_id = json.getString("id");
 
-									if (jas_id.compareTo("") != 0) { // ·şÎñÆ÷ÉÏ´æÔÚ³µÁ¾ĞÅÏ¢Ê±
+									if (jas_id.compareTo("") != 0) { // æœåŠ¡å™¨ä¸Šå­˜åœ¨è½¦è¾†ä¿¡æ¯æ—¶
 
 										carinfochoosing_type = 2;
 										carbrand.setText(json
@@ -900,7 +900,7 @@ public class CommuteActivity extends Activity {
 				} else
 					supplycar = "n";
 
-				// Ïò·şÎñÆ÷Ìá½»ÉÏÏÂ°àÆ´³µ¶©µ¥ÇëÇóstart!
+				// å‘æœåŠ¡å™¨æäº¤ä¸Šä¸‹ç­æ‹¼è½¦è®¢å•è¯·æ±‚start!
 				Context phonenumber = CommuteActivity.this;
 				SharedPreferences filename = phonenumber.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
@@ -909,7 +909,7 @@ public class CommuteActivity extends Activity {
 				commute_request(username, startdate.getText().toString(),
 						enddate.getText().toString(), earlystarttime.getText()
 								.toString(), latestarttime.getText().toString());
-				// Ïò·şÎñÆ÷Ìá½»ÉÏÏÂ°àÆ´³µ¶©µ¥ÇëÇóend!
+				// å‘æœåŠ¡å™¨æäº¤ä¸Šä¸‹ç­æ‹¼è½¦è®¢å•è¯·æ±‚end!
 
 			}
 
@@ -935,7 +935,7 @@ public class CommuteActivity extends Activity {
 				if (bsun)
 					weekrepeat += "7";
 
-				// Ç¿ÖÆ×ª»»ÈÕÆÚ¸ñÊ½start
+				// å¼ºåˆ¶è½¬æ¢æ—¥æœŸæ ¼å¼start
 				try {
 					test_date = primary_date.parse(commute_startdate);
 					standard_commute_startdate = standard_date
@@ -952,7 +952,7 @@ public class CommuteActivity extends Activity {
 					e.printStackTrace();
 				}
 
-				// Ç¿ÖÆ×ª»»ÈÕÆÚ¸ñÊ½end!
+				// å¼ºåˆ¶è½¬æ¢æ—¥æœŸæ ¼å¼end!
 
 				String commute_baseurl = getString(R.string.uri_base)
 						+ getString(R.string.uri_CommuteRequest)
@@ -991,24 +991,24 @@ public class CommuteActivity extends Activity {
 
 									if (carinfochoosing_type == 1) {
 										// add
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸ÄÇëÇóstart!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹è¯·æ±‚start!
 										carinfo(commute_phonenum, licensenum
 												.getText().toString(), carbrand
 												.getText().toString(), model
 												.getText().toString(), color
 												.getText().toString(), String
 												.valueOf(sum), 1);
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸Äend!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹end!
 									} else {
 										// update
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸ÄÇëÇóstart!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹è¯·æ±‚start!
 										carinfo(commute_phonenum, licensenum
 												.getText().toString(), carbrand
 												.getText().toString(), model
 												.getText().toString(), color
 												.getText().toString(), String
 												.valueOf(sum), 2);
-										// Ïò·şÎñÆ÷·¢ËÍ³µÁ¾ĞÅÏ¢ĞŞ¸Äend!
+										// å‘æœåŠ¡å™¨å‘é€è½¦è¾†ä¿¡æ¯ä¿®æ”¹end!
 									}
 
 									Intent sure = new Intent(
@@ -1022,7 +1022,7 @@ public class CommuteActivity extends Activity {
 								} else {
 									// Toast errorinfo =
 									// Toast.makeText(getApplicationContext(),
-									// "Ìá½»Ê§°Ü", Toast.LENGTH_LONG);
+									// "æäº¤å¤±è´¥", Toast.LENGTH_LONG);
 									// errorinfo.show();
 									Intent sure = new Intent(
 											CommuteActivity.this,
@@ -1041,7 +1041,7 @@ public class CommuteActivity extends Activity {
 										error);
 								commute_result = null;
 								// Toast errorinfo = Toast.makeText(null,
-								// "ÍøÂçÁ¬½ÓÊ§°Ü", Toast.LENGTH_LONG);
+								// "ç½‘ç»œè¿æ¥å¤±è´¥", Toast.LENGTH_LONG);
 								// errorinfo.show();
 								Intent sure = new Intent(CommuteActivity.this,
 										OrderResponseActivity.class);
@@ -1053,9 +1053,9 @@ public class CommuteActivity extends Activity {
 							}
 						}) {
 					protected Map<String, String> getParams() {
-						// POST·½·¨ÖØĞ´getParamsº¯Êı
+						// POSTæ–¹æ³•é‡å†™getParamså‡½æ•°
 
-						// Ç¿ÖÆ×ª»»ÈÕÆÚ¸ñÊ½start
+						// å¼ºåˆ¶è½¬æ¢æ—¥æœŸæ ¼å¼start
 						try {
 							test_date = primary_date.parse(commute_startdate);
 							standard_commute_startdate = standard_date
@@ -1074,7 +1074,7 @@ public class CommuteActivity extends Activity {
 							e.printStackTrace();
 						}
 
-						// Ç¿ÖÆ×ª»»ÈÕÆÚ¸ñÊ½end!
+						// å¼ºåˆ¶è½¬æ¢æ—¥æœŸæ ¼å¼end!
 
 						Map<String, String> params = new HashMap<String, String>();
 						params.put(getString(R.string.uri_phonenum),
@@ -1224,7 +1224,7 @@ public class CommuteActivity extends Activity {
 		Context context = CommuteActivity.this;
 		SharedPreferences sharedPref = context.getSharedPreferences(
 				UserPhoneNumber, Context.MODE_PRIVATE);
-		String fullname = sharedPref.getString("refreshname", "ĞÕÃû");
+		String fullname = sharedPref.getString("refreshname", "å§“å");
 		drawername.setText(fullname);
 		File photoFile = new File(
 				this.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
@@ -1255,11 +1255,11 @@ public class CommuteActivity extends Activity {
 
 				startplace
 						.setText(StartPointUserName + "," + StartPointMapName);
-				Log.w("STintent»Ø±¨¾­¶È", String.valueOf(startplace_longitude));
-				Log.w("STintent»Ø±¨Î³¶È", String.valueOf(startplace_latitude));
+				Log.w("STintentå›æŠ¥ç»åº¦", String.valueOf(startplace_longitude));
+				Log.w("STintentå›æŠ¥çº¬åº¦", String.valueOf(startplace_latitude));
 				Log.w("MapName", StartPointMapName);
 
-				// ÊÕ²Ø
+				// æ”¶è—
 
 				if (Pointisliked(StartPointMapName)) {
 					star1.setImageResource(R.drawable.ic_action_important);
@@ -1267,7 +1267,7 @@ public class CommuteActivity extends Activity {
 					star1.setImageResource(R.drawable.ic_action_not_important);
 				}
 
-				// ÊÕ²Øend
+				// æ”¶è—end
 				bstart = true;
 				break;
 
@@ -1285,10 +1285,10 @@ public class CommuteActivity extends Activity {
 						.getStringExtra(getString(R.string.dbstring_latitude)));
 
 				endplace.setText(EndPointUserName + "," + EndPointMapName);
-				Log.w("ENDintent»Ø±¨¾­¶È", String.valueOf(destination_longitude));
-				Log.w("ENDintent»Ø±¨Î³¶È", String.valueOf(destination_latitude));
+				Log.w("ENDintentå›æŠ¥ç»åº¦", String.valueOf(destination_longitude));
+				Log.w("ENDintentå›æŠ¥çº¬åº¦", String.valueOf(destination_latitude));
 
-				// ÊÕ²Ø
+				// æ”¶è—
 
 				if (Pointisliked(EndPointMapName)) {
 					star2.setImageResource(R.drawable.ic_action_important);
@@ -1296,7 +1296,7 @@ public class CommuteActivity extends Activity {
 					star2.setImageResource(R.drawable.ic_action_not_important);
 				}
 
-				// ÊÕ²Øend
+				// æ”¶è—end
 
 				bend = true;
 				break;
@@ -1308,11 +1308,11 @@ public class CommuteActivity extends Activity {
 
 	}
 
-	// ÅĞ¶ÏÊÇ·ñÊÕ²Ø
+	// åˆ¤æ–­æ˜¯å¦æ”¶è—
 	private Boolean Pointisliked(String mapname) {
 
-		// ±íÃû ,Òª»ñÈ¡µÄ×Ö¶ÎÃû£¬WHERE Ìõ¼ş£¬WHereÖµ£¬don't group the rows£¬don't filter by row
-		// groups£¬ÅÅĞòÌõ¼ş¡£
+		// è¡¨å ,è¦è·å–çš„å­—æ®µåï¼ŒWHERE æ¡ä»¶ï¼ŒWHereå€¼ï¼Œdon't group the rowsï¼Œdon't filter by row
+		// groupsï¼Œæ’åºæ¡ä»¶ã€‚
 		Cursor isliked = db1.query(getString(R.string.dbtable_placeliked),
 				null, getString(R.string.dbstring_PlaceMapName) + "=?",
 				new String[] { mapname }, null, null, null);
@@ -1361,10 +1361,10 @@ public class CommuteActivity extends Activity {
 			// TODO Auto-generated method stub
 			mHour = hourOfDay;
 			mMinute = minute;
-			DisplayToast("Ê±¼äÎª:" + String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö" + "00Ãë");
-			earlystarttime.setText(String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö" + "00Ãë");
+			DisplayToast("æ—¶é—´ä¸º:" + String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†" + "00ç§’");
+			earlystarttime.setText(String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†" + "00ç§’");
 			bearlystarttime = true;
 			confirm();
 		}
@@ -1377,10 +1377,10 @@ public class CommuteActivity extends Activity {
 			// TODO Auto-generated method stub
 			mHour = hourOfDay;
 			mMinute = minute;
-			DisplayToast("Ê±¼äÎª:" + String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö" + "00Ãë");
-			latestarttime.setText(String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö" + "00Ãë");
+			DisplayToast("æ—¶é—´ä¸º:" + String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†" + "00ç§’");
+			latestarttime.setText(String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†" + "00ç§’");
 			blatestarttime = true;
 			confirm();
 		}
@@ -1394,12 +1394,12 @@ public class CommuteActivity extends Activity {
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
-			DisplayToast(String.valueOf(year) + "Äê"
-					+ String.valueOf(monthofYear + 1) + "ÔÂ"
-					+ String.valueOf(dayofMonth) + "ÈÕ");
-			startdate.setText(String.valueOf(year) + "Äê"
-					+ String.valueOf(monthofYear + 1) + "ÔÂ"
-					+ String.valueOf(dayofMonth) + "ÈÕ");
+			DisplayToast(String.valueOf(year) + "å¹´"
+					+ String.valueOf(monthofYear + 1) + "æœˆ"
+					+ String.valueOf(dayofMonth) + "æ—¥");
+			startdate.setText(String.valueOf(year) + "å¹´"
+					+ String.valueOf(monthofYear + 1) + "æœˆ"
+					+ String.valueOf(dayofMonth) + "æ—¥");
 			bstartdate = true;
 			confirm();
 		}
@@ -1413,12 +1413,12 @@ public class CommuteActivity extends Activity {
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
-			DisplayToast(String.valueOf(year) + "Äê"
-					+ String.valueOf(monthofYear + 1) + "ÔÂ"
-					+ String.valueOf(dayofMonth) + "ÈÕ");
-			enddate.setText(String.valueOf(year) + "Äê"
-					+ String.valueOf(monthofYear + 1) + "ÔÂ"
-					+ String.valueOf(dayofMonth) + "ÈÕ");
+			DisplayToast(String.valueOf(year) + "å¹´"
+					+ String.valueOf(monthofYear + 1) + "æœˆ"
+					+ String.valueOf(dayofMonth) + "æ—¥");
+			enddate.setText(String.valueOf(year) + "å¹´"
+					+ String.valueOf(monthofYear + 1) + "æœˆ"
+					+ String.valueOf(dayofMonth) + "æ—¥");
 			benddate = true;
 			confirm();
 		}
@@ -1439,7 +1439,7 @@ public class CommuteActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -1472,7 +1472,7 @@ public class CommuteActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -1506,7 +1506,7 @@ public class CommuteActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -1540,7 +1540,7 @@ public class CommuteActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -1572,10 +1572,10 @@ public class CommuteActivity extends Activity {
 	}
 
 	// actionbar!!
-	/* µ±invalidateOptionsMenu()µ÷ÓÃÊ±µ÷ÓÃ */
+	/* å½“invalidateOptionsMenu()è°ƒç”¨æ—¶è°ƒç”¨ */
 	// @Override
 	// public boolean onPrepareOptionsMenu(Menu menu) {
-	// // Èç¹ûnav drawerÊÇ´ò¿ªµÄ, Òş²ØÓëÄÚÈİÊÓÍ¼Ïà¹ØÁªµÄaction items
+	// // å¦‚æœnav draweræ˜¯æ‰“å¼€çš„, éšè—ä¸å†…å®¹è§†å›¾ç›¸å…³è”çš„action items
 	// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
 	// menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
 	// return super.onPrepareOptionsMenu(menu);
@@ -1584,7 +1584,7 @@ public class CommuteActivity extends Activity {
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		// ÔÚonRestoreInstanceState·¢Éúºó£¬Í¬²½´¥·¢Æ÷×´Ì¬.
+		// åœ¨onRestoreInstanceStateå‘ç”Ÿåï¼ŒåŒæ­¥è§¦å‘å™¨çŠ¶æ€.
 		mDrawerToggle.syncState();
 	}
 
@@ -1596,11 +1596,11 @@ public class CommuteActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// ½«ÊÂ¼ş´«µİ¸øActionBarDrawerToggle, Èç¹û·µ»Øtrue£¬±íÊ¾app Í¼±êµã»÷ÊÂ¼şÒÑ¾­±»´¦Àí
+		// å°†äº‹ä»¶ä¼ é€’ç»™ActionBarDrawerToggle, å¦‚æœè¿”å›trueï¼Œè¡¨ç¤ºapp å›¾æ ‡ç‚¹å‡»äº‹ä»¶å·²ç»è¢«å¤„ç†
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		// ´¦ÀíÄãµÄÆäËûaction bar items...
+		// å¤„ç†ä½ çš„å…¶ä»–action bar items...
 
 		return super.onOptionsItemSelected(item);
 	}

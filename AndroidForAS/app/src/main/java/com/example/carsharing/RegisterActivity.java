@@ -1,7 +1,7 @@
 /*
- * ×¢²á1
- * ÌîĞ´µç»°ºÅÂë£¬»ñÈ¡ÑéÖ¤Âë
- * ¼àÌıµç»°ºÅÂëµÄÌîĞ´£¬·ÃÎÊ·şÎñÆ÷¼ì²é¸ÃºÅÂëÊÇ·ñÒÑ×¢²á
+ * æ³¨å†Œ1
+ * å¡«å†™ç”µè¯å·ç ï¼Œè·å–éªŒè¯ç 
+ * ç›‘å¬ç”µè¯å·ç çš„å¡«å†™ï¼Œè®¿é—®æœåŠ¡å™¨æ£€æŸ¥è¯¥å·ç æ˜¯å¦å·²æ³¨å†Œ
  */
 
 package com.example.carsharing;
@@ -62,7 +62,7 @@ public class RegisterActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 
-		get_auth = (Button) findViewById(R.id.register_getauthbutton); // »ñÈ¡ÑéÖ¤Âë
+		get_auth = (Button) findViewById(R.id.register_getauthbutton); // è·å–éªŒè¯ç 
 		next = (Button) findViewById(R.id.register_nextbutton);
 		next.setEnabled(false);
 		PhoneNum = (EditText) findViewById(R.id.register_phonenumeditText);
@@ -83,7 +83,7 @@ public class RegisterActivity extends Activity {
 			}
 		});
 
-		// Ò³ÃæÌø×ªstart!
+		// é¡µé¢è·³è½¬start!
 		next.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -105,7 +105,7 @@ public class RegisterActivity extends Activity {
 							RegisterSecondActivity.class);
 
 					next.putExtra(getString(R.string.user_phonenum), PhoneNum
-							.getText().toString());// ´«Öµ
+							.getText().toString());// ä¼ å€¼
 
 					next.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(next);
@@ -115,16 +115,16 @@ public class RegisterActivity extends Activity {
 
 		});
 
-		// Ò³ÃæÌø×ªend!
+		// é¡µé¢è·³è½¬end!
 
-		// »ñÈ¡ÑéÖ¤Âëstart!
+		// è·å–éªŒè¯ç start!
 		get_auth.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 
-				// ÅĞ¶ÏÊÇ·ñÎªÒ»¸öºÏ·¨µÄµç»°ºÅÂë
+				// åˆ¤æ–­æ˜¯å¦ä¸ºä¸€ä¸ªåˆæ³•çš„ç”µè¯å·ç 
 				if (mobliejudging.mobilejudging(PhoneNum.getText().toString())) {
 					checkphone(PhoneNum.getText().toString());
 				} else {
@@ -136,7 +136,7 @@ public class RegisterActivity extends Activity {
 
 		});
 
-		// »ñÈ¡ÑéÖ¤Âëend!
+		// è·å–éªŒè¯ç end!
 
 		Agreement
 				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -161,20 +161,20 @@ public class RegisterActivity extends Activity {
 		//
 		// if (hasFocus) {
 		//
-		// // ´Ë´¦ÎªµÃµ½½¹µãÊ±µÄ´¦ÀíÄÚÈİ
+		// // æ­¤å¤„ä¸ºå¾—åˆ°ç„¦ç‚¹æ—¶çš„å¤„ç†å†…å®¹
 		//
 		// } else {
 		//
-		// // ´Ë´¦ÎªÊ§È¥½¹µãÊ±µÄ´¦ÀíÄÚÈİ
+		// // æ­¤å¤„ä¸ºå¤±å»ç„¦ç‚¹æ—¶çš„å¤„ç†å†…å®¹
 		// checkphone(PhoneNum.getText().toString());
 		// }
 		//
 		// }
 		// });
 
-		// actionbar²Ù×÷!!
+		// actionbaræ“ä½œ!!
 
-		// »æÖÆÏòÉÏ!!
+		// ç»˜åˆ¶å‘ä¸Š!!
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -183,7 +183,7 @@ public class RegisterActivity extends Activity {
 
 	public void setActionBarLayout(int layoutId) {
 
-		// actionbar²Ù×÷!!
+		// actionbaræ“ä½œ!!
 		ActionBar actionBar = getActionBar();
 
 		if (null != actionBar) {
@@ -211,7 +211,7 @@ public class RegisterActivity extends Activity {
 
 	}
 
-	// actionbar²Ù×÷!!
+	// actionbaræ“ä½œ!!
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
@@ -238,7 +238,7 @@ public class RegisterActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -270,7 +270,7 @@ public class RegisterActivity extends Activity {
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
 			// TODO Auto-generated method stub
-			// mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+			// mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 		}
 
 		@Override
@@ -335,7 +335,7 @@ public class RegisterActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("checkphone_result", error.getMessage(), error);
 						checkphone_result = null;
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ç½‘ç»œè¿æ¥å¤±è´¥",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}

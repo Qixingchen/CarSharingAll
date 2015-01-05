@@ -1,5 +1,5 @@
 /*
- * 拼车类型选择界面，实现简单的界面跳转
+ * 鎷艰溅绫诲瀷閫夋嫨鐣岄潰锛屽疄鐜扮畝鍗曠殑鐣岄潰璺宠浆
  */
 
 package com.example.carsharing;
@@ -18,9 +18,9 @@ public class CarsharingTypeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_carsharing_type);
 
-		// actionbar操作!!
+		// actionbar鎿嶄綔!!
 
-		// 绘制向上!!
+		// 缁樺埗鍚戜笂!!
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
