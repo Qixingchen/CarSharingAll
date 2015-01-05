@@ -121,8 +121,8 @@ public class ReOrderShortwayActivity extends Activity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				String temp = startplace.getText().toString();
-				if (!temp.equals("Ñ¡ÔñÆğµã")
-						&& !endplace.getText().toString().equals("Ñ¡ÔñÖÕµã")) {
+				if (!temp.equals("é€‰æ‹©èµ·ç‚¹")
+						&& !endplace.getText().toString().equals("é€‰æ‹©ç»ˆç‚¹")) {
 					startplace.setText(endplace.getText().toString());
 					endplace.setText(temp);
 					float a, b;
@@ -201,15 +201,15 @@ public class ReOrderShortwayActivity extends Activity {
 			}
 		});
 
-		// // °ó¶¨Ò»¸öRadioGroup¼àÌıÆ÷
+		// // ç»‘å®šä¸€ä¸ªRadioGroupç›‘å¬å™¨
 		// shortway_group
 		// .setOnCheckedChangeListener(new OnCheckedChangeListener() {
 		// @Override
 		// public void onCheckedChanged(RadioGroup arg0, int checkedId) {
 		// // TODO Auto-generated method stub18
-		// // »ñÈ¡±ä¸üºóµÄÑ¡ÖĞÏîµÄID
+		// // è·å–å˜æ›´åçš„é€‰ä¸­é¡¹çš„ID
 		//
-		// // "ÎÒÄÜÌá¹©³µ"²»±ä£¬"ÎÒ²»ÄÜÌá¹©³µ"Ê¹³µÅÆºÅµÈ±à¼­¿ò²»¿É±à¼­£¬²¢¸ü¸ÄtextView
+		// // "æˆ‘èƒ½æä¾›è½¦"ä¸å˜ï¼Œ"æˆ‘ä¸èƒ½æä¾›è½¦"ä½¿è½¦ç‰Œå·ç­‰ç¼–è¾‘æ¡†ä¸å¯ç¼–è¾‘ï¼Œå¹¶æ›´æ”¹textView
 		// if (checkedId == mRadio2.getId()) {
 		// bpassenager = true;
 		// bdriver = false;
@@ -331,9 +331,9 @@ public class ReOrderShortwayActivity extends Activity {
 		// color.setInputType(InputType.TYPE_CLASS_TEXT);
 		// model.setInputType(InputType.TYPE_CLASS_TEXT);
 		//
-		// // Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±ístart!
+		// // å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨start!
 		// selectcarinfo(UserPhoneNumber);
-		// // Ïò·şÎñÆ÷ÇëÇó²éÑ¯³µÁ¾ĞÅÏ¢±íend!
+		// // å‘æœåŠ¡å™¨è¯·æ±‚æŸ¥è¯¢è½¦è¾†ä¿¡æ¯è¡¨end!
 		// }
 		// confirm();
 		// }
@@ -412,8 +412,8 @@ public class ReOrderShortwayActivity extends Activity {
 			// TODO Auto-generated method stub
 			mHour = hourOfDay;
 			mMinute = minute;
-			earlystarttime.setText(String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö" + "00" + "Ãë");
+			earlystarttime.setText(String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†" + "00" + "ç§’");
 		}
 	};
 
@@ -424,8 +424,8 @@ public class ReOrderShortwayActivity extends Activity {
 			// TODO Auto-generated method stub
 			mHour = hourOfDay;
 			mMinute = minute;
-			latestarttime.setText(String.valueOf(hourOfDay) + "Ê±"
-					+ String.valueOf(minute) + "·Ö" + "00" + "Ãë");
+			latestarttime.setText(String.valueOf(hourOfDay) + "æ—¶"
+					+ String.valueOf(minute) + "åˆ†" + "00" + "ç§’");
 		}
 	};
 
@@ -438,9 +438,9 @@ public class ReOrderShortwayActivity extends Activity {
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
-			datebutton.setText(String.valueOf(year) + "Äê"
-					+ String.valueOf(monthofYear + 1) + "ÔÂ"
-					+ String.valueOf(dayofMonth) + "ÈÕ");
+			datebutton.setText(String.valueOf(year) + "å¹´"
+					+ String.valueOf(monthofYear + 1) + "æœˆ"
+					+ String.valueOf(dayofMonth) + "æ—¥");
 		}
 	};
 
@@ -460,7 +460,7 @@ public class ReOrderShortwayActivity extends Activity {
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
 	// // TODO Auto-generated method stub
-	// // mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+	// // mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 	// }
 	//
 	// @Override
@@ -493,7 +493,7 @@ public class ReOrderShortwayActivity extends Activity {
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
 	// // TODO Auto-generated method stub
-	// // mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+	// // mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 	// }
 	//
 	// @Override
@@ -527,7 +527,7 @@ public class ReOrderShortwayActivity extends Activity {
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
 	// // TODO Auto-generated method stub
-	// // mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+	// // mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 	// }
 	//
 	// @Override
@@ -561,7 +561,7 @@ public class ReOrderShortwayActivity extends Activity {
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
 	// // TODO Auto-generated method stub
-	// // mTextView.setText(s);//½«ÊäÈëµÄÄÚÈİÊµÊ±ÏÔÊ¾
+	// // mTextView.setText(s);//å°†è¾“å…¥çš„å†…å®¹å®æ—¶æ˜¾ç¤º
 	// }
 	//
 	// @Override
