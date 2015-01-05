@@ -40,7 +40,7 @@
         <!-- 添加百度地图key -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="p518n4dTC1rxIjyLvItmqQeS" />
+            android:value="E4b0BWNXSjsnkuq8mCHdnjCy" />
 
         <!-- 百度定位服務! -->
 
@@ -91,12 +91,12 @@
             android:name=".PersonalCenterActivity"
             android:label="@string/title_activity_personal_center"
             android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan" ><intent-filter>
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ChooseAddressActivity"
