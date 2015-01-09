@@ -85,8 +85,10 @@ SQLhelplib/
 jniLibs/
 
 #.idea文件夹下部分不应该被控制的文件
-.idea/
-*.iml
+.idea/workspace.xml
+.idea/tasks.xml
+gradle.xml
+libraries/
 
 ## File-based project format:
 *.ipr
