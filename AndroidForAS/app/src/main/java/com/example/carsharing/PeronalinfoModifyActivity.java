@@ -96,7 +96,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	public void carinfo(final String phonenum, final String carnum,
 			final String carbrand, final String carmodel,
 			final String carcolor, final String car_capacity, int type) {
-		// TODO Auto-generated method stub
+		
 
 		String carinfotype;
 		if (type == 1) {
@@ -129,7 +129,7 @@ public class PeronalinfoModifyActivity extends Activity {
 							json1 = new JSONObject(response);
 							carinfook = json1.getBoolean("result");
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 						if (carinfook == false) {
@@ -171,7 +171,7 @@ public class PeronalinfoModifyActivity extends Activity {
 
 	private void changeinfo(final String phonenum, final String name,
 			final String age, final String sex) {
-		// TODO Auto-generated method stub
+		
 		String modify_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_UserInfo)
 				+ getString(R.string.uri_changeinfo_action);
@@ -193,7 +193,7 @@ public class PeronalinfoModifyActivity extends Activity {
 							json1 = new JSONObject(response);
 							modifyok = json1.getBoolean("Login");
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 						if (modifyok == false) {
@@ -231,7 +231,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	}
 
 	private void selectcarinfo(final String phonenum) {
-		// TODO Auto-generated method stub
+		
 		String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_CarInfo)
 				+ getString(R.string.uri_selectcarinfo_action);
@@ -242,7 +242,7 @@ public class PeronalinfoModifyActivity extends Activity {
 
 					@Override
 					public void onResponse(String response) {
-						// TODO Auto-generated method stub
+						
 						Log.e("carinfo_selectresult_result", response);
 						String jas_id = null;
 						JSONObject json1 = null;
@@ -260,7 +260,7 @@ public class PeronalinfoModifyActivity extends Activity {
 								Log.e("carinfochoosing_type", "2");
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -269,7 +269,7 @@ public class PeronalinfoModifyActivity extends Activity {
 
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						// TODO Auto-generated method stub
+						
 						Log.e("carinfo_selectresult_result",
 								error.getMessage(), error);
 					}
@@ -323,7 +323,7 @@ public class PeronalinfoModifyActivity extends Activity {
 				.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 					@Override
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
-						// TODO Auto-generated method stub
+						
 						if (checkedId == femaleRadioButton.getId()) {
 							bfemale = true;
 						} else if (checkedId == maleRadioButton.getId()) {
@@ -365,7 +365,7 @@ public class PeronalinfoModifyActivity extends Activity {
 					sex = "m";
 				}
 				editor.commit();
-				// TODO Auto-generated method stub
+				
 				SharedPreferences filename = phonenumber.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
 						Context.MODE_PRIVATE);
@@ -587,20 +587,20 @@ public class PeronalinfoModifyActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = name.getSelectionStart();
 			editEnd = name.getSelectionEnd();
 			if (temp.length() > 0) {
@@ -620,20 +620,20 @@ public class PeronalinfoModifyActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = age.getSelectionStart();
 			editEnd = age.getSelectionEnd();
 			if (temp.length() != 0) {
@@ -654,20 +654,20 @@ public class PeronalinfoModifyActivity extends Activity {
 	// @Override
 	// public void onTextChanged(CharSequence s, int start, int before,
 	// int count) {
-	// // TODO Auto-generated method stub
+	// 
 	// temp = s;
 	// }
 	//
 	// @Override
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
-	// // TODO Auto-generated method stub
+	// 
 	// // mTextView.setText(s);//将输入的内容实时显示
 	// }
 	//
 	// @Override
 	// public void afterTextChanged(Editable s) {
-	// // TODO Auto-generated method stub
+	// 
 	// editStart = brand.getSelectionStart();
 	// editEnd = brand.getSelectionEnd();
 	// if (temp.length() > 0) {
@@ -687,20 +687,20 @@ public class PeronalinfoModifyActivity extends Activity {
 	// @Override
 	// public void onTextChanged(CharSequence s, int start, int before,
 	// int count) {
-	// // TODO Auto-generated method stub
+	// 
 	// temp = s;
 	// }
 	//
 	// @Override
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
-	// // TODO Auto-generated method stub
+	// 
 	// // mTextView.setText(s);//将输入的内容实时显示
 	// }
 	//
 	// @Override
 	// public void afterTextChanged(Editable s) {
-	// // TODO Auto-generated method stub
+	// 
 	// editStart = model.getSelectionStart();
 	// editEnd = model.getSelectionEnd();
 	// if (temp.length() != 0) {
@@ -720,20 +720,20 @@ public class PeronalinfoModifyActivity extends Activity {
 	// @Override
 	// public void onTextChanged(CharSequence s, int start, int before,
 	// int count) {
-	// // TODO Auto-generated method stub
+	// 
 	// temp = s;
 	// }
 	//
 	// @Override
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
-	// // TODO Auto-generated method stub
+	// 
 	// // mTextView.setText(s);//将输入的内容实时显示
 	// }
 	//
 	// @Override
 	// public void afterTextChanged(Editable s) {
-	// // TODO Auto-generated method stub
+	// 
 	// editStart = color.getSelectionStart();
 	// editEnd = color.getSelectionEnd();
 	// if (temp.length() > 0) {
@@ -752,20 +752,20 @@ public class PeronalinfoModifyActivity extends Activity {
 	// @Override
 	// public void onTextChanged(CharSequence s, int start, int before,
 	// int count) {
-	// // TODO Auto-generated method stub
+	// 
 	// temp = s;
 	// }
 	//
 	// @Override
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
-	// // TODO Auto-generated method stub
+	// 
 	// // mTextView.setText(s);//将输入的内容实时显示
 	// }
 	//
 	// @Override
 	// public void afterTextChanged(Editable s) {
-	// // TODO Auto-generated method stub
+	// 
 	// editStart = num.getSelectionStart();
 	// editEnd = num.getSelectionEnd();
 	// if (temp.length() != 0) {
@@ -784,20 +784,20 @@ public class PeronalinfoModifyActivity extends Activity {
 	// @Override
 	// public void onTextChanged(CharSequence s, int start, int before,
 	// int count) {
-	// // TODO Auto-generated method stub
+	// 
 	// temp = s;
 	// }
 	//
 	// @Override
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
-	// // TODO Auto-generated method stub
+	// 
 	// // mTextView.setText(s);//将输入的内容实时显示
 	// }
 	//
 	// @Override
 	// public void afterTextChanged(Editable s) {
-	// // TODO Auto-generated method stub
+	// 
 	// editStart = capacity.getSelectionStart();
 	// editEnd = capacity.getSelectionEnd();
 	// if (temp.length() != 0) {

@@ -171,7 +171,7 @@ public class LongWayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				String temp = startplace.getText().toString();
 
 				startplace.setText(endplace.getText().toString());
@@ -247,7 +247,7 @@ public class LongWayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent about = new Intent(LongWayActivity.this,
 						AboutActivity.class);
@@ -258,7 +258,7 @@ public class LongWayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent setting = new Intent(LongWayActivity.this,
 						SettingActivity.class);
@@ -272,7 +272,7 @@ public class LongWayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 			}
 		});
@@ -281,7 +281,7 @@ public class LongWayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent personalcenter = new Intent(LongWayActivity.this,
 						PersonalCenterActivity.class);
@@ -295,7 +295,7 @@ public class LongWayActivity extends Activity {
 		longway_group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup arg0, int checkedId) {
-				// TODO Auto-generated method stub18
+				18
 				// 获取变更后的选中项的ID
 
 				// "我能提供车"不变，"我不能提供车"使车牌号等编辑框不可编辑，并更改textView
@@ -421,7 +421,7 @@ public class LongWayActivity extends Activity {
 			}
 
 			private void selectcarinfo(final String phonenum) {
-				// TODO Auto-generated method stub
+				
 				String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
 						+ getString(R.string.uri_CarInfo)
 						+ getString(R.string.uri_selectcarinfo_action);
@@ -434,7 +434,7 @@ public class LongWayActivity extends Activity {
 
 							@Override
 							public void onResponse(String response) {
-								// TODO Auto-generated method stub
+								
 								Log.d("carinfo_select", response);
 								String jas_id = null;
 								JSONObject json1 = null;
@@ -463,7 +463,7 @@ public class LongWayActivity extends Activity {
 									}
 
 								} catch (JSONException e) {
-									// TODO Auto-generated catch block
+									
 									e.printStackTrace();
 								}
 							}
@@ -472,7 +472,7 @@ public class LongWayActivity extends Activity {
 
 							@Override
 							public void onErrorResponse(VolleyError error) {
-								// TODO Auto-generated method stub
+								
 								Log.e("carinfo_selectresult_result",
 										error.getMessage(), error);
 							}
@@ -492,7 +492,7 @@ public class LongWayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 
 				if (longway_group.getCheckedRadioButtonId() == passangerRadioButton
 						.getId())
@@ -518,7 +518,7 @@ public class LongWayActivity extends Activity {
 					final String longway_startplace,
 					final String longway_destination,
 					final String longway_noteinfo) {
-				// TODO Auto-generated method stub
+				
 
 				String longway_addrequest_baseurl = getString(R.string.uri_base)
 						+ getString(R.string.uri_LongwayPublish)
@@ -544,7 +544,7 @@ public class LongWayActivity extends Activity {
 									json1 = new JSONObject(response);
 									requestok = json1.getBoolean("result");
 								} catch (JSONException e) {
-									// TODO Auto-generated catch block
+									
 									e.printStackTrace();
 								}
 								if (requestok == true) {
@@ -620,7 +620,7 @@ public class LongWayActivity extends Activity {
 							standard_longway_startdate = standard_date
 									.format(test_date);
 						} catch (ParseException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 
@@ -652,7 +652,7 @@ public class LongWayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent shortway = new Intent(LongWayActivity.this,
 						ShortWayActivity.class);
@@ -664,7 +664,7 @@ public class LongWayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 			}
 		});
@@ -673,7 +673,7 @@ public class LongWayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent commute = new Intent(LongWayActivity.this,
 						CommuteActivity.class);
@@ -687,7 +687,7 @@ public class LongWayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				sum++;
 				s1.setText("" + sum);
 				confirm();
@@ -698,7 +698,7 @@ public class LongWayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				sum--;
 				if (sum < 0) {
 					sum = 0;
@@ -711,7 +711,7 @@ public class LongWayActivity extends Activity {
 		datebutton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(DATE_DIALOG);
 			}
 		});
@@ -725,20 +725,20 @@ public class LongWayActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = carbrand.getSelectionStart();
 			editEnd = carbrand.getSelectionEnd();
 			if (temp.length() != 0) {
@@ -759,20 +759,20 @@ public class LongWayActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = carbrand.getSelectionStart();
 			editEnd = carbrand.getSelectionEnd();
 			if (temp.length() != 0) {
@@ -818,7 +818,7 @@ public class LongWayActivity extends Activity {
 	public void carinfo(final String phonenum, final String carnum,
 			final String carbrand, final String carmodel,
 			final String carcolor, final String car_capacity, int type) {
-		// TODO Auto-generated method stub
+		
 
 		String carinfotype;
 		if (type == 1) {
@@ -851,7 +851,7 @@ public class LongWayActivity extends Activity {
 							json1 = new JSONObject(response);
 							carinfook = json1.getBoolean("result");
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 						if (carinfook == false) {
@@ -910,7 +910,7 @@ public class LongWayActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 				int dayofMonth) {
-			// TODO Auto-generated method stub
+			
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
@@ -932,20 +932,20 @@ public class LongWayActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = licensenum.getSelectionStart();
 			editEnd = licensenum.getSelectionEnd();
 			if (temp.length() > 0) {
@@ -965,20 +965,20 @@ public class LongWayActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = carbrand.getSelectionStart();
 			editEnd = carbrand.getSelectionEnd();
 			if (temp.length() != 0) {
@@ -999,20 +999,20 @@ public class LongWayActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = carbrand.getSelectionStart();
 			editEnd = carbrand.getSelectionEnd();
 			if (temp.length() != 0) {
@@ -1033,20 +1033,20 @@ public class LongWayActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = carbrand.getSelectionStart();
 			editEnd = carbrand.getSelectionEnd();
 			if (temp.length() != 0) {

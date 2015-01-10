@@ -108,7 +108,7 @@ public class RoutelineDisplayActivity extends Activity implements
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 
 				// Intent receiveIntent = new Intent(
 				// RoutelineDisplayActivity.this,
@@ -126,7 +126,7 @@ public class RoutelineDisplayActivity extends Activity implements
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 
 				routeline_reject.setVisibility(View.GONE);
 				routeline_receive.setVisibility(View.GONE);
@@ -148,7 +148,7 @@ public class RoutelineDisplayActivity extends Activity implements
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 
 				routeline_reject.setVisibility(View.GONE);
 				routeline_receive.setVisibility(View.GONE);
@@ -212,7 +212,7 @@ public class RoutelineDisplayActivity extends Activity implements
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				RoutelineDisplayActivity.this.finish();
 			}
 		});
@@ -289,7 +289,7 @@ public class RoutelineDisplayActivity extends Activity implements
 							// LatLng(24.444964,118.099909));
 							getpassnode();
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -372,7 +372,7 @@ public class RoutelineDisplayActivity extends Activity implements
 									.from(stNode).passBy(passnodelist)
 									.to(enNode));
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -412,7 +412,7 @@ public class RoutelineDisplayActivity extends Activity implements
 
 	@Override
 	public void onGetDrivingRouteResult(DrivingRouteResult result) {
-		// TODO Auto-generated method stub
+		
 		if (result.error == SearchResult.ERRORNO.NO_ERROR) {
 			route = result.getRouteLines().get(0);
 			DrivingRouteOvelray overlay = new DrivingRouteOvelray(mBaidumap);
@@ -434,7 +434,7 @@ public class RoutelineDisplayActivity extends Activity implements
 	}
 
 	private void selectcarinfo(final String phonenum) {
-		// TODO Auto-generated method stub
+		
 		String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_CarInfo)
 				+ getString(R.string.uri_selectcarinfo_action);
@@ -445,7 +445,7 @@ public class RoutelineDisplayActivity extends Activity implements
 
 					@Override
 					public void onResponse(String response) {
-						// TODO Auto-generated method stub
+						
 						Log.e("carinfo_selectresult_result", response);
 						String jas_id = null;
 						JSONObject json1 = null;
@@ -456,7 +456,7 @@ public class RoutelineDisplayActivity extends Activity implements
 							Log.d("jas_id", jas_id);
 
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -465,7 +465,7 @@ public class RoutelineDisplayActivity extends Activity implements
 
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						// TODO Auto-generated method stub
+						
 						Log.e("carinfo_selectresult_result",
 								error.getMessage(), error);
 					}
@@ -482,13 +482,13 @@ public class RoutelineDisplayActivity extends Activity implements
 
 	@Override
 	public void onGetTransitRouteResult(TransitRouteResult arg0) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void onGetWalkingRouteResult(WalkingRouteResult arg0) {
-		// TODO Auto-generated method stub
+		
 
 	}
 

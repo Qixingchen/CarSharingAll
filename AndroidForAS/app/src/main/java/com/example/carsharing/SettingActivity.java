@@ -73,7 +73,7 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent about = new Intent(getApplicationContext(),
 						AboutActivity.class);
@@ -85,7 +85,7 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent setting = new Intent(getApplicationContext(),
 						SettingActivity.class);
@@ -97,7 +97,7 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 			}
 		});
@@ -106,7 +106,7 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent personalcenter = new Intent(getApplicationContext(),
 						PersonalCenterActivity.class);
@@ -119,7 +119,7 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent shortway = new Intent(getApplicationContext(),
 						ShortWayActivity.class);
@@ -132,7 +132,7 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent longway = new Intent(getApplicationContext(),
 						MainActivity.class);
@@ -144,7 +144,7 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent commute = new Intent(getApplicationContext(),
 						CommuteActivity.class);

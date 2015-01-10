@@ -22,7 +22,6 @@ public class Hash_pwd {
 		try {
 			md = MessageDigest.getInstance("SHA-256");
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		md.update(need.getBytes());

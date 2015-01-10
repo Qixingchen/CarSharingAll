@@ -71,25 +71,25 @@ public class MyAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
+		
 		return data.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
+		
 		return data.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
+		
 		return position;
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+		
 		MyLayout mylayout = null;
 		if (convertView == null) {
 			mylayout = new MyLayout();
@@ -120,7 +120,7 @@ public class MyAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				queue = Volley.newRequestQueue(context);
 				// 提取用户手机号
 				SharedPreferences sharedPref = context.getSharedPreferences(
@@ -171,7 +171,7 @@ public class MyAdapter extends BaseAdapter {
 
 			private void longway_deleterequest(final String phonenum,
 					final String time) {
-				// TODO Auto-generated method stub
+				
 				String longway_deleterequest_baseurl = context
 						.getString(R.string.uri_base)
 						+ context.getString(R.string.uri_LongwayPublish)
@@ -195,7 +195,7 @@ public class MyAdapter extends BaseAdapter {
 										// pyj-end
 									}
 								} catch (JSONException e) {
-									// TODO Auto-generated catch block
+									
 									e.printStackTrace();
 								}
 							}
@@ -224,7 +224,7 @@ public class MyAdapter extends BaseAdapter {
 
 			private void shortway_deleterequest(final String phonenum,
 					final String time) {
-				// TODO Auto-generated method stub
+				
 				String shortway_deleterequest_baseurl = context
 						.getString(R.string.uri_base)
 						+ context.getString(R.string.uri_ShortwayRequest)
@@ -250,7 +250,7 @@ public class MyAdapter extends BaseAdapter {
 										// pyj-end
 									}
 								} catch (JSONException e) {
-									// TODO Auto-generated catch block
+									
 									e.printStackTrace();
 								}
 							}
@@ -280,7 +280,7 @@ public class MyAdapter extends BaseAdapter {
 
 			private void commute_deleterequest(final String phonenum,
 					final String time) {
-				// TODO Auto-generated method stub
+				
 
 				String commute_deleterequst_baseurl = context
 						.getString(R.string.uri_base)
@@ -308,7 +308,7 @@ public class MyAdapter extends BaseAdapter {
 										// pyj-end
 									}
 								} catch (JSONException e) {
-									// TODO Auto-generated catch block
+									
 									e.printStackTrace();
 									Log.e("deletewrong", "not errorresponse");
 								}

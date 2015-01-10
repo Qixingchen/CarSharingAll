@@ -34,7 +34,6 @@ public class CarsharingTypeActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				Intent longcs = new Intent(CarsharingTypeActivity.this,
 						LongWayActivity.class);
 				longcs.putExtra("pre_page", "CarsharingType");
@@ -45,7 +44,6 @@ public class CarsharingTypeActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				Intent shortcs = new Intent(CarsharingTypeActivity.this,
 						ShortWayActivity.class);
 				shortcs.putExtra("pre_page", "CarsharingType");
@@ -57,7 +55,6 @@ public class CarsharingTypeActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				Intent workcs = new Intent(CarsharingTypeActivity.this,
 						CommuteActivity.class);
 				workcs.putExtra("pre_page", "CarsharingType");

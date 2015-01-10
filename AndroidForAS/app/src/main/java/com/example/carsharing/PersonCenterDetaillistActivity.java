@@ -106,7 +106,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int position, long arg3) {
-					// TODO Auto-generated method stub
+					
 					String requesttime = PersonalCenterActivity.mylist1.get(
 							position).get("requst");
 					shortway_selectrequest(UserPhoneNumber, requesttime);
@@ -140,7 +140,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int position, long arg3) {
-					// TODO Auto-generated method stub
+					
 
 					// (array.size() < position)
 					// array.add(position,String);
@@ -186,7 +186,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 	private void shortway_selectrequest(final String phonenum,
 			final String request) {
-		// TODO Auto-generated method stub
+		
 		String shortway_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_ShortwayRequest)
 				+ getString(R.string.uri_selectrequest_action);
@@ -272,7 +272,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 								commute_selectrequest(phonenum, request);
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -299,7 +299,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 	private void commute_selectrequest(final String phonenum,
 			final String request) {
-		// TODO Auto-generated method stub
+		
 		String commute_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_CommuteRequest)
 				+ getString(R.string.uri_selectrequest_action);
@@ -386,7 +386,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 								startActivity(intent);
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -414,7 +414,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 	public void longway_selectrequest(final String phonenum,
 			final String request) {
-		// TODO Auto-generated method stub
+		
 		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_LongwayPublish)
 				+ getString(R.string.uri_selectpublish_action);
@@ -470,7 +470,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 								startActivity(intent);
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}

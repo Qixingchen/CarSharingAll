@@ -189,7 +189,7 @@ public class MainActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent about = new Intent(getApplicationContext(),
 						AboutActivity.class);
@@ -201,7 +201,7 @@ public class MainActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent setting = new Intent(getApplicationContext(),
 						SettingActivity.class);
@@ -213,7 +213,7 @@ public class MainActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 			}
 		});
@@ -222,7 +222,7 @@ public class MainActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent personalcenter = new Intent(getApplicationContext(),
 						PersonalCenterActivity.class);
@@ -235,7 +235,7 @@ public class MainActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent shortway = new Intent(getApplicationContext(),
 						ShortWayActivity.class);
@@ -248,7 +248,7 @@ public class MainActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent longway = new Intent(getApplicationContext(),
 						MainActivity.class);
@@ -260,7 +260,7 @@ public class MainActivity extends FragmentActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent commute = new Intent(getApplicationContext(),
 						CommuteActivity.class);
@@ -353,7 +353,7 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		private void lookuppublish(final String role) {
-			// TODO Auto-generated method stub
+			
 			String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 					+ getString(R.string.uri_LongwayPublish)
 					+ getString(R.string.uri_lookuppublish_action);

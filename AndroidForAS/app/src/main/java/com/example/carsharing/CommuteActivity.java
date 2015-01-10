@@ -173,7 +173,7 @@ public class CommuteActivity extends Activity {
 	public void carinfo(final String phonenum, final String carnum,
 			final String carbrand, final String carmodel,
 			final String carcolor, final String car_capacity, int type) {
-		// TODO Auto-generated method stub
+		
 
 		String carinfotype;
 		if (type == 1) {
@@ -206,7 +206,7 @@ public class CommuteActivity extends Activity {
 							json1 = new JSONObject(response);
 							carinfook = json1.getBoolean("result");
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 						if (carinfook == false) {
@@ -271,7 +271,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				String temp = startplace.getText().toString();
 				if (!temp.equals("选择起点")
 						&& !endplace.getText().toString().equals("选择终点")) {
@@ -425,7 +425,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent about = new Intent(CommuteActivity.this,
 						AboutActivity.class);
@@ -436,7 +436,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent setting = new Intent(CommuteActivity.this,
 						SettingActivity.class);
@@ -542,7 +542,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 			}
 		});
@@ -551,7 +551,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent personalcenter = new Intent(CommuteActivity.this,
 						PersonalCenterActivity.class);
@@ -563,7 +563,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent shortway = new Intent(CommuteActivity.this,
 						ShortWayActivity.class);
@@ -576,7 +576,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent longway = new Intent(CommuteActivity.this,
 						MainActivity.class);
@@ -588,7 +588,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 
 			}
@@ -598,7 +598,7 @@ public class CommuteActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				// TODO Auto-generated method stub
+				
 				if (isChecked) {
 					bmon = true;
 				} else {
@@ -611,7 +611,7 @@ public class CommuteActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				// TODO Auto-generated method stub
+				
 				if (isChecked) {
 					btue = true;
 				} else {
@@ -624,7 +624,7 @@ public class CommuteActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				// TODO Auto-generated method stub
+				
 				if (isChecked) {
 					bwed = true;
 				} else {
@@ -637,7 +637,7 @@ public class CommuteActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				// TODO Auto-generated method stub
+				
 				if (isChecked) {
 					bthu = true;
 				} else {
@@ -650,7 +650,7 @@ public class CommuteActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				// TODO Auto-generated method stub
+				
 				if (isChecked) {
 					bfri = true;
 				} else {
@@ -663,7 +663,7 @@ public class CommuteActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				// TODO Auto-generated method stub
+				
 				if (isChecked) {
 					bsat = true;
 				} else {
@@ -676,7 +676,7 @@ public class CommuteActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				// TODO Auto-generated method stub
+				
 				if (isChecked) {
 					bsun = true;
 				} else {
@@ -689,7 +689,7 @@ public class CommuteActivity extends Activity {
 		commute_group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup arg0, int checkedId) {
-				// TODO Auto-generated method stub18
+				18
 				// 获取变更后的选中项的ID
 
 				// "我能提供车"不变，"我不能提供车"使车牌号等编辑框不可编辑，并更改textView
@@ -825,7 +825,7 @@ public class CommuteActivity extends Activity {
 			}
 
 			private void selectcarinfo(final String phonenum) {
-				// TODO Auto-generated method stub
+				
 				String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
 						+ getString(R.string.uri_CarInfo)
 						+ getString(R.string.uri_selectcarinfo_action);
@@ -838,7 +838,7 @@ public class CommuteActivity extends Activity {
 
 							@Override
 							public void onResponse(String response) {
-								// TODO Auto-generated method stub
+								
 								Log.d("carinfo_select", response);
 								String jas_id = null;
 								JSONObject json1 = null;
@@ -864,7 +864,7 @@ public class CommuteActivity extends Activity {
 										carinfochoosing_type = 1;
 									}
 								} catch (JSONException e) {
-									// TODO Auto-generated catch block
+									
 									e.printStackTrace();
 								}
 							}
@@ -872,7 +872,7 @@ public class CommuteActivity extends Activity {
 
 							@Override
 							public void onErrorResponse(VolleyError error) {
-								// TODO Auto-generated method stub
+								
 								Log.e("carinfo_selectresult_result",
 										error.getMessage(), error);
 							}
@@ -893,7 +893,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 
 				if (commute_group.getCheckedRadioButtonId() == mRadio1.getId()) {
 					supplycar = "y";
@@ -917,7 +917,7 @@ public class CommuteActivity extends Activity {
 					final String commute_startdate,
 					final String commute_enddate,
 					final String commute_starttime, final String commute_endtime) {
-				// TODO Auto-generated method stub
+				
 
 				weekrepeat = "";
 				if (bmon)
@@ -948,7 +948,7 @@ public class CommuteActivity extends Activity {
 					test_date = primary_time.parse(commute_endtime);
 					standard_commute_endtime = standard_time.format(test_date);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 
@@ -983,7 +983,7 @@ public class CommuteActivity extends Activity {
 									json1 = new JSONObject(response);
 									requestok = json1.getBoolean("result");
 								} catch (JSONException e) {
-									// TODO Auto-generated catch block
+									
 									e.printStackTrace();
 								}
 
@@ -1070,7 +1070,7 @@ public class CommuteActivity extends Activity {
 							standard_commute_endtime = standard_time
 									.format(test_date);
 						} catch (ParseException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 
@@ -1124,7 +1124,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				startActivityForResult(new Intent(CommuteActivity.this,
 						ChooseAddressActivity.class), 1);
 			}
@@ -1134,7 +1134,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				startActivityForResult(new Intent(CommuteActivity.this,
 						ChooseArrivalActivity.class), 2);
 			}
@@ -1144,7 +1144,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				sum++;
 				s1.setText("" + sum);
 				confirm();
@@ -1155,7 +1155,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				sum--;
 				if (sum < 0) {
 					sum = 0;
@@ -1169,7 +1169,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(DATE_DIALOG);
 			}
 
@@ -1179,7 +1179,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(DATE_DIALOG01);
 
 			}
@@ -1189,7 +1189,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(TIME_DIALOG);
 			}
 		});
@@ -1198,7 +1198,7 @@ public class CommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(TIME_DIALOG01);
 
 			}
@@ -1358,7 +1358,7 @@ public class CommuteActivity extends Activity {
 
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// TODO Auto-generated method stub
+			
 			mHour = hourOfDay;
 			mMinute = minute;
 			DisplayToast("时间为:" + String.valueOf(hourOfDay) + "时"
@@ -1374,7 +1374,7 @@ public class CommuteActivity extends Activity {
 
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// TODO Auto-generated method stub
+			
 			mHour = hourOfDay;
 			mMinute = minute;
 			DisplayToast("时间为:" + String.valueOf(hourOfDay) + "时"
@@ -1390,7 +1390,7 @@ public class CommuteActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 				int dayofMonth) {
-			// TODO Auto-generated method stub
+			
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
@@ -1409,7 +1409,7 @@ public class CommuteActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 				int dayofMonth) {
-			// TODO Auto-generated method stub
+			
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
@@ -1431,20 +1431,20 @@ public class CommuteActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = licensenum.getSelectionStart();
 			editEnd = licensenum.getSelectionEnd();
 			if (temp.length() > 0) {
@@ -1464,20 +1464,20 @@ public class CommuteActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = carbrand.getSelectionStart();
 			editEnd = carbrand.getSelectionEnd();
 			if (temp.length() != 0) {
@@ -1498,20 +1498,20 @@ public class CommuteActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = carbrand.getSelectionStart();
 			editEnd = carbrand.getSelectionEnd();
 			if (temp.length() != 0) {
@@ -1532,20 +1532,20 @@ public class CommuteActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = carbrand.getSelectionStart();
 			editEnd = carbrand.getSelectionEnd();
 			if (temp.length() != 0) {

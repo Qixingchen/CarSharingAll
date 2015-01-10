@@ -77,7 +77,7 @@ public class RegisterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				PhoneNum.setText("");
 				confirm();
 			}
@@ -88,7 +88,7 @@ public class RegisterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 
 				checkphone(PhoneNum.getText().toString());
 				// json
@@ -122,7 +122,7 @@ public class RegisterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 
 				// 判断是否为一个合法的电话号码
 				if (mobliejudging.mobilejudging(PhoneNum.getText().toString())) {
@@ -143,7 +143,7 @@ public class RegisterActivity extends Activity {
 					@Override
 					public void onCheckedChanged(CompoundButton buttonView,
 							boolean isChecked) {
-						// TODO Auto-generated method stub
+						
 						if (isChecked) {
 							agree = true;
 						} else {
@@ -230,20 +230,20 @@ public class RegisterActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = PhoneNum.getSelectionStart();
 			editEnd = PhoneNum.getSelectionEnd();
 			if (temp.length() > 0) {
@@ -262,20 +262,20 @@ public class RegisterActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
+			
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
+			
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
+			
 			editStart = Authorize.getSelectionStart();
 			editEnd = Authorize.getSelectionEnd();
 			if (temp.length() != 0) {
@@ -317,7 +317,6 @@ public class RegisterActivity extends Activity {
 							json1 = new JSONObject(response);
 							chcp = json1.getBoolean("PhoneNum");
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						if (chcp == false) {

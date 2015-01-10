@@ -119,7 +119,7 @@ public class ReOrderShortwayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				String temp = startplace.getText().toString();
 				if (!temp.equals("选择起点")
 						&& !endplace.getText().toString().equals("选择终点")) {
@@ -140,7 +140,7 @@ public class ReOrderShortwayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				startActivityForResult(new Intent(ReOrderShortwayActivity.this,
 						ChooseAddressActivity.class), 1);
 			}
@@ -150,7 +150,7 @@ public class ReOrderShortwayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				startActivityForResult(new Intent(ReOrderShortwayActivity.this,
 						ChooseArrivalActivity.class), 2);
 			}
@@ -158,7 +158,7 @@ public class ReOrderShortwayActivity extends Activity {
 		datebutton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(DATE_DIALOG);
 			}
 		});
@@ -167,7 +167,7 @@ public class ReOrderShortwayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(TIME_DIALOG);
 			}
 		});
@@ -175,7 +175,7 @@ public class ReOrderShortwayActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(TIME_DIALOG1);
 
 			}
@@ -183,7 +183,7 @@ public class ReOrderShortwayActivity extends Activity {
 		increase.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				sum++;
 				count.setText("" + sum);
 			}
@@ -192,7 +192,7 @@ public class ReOrderShortwayActivity extends Activity {
 		decrease.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				sum--;
 				if (sum < 0) {
 					sum = 0;
@@ -206,7 +206,7 @@ public class ReOrderShortwayActivity extends Activity {
 		// .setOnCheckedChangeListener(new OnCheckedChangeListener() {
 		// @Override
 		// public void onCheckedChanged(RadioGroup arg0, int checkedId) {
-		// // TODO Auto-generated method stub18
+		// 18
 		// // 获取变更后的选中项的ID
 		//
 		// // "我能提供车"不变，"我不能提供车"使车牌号等编辑框不可编辑，并更改textView
@@ -409,7 +409,7 @@ public class ReOrderShortwayActivity extends Activity {
 
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// TODO Auto-generated method stub
+			
 			mHour = hourOfDay;
 			mMinute = minute;
 			earlystarttime.setText(String.valueOf(hourOfDay) + "时"
@@ -421,7 +421,7 @@ public class ReOrderShortwayActivity extends Activity {
 
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// TODO Auto-generated method stub
+			
 			mHour = hourOfDay;
 			mMinute = minute;
 			latestarttime.setText(String.valueOf(hourOfDay) + "时"
@@ -434,7 +434,7 @@ public class ReOrderShortwayActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 				int dayofMonth) {
-			// TODO Auto-generated method stub
+			
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
@@ -452,20 +452,20 @@ public class ReOrderShortwayActivity extends Activity {
 	// @Override
 	// public void onTextChanged(CharSequence s, int start, int before,
 	// int count) {
-	// // TODO Auto-generated method stub
+	// 
 	// temp = s;
 	// }
 	//
 	// @Override
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
-	// // TODO Auto-generated method stub
+	// 
 	// // mTextView.setText(s);//将输入的内容实时显示
 	// }
 	//
 	// @Override
 	// public void afterTextChanged(Editable s) {
-	// // TODO Auto-generated method stub
+	// 
 	// editStart = licensenum.getSelectionStart();
 	// editEnd = licensenum.getSelectionEnd();
 	// if (temp.length() > 0) {
@@ -485,20 +485,20 @@ public class ReOrderShortwayActivity extends Activity {
 	// @Override
 	// public void onTextChanged(CharSequence s, int start, int before,
 	// int count) {
-	// // TODO Auto-generated method stub
+	// 
 	// temp = s;
 	// }
 	//
 	// @Override
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
-	// // TODO Auto-generated method stub
+	// 
 	// // mTextView.setText(s);//将输入的内容实时显示
 	// }
 	//
 	// @Override
 	// public void afterTextChanged(Editable s) {
-	// // TODO Auto-generated method stub
+	// 
 	// editStart = carbrand.getSelectionStart();
 	// editEnd = carbrand.getSelectionEnd();
 	// if (temp.length() != 0) {
@@ -519,20 +519,20 @@ public class ReOrderShortwayActivity extends Activity {
 	// @Override
 	// public void onTextChanged(CharSequence s, int start, int before,
 	// int count) {
-	// // TODO Auto-generated method stub
+	// 
 	// temp = s;
 	// }
 	//
 	// @Override
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
-	// // TODO Auto-generated method stub
+	// 
 	// // mTextView.setText(s);//将输入的内容实时显示
 	// }
 	//
 	// @Override
 	// public void afterTextChanged(Editable s) {
-	// // TODO Auto-generated method stub
+	// 
 	// editStart = carbrand.getSelectionStart();
 	// editEnd = carbrand.getSelectionEnd();
 	// if (temp.length() != 0) {
@@ -553,20 +553,20 @@ public class ReOrderShortwayActivity extends Activity {
 	// @Override
 	// public void onTextChanged(CharSequence s, int start, int before,
 	// int count) {
-	// // TODO Auto-generated method stub
+	// 
 	// temp = s;
 	// }
 	//
 	// @Override
 	// public void beforeTextChanged(CharSequence s, int start, int count,
 	// int after) {
-	// // TODO Auto-generated method stub
+	// 
 	// // mTextView.setText(s);//将输入的内容实时显示
 	// }
 	//
 	// @Override
 	// public void afterTextChanged(Editable s) {
-	// // TODO Auto-generated method stub
+	// 
 	// editStart = carbrand.getSelectionStart();
 	// editEnd = carbrand.getSelectionEnd();
 	// if (temp.length() != 0) {

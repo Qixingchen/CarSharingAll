@@ -68,7 +68,6 @@ public class ForgetPasswordActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 
 				checkphone(phonenum.getText().toString());
 			}
@@ -82,7 +81,6 @@ public class ForgetPasswordActivity extends Activity {
 				if (first_rePassword.getText().toString()
 						.compareTo(second_rePassword.getText().toString()) == 0
 						&& first_rePassword.getText().toString().compareTo("") != 0) {
-					// TODO Auto-generated method stub
 
 					alterpassword(phonenum.getText().toString(),
 							hash.hashans(first_rePassword.getText().toString()));
@@ -100,7 +98,6 @@ public class ForgetPasswordActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				phonenum.setText("");
 			}
 		});
@@ -110,7 +107,6 @@ public class ForgetPasswordActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				first_rePassword.setText("");
 			}
 		});
@@ -120,7 +116,6 @@ public class ForgetPasswordActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				second_rePassword.setText("");
 			}
 		});
@@ -149,7 +144,6 @@ public class ForgetPasswordActivity extends Activity {
 							json1 = new JSONObject(response);
 							chcp = json1.getBoolean("PhoneNum");
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						if (chcp == true) {
@@ -184,7 +178,6 @@ public class ForgetPasswordActivity extends Activity {
 	}
 
 	private void alterpassword(final String phonenum, final String pwd) {
-		// TODO Auto-generated method stub
 
 		String login_baseurl = "http://192.168.1.111:8080/CarsharingServer/UserInfo!alterpassword.action?";
 
@@ -200,7 +193,6 @@ public class ForgetPasswordActivity extends Activity {
 							json1 = new JSONObject(response);
 							suc = json1.getBoolean("Result");
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						if (suc == true) {

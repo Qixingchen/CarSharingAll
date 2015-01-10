@@ -182,7 +182,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent about = new Intent(PersonalCenterActivity.this,
 						AboutActivity.class);
@@ -193,7 +193,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent setting = new Intent(PersonalCenterActivity.this,
 						SettingActivity.class);
@@ -204,7 +204,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 			}
 		});
@@ -213,7 +213,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 			}
 		});
@@ -222,7 +222,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent shortway = new Intent(PersonalCenterActivity.this,
 						ShortWayActivity.class);
@@ -235,7 +235,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent longway = new Intent(PersonalCenterActivity.this,
 						MainActivity.class);
@@ -247,7 +247,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent commute = new Intent(PersonalCenterActivity.this,
 						CommuteActivity.class);
@@ -260,7 +260,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				Intent iwantcar = new Intent();
 				iwantcar.setClass(PersonalCenterActivity.this,
 						CarsharingTypeActivity.class);
@@ -272,7 +272,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				Intent imageedit = new Intent();
 				imageedit.setClass(PersonalCenterActivity.this,
 						PeronalinfoModifyActivity.class);
@@ -284,7 +284,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				if (loadok == true) {
 					Intent historymore = new Intent();
 					historymore.setClass(PersonalCenterActivity.this,
@@ -304,7 +304,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				if (loadok == true) {
 					Intent receivingmore = new Intent();
 					receivingmore.setClass(PersonalCenterActivity.this,
@@ -323,7 +323,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				// if (loadok == true) {
 				Intent addressmore = new Intent();
 				addressmore.setClass(PersonalCenterActivity.this,
@@ -393,7 +393,7 @@ public class PersonalCenterActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				SharedPreferences sharedPref = getApplicationContext()
 						.getSharedPreferences(UserPhoneNumber,
 								Context.MODE_PRIVATE);
@@ -437,7 +437,7 @@ public class PersonalCenterActivity extends Activity {
 	}
 
 	private void sharingresult(final String phonenum) {
-		// TODO Auto-generated method stub
+		
 		String sharingresult_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_CarTake)
 				+ getString(R.string.uri_selectcartake_action);
@@ -522,7 +522,7 @@ public class PersonalCenterActivity extends Activity {
 								}
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -547,7 +547,7 @@ public class PersonalCenterActivity extends Activity {
 	}
 
 	private void longway_selectrequest(final String phonenum) {
-		// TODO Auto-generated method stub
+		
 		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_LongwayPublish)
 				+ getString(R.string.uri_selectpublish_action);
@@ -594,7 +594,7 @@ public class PersonalCenterActivity extends Activity {
 							}
 							loadok = true;
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -620,7 +620,7 @@ public class PersonalCenterActivity extends Activity {
 	}
 
 	private void shortway_selectrequest(final String phonenum) {
-		// TODO Auto-generated method stub
+		
 		String shortway_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_ShortwayRequest)
 				+ getString(R.string.uri_selectrequest_action);
@@ -671,7 +671,7 @@ public class PersonalCenterActivity extends Activity {
 							longway_selectrequest(phonenum);
 							loadok = true;
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -697,7 +697,7 @@ public class PersonalCenterActivity extends Activity {
 	}
 
 	private void selectrequest(final String phonenum) {
-		// TODO Auto-generated method stub
+		
 		String commute_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_CommuteRequest)
 				+ getString(R.string.uri_selectrequest_action);
@@ -750,7 +750,7 @@ public class PersonalCenterActivity extends Activity {
 							}
 							shortway_selectrequest(phonenum);
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -866,7 +866,7 @@ public class PersonalCenterActivity extends Activity {
 
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
+			
 			super.handleMessage(msg);
 			isExit = false;
 		}

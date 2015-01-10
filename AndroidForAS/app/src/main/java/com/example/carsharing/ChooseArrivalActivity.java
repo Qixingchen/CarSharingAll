@@ -159,7 +159,6 @@ public class ChooseArrivalActivity extends Activity implements
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				ChooseArrivalActivity.this.finish();
 			}
 		});
@@ -242,7 +241,6 @@ public class ChooseArrivalActivity extends Activity implements
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 
 				// 百度定位
 				Toast.makeText(getApplicationContext(),
@@ -272,7 +270,6 @@ public class ChooseArrivalActivity extends Activity implements
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 
 				// 百度map
 				if (!choose.getText().toString().isEmpty()) {
@@ -302,7 +299,6 @@ public class ChooseArrivalActivity extends Activity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
 				Intent endplace = new Intent();
 
 				// 表名 ,要获取的字段名，WHERE 条件，WHere值，don't group the rows，
@@ -339,7 +335,6 @@ public class ChooseArrivalActivity extends Activity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
 				Intent endplace = new Intent();
 
 				// 表名 ,要获取的字段名，WHERE 条件，WHere值，don't group the rows，
@@ -631,7 +626,6 @@ public class ChooseArrivalActivity extends Activity implements
 
 	@Override
 	protected void onStop() {
-		// TODO Auto-generated method stub
 		mLocationClient.stop();
 		super.onStop();
 	}

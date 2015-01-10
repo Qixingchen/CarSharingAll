@@ -106,7 +106,6 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 
 				// 向服务器发送登陆请求start!
 				login(phonenumber.getText().toString(),
@@ -123,7 +122,6 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 
-				// TODO Auto-generated method stub
 				Intent register = new Intent(LoginActivity.this,
 						RegisterActivity.class);
 				register.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -136,7 +134,6 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				Intent forget = new Intent(LoginActivity.this,
 						ForgetPasswordActivity.class);
 				startActivity(forget);
@@ -152,7 +149,6 @@ public class LoginActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
 			temp = s;
 			UserPhotoChange(phonenumber.getText().toString());
 		}
@@ -160,13 +156,11 @@ public class LoginActivity extends Activity {
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
 			editStart = phonenumber.getSelectionStart();
 			editEnd = phonenumber.getSelectionEnd();
 			if (temp.length() > 0) {
@@ -187,20 +181,17 @@ public class LoginActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			// TODO Auto-generated method stub
 			temp = s;
 		}
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			// TODO Auto-generated method stub
 			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO Auto-generated method stub
 			editStart = password.getSelectionStart();
 			editEnd = password.getSelectionEnd();
 			if (temp.length() != 0) {
@@ -251,7 +242,6 @@ public class LoginActivity extends Activity {
 
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
 			super.handleMessage(msg);
 			isExit = false;
 		}
@@ -308,7 +298,7 @@ public class LoginActivity extends Activity {
 	// 自动登录end
 
 	private void login(final String phonenum, final String pwd) {
-		// TODO Auto-generated method stub
+		
 
 		// Toast.makeText(getApplicationContext(), "正在登陆", Toast.LENGTH_SHORT)
 		// .show();
@@ -337,7 +327,7 @@ public class LoginActivity extends Activity {
 							json1 = new JSONObject(response);
 							suc = json1.getBoolean("Login");
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 						if (suc == true) {
@@ -406,7 +396,7 @@ public class LoginActivity extends Activity {
 	}
 
 	private void selectuserimage(final String phonenum) {
-		// TODO Auto-generated method stub
+		
 		// String imageUrl = "http://i.imgur.com/7spzG.png";
 		String imageUrl = "http://192.168.1.111:8080/CarsharingServer/images/Userphoto/"
 				+ phonenum + ".jpg";
@@ -416,7 +406,7 @@ public class LoginActivity extends Activity {
 
 					@Override
 					public void onResponse(Bitmap bitmap) {
-						// TODO Auto-generated method stub
+						
 						// login_personpicture.setImageResource(R.drawable.ic_action_back);
 						login_personpicture.setImageBitmap(bitmap);
 
@@ -460,7 +450,7 @@ public class LoginActivity extends Activity {
 	}
 
 	private void selectcarinfo(final String phonenum) {
-		// TODO Auto-generated method stub
+		
 		String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_CarInfo)
 				+ getString(R.string.uri_selectcarinfo_action);
@@ -471,7 +461,7 @@ public class LoginActivity extends Activity {
 
 					@Override
 					public void onResponse(String response) {
-						// TODO Auto-generated method stub
+						
 						Log.d("carinfo_select", response);
 						JSONObject json1 = null;
 						try {
@@ -504,7 +494,7 @@ public class LoginActivity extends Activity {
 							// 向服务器请求查询个人信息（姓名年龄性别）end!
 
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -512,7 +502,7 @@ public class LoginActivity extends Activity {
 
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						// TODO Auto-generated method stub
+						
 						Log.e("carinfo_selectresult_result",
 								error.getMessage(), error);
 					}
@@ -528,7 +518,7 @@ public class LoginActivity extends Activity {
 	}
 
 	private void selectuserinfo(final String phonenum) {
-		// TODO Auto-generated method stub
+		
 		String userinfo_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_UserInfo)
 				+ getString(R.string.uri_selectuserinfo_action);
@@ -540,7 +530,7 @@ public class LoginActivity extends Activity {
 
 					@Override
 					public void onResponse(String response) {
-						// TODO Auto-generated method stub
+						
 						Log.d("userinfo_select", response);
 						JSONObject json1 = null;
 						try {
@@ -573,7 +563,7 @@ public class LoginActivity extends Activity {
 							startActivity(login);
 
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 
@@ -582,7 +572,7 @@ public class LoginActivity extends Activity {
 
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						// TODO Auto-generated method stub
+						
 						Log.e("carinfo_selectresult_result",
 								error.getMessage(), error);
 					}

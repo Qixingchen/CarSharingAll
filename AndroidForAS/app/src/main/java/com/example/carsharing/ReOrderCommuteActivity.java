@@ -129,7 +129,7 @@ public class ReOrderCommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+                
 				String temp = startplace.getText().toString();
 				if (!temp.equals("选择起点")
 						&& !endplace.getText().toString().equals("选择终点")) {
@@ -150,7 +150,7 @@ public class ReOrderCommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				startActivityForResult(new Intent(ReOrderCommuteActivity.this,
 						ChooseAddressActivity.class), 1);
 			}
@@ -160,7 +160,7 @@ public class ReOrderCommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				startActivityForResult(new Intent(ReOrderCommuteActivity.this,
 						ChooseArrivalActivity.class), 2);
 			}
@@ -168,7 +168,7 @@ public class ReOrderCommuteActivity extends Activity {
 		startDate.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(DATE_DIALOG);
 			}
 		});
@@ -176,7 +176,7 @@ public class ReOrderCommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(DATE_DIALOG);
 			}
 		});
@@ -185,7 +185,7 @@ public class ReOrderCommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(TIME_DIALOG);
 			}
 		});
@@ -193,7 +193,7 @@ public class ReOrderCommuteActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				showDialog(TIME_DIALOG1);
 
 			}
@@ -201,7 +201,7 @@ public class ReOrderCommuteActivity extends Activity {
 		increase.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				sum++;
 				count.setText("" + sum);
 			}
@@ -210,7 +210,7 @@ public class ReOrderCommuteActivity extends Activity {
 		decrease.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				sum--;
 				if (sum < 0) {
 					sum = 0;
@@ -287,7 +287,7 @@ public class ReOrderCommuteActivity extends Activity {
 
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// TODO Auto-generated method stub
+			
 			mHour = hourOfDay;
 			mMinute = minute;
 			earlystarttime.setText(String.valueOf(hourOfDay) + "时"
@@ -299,7 +299,7 @@ public class ReOrderCommuteActivity extends Activity {
 
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// TODO Auto-generated method stub
+			
 			mHour = hourOfDay;
 			mMinute = minute;
 			latestarttime.setText(String.valueOf(hourOfDay) + "时"
@@ -312,7 +312,7 @@ public class ReOrderCommuteActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 				int dayofMonth) {
-			// TODO Auto-generated method stub
+			
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;
@@ -326,7 +326,7 @@ public class ReOrderCommuteActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 				int dayofMonth) {
-			// TODO Auto-generated method stub
+			
 			mday = dayofMonth;
 			month = monthofYear;
 			myear = year;

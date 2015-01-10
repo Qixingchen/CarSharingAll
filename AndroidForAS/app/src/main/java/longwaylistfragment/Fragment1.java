@@ -100,7 +100,7 @@ public class Fragment1 extends Fragment implements IXListViewListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				// TODO Auto-generated method stub
+				
 				String requesttime = Fragment1.list.get(position - 1).get(
 						"requst");
 				longwaylookup_intent("d", requesttime);
@@ -121,7 +121,7 @@ public class Fragment1 extends Fragment implements IXListViewListener {
 	// pos=i;
 	// return temp;
 	// }
-	// // TODO Auto-generated method stub
+	// 
 	// List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 	// String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 	// + getString(R.string.uri_LongwayPublish)
@@ -160,7 +160,7 @@ public class Fragment1 extends Fragment implements IXListViewListener {
 	//
 	// }
 	// } catch (JSONException e) {
-	// // TODO Auto-generated catch block
+	// 
 	// e.printStackTrace();
 	// }
 	// }
@@ -186,7 +186,7 @@ public class Fragment1 extends Fragment implements IXListViewListener {
 	// }
 
 	// private void longway_selectrequest(final String phonenum) {
-	// // TODO Auto-generated method stub
+	// 
 	// String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 	// + getString(R.string.uri_LongwayPublish)
 	// + getString(R.string.uri_selectpublish_action);
@@ -225,7 +225,7 @@ public class Fragment1 extends Fragment implements IXListViewListener {
 	//
 	// }
 	// } catch (JSONException e) {
-	// // TODO Auto-generated catch block
+	// 
 	// e.printStackTrace();
 	// }
 	// }
@@ -297,7 +297,7 @@ public class Fragment1 extends Fragment implements IXListViewListener {
 	}
 
 	private void lookuppublish(final String role, final int start, final int end) {
-		// TODO Auto-generated method stub
+		
 		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_LongwayPublish)
 				+ getString(R.string.uri_lookuppublish_action);
@@ -341,7 +341,7 @@ public class Fragment1 extends Fragment implements IXListViewListener {
 								}
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -367,7 +367,7 @@ public class Fragment1 extends Fragment implements IXListViewListener {
 	}
 
 	private void longwaylookup_intent(final String role, final String request) {
-		// TODO Auto-generated method stub
+		
 		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_LongwayPublish)
 				+ getString(R.string.uri_lookuppublish_action);
@@ -422,7 +422,7 @@ public class Fragment1 extends Fragment implements IXListViewListener {
 								startActivity(intent);
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}

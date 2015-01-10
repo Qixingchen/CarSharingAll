@@ -58,7 +58,7 @@ public class RegisterSecondActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				m1.setText("");
 			}
 		});
@@ -67,7 +67,7 @@ public class RegisterSecondActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				m2.setText("");
 			}
 		});
@@ -86,7 +86,7 @@ public class RegisterSecondActivity extends Activity {
 			public void onClick(View arg0) {
 				if (m1.getText().toString().compareTo(m2.getText().toString()) == 0
 						&& m1.getText().toString().compareTo("") != 0) {
-					// TODO Auto-generated method stub
+					
 
 					// 向服务器发送注册信息start
 					Intent userregister_second = getIntent();
@@ -105,7 +105,7 @@ public class RegisterSecondActivity extends Activity {
 			}
 
 			private void userregister(final String phonenum, final String pwd) {
-				// TODO Auto-generated method stub
+				
 				String userregister_baseurl = getString(R.string.uri_base)
 						+ getString(R.string.uri_UserInfo)
 						+ getString(R.string.uri_userregister_action);
@@ -128,7 +128,6 @@ public class RegisterSecondActivity extends Activity {
 									json1 = new JSONObject(response);
 									registerOK = json1.getBoolean("Register");
 								} catch (JSONException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								if (registerOK == true) {

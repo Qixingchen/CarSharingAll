@@ -65,7 +65,7 @@ public class LongWayArrangementDetail extends Activity {
 	}
 
 	private void selectuserinfo(final String phonenum) {
-		// TODO Auto-generated method stub
+		
 		String userinfo_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_UserInfo)
 				+ getString(R.string.uri_selectuserinfo_action);
@@ -77,7 +77,6 @@ public class LongWayArrangementDetail extends Activity {
 
 					@Override
 					public void onResponse(String response) {
-						// TODO Auto-generated method stub
 						Log.d("userinfo_select", response);
 						JSONObject json1 = null;
 						try {
@@ -93,7 +92,6 @@ public class LongWayArrangementDetail extends Activity {
 							userintro.setText("这个人真的很懒");
 
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
@@ -102,7 +100,6 @@ public class LongWayArrangementDetail extends Activity {
 
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						// TODO Auto-generated method stub
 						Log.e("carinfo_selectresult_result",
 								error.getMessage(), error);
 					}

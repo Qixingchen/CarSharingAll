@@ -137,7 +137,7 @@ public class ArrangementDetailActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				ArrangementDetailActivity.this.finish();
 			}
 		});
@@ -158,7 +158,7 @@ public class ArrangementDetailActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+				
 				if (carsharing_type.compareTo("shortway") == 0) {
 					Intent shortway = new Intent(
 							ArrangementDetailActivity.this,
@@ -187,7 +187,6 @@ public class ArrangementDetailActivity extends Activity {
 						test_date = standard_time.parse(endTime);
 						primary_short_endtime = primary_time.format(test_date);
 					} catch (ParseException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					shortway.putExtra("re_short_startdate",
@@ -225,7 +224,7 @@ public class ArrangementDetailActivity extends Activity {
 						primary_commute_endtime = primary_time
 								.format(test_date);
 					} catch (ParseException e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
 					commute.putExtra("re_commute_startdate",
@@ -258,7 +257,7 @@ public class ArrangementDetailActivity extends Activity {
 						primary_longway_startdate = primary_date1
 								.format(test_date);
 					} catch (ParseException e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
 					longway.putExtra("re_longway_startdate",
@@ -273,7 +272,7 @@ public class ArrangementDetailActivity extends Activity {
 	}
 	// private void commute_updatestatus(final String phonenum,
 	// final String time){
-	// // TODO Auto-generated method stub
+	// 
 	// String commute_updatestatus_baseurl =getString(R.string.uri_base)
 	// + getString(R.string.uri_CommuteRequest)
 	// +getString(R.string.uri_updatestatus_action);
@@ -286,14 +285,14 @@ public class ArrangementDetailActivity extends Activity {
 	//
 	// @Override
 	// public void onResponse(String response) {
-	// // TODO Auto-generated method stub
+	// 
 	// // System.out.println("123");
 	// Log.e("commute_updatestatus_result",response);
 	// }
 	// }, new Response.ErrorListener() {
 	// @Override
 	// public void onErrorResponse(VolleyError error) {
-	// // TODO Auto-generated method stub
+	// 
 	// Log.e("shortway_updatestatus_result",
 	// error.getMessage(), error);
 	// }
@@ -312,7 +311,7 @@ public class ArrangementDetailActivity extends Activity {
 	//
 	// private void shortway_updatestatus(final String phonenum,
 	// final String time) {
-	// // TODO Auto-generated method stub
+	// 
 	// String shortway_updatestatus_baseurl =getString(R.string.uri_base)
 	// + getString(R.string.uri_ShortwayRequest)
 	// +getString(R.string.uri_updatestatus_action);
@@ -325,14 +324,14 @@ public class ArrangementDetailActivity extends Activity {
 	//
 	// @Override
 	// public void onResponse(String response) {
-	// // TODO Auto-generated method stub
+	// 
 	// Log.e("shortway_updatestatus_result",response);
 	// }
 	// }, new Response.ErrorListener() {
 	//
 	// @Override
 	// public void onErrorResponse(VolleyError error) {
-	// // TODO Auto-generated method stub
+	// 
 	// Log.e("shortway_updatestatus_result",
 	// error.getMessage(), error);
 	// }

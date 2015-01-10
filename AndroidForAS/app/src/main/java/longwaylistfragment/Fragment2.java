@@ -97,7 +97,7 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				// TODO Auto-generated method stub
+				
 				String requesttime = Fragment2.list.get(position - 1).get(
 						"requst");
 				longwaylookup_intent("p", requesttime);
@@ -156,7 +156,7 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 	}
 
 	private void lookuppublish(final String role, final int start, final int end) {
-		// TODO Auto-generated method stub
+		
 		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_LongwayPublish)
 				+ getString(R.string.uri_lookuppublish_action);
@@ -200,7 +200,7 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 								}
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
@@ -226,7 +226,7 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 	}
 
 	private void longwaylookup_intent(final String role, final String request) {
-		// TODO Auto-generated method stub
+		
 		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_LongwayPublish)
 				+ getString(R.string.uri_lookuppublish_action);
@@ -281,7 +281,7 @@ public class Fragment2 extends Fragment implements IXListViewListener {
 								startActivity(intent);
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 					}
