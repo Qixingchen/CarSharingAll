@@ -295,7 +295,7 @@ public class LongWayActivity extends Activity {
 		longway_group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup arg0, int checkedId) {
-				18
+
 				// 获取变更后的选中项的ID
 
 				// "我能提供车"不变，"我不能提供车"使车牌号等编辑框不可编辑，并更改textView
