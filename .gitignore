@@ -110,4 +110,9 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 
+#编译产生文件
+manifest-merger-release-report.txt
+
+#密钥
+*.jks
 

@@ -22,7 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
-import com.example.carsharing.R;
+import com.xmu.carsharing.R;
 
 public class XListView extends ListView implements OnScrollListener {
 

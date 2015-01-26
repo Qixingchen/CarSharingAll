@@ -2,7 +2,7 @@
  * progress bar加载效果
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import android.app.Dialog;
 import android.content.Context;

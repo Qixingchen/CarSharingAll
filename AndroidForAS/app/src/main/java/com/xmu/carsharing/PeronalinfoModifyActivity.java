@@ -5,7 +5,7 @@
  * 访问服务器获取车辆表，检查服务器上是否已存在车辆表，选择车辆表的提交方式是add还是update
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.io.File;
 import java.util.HashMap;
@@ -53,7 +53,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 
-import com.example.carsharing.Hash_pwd;
+import com.xmu.carsharing.Hash_pwd;
 
 public class PeronalinfoModifyActivity extends Activity {
 	private Button btn_login;

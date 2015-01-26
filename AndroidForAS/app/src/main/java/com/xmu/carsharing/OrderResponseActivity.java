@@ -4,7 +4,7 @@
  * 从服务器读取车辆表实时更新本地的车辆表（订单填写页可能对车辆表坐车了更改）
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.util.HashMap;
 import java.util.Map;

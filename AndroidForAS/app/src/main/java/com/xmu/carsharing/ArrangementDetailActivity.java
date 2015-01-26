@@ -2,7 +2,7 @@
  * 所显示的订单在进入该界面时访问一遍服务器以刷新状态
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

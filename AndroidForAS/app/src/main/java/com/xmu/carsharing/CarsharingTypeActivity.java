@@ -2,7 +2,7 @@
  * 拼车类型选择界面，实现简单的界面跳转
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import android.app.ActionBar;
 import android.app.Activity;

@@ -6,7 +6,7 @@
  * 3.intentcall=3 调用适配器显示在本地已存储的收藏的地址
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +37,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -47,7 +48,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 	DatabaseHelper db;
 	SQLiteDatabase db1;
 	ListView list1;
-	Button deletebtn;
+    ImageButton deletebtn;
 	// private Vector<String> mdeal_readstatus = new Vector<>();
 	private ImageView statusImage;
 	public static RequestQueue queue;
@@ -74,7 +75,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 		db = new DatabaseHelper(PersonCenterDetaillistActivity.this,
 				UserPhoneNumber, null, 1);
 
-		deletebtn = (Button) findViewById(R.id.mymessage_delete);
+		deletebtn = (ImageButton) findViewById(R.id.mymessage_delete);
 		list1 = (ListView) findViewById(R.id.WacthAllMessSent);
 
 		int intentcall = bundle.getInt("intent");

@@ -1,4 +1,4 @@
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -3,7 +3,7 @@
  * 发送验证码，密码重设
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -2,7 +2,7 @@
  * 本地数据库
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

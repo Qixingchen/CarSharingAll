@@ -5,7 +5,7 @@
  * 监听垃圾桶，访问服务器，在服务器和本地同时删除该条信息
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.util.ArrayList;
 import java.util.HashMap;

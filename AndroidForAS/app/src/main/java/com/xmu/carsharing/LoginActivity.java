@@ -6,7 +6,7 @@ f * 登陆界面
  * 添加progress bar加载效果
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -427,7 +427,7 @@ public class LoginActivity extends Activity {
 
 	public void saveMyBitmap(Bitmap mBitmap) {
 		File f = new File(
-				"/storage/emulated/0/Android/data/com.example.carsharing/files/Pictures"
+				"/storage/emulated/0/Android/data/com.xmu.carsharing/files/Pictures"
 						+ ".jpg");
 		FileOutputStream fOut = null;
 		try {

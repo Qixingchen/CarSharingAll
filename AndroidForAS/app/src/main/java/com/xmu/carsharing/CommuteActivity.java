@@ -5,7 +5,7 @@
  * 访问服务器提交订单
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.io.File;
 import java.text.ParseException;

@@ -1,4 +1,4 @@
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.util.ArrayList;
 import java.util.HashMap;

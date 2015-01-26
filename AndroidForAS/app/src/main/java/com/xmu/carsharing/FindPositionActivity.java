@@ -2,7 +2,7 @@
  * 地图显示界面
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.MapView;

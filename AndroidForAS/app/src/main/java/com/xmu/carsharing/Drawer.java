@@ -1,4 +1,4 @@
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 
-import com.example.carsharing.R;
+import com.xmu.carsharing.R;
 
 public class Drawer {
 

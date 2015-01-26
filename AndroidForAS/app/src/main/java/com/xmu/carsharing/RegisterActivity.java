@@ -4,12 +4,12 @@
  * 监听电话号码的填写，访问服务器检查该号码是否已注册
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.carsharing.MobileOrNo;
+import com.xmu.carsharing.MobileOrNo;
 
 import org.json.JSONException;
 import org.json.JSONObject;

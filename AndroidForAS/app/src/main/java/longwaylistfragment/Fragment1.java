@@ -35,10 +35,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.carsharing.LoginActivity;
-import com.example.carsharing.LongWayArrangementDetail;
-import com.example.carsharing.PersonalCenterActivity;
-import com.example.carsharing.R;
+import com.xmu.carsharing.LoginActivity;
+import com.xmu.carsharing.LongWayArrangementDetail;
+import com.xmu.carsharing.PersonalCenterActivity;
+import com.xmu.carsharing.R;
 import com.viewlist.XListView;
 import com.viewlist.XListView.IXListViewListener;
 

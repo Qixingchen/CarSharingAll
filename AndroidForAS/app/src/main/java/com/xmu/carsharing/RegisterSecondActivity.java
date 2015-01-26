@@ -4,7 +4,7 @@
  * 想服务器发送注册信息，服务器上写入该号码
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +34,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.carsharing.Hash_pwd;
+import com.xmu.carsharing.Hash_pwd;
 
 public class RegisterSecondActivity extends Activity {
 

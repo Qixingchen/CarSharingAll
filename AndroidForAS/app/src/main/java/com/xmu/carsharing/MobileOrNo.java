@@ -3,7 +3,7 @@
  * 判断输入用户名是否为合法的号码
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

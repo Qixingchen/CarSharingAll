@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.carsharing.R;
+import com.xmu.carsharing.R;
 
 public class XListViewFooter extends LinearLayout {
 	public final static int STATE_NORMAL = 0;

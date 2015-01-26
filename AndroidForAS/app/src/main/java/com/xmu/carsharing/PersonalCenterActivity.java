@@ -7,7 +7,7 @@
  * 5.注销更换账号
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,8 +26,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.carsharing.R.string;
-import com.example.carsharing.MyProgressDialog;
+import com.xmu.carsharing.R.string;
+import com.xmu.carsharing.MyProgressDialog;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

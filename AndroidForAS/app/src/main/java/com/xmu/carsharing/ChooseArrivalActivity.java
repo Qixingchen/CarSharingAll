@@ -1,11 +1,16 @@
 /*
- * 选择起点界面，为上下班拼车，短途拼车，出租车拼车公用界面
+ * 选择终点界面，为上下班拼车，短途拼车，出租车拼车公用界面
  * 接入了百度接口
  * 两个ListView分别存储收藏的地址和历史地址，这些信息存在本地，会随着软件的卸载消失。
  * “我的位置”实现定位
  */
 
-package com.example.carsharing;
+package com.xmu.carsharing;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -23,15 +28,16 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
+import android.widget.Button;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -39,9 +45,18 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.LocationClientOption.LocationMode;
 import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
+import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
+
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.overlayutil.PoiOverlay;
 import com.baidu.mapapi.search.core.CityInfo;
+import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.GeoCodeOption;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
@@ -50,14 +65,17 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
+import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
+import com.baidu.mapapi.search.poi.PoiDetailSearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
+import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 
-public class ChooseAddressActivity extends Activity implements
+public class ChooseArrivalActivity extends Activity implements
 		OnGetPoiSearchResultListener, OnGetSuggestionResultListener,
 		OnGetGeoCoderResultListener {
 
@@ -65,7 +83,9 @@ public class ChooseAddressActivity extends Activity implements
 	int intentcall;
 	View position;
 	ImageView fanhui;
-	Context context;
+
+	// 用户手机号
+	String UserPhoneNumber;
 
 	// database
 
@@ -76,9 +96,6 @@ public class ChooseAddressActivity extends Activity implements
 	ListView list1, list2;
 
 	// database end!!
-
-	// 用户手机号
-	String UserPhoneNumber;
 
 	// 百度map
 	String PointUserName, PointMapName;
@@ -114,21 +131,13 @@ public class ChooseAddressActivity extends Activity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_choose_address);
-		list1 = (ListView) findViewById(R.id.chooseaddress_list1);
-		list2 = (ListView) findViewById(R.id.chooseaddress_list2);
-		choose = (EditText) findViewById(R.id.chooseaddress_start);
-		Button send = (Button) findViewById(R.id.chooseaddress_send);
-		position = findViewById(R.id.chooseaddress_mylocation);
+		setContentView(R.layout.activity_choose_arrival);
+		list1 = (ListView) findViewById(R.id.choosearrival_list1);
+		list2 = (ListView) findViewById(R.id.choosearrival_list2);
+		Button send1 = (Button) findViewById(R.id.choosearrival_send);
+		choose = (EditText) findViewById(R.id.choosearrival_start);
+		position = findViewById(R.id.choosearrival_mylocation);
 		fanhui = (ImageView) findViewById(android.R.id.home);
-
-		fanhui.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				ChooseAddressActivity.this.finish();
-			}
-		});
 
 		// 提取用户手机号
 		SharedPreferences sharedPref = this
@@ -146,6 +155,14 @@ public class ChooseAddressActivity extends Activity implements
 
 		// database end!!!
 
+		fanhui.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				ChooseArrivalActivity.this.finish();
+			}
+		});
+
 		// 百度地图操作
 
 		// 在使用SDK各组件之前初始化context信息，传入ApplicationContext
@@ -162,7 +179,7 @@ public class ChooseAddressActivity extends Activity implements
 
 		mSuggestionSearch = SuggestionSearch.newInstance();
 		mSuggestionSearch.setOnGetSuggestionResultListener(this);
-		keyWorldsView = (AutoCompleteTextView) findViewById(R.id.chooseaddress_start);
+		keyWorldsView = (AutoCompleteTextView) findViewById(R.id.choosearrival_start);
 		sugAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_dropdown_item_1line);
 		keyWorldsView.setAdapter(sugAdapter);
@@ -226,7 +243,6 @@ public class ChooseAddressActivity extends Activity implements
 			public void onClick(View arg0) {
 
 				// 百度定位
-
 				Toast.makeText(getApplicationContext(),
 						getString(R.string.warningInfo_waitForLocation),
 						Toast.LENGTH_SHORT).show();
@@ -239,23 +255,22 @@ public class ChooseAddressActivity extends Activity implements
 				mLocationClient.setLocOption(option);
 				if (mLocationClient != null && mLocationClient.isStarted()) {
 					mLocationClient.requestLocation();
-				} else if (mLocationClient == null) {
-					Log.e("百度定位", "定位客户端空");
 				} else {
-					Log.e("百度定位", "定位客户端没启动");
+					Log.w("百度定位", "定位客户端空或没启动");
 				}
 				// 百度定位结束
 
-				// Intent myposition = new Intent(ChooseAddressActivity.this,
+				// Intent myposition = new Intent(ChooseArrivalActivity.this,
 				// FindPositionActivity.class);
 				// startActivity(myposition);
 			}
 		});
 
-		send.setOnClickListener(new OnClickListener() {
+		send1.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
+
 				// 百度map
 				if (!choose.getText().toString().isEmpty()) {
 					PointUserName = choose.getText().toString();
@@ -270,20 +285,21 @@ public class ChooseAddressActivity extends Activity implements
 
 				} else {
 					Intent startplace = new Intent();
-					ChooseAddressActivity.this.setResult(RESULT_CANCELED,
+					ChooseArrivalActivity.this.setResult(RESULT_CANCELED,
 							startplace);
-					ChooseAddressActivity.this.finish();
+					ChooseArrivalActivity.this.finish();
 				}
 
 			}
 		});
 
+		// intent & database!!
 		list1.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent startplace = new Intent();
+				Intent endplace = new Intent();
 
 				// 表名 ,要获取的字段名，WHERE 条件，WHere值，don't group the rows，
 				// don't filter by row groups，排序条件。
@@ -295,28 +311,20 @@ public class ChooseAddressActivity extends Activity implements
 				longitude = result.getFloat(3);
 				latitude = result.getFloat(4);
 
-				startplace.putExtra(getString(R.string.dbstring_PlaceUserName),
+				endplace.putExtra(getString(R.string.dbstring_PlaceUserName),
 						PointUserName);
-				startplace.putExtra(getString(R.string.dbstring_PlaceMapName),
+				endplace.putExtra(getString(R.string.dbstring_PlaceMapName),
 						PointMapName);
-				startplace.putExtra(getString(R.string.dbstring_longitude),
+				endplace.putExtra(getString(R.string.dbstring_longitude),
 						String.valueOf(longitude));
-				startplace.putExtra(getString(R.string.dbstring_latitude),
+				endplace.putExtra(getString(R.string.dbstring_latitude),
 						String.valueOf(latitude));
-
-				ContentValues content = new ContentValues();
-				content.put(getString(R.string.dbstring_PlaceUserName),
-						PointUserName);
-				content.put(getString(R.string.dbstring_PlaceMapName),
-						PointMapName);
-				content.put(getString(R.string.dbstring_longitude), longitude);
-				content.put(getString(R.string.dbstring_latitude), latitude);
-				Log.w("STintent发送经度", startplace
+				Log.w("STintent发送经度", endplace
 						.getStringExtra(getString(R.string.dbstring_longitude)));
-				Log.w("STintent发送纬度", startplace
+				Log.w("STintent发送纬度", endplace
 						.getStringExtra(getString(R.string.dbstring_latitude)));
-				ChooseAddressActivity.this.setResult(RESULT_OK, startplace);
-				ChooseAddressActivity.this.finish();
+				ChooseArrivalActivity.this.setResult(RESULT_OK, endplace);
+				ChooseArrivalActivity.this.finish();
 
 			}
 
@@ -327,7 +335,7 @@ public class ChooseAddressActivity extends Activity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent startplace = new Intent();
+				Intent endplace = new Intent();
 
 				// 表名 ,要获取的字段名，WHERE 条件，WHere值，don't group the rows，
 				// don't filter by row groups，排序条件。
@@ -339,28 +347,20 @@ public class ChooseAddressActivity extends Activity implements
 				longitude = result2.getFloat(3);
 				latitude = result2.getFloat(4);
 
-				startplace.putExtra(getString(R.string.dbstring_PlaceUserName),
+				endplace.putExtra(getString(R.string.dbstring_PlaceUserName),
 						PointUserName);
-				startplace.putExtra(getString(R.string.dbstring_PlaceMapName),
+				endplace.putExtra(getString(R.string.dbstring_PlaceMapName),
 						PointMapName);
-				startplace.putExtra(getString(R.string.dbstring_longitude),
+				endplace.putExtra(getString(R.string.dbstring_longitude),
 						String.valueOf(longitude));
-				startplace.putExtra(getString(R.string.dbstring_latitude),
+				endplace.putExtra(getString(R.string.dbstring_latitude),
 						String.valueOf(latitude));
-
-				ContentValues content = new ContentValues();
-				content.put(getString(R.string.dbstring_PlaceUserName),
-						PointUserName);
-				content.put(getString(R.string.dbstring_PlaceMapName),
-						PointMapName);
-				content.put(getString(R.string.dbstring_longitude), longitude);
-				content.put(getString(R.string.dbstring_latitude), latitude);
-				Log.w("STintent发送经度", startplace
+				Log.w("STintent发送经度", endplace
 						.getStringExtra(getString(R.string.dbstring_longitude)));
-				Log.w("STintent发送纬度", startplace
+				Log.w("STintent发送纬度", endplace
 						.getStringExtra(getString(R.string.dbstring_latitude)));
-				ChooseAddressActivity.this.setResult(RESULT_OK, startplace);
-				ChooseAddressActivity.this.finish();
+				ChooseArrivalActivity.this.setResult(RESULT_OK, endplace);
+				ChooseArrivalActivity.this.finish();
 
 			}
 		});
@@ -394,14 +394,14 @@ public class ChooseAddressActivity extends Activity implements
 				strInfo += ",";
 			}
 			strInfo += "找到结果";
-			Toast.makeText(ChooseAddressActivity.this, strInfo,
-					Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), strInfo, Toast.LENGTH_LONG)
+					.show();
 		}
 	}
 
 	public void onGetPoiDetailResult(PoiDetailResult result) {
 		if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-			Toast.makeText(ChooseAddressActivity.this,
+			Toast.makeText(getApplicationContext(),
 					getString(R.string.warningInfo_noAnswer),
 					Toast.LENGTH_SHORT).show();
 		} else {
@@ -453,7 +453,6 @@ public class ChooseAddressActivity extends Activity implements
 		}
 		PointMapName = result.getAddress();
 		Log.w("mapname", PointMapName);
-
 		// database
 
 		// 表名 ,要获取的字段名，WHERE 条件，WHere值，don't group the rows，
@@ -496,18 +495,18 @@ public class ChooseAddressActivity extends Activity implements
 
 		// intent
 
-		Intent startplace = new Intent();
-		startplace.putExtra(getString(R.string.dbstring_PlaceUserName), choose
+		Intent endplace = new Intent();
+		endplace.putExtra(getString(R.string.dbstring_PlaceUserName), choose
 				.getText().toString());
-		startplace.putExtra(getString(R.string.dbstring_PlaceMapName),
+		endplace.putExtra(getString(R.string.dbstring_PlaceMapName),
 				PointMapName);
-		startplace.putExtra(getString(R.string.dbstring_longitude),
+		endplace.putExtra(getString(R.string.dbstring_longitude),
 				String.valueOf(longitude));
-		startplace.putExtra(getString(R.string.dbstring_latitude),
+		endplace.putExtra(getString(R.string.dbstring_latitude),
 				String.valueOf(latitude));
 
-		ChooseAddressActivity.this.setResult(RESULT_OK, startplace);
-		ChooseAddressActivity.this.finish();
+		ChooseArrivalActivity.this.setResult(RESULT_OK, endplace);
+		ChooseArrivalActivity.this.finish();
 
 		// intent end
 
@@ -556,6 +555,7 @@ public class ChooseAddressActivity extends Activity implements
 			}
 
 			Log.w("百度定位", sb.toString());
+
 			// database intent 辅助
 			Locationcount++;
 			Log.w("定位计数", String.valueOf(Locationcount));
@@ -601,19 +601,19 @@ public class ChooseAddressActivity extends Activity implements
 
 				// intent
 
-				Intent startplace = new Intent();
+				Intent endplace = new Intent();
 
-				startplace.putExtra(getString(R.string.dbstring_PlaceUserName),
+				endplace.putExtra(getString(R.string.dbstring_PlaceUserName),
 						PointUserName);
-				startplace.putExtra(getString(R.string.dbstring_PlaceMapName),
+				endplace.putExtra(getString(R.string.dbstring_PlaceMapName),
 						PointMapName);
-				startplace.putExtra(getString(R.string.dbstring_longitude),
+				endplace.putExtra(getString(R.string.dbstring_longitude),
 						String.valueOf(longitude));
-				startplace.putExtra(getString(R.string.dbstring_latitude),
+				endplace.putExtra(getString(R.string.dbstring_latitude),
 						String.valueOf(latitude));
 
-				ChooseAddressActivity.this.setResult(RESULT_OK, startplace);
-				ChooseAddressActivity.this.finish();
+				ChooseArrivalActivity.this.setResult(RESULT_OK, endplace);
+				ChooseArrivalActivity.this.finish();
 
 				// intent end
 			}
@@ -621,6 +621,8 @@ public class ChooseAddressActivity extends Activity implements
 	}
 
 	// 百度定位结束
+
+	// 生命周期!!
 
 	@Override
 	protected void onStop() {
@@ -632,12 +634,11 @@ public class ChooseAddressActivity extends Activity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		mLocationClient.stop();
+
 		result.close();
 		result2.close();
 		db1.close();
-
 		mSearch.destroy();
-		// mPoiSearch.destroy();
 		mSuggestionSearch.destroy();
 	}
 
@@ -698,5 +699,7 @@ public class ChooseAddressActivity extends Activity implements
 		// list赋值结束
 
 	}
+
+	// 生命周期end!!
 
 }

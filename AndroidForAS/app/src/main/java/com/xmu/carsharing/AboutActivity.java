@@ -1,8 +1,6 @@
-/*
- * 设置
- */
+//设置。。。具体功能未实现
 
-package com.example.carsharing;
+package com.xmu.carsharing;
 
 import java.io.File;
 
@@ -18,22 +16,19 @@ import android.os.Environment;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SettingActivity extends Activity {
+public class AboutActivity extends Activity {
 
 	// actionbar!!
 	Drawer activity_drawer;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
-	// actionbarend!!
-
-	private static final String IMAGE_FILE_NAME2 = "faceImage2.jpg";
-	String UserPhoneNumber;
 
 	View commute;
 	View shortway;
@@ -42,10 +37,14 @@ public class SettingActivity extends Activity {
 	View taxi;
 	View setting;
 	View about;
-	Uri photouri;
 	ImageView drawericon;
+	Uri photouri;
+	private static final String IMAGE_FILE_NAME2 = "faceImage2.jpg";
+	String UserPhoneNumber;
 	private TextView drawername;
 	private TextView drawernum;
+
+	// actionbarend!!
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +52,14 @@ public class SettingActivity extends Activity {
 				.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
 				IMAGE_FILE_NAME2));
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_setting);
+
+		setContentView(R.layout.activity_about);
+		activity_drawer = new Drawer(this, R.id.about_layout);
+		mDrawerToggle = activity_drawer.newdrawer();
+		mDrawerLayout = activity_drawer.setDrawerLayout();
 		drawericon = (ImageView) findViewById(R.id.drawer_icon);
 		drawername = (TextView) findViewById(R.id.drawer_name);
 		drawernum = (TextView) findViewById(R.id.drawer_phone);
-
-		activity_drawer = new Drawer(this, R.id.setting_layout);
-		mDrawerToggle = activity_drawer.newdrawer();
-		mDrawerLayout = activity_drawer.setDrawerLayout();
 
 		commute = findViewById(R.id.drawer_commute);
 		shortway = findViewById(R.id.drawer_shortway);
@@ -69,11 +68,11 @@ public class SettingActivity extends Activity {
 		setting = findViewById(R.id.drawer_setting);
 		taxi = findViewById(R.id.drawer_taxi);
 		personalcenter = findViewById(R.id.drawer_personalcenter);
+		drawericon = (ImageView) findViewById(R.id.drawer_icon);
 		about.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent about = new Intent(getApplicationContext(),
 						AboutActivity.class);
@@ -155,6 +154,8 @@ public class SettingActivity extends Activity {
 
 	}
 
+	// actionbar!!
+
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
@@ -185,17 +186,17 @@ public class SettingActivity extends Activity {
 
 		super.onResume(); // Always call the superclass method first
 
-		setting.setBackgroundDrawable(getResources().getDrawable(
+		about.setBackgroundDrawable(getResources().getDrawable(
 				R.color.blue_0099cc));
 		// Get the Camera instance as the activity achieves full user focus
-		Context phonenumber = SettingActivity.this;
+		Context phonenumber = AboutActivity.this;
 		SharedPreferences filename = phonenumber
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
 						Context.MODE_PRIVATE);
 		UserPhoneNumber = filename.getString("refreshfilename", "0");
 		drawernum.setText(UserPhoneNumber);
-		Context context = SettingActivity.this;
+		Context context = AboutActivity.this;
 		SharedPreferences sharedPref = context.getSharedPreferences(
 				UserPhoneNumber, Context.MODE_PRIVATE);
 		String fullname = sharedPref.getString("refreshname", "姓名");
@@ -210,4 +211,5 @@ public class SettingActivity extends Activity {
 			drawericon.setImageResource(R.drawable.ic_launcher);
 		}
 	}
+
 }
