@@ -79,10 +79,10 @@ $RECYCLE.BIN/
 *.msp
 
 #大型libs
-lib/
-libs/
-SQLhelplib/
-jniLibs/
+#lib/
+#libs/
+#SQLhelplib/
+#jniLibs/
 
 #.idea文件夹下部分不应该被控制的文件
 workspace.xml
