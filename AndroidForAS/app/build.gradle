@@ -41,4 +41,5 @@ dependencies {
     compile files('libs/httpmime-4.1.1.jar')
     compile files('libs/locSDK_4.2.jar')
     compile files('libs/Volley.jar')
+    compile files('libs/SMSSDK-1.1.9.jar')
 }

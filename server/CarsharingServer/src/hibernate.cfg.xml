@@ -16,10 +16,10 @@
 			org.hibernate.dialect.MySQLDialect
 		</property>
 		<property name="connection.url">
-			jdbc:mysql://127.0.0.1:3306/carsharing
+			jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_carsharingxmu
 		</property>
-		<property name="connection.username">carsharing</property>
-		<property name="connection.password">CAR19930917</property>
+		<property name="connection.username">no423n1m4n</property>
+		<property name="connection.password">k0l2y0lm14xiwy1hm543h2imm4wkyjl1m3hhyyl0</property>
 		<property name="connection.driver_class">
 			com.mysql.jdbc.Driver
 		</property>

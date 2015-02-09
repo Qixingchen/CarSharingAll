@@ -1,6 +1,7 @@
 /*
  * 函数
  * 判断输入用户名是否为合法的号码
+ * todo 虚拟运营商呢？
  */
 
 package com.xmu.carsharing;

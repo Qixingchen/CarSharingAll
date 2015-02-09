@@ -322,6 +322,7 @@
             android:name=".Newyige"
             android:label="@string/title_activity_newyige" >
         </activity>
+
     </application>
 
 </manifest>
