@@ -11,4 +11,9 @@ public class AppStat {
 		public static final int OK = 1;
 		public static final int ERROR = 2;
 	}
+	//注册界面
+	public static class Register{
+		public static final int 发送验证短信 = 1;
+		public static final int 跳转界面验证 = 2;
+	}
 }

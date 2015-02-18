@@ -6,19 +6,9 @@
 
 package com.xmu.carsharing;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.Tool.SmssdkClass;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,12 +24,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.Tool.AppStat;
+import com.Tool.SmssdkClass;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends Activity {
 
@@ -92,7 +90,7 @@ public class RegisterActivity extends Activity {
 			public void onClick(View arg0) {
 				
 
-				checkphone(PhoneNum.getText().toString());
+				checkphone(PhoneNum.getText().toString(),AppStat.Register.跳转界面验证);
 				// json
 				if (chcp == true) {
 					smssdkClass.versmsvercode(PhoneNum.getText().toString(),
@@ -115,7 +113,7 @@ public class RegisterActivity extends Activity {
 
 				// 判断是否为一个合法的电话号码
 				if (mobliejudging.mobilejudging(PhoneNum.getText().toString())) {
-					checkphone(PhoneNum.getText().toString());
+					checkphone(PhoneNum.getText().toString(),AppStat.Register.发送验证短信);
 				} else {
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.warningInfo_phonumerror),
@@ -285,7 +283,7 @@ public class RegisterActivity extends Activity {
 		}
 	}
 
-	public void checkphone(final String phonenum) {
+	public void checkphone(final String phonenum, final int checkreason) {
 
 		String checkphone_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_UserInfo)
@@ -317,7 +315,9 @@ public class RegisterActivity extends Activity {
 							phone = false;
 							confirm();
 						}else {
-							smssdkClass.sendsms(PhoneNum.getText().toString());
+							if (checkreason == AppStat.Register.发送验证短信) {
+								smssdkClass.sendsms(PhoneNum.getText().toString());
+							}
 						}
 					}
 
