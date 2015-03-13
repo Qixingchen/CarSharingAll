@@ -11,10 +11,10 @@ import java.util.Map;
 public class testsql {
 	public static Connection getConnection() throws SQLException,
 			java.lang.ClassNotFoundException {
-		String url = "jdbc:mysql://car.qixingchen.me:3306/carsharing";
+		String url = "jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_carsharingxmu";
 		Class.forName("com.mysql.jdbc.Driver");
-		String userName = "carsharingremote";
-		String password = "qwQ!zlB*C5TOJoEc";
+		String userName = "no423n1m4n";
+		String password = "k0l2y0lm14xiwy1hm543h2imm4wkyjl1m3hhyyl0";
 		Connection con = DriverManager.getConnection(url, userName, password);
 		return con;
 	}

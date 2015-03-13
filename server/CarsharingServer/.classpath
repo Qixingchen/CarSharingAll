@@ -46,5 +46,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-embeddedjsp-plugin-2.2.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-json-plugin-2.2.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xwork-core-2.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/雨蓝/eclipse/plugins/javax.servlet_3.0.0.v201112011016.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

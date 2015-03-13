@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `carsharing` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `carsharing`;
+CREATE DATABASE  IF NOT EXISTS `app_carsharingxmu` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `app_carsharingxmu`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
 -- Host: 127.0.0.1    Database: carsharing

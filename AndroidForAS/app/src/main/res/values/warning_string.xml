@@ -12,5 +12,7 @@
     <string name="warningInfo_dataRead">正在读取数据中 请稍后</string>
     <string name="warningInfo_userRegited">该号码已被注册</string>
     <string name="warningInfo_phonumerror">号码不存在！</string>
+    <string name="warningInfo_smsAuthCodeError">验证码错误</string>
+    <string name="warningInfo_smsAuthCodeSend">验证码短信已发送</string>
 
 </resources>

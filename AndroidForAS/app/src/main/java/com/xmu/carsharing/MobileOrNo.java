@@ -1,7 +1,8 @@
-/*
+﻿/*
  * 函数
  * 判断输入用户名是否为合法的号码
  * by Jo
+ * todo 虚拟运营商呢？
  */
 
 package com.xmu.carsharing;

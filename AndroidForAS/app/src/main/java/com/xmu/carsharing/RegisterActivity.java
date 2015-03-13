@@ -6,19 +6,9 @@
 
 package com.xmu.carsharing;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.xmu.carsharing.MobileOrNo;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,6 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.Tool.AppStat;
+import com.Tool.SmssdkClass;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,9 +33,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegisterActivity extends Activity {
 
-	private EditText Authorize;
+	private EditText Authorizeinput;
 	private EditText PhoneNum;
 	private CheckBox Agreement;
 	private boolean agree, phone, authory;
@@ -54,6 +52,7 @@ public class RegisterActivity extends Activity {
 	private ImageView cancel;
 	public static RequestQueue queue;
 	public static String checkphone_result;
+	private SmssdkClass smssdkClass;
 
 	MobileOrNo mobliejudging = new MobileOrNo();
 
@@ -61,15 +60,16 @@ public class RegisterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		smssdkClass = new SmssdkClass(context);
 
 		get_auth = (Button) findViewById(R.id.register_getauthbutton); // 获取验证码
 		next = (Button) findViewById(R.id.register_nextbutton);
 		next.setEnabled(false);
 		PhoneNum = (EditText) findViewById(R.id.register_phonenumeditText);
-		Authorize = (EditText) findViewById(R.id.register_inputauthnumedittext);
+		Authorizeinput = (EditText) findViewById(R.id.register_inputauthnumedittext);
 		Agreement = (CheckBox) findViewById(R.id.register_agreecheckbox);
 		PhoneNum.addTextChangedListener(PhTextWatcher);
-		Authorize.addTextChangedListener(ConTextWatcher);
+		Authorizeinput.addTextChangedListener(ConTextWatcher);
 		queue = Volley.newRequestQueue(this);
 
 		cancel = (ImageView) findViewById(R.id.register_clearphonenumimageView);
@@ -90,25 +90,12 @@ public class RegisterActivity extends Activity {
 			public void onClick(View arg0) {
 				
 
-				checkphone(PhoneNum.getText().toString());
+				checkphone(PhoneNum.getText().toString(),AppStat.Register.跳转界面验证);
 				// json
 				if (chcp == true) {
-					SharedPreferences sharedPref = context
-							.getSharedPreferences("file_text",
-									Context.MODE_PRIVATE);
-					SharedPreferences.Editor editor = sharedPref.edit();
-					editor.putString("refreshfilename", PhoneNum.getText()
-							.toString());
-					editor.commit();
+					smssdkClass.versmsvercode(PhoneNum.getText().toString(),
+							Authorizeinput.getText().toString());
 
-					Intent next = new Intent(RegisterActivity.this,
-							RegisterSecondActivity.class);
-
-					next.putExtra(getString(R.string.user_phonenum), PhoneNum
-							.getText().toString());// 传值
-
-					next.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(next);
 				}
 				// json
 			}
@@ -126,7 +113,7 @@ public class RegisterActivity extends Activity {
 
 				// 判断是否为一个合法的电话号码
 				if (mobliejudging.mobilejudging(PhoneNum.getText().toString())) {
-					checkphone(PhoneNum.getText().toString());
+					checkphone(PhoneNum.getText().toString(),AppStat.Register.发送验证短信);
 				} else {
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.warningInfo_phonumerror),
@@ -254,6 +241,7 @@ public class RegisterActivity extends Activity {
 			confirm();
 		}
 	};
+
 	TextWatcher ConTextWatcher = new TextWatcher() {
 		private CharSequence temp;
 		private int editStart;
@@ -276,8 +264,8 @@ public class RegisterActivity extends Activity {
 		@Override
 		public void afterTextChanged(Editable s) {
 			
-			editStart = Authorize.getSelectionStart();
-			editEnd = Authorize.getSelectionEnd();
+			editStart = Authorizeinput.getSelectionStart();
+			editEnd = Authorizeinput.getSelectionEnd();
 			if (temp.length() != 0) {
 				authory = true;
 			} else {
@@ -295,7 +283,7 @@ public class RegisterActivity extends Activity {
 		}
 	}
 
-	public void checkphone(final String phonenum) {
+	public void checkphone(final String phonenum, final int checkreason) {
 
 		String checkphone_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_UserInfo)
@@ -326,6 +314,10 @@ public class RegisterActivity extends Activity {
 									Toast.LENGTH_LONG).show();
 							phone = false;
 							confirm();
+						}else {
+							if (checkreason == AppStat.Register.发送验证短信) {
+								smssdkClass.sendsms(PhoneNum.getText().toString());
+							}
 						}
 					}
 
@@ -355,4 +347,10 @@ public class RegisterActivity extends Activity {
 
 	}
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();  // Always call the superclass
+
+		smssdkClass.destory();
+	}
 }

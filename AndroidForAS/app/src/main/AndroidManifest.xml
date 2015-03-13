@@ -1,62 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xmu.carsharing"
-    android:versionCode="1"
-    android:versionName="1.0" >
+          package="com.xmu.carsharing"
+          android:versionCode="1"
+          android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="21"/>
     <!-- 百度地图的权限 -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--访问一个帐户列表-->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <!--要求authtokens-->
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <!--管理账户-->
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+    <!--访问网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--网络权限-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--创建快捷方式 TODO 建议删除-->
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <!--更改wifi状态-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!--获取wifi状态-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--扩展卡写入-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--广播常用意图-->
+    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+    <!--读写系统设置-->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <!--读取手机状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <!-- 这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- 允许应用读取低级别的系统日志文件 -->
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <!-- 允许拨打电话 -->
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <!-- 允许拨打电话 TODO 为什么需要这个权限？ -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <!--注册和接收GCM消息-->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <!--防止其他程序注册本应用的gcm-->
+    <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE"/>
+    <permission
+        android:name="com.xmu.carsharing.permission.C2D_MESSAGE"
+        android:protectionLevel="signature"/>
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/appicon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+
+        <receiver
+            android:name = ".GcmBroadcastReceiver"
+            android:permission = "com.google.android.c2dm.permission.SEND"  >
+            <intent-filter>
+                <action  android:name = "com.google.android.c2dm.intent.RECEIVE"  />
+                <category  android:name = "com.xmu.carsharing"  />
+            </intent-filter>
+        </receiver>
+        <service  android:name = ".GcmIntentService"  />
 
         <!-- 添加百度地图key -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="DiYicUKRmELHnnMj4MiIUkX9" />
+            android:value="DiYicUKRmELHnnMj4MiIUkX9"/>
 
         <!-- 百度定位服務! -->
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" >
+            android:process=":remote">
         </service>
 
         <activity
             android:name=".LoginActivity"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -64,264 +93,152 @@
             android:label="@string/title_activity_register"
             android:parentActivityName=".LoginActivity"
             android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".FindPositionActivity"
             android:label="@string/title_activity_find_position"
             android:theme="@style/StyleForNoActionbarActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".PersonalCenterActivity"
             android:label="@string/title_activity_personal_center"
             android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name=".ChooseAddressActivity"
             android:label="@string/title_activity_choose_address"
             android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ChooseArrivalActivity"
             android:label="@string/title_activity_choose_arrival"
             android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ShortWayActivity"
             android:label="@string/title_activity_short_way"
             android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan" >
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
         <activity
             android:name=".CommuteActivity"
             android:label="@string/title_activity_commute"
             android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan" >
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            android:windowSoftInputMode="adjustPan">
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".LongWayActivity"
             android:label="@string/title_activity_long_way_main"
             android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".PersonCenterDetaillistActivity"
             android:label="@string/title_activity_person_center_detaillist"
             android:parentActivityName=".PersonalCenterActivity"
             android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".CarsharingTypeActivity"
             android:label="@string/title_activity_carsharing_type"
             android:parentActivityName=".PersonalCenterActivity"
             android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".PeronalinfoModifyActivity"
             android:label="@string/title_activity_peronalinfo_modify"
             android:parentActivityName=".PersonalCenterActivity"
             android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".RegisterSecondActivity"
             android:label="@string/title_activity_register"
             android:parentActivityName=".RegisterActivity"
-            android:theme="@style/StyleForActionbarActivity" >
+            android:theme="@style/StyleForActionbarActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ForgetPasswordActivity"
-            android:label="@string/title_activity_forget_password" >
+            android:label="@string/title_activity_forget_password">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ArrangementDetailActivity"
             android:label="@string/title_activity_arrangement_detail"
-            android:theme="@style/StyleForActionbarActivity" >
+            android:theme="@style/StyleForActionbarActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name="longwaylist_fragmenttabhost.MainActivity"
             android:label="@string/title_activity_longway_list"
-            android:theme="@style/StyleForActionbarActivity" >
+            android:theme="@style/StyleForActionbarActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
             android:parentActivityName=".PersonalCenterActivity"
-            android:theme="@style/StyleForActionbarActivity" >
+            android:theme="@style/StyleForActionbarActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
 
         </activity>
         <activity
             android:name=".SettingActivity"
             android:label="@string/title_activity_setting"
             android:parentActivityName=".PersonalCenterActivity"
-            android:theme="@style/StyleForActionbarActivity" >
+            android:theme="@style/StyleForActionbarActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".OrderResponseActivity"
             android:label="@string/title_activity_order_response"
             android:parentActivityName=".PersonalCenterActivity"
-            android:theme="@style/StyleForActionbarActivity" >
+            android:theme="@style/StyleForActionbarActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".RoutelineDisplayActivity"
             android:label="@string/title_activity_routeline_display"
-            android:theme="@style/StyleForActionbarActivity" >
+            android:theme="@style/StyleForActionbarActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
 
         </activity>
         <activity
             android:name=".ReOrderShortwayActivity"
-            android:label="@string/title_activity_re_order_shortway" >
+            android:label="@string/title_activity_re_order_shortway">
         </activity>
         <activity
             android:name=".ReOrderCommuteActivity"
-            android:label="@string/title_activity_re_order_commute" >
+            android:label="@string/title_activity_re_order_commute">
         </activity>
         <activity
             android:name=".LongWayArrangementDetail"
-            android:label="@string/title_activity_long_way_arrangement_detail" >
+            android:label="@string/title_activity_long_way_arrangement_detail">
         </activity>
         <activity
             android:name=".Newyige"
-            android:label="@string/title_activity_newyige" >
+            android:label="@string/title_activity_newyige">
         </activity>
+
     </application>
 
 </manifest>
