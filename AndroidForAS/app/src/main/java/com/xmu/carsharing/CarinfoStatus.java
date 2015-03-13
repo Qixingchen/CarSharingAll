@@ -31,6 +31,7 @@ public class CarinfoStatus {
     private Activity activity;
     public int carinfochoosing_type;
     public static RequestQueue queue;
+	private String logtag = "CarinfoStatus";
     //...other attributes
 
     public CarinfoStatus(Activity act,int id,Context context){
@@ -52,7 +53,7 @@ public class CarinfoStatus {
             @Override
             public void onResponse(String response) {
 
-                Log.e("carinfo_selectresult_result", response);
+                Log.e(logtag, response);
                 String jas_id = null;
                 JSONObject json1 = null;
                 try {
@@ -99,8 +100,7 @@ public class CarinfoStatus {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Log.e("carinfo_selectresult_result",
-                        error.getMessage(), error);
+                Log.e(logtag,error.getMessage(), error);
             }
         }) {
             protected Map<String, String> getParams() {

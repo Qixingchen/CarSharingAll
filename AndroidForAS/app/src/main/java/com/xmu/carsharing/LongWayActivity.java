@@ -7,52 +7,21 @@
 
 package com.xmu.carsharing;
 
-import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import longwaylist_fragmenttabhost.MainActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.ContentValues;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
-import android.text.InputFilter;
-import android.text.InputType;
-import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
@@ -66,10 +35,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.Tool.Drawer;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class LongWayActivity extends Activity {
 
@@ -90,43 +77,34 @@ public class LongWayActivity extends Activity {
 
 	private int carinfochoosing_type;// 作为车辆表信息修改方法的判别
 
-	Date test_date, now = new Date();
+	private Date test_date, now = new Date();
 
-	SimpleDateFormat standard_date, primary_date;
-	String standard_longway_startdate = null;
+	private SimpleDateFormat standard_date, primary_date;
+	private String standard_longway_startdate = null;
 
 	private Button sure;
 	private String username;
-	Button datebutton;
-	Button increase;
-	Button decrease;
-	EditText startplace;
-	EditText endplace;
-	EditText noteinfo;
-	View commute;
-	View shortway;
-	View longway;
-	View personalcenter;
-	View taxi;
-	View setting;
-	View about;
-	ImageView drawericon;
-	Uri photouri;
-	boolean isExit;
-	private TextView drawername;
-	private TextView drawernum;
+	private Button datebutton;
+	private Button increase;
+	private Button decrease;
+	private EditText startplace;
+	private EditText endplace;
+	private EditText noteinfo;
+	private Uri photouri;
+	private boolean isExit;
+
 	private static final String IMAGE_FILE_NAME2 = "faceImage2.jpg";
 
 	// 用户手机号
-	String UserPhoneNumber;
-	String userrole;
+	private String UserPhoneNumber;
+	private String userrole;
 
 	int sum = 0;
-	TextView s1;
-	Calendar c = Calendar.getInstance();
+	private TextView s1;
+	private Calendar c = Calendar.getInstance();
 
 	// actionbar!!
-	Drawer activity_drawer;
+	private Drawer drawer;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 
@@ -134,15 +112,15 @@ public class LongWayActivity extends Activity {
 
 	// 表单数据保存
 
-	String StartPointUserName, StartPointMapName, EndPointUserName,
+	private String StartPointUserName, StartPointMapName, EndPointUserName,
 			EndPointMapName;
 
 	// 表单数据保存end
 
 	// database
 
-	DatabaseHelper db;
-	SQLiteDatabase db1;
+	private DatabaseHelper db;
+	private SQLiteDatabase db1;
 
 	// databasse end
 
@@ -160,9 +138,9 @@ public class LongWayActivity extends Activity {
                 IMAGE_FILE_NAME2));
         System.out.println("abc");
 
-		activity_drawer = new Drawer(this, R.id.long_way_layout);
-		mDrawerToggle = activity_drawer.newdrawer();
-		mDrawerLayout = activity_drawer.setDrawerLayout();
+		drawer = new Drawer(this, R.id.long_way_layout);
+		mDrawerToggle = drawer.newdrawer();
+		mDrawerLayout = drawer.setDrawerLayout();
 
 		// 日期、时间标准格式
 		standard_date = new SimpleDateFormat("yyyy-MM-dd",
@@ -196,16 +174,9 @@ public class LongWayActivity extends Activity {
 		startplace = (EditText) findViewById(R.id.longway_start_place);
 		endplace = (EditText) findViewById(R.id.longway_end_place);
 		noteinfo = (EditText) findViewById(R.id.longway_remarkText);
-		commute = findViewById(R.id.drawer_commute);
-		shortway = findViewById(R.id.drawer_shortway);
-		longway = findViewById(R.id.drawer_longway);
-		drawericon = (ImageView) findViewById(R.id.drawer_icon);
-		drawername = (TextView) findViewById(R.id.drawer_name);
-		drawernum = (TextView) findViewById(R.id.drawer_phone);
 		carbrand = (EditText) findViewById(R.id.longway_CarBrand);
 		model = (EditText) findViewById(R.id.longway_CarModel);
 		color = (EditText) findViewById(R.id.longway_color);
-		setting = findViewById(R.id.drawer_setting);
 		licensenum = (EditText) findViewById(R.id.longway_Num);
 
 		licensenum.addTextChangedListener(numTextWatcher);
@@ -219,8 +190,6 @@ public class LongWayActivity extends Activity {
 		longway_group = (RadioGroup) findViewById(R.id.longway_radiobutton);
 		passangerRadioButton = (RadioButton) findViewById(R.id.longway_radioButton02);
 		driverRadioButton = (RadioButton) findViewById(R.id.longway_radioButton01);
-		personalcenter = findViewById(R.id.drawer_personalcenter);
-		taxi = findViewById(R.id.drawer_taxi);
 
 		// judge the value of "pre_page"
 		Bundle bundle = this.getIntent().getExtras();
@@ -247,53 +216,11 @@ public class LongWayActivity extends Activity {
 		db = new DatabaseHelper(getApplicationContext(), UserPhoneNumber, null,
 				1);
 		db1 = db.getWritableDatabase();
-		about = findViewById(R.id.drawer_respond);
-		about.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-				Intent about = new Intent(LongWayActivity.this,
-						AboutActivity.class);
-				startActivity(about);
-			}
-		});
-		setting.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-				Intent setting = new Intent(LongWayActivity.this,
-						SettingActivity.class);
-				startActivity(setting);
-			}
-		});
 
 		// database end
 
-		taxi.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-			}
-		});
-
-		personalcenter.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-				Intent personalcenter = new Intent(LongWayActivity.this,
-						PersonalCenterActivity.class);
-				personalcenter.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(personalcenter);
-			}
-		});
 
         // 绑定一个RadioGroup监听器（身份选择）
         function_identity.IdentityChoosing("longway",UserPhoneNumber);
@@ -460,42 +387,6 @@ public class LongWayActivity extends Activity {
 			}
 		});
 
-		// 抽屉跳转start!
-		shortway.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-				Intent shortway = new Intent(LongWayActivity.this,
-						ShortWayActivity.class);
-				startActivity(shortway);
-			}
-		});
-
-		longway.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-			}
-		});
-
-		commute.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-				Intent commute = new Intent(LongWayActivity.this,
-						CommuteActivity.class);
-				startActivity(commute);
-			}
-		});
-
-		// 抽屉跳转end!
-
 		increase.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -530,7 +421,7 @@ public class LongWayActivity extends Activity {
 		});
 	}
 
-	TextWatcher spTextWatcher = new TextWatcher() {
+	private TextWatcher spTextWatcher = new TextWatcher() {
 		private CharSequence temp;
 		private int editStart;
 		private int editEnd;
@@ -564,7 +455,7 @@ public class LongWayActivity extends Activity {
 		}
 	};
 
-	TextWatcher epTextWatcher = new TextWatcher() {
+	private TextWatcher epTextWatcher = new TextWatcher() {
 		private CharSequence temp;
 		private int editStart;
 		private int editEnd;
@@ -601,30 +492,10 @@ public class LongWayActivity extends Activity {
 	@Override
 	public void onResume() {
 
-		super.onResume(); // Always call the superclass method first
+		super.onResume();
 
-		// Get the Camera instance as the activity achieves full user focus
-		Context phonenumber = LongWayActivity.this;
-		SharedPreferences filename = phonenumber
-				.getSharedPreferences(
-						getString(R.string.PreferenceDefaultName),
-						Context.MODE_PRIVATE);
-		UserPhoneNumber = filename.getString("refreshfilename", "0");
-		drawernum.setText(UserPhoneNumber);
-		Context context = LongWayActivity.this;
-		SharedPreferences sharedPref = context.getSharedPreferences(
-				UserPhoneNumber, Context.MODE_PRIVATE);
-		String fullname = sharedPref.getString("refreshname", "姓名");
-		drawername.setText(fullname);
-		File photoFile = new File(
-				this.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-				UserPhoneNumber);
-		if (photoFile.exists()) {
-			photouri = Uri.fromFile(photoFile);
-			drawericon.setImageURI(photouri);
-		} else {
-			drawericon.setImageResource(R.drawable.ic_launcher);
-		}
+		drawer.OnResumeRestore();
+
 	}
 
 	// carnum,phonenum,carbrand,carmodel,carcolor,capacity
@@ -737,7 +608,7 @@ public class LongWayActivity extends Activity {
 			confirm();
 		}
 	};
-	TextWatcher numTextWatcher = new TextWatcher() {
+	private  TextWatcher numTextWatcher = new TextWatcher() {
 		private CharSequence temp;
 		private int editStart;
 		private int editEnd;
@@ -770,7 +641,8 @@ public class LongWayActivity extends Activity {
 
 		}
 	};
-	TextWatcher detTextWatcher = new TextWatcher() {
+
+	private  TextWatcher detTextWatcher = new TextWatcher() {
 		private CharSequence temp;
 		private int editStart;
 		private int editEnd;
@@ -804,7 +676,7 @@ public class LongWayActivity extends Activity {
 		}
 	};
 
-	TextWatcher coTextWatcher = new TextWatcher() {
+	private  TextWatcher coTextWatcher = new TextWatcher() {
 		private CharSequence temp;
 		private int editStart;
 		private int editEnd;
@@ -838,7 +710,7 @@ public class LongWayActivity extends Activity {
 		}
 	};
 
-	TextWatcher moTextWatcher = new TextWatcher() {
+	private  TextWatcher moTextWatcher = new TextWatcher() {
 		private CharSequence temp;
 		private int editStart;
 		private int editEnd;

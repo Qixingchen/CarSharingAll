@@ -16,4 +16,16 @@ public class AppStat {
 		public static final int 发送验证短信 = 1;
 		public static final int 跳转界面验证 = 2;
 	}
+	//抽屉跳转的类名
+	public static class classname{
+		public static final String 个人中心 = "PersonalCenterActivity";
+		public static final String 上下班 = "CommuteActivity";
+		public static final String 短途 = "ShortWayActivity";
+		public static final String 长途 = "LongWayActivity";
+		public static final String 出租车 = "";
+		public static final String 设置 = "SettingActivity";
+		public static final String 关于 = "AboutActivity";
+
+
+	}
 }
