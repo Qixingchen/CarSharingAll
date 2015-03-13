@@ -140,9 +140,9 @@ public class MyAdapter extends BaseAdapter {
 					shortway_deleterequest(UserPhoneNumber, time);
 					// 向服务器发起删除短途拼车的请求end!
 
-					// 向服务器发起删除短途拼车的请求start!
+					// 向服务器发起删除长途拼车的请求start!
 					longway_deleterequest(UserPhoneNumber, time);
-					// 向服务器发起删除短途拼车的请求end!
+					// 向服务器发起删除长途拼车的请求end!
 
 				}
 				if (intentcall == 3) {

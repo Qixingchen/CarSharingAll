@@ -42,7 +42,7 @@ public class OrderResponseActivity extends Activity {
 	Button backbtn;
 	String UserPhoneNumber;
 
-	private void selectcarinfo(final String phonenum) {
+/*	private void selectcarinfo(final String phonenum) {
 		
 		String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_CarInfo)
@@ -100,13 +100,16 @@ public class OrderResponseActivity extends Activity {
 		};
 
 		queue.add(stringRequest);
-	}
+	}*/
 
+    CarinfoStatus function_carstatus; /*车辆表信息读取，已封装在CarinfoStatus.java中*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_response);
 
+        function_carstatus = new CarinfoStatus(this, R.id.order_response_layout,
+                this.getApplicationContext());
 		// 获取用户号码
 
 		Context phonenumber = OrderResponseActivity.this;
@@ -123,7 +126,7 @@ public class OrderResponseActivity extends Activity {
 		backbtn = (Button) findViewById(R.id.order_response_back);
 
 		// 向服务器请求查询车辆信息表start!
-		selectcarinfo(UserPhoneNumber);
+		function_carstatus.selectcarinfo(UserPhoneNumber);
 		// 向服务器请求查询车辆信息表end!
 
 		Intent request_response = getIntent();

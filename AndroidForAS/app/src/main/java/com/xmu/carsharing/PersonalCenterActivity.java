@@ -104,7 +104,7 @@ public class PersonalCenterActivity extends Activity {
 	private TextView drawernum;
 	RatingBar ratingbar;
 	// progressbar
-	private static MyProgressDialog pd;
+	private static MyProgressDialog pd;  /*建议对progressbar的实现进行封装*/
 	// progressbar end
 
 	// actionbarend!!
@@ -160,7 +160,7 @@ public class PersonalCenterActivity extends Activity {
 		about = findViewById(R.id.drawer_respond);
 
 		// ratingbar 设置
-		ratingbar.setRating(1.0f);
+		ratingbar.setRating(1.0f);  /*评价*/
 		// database
 
 		Context phonenumber = PersonalCenterActivity.this;

@@ -100,9 +100,9 @@ public class CommuteActivity extends Activity {
 	private ImageView exchange;
 	private static boolean requestok, carinfook;
 	private boolean bstart, bend, blicensenum, bcarbrand, bcolor, bmodel, bmon,
-			btue, bwed, bthu, bfri, bsat, bsun, bpassenager, bdriver,
+			btue, bwed, bthu, bfri, bsat, bsun,
 			bstartdate, benddate, bearlystarttime, blatestarttime;
-	private static int carinfochoosing_type;
+    private boolean mbpassenager,mbdriver;
 
 	private EditText carbrand;
 	private EditText model;
@@ -243,11 +243,16 @@ public class CommuteActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		photouri = Uri.fromFile(new File(this
-				.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-				IMAGE_FILE_NAME2));
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_commute);
+
+        final IdentityBtn function_identity; /*身份选择，已封装在IdentityBtn.java中*/
+        function_identity = new IdentityBtn(this, R.id.commute_layout);
+
+        photouri = Uri.fromFile(new File(this
+                .getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                IMAGE_FILE_NAME2));
 
 		activity_drawer = new Drawer(this, R.id.commute_layout);
 		mDrawerToggle = activity_drawer.newdrawer();
@@ -289,7 +294,7 @@ public class CommuteActivity extends Activity {
 			}
 		});
 
-		bdriver = true;
+		function_identity.bdriver = true;
 		bmon = true;
 		btue = true;
 		bwed = true;
@@ -686,208 +691,11 @@ public class CommuteActivity extends Activity {
 			}
 		});
 
-		commute_group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(RadioGroup arg0, int checkedId) {
-
-				// 获取变更后的选中项的ID
-
-				// "我能提供车"不变，"我不能提供车"使车牌号等编辑框不可编辑，并更改textView
-				if (checkedId == mRadio2.getId()) {
-
-					bpassenager = true;
-					bdriver = false;
-
-					licensenum.setEnabled(false);
-					carbrand.setEnabled(false);
-					color.setEnabled(false);
-					model.setEnabled(false);
-
-					licensenum
-							.setFilters(new InputFilter[] { new InputFilter() {
-								@Override
-								public CharSequence filter(CharSequence source,
-										int start, int end, Spanned dest,
-										int dstart, int dend) {
-									return source.length() < 1 ? dest
-											.subSequence(dstart, dend) : "";
-								}
-							} });
-					carbrand.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest, int dstart,
-								int dend) {
-							return source.length() < 1 ? dest.subSequence(
-									dstart, dend) : "";
-						}
-					} });
-					color.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest, int dstart,
-								int dend) {
-							return source.length() < 1 ? dest.subSequence(
-									dstart, dend) : "";
-						}
-					} });
-					model.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest, int dstart,
-								int dend) {
-							return source.length() < 1 ? dest.subSequence(
-									dstart, dend) : "";
-						}
-					} });
-					content.setText(getString(R.string.warningInfo_seatNeed));
-					licensenum.setHintTextColor(getResources().getColor(
-							R.color.gray_cccccc));
-					carbrand.setHintTextColor(getResources().getColor(
-							R.color.gray_cccccc));
-					color.setHintTextColor(getResources().getColor(
-							R.color.gray_cccccc));
-					model.setHintTextColor(getResources().getColor(
-							R.color.gray_cccccc));
-					licensenum.setInputType(InputType.TYPE_NULL);
-					carbrand.setInputType(InputType.TYPE_NULL);
-					color.setInputType(InputType.TYPE_NULL);
-					model.setInputType(InputType.TYPE_NULL);
-				} else {
-
-					bpassenager = false;
-					bdriver = true;
-
-					licensenum.setEnabled(true);
-					carbrand.setEnabled(true);
-					color.setEnabled(true);
-					model.setEnabled(true);
-
-					licensenum
-							.setFilters(new InputFilter[] { new InputFilter() {
-								@Override
-								public CharSequence filter(CharSequence source,
-										int start, int end, Spanned dest,
-										int dstart, int dend) {
-
-									return null;
-								}
-							} });
-					carbrand.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest, int dstart,
-								int dend) {
-							return null;
-						}
-					} });
-					color.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest, int dstart,
-								int dend) {
-
-							return null;
-						}
-					} });
-					model.setFilters(new InputFilter[] { new InputFilter() {
-						@Override
-						public CharSequence filter(CharSequence source,
-								int start, int end, Spanned dest, int dstart,
-								int dend) {
-
-							return null;
-						}
-					} });
-					content.setText(getString(R.string.warningInfo_seatOffer));
-					licensenum.setHintTextColor(getResources().getColor(
-							R.color.purple_9F35FF));
-					carbrand.setHintTextColor(getResources().getColor(
-							R.color.purple_9F35FF));
-					color.setHintTextColor(getResources().getColor(
-							R.color.purple_9F35FF));
-					model.setHintTextColor(getResources().getColor(
-							R.color.purple_9F35FF));
-					// licensenum.setText("");
-					// carbrand.setText("");
-					// color.setText("");
-					// model.setText("");
-					licensenum.setInputType(InputType.TYPE_CLASS_TEXT);
-					carbrand.setInputType(InputType.TYPE_CLASS_TEXT);
-					color.setInputType(InputType.TYPE_CLASS_TEXT);
-					model.setInputType(InputType.TYPE_CLASS_TEXT);
-
-					// 向服务器请求查询车辆信息表start!
-					selectcarinfo(UserPhoneNumber);
-					// 向服务器请求查询车辆信息表end!
-				}
-				confirm();
-			}
-
-			private void selectcarinfo(final String phonenum) {
-				
-				String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
-						+ getString(R.string.uri_CarInfo)
-						+ getString(R.string.uri_selectcarinfo_action);
-
-				Log.d("carinfo_selectrequest_baseurl",
-						carinfo_selectrequest_baseurl);
-				StringRequest stringRequest = new StringRequest(
-						Request.Method.POST, carinfo_selectrequest_baseurl,
-						new Response.Listener<String>() {
-
-							@Override
-							public void onResponse(String response) {
-								
-								Log.d("carinfo_select", response);
-								String jas_id = null;
-								JSONObject json1 = null;
-								try {
-									json1 = new JSONObject(response);
-									JSONObject json = json1
-											.getJSONObject("result");
-									jas_id = json.getString("id");
-
-									if (jas_id.compareTo("") != 0) { // 服务器上存在车辆信息时
-
-										carinfochoosing_type = 2;
-										carbrand.setText(json
-												.getString("carBrand"));
-										model.setText(json
-												.getString("carModel"));
-										licensenum.setText(json
-												.getString("carNum"));
-										color.setText(json
-												.getString("carColor"));
-
-									} else {
-										carinfochoosing_type = 1;
-									}
-								} catch (JSONException e) {
-									
-									e.printStackTrace();
-								}
-							}
-						}, new Response.ErrorListener() {
-
-							@Override
-							public void onErrorResponse(VolleyError error) {
-								
-								Log.e("carinfo_selectresult_result",
-										error.getMessage(), error);
-							}
-						}) {
-					protected Map<String, String> getParams() {
-						Map<String, String> params = new HashMap<String, String>();
-						params.put("phonenum", phonenum);
-						return params;
-					}
-				};
-
-				queue.add(stringRequest);
-			}
-
-		});
+        //绑定一个RadioGroup监听器(身份选择)
+        function_identity.IdentityChoosing("commute",UserPhoneNumber);
+        mbdriver = function_identity.bdriver;
+        mbpassenager = function_identity.bpassenager;
+        confirm();
 
 		sure.setOnClickListener(new OnClickListener() {
 
@@ -989,7 +797,7 @@ public class CommuteActivity extends Activity {
 
 								if (requestok == true) {
 
-									if (carinfochoosing_type == 1) {
+									if (function_identity.carinfochoosing_type == 1) {
 										// add
 										// 向服务器发送车辆信息修改请求start!
 										carinfo(commute_phonenum, licensenum
@@ -1562,7 +1370,7 @@ public class CommuteActivity extends Activity {
 		if (bstart
 				&& bend
 				&& (bmon || btue || bwed || bthu || bfri || bsat || bsun)
-				&& ((bdriver && blicensenum && bcolor && bcarbrand) || bpassenager)
+				&& ((mbdriver && blicensenum && bcolor && bcarbrand) ||mbpassenager)
 				&& bstartdate && benddate && bearlystarttime && blatestarttime
 				&& (sum > 0)) {
 			sure.setEnabled(true);

@@ -1,6 +1,7 @@
 /*
  * 函数
  * 判断输入用户名是否为合法的号码
+ * by Jo
  */
 
 package com.xmu.carsharing;

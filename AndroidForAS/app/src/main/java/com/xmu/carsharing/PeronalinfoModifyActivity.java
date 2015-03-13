@@ -75,7 +75,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	private String userpassword;
 	public static RequestQueue queue;
 
-	private int carinfochoosing_type;// 作为车辆表信息修改方法的判别
+//	private int carinfochoosing_type;// 作为车辆表信息修改方法的判别
 
 	Hash_pwd hash = new Hash_pwd();
 
@@ -112,8 +112,6 @@ public class PeronalinfoModifyActivity extends Activity {
 		// + "&carcolor=" + carcolor +"&capacity=" + car_capacity;
 
 		// "http://192.168.1.111:8080/CarsharingServer/CarInfo!changeinfo.action?";
-
-		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// 中文编码
 
 		Log.d("carinfo_URL", carinfo_baseurl);
 		// Instantiate the RequestQueue.
@@ -230,7 +228,7 @@ public class PeronalinfoModifyActivity extends Activity {
 		queue.add(stringRequest);
 	}
 
-	private void selectcarinfo(final String phonenum) {
+/*	private void selectcarinfo(final String phonenum) {
 		
 		String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_CarInfo)
@@ -282,12 +280,19 @@ public class PeronalinfoModifyActivity extends Activity {
 		};
 
 		queue.add(stringRequest);
-	}
+	}*/
 
+    CarinfoStatus function_carstatus; /*车辆表是否已存在的判断，已封装在CarinfoStatus.java中*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_peronalinfo_modify);
+
+
+        function_carstatus = new CarinfoStatus(this, R.id.personalinfo_modify_layout,
+                this.getApplicationContext());
+
 		fbm = null;
 		name = (EditText) findViewById(R.id.informodify_FullName);
 		age = (EditText) findViewById(R.id.informodify_age);
@@ -382,7 +387,7 @@ public class PeronalinfoModifyActivity extends Activity {
 				carinfo(username, num.getText().toString(), brand.getText()
 						.toString(), model.getText().toString(), color
 						.getText().toString(), capacity.getText().toString(),
-						carinfochoosing_type);
+						function_carstatus.carinfochoosing_type);
 				// 向服务器发送车辆信息修改end!
 
 				Intent btn_login = new Intent();
@@ -399,7 +404,7 @@ public class PeronalinfoModifyActivity extends Activity {
 		super.onResume(); // Always call the superclass method first
 
 		// 向服务器请求查询车辆信息表start!
-		selectcarinfo(UserPhoneNumber);
+		function_carstatus.selectcarinfo(UserPhoneNumber);
 		// 向服务器请求查询车辆信息表end!
 
 		// Get the Camera instance as the activity achieves full user focus
@@ -559,7 +564,7 @@ public class PeronalinfoModifyActivity extends Activity {
 	/**
 	 * 保存裁剪之后的图片数据
 	 * 
-	 * @param picdata
+	 * @param
 	 */
 	private void getImageToView(Intent data) {
 		Bundle extras = data.getExtras();
