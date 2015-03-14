@@ -3,7 +3,7 @@
  * 两次哈希
  */
 
-package com.xmu.carsharing;
+package com.Tool;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

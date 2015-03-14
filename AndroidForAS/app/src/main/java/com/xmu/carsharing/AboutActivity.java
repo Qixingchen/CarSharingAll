@@ -2,24 +2,12 @@
 
 package com.xmu.carsharing;
 
-import java.io.File;
-
-import longwaylist_fragmenttabhost.MainActivity;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.Tool.Drawer;
 
@@ -33,16 +21,16 @@ public class AboutActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		drawer.photouri = Uri.fromFile(new File(this
-				.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-				drawer.IMAGE_FILE_NAME2));
+
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_about);
 
-		drawer = new Drawer(this, R.id.long_way_layout);
+		//actionbar
+		drawer = new Drawer(this, R.id.about_layout);
 		mDrawerToggle = drawer.newdrawer();
 		mDrawerLayout = drawer.setDrawerLayout();
+		//actionbar end
 
 	}
 

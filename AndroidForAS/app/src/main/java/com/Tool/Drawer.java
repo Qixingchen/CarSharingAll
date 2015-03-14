@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.Tool.AppStat;
 import com.xmu.carsharing.AboutActivity;
 import com.xmu.carsharing.CommuteActivity;
 import com.xmu.carsharing.LongWayActivity;
@@ -32,6 +31,7 @@ import java.io.File;
 * mDrawerLayout = activity_drawer.setDrawerLayout();
 * 并在onresume中调用 OnResumeRestore();
 * 即可
+* todo 抽屉染色
 **/
 public class Drawer {
 
@@ -43,6 +43,7 @@ public class Drawer {
 	private Context mcontext;
 	private int viewid;
 	private String logtag = "DrawerClass";
+	private String pageNmae = "Drawer";
 	private View commute;
 	private View shortway;
 	private View longway;
@@ -77,6 +78,8 @@ public class Drawer {
 
 		photouri = Uri.fromFile(new File(activity.
 				getExternalFilesDir(Environment.DIRECTORY_PICTURES),IMAGE_FILE_NAME2));
+
+		Log.e(logtag+"actname",activity.getClass().getSimpleName());
 
 		OnResumeRestore();
 
@@ -149,6 +152,7 @@ public class Drawer {
 
 				mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 				Intent shortway = new Intent(activity, ShortWayActivity.class);
+				shortway.putExtra("pre_page", pageNmae);
 				activity.startActivity(shortway);
 			}
 		});
@@ -164,8 +168,9 @@ public class Drawer {
 				}
 
 				mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
-				Intent shortway = new Intent(activity, LongWayActivity.class);
-				activity.startActivity(shortway);
+				Intent longway = new Intent(activity, LongWayActivity.class);
+				longway.putExtra("pre_page", pageNmae);
+				activity.startActivity(longway);
 			}
 		});
 
@@ -181,6 +186,7 @@ public class Drawer {
 
 				mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 				Intent commute = new Intent(activity, CommuteActivity.class);
+				commute.putExtra("pre_page", pageNmae);
 				activity.startActivity(commute);
 			}
 		});
@@ -205,7 +211,7 @@ public class Drawer {
 			@Override
 			public void onClick(View arg0) {
 
-				if (activity.getClass().getSimpleName() == AppStat.classname.出租车) {
+				if (activity.getClass().getSimpleName() == AppStat.classname.设置) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
@@ -249,12 +255,13 @@ public class Drawer {
 		});
 	}
 
+	//请在onresume中调用，用于恢复相关信息
 	public void OnResumeRestore() {
 
 		mDrawerLayout = (DrawerLayout) activity.findViewById(viewid);
 
-		mDrawerLayout.setBackgroundDrawable(activity.getResources().getDrawable(
-				R.color.blue_0099cc));
+//		mDrawerLayout.setBackgroundDrawable(activity.getResources().getDrawable(
+//				R.color.blue_0099cc));
 
 		SharedPreferences filename = mcontext
 				.getSharedPreferences(

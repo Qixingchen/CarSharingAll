@@ -7,11 +7,11 @@ package com.xmu.carsharing;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Queue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.Tool.Hash_pwd;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,24 +20,15 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.os.Build;
 
 public class ForgetPasswordActivity extends Activity {
 	private ImageView cancelx1, cancelx2, cancelx3;

@@ -34,7 +34,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.xmu.carsharing.Hash_pwd;
+import com.Tool.Hash_pwd;
 
 public class RegisterSecondActivity extends Activity {
 

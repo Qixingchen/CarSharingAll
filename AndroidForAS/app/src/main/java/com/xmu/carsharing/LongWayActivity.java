@@ -16,9 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
@@ -49,7 +47,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -90,10 +87,7 @@ public class LongWayActivity extends Activity {
 	private EditText startplace;
 	private EditText endplace;
 	private EditText noteinfo;
-	private Uri photouri;
 	private boolean isExit;
-
-	private static final String IMAGE_FILE_NAME2 = "faceImage2.jpg";
 
 	// 用户手机号
 	private String UserPhoneNumber;
@@ -133,14 +127,11 @@ public class LongWayActivity extends Activity {
         final IdentityBtn function_identity; /*身份选择，已封装在IdentityBtn.java中*/
         function_identity = new IdentityBtn(this, R.id.long_way_layout);
 
-        photouri = Uri.fromFile(new File(this
-                .getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-                IMAGE_FILE_NAME2));
-        System.out.println("abc");
-
+		//actionbar
 		drawer = new Drawer(this, R.id.long_way_layout);
 		mDrawerToggle = drawer.newdrawer();
 		mDrawerLayout = drawer.setDrawerLayout();
+		//actionbar end
 
 		// 日期、时间标准格式
 		standard_date = new SimpleDateFormat("yyyy-MM-dd",

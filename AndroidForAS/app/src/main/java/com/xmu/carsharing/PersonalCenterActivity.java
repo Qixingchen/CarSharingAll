@@ -9,25 +9,6 @@
 
 package com.xmu.carsharing;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import longwaylist_fragmenttabhost.MainActivity;
-
-import com.Tool.Drawer;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -36,10 +17,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -49,13 +28,29 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.View.OnClickListener;
+
+import com.Tool.Drawer;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PersonalCenterActivity extends Activity {
 
@@ -67,39 +62,31 @@ public class PersonalCenterActivity extends Activity {
 	public static ArrayList<HashMap<String, Object>> mylist2 = new ArrayList<HashMap<String, Object>>();
 	public static ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
 	public static RequestQueue queue;
+
 	// actionbar!!
-	Drawer activity_drawer;
+	Drawer drawer;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
+	// actionbarend!!
 
 	boolean isExit;
 	boolean bfirsthistory = false, bfirstdeal = false, bfirstfavorite = false;
 	Context context = PersonalCenterActivity.this;
 	static ImageView image;
-	ImageView drawericon;
-	View commute;
-	View shortway;
-	View longway;
-	View personalcenter;
-	View taxi;
-	View setting;
-	View about;
+
 	TextView name;
 	TextView age;
 	TextView description;
 	TextView carnum;
 	TextView sex;
 	private final static String CACHE = "/css";
-	private static final String IMAGE_FILE_NAME2 = "faceImage2.jpg";
-	Uri photouri;
-	private TextView drawername;
-	private TextView drawernum;
+
 	RatingBar ratingbar;
 	// progressbar
 	private static MyProgressDialog pd;  /*建议对progressbar的实现进行封装*/
 	// progressbar end
 
-	// actionbarend!!
+
 
 	// 用户手机号
 	String UserPhoneNumber;
@@ -112,15 +99,20 @@ public class PersonalCenterActivity extends Activity {
 
 	// database end!!
 
+	private String logtag = "个人中心";
+
 	Button quit;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_personal_center);
-		activity_drawer = new Drawer(this, R.id.person_center_layout);
-		mDrawerToggle = activity_drawer.newdrawer();
-		mDrawerLayout = activity_drawer.setDrawerLayout();
+
+		//actionbar
+		drawer = new Drawer(this, R.id.person_center_layout);
+		mDrawerToggle = drawer.newdrawer();
+		mDrawerLayout = drawer.setDrawerLayout();
+		//actionbar end
 
 		firsthistory = (TextView) findViewById(R.id.first_history);
 		firstdeal = (TextView) findViewById(R.id.first_receiving);
@@ -134,22 +126,12 @@ public class PersonalCenterActivity extends Activity {
 		ImageButton imageedit = (ImageButton) findViewById(R.id.personalcenter_imageEdit);
 		Button iwantcar = (Button) findViewById(R.id.personalcenter_iwantcar);
 		quit = (Button) findViewById(R.id.personalcenter_quit);
-		commute = findViewById(R.id.drawer_commute);
-		shortway = findViewById(R.id.drawer_shortway);
-		longway = findViewById(R.id.drawer_longway);
-		personalcenter = findViewById(R.id.drawer_personalcenter);
-		setting = findViewById(R.id.drawer_setting);
-		taxi = findViewById(R.id.drawer_taxi);
 		name = (TextView) findViewById(R.id.personalcenter_name);
 		age = (TextView) findViewById(R.id.personalcenter_age);
 		description = (TextView) findViewById(R.id.personalcenter_description);
 		carnum = (TextView) findViewById(R.id.personalcenter_carnumber);
 		sex = (TextView) findViewById(R.id.personalcenter_sex);
 		image = (ImageView) findViewById(R.id.personalcenter_icon);
-		drawericon = (ImageView) findViewById(R.id.drawer_icon);
-		drawername = (TextView) findViewById(R.id.drawer_name);
-		drawernum = (TextView) findViewById(R.id.drawer_phone);
-		about = findViewById(R.id.drawer_respond);
 
 		// ratingbar 设置
 		ratingbar.setRating(1.0f);  /*评价*/
@@ -162,7 +144,7 @@ public class PersonalCenterActivity extends Activity {
 						Context.MODE_PRIVATE);
 		UserPhoneNumber = filename.getString("refreshfilename", "0");
 
-		Log.e("Personcenter_UserPhoneNum", UserPhoneNumber);
+		Log.e(logtag+"电话号码", UserPhoneNumber);
 
 		db = new DatabaseHelper(getApplicationContext(), UserPhoneNumber, null,
 				1);
@@ -170,83 +152,6 @@ public class PersonalCenterActivity extends Activity {
 
 		// database end!!!
 
-		about.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-				Intent about = new Intent(PersonalCenterActivity.this,
-						AboutActivity.class);
-				startActivity(about);
-			}
-		});
-		setting.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-				Intent setting = new Intent(PersonalCenterActivity.this,
-						SettingActivity.class);
-				startActivity(setting);
-			}
-		});
-		taxi.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-			}
-		});
-
-		personalcenter.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-			}
-		});
-
-		shortway.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-				Intent shortway = new Intent(PersonalCenterActivity.this,
-						ShortWayActivity.class);
-				shortway.putExtra("pre_page", "Drawer");
-				startActivity(shortway);
-			}
-		});
-
-		longway.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-				Intent longway = new Intent(PersonalCenterActivity.this,
-						MainActivity.class);
-				startActivity(longway);
-			}
-		});
-
-		commute.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				
-				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
-				Intent commute = new Intent(PersonalCenterActivity.this,
-						CommuteActivity.class);
-				commute.putExtra("pre_page", "Drawer");
-				startActivity(commute);
-			}
-		});
 
 		iwantcar.setOnClickListener(new OnClickListener() {
 
@@ -330,28 +235,20 @@ public class PersonalCenterActivity extends Activity {
 			}
 		});
 
-		photouri = Uri.fromFile(new File(this
-				.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-				IMAGE_FILE_NAME2));
 	}
 
 	@Override
 	public void onResume() {
 
-		super.onResume(); // Always call the superclass method first
+		super.onResume();
 
-		// Get the Camera instance as the activity achieves full user focus
-		Context phonenumber = PersonalCenterActivity.this;
-		SharedPreferences filename = phonenumber
-				.getSharedPreferences(
-						getString(R.string.PreferenceDefaultName),
-						Context.MODE_PRIVATE);
+		SharedPreferences filename = context.getSharedPreferences(
+						getString(R.string.PreferenceDefaultName),Context.MODE_PRIVATE);
 		UserPhoneNumber = filename.getString("refreshfilename", "文件名");
 		SharedPreferences sharedPref = context.getSharedPreferences(
 				UserPhoneNumber, Context.MODE_PRIVATE);
 		String newfullname = sharedPref.getString("refreshname", "姓名");
-		drawernum.setText(UserPhoneNumber);
-		drawername.setText(newfullname);
+
 		String newage = sharedPref.getString("refreshage", "年龄");
 
 		String newdescription = sharedPref.getString("refreshdescription",
@@ -369,17 +266,6 @@ public class PersonalCenterActivity extends Activity {
 
 		placeLikedListFlush();
 
-		File photoFile = new File(
-				this.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
-				UserPhoneNumber);
-		if (photoFile.exists()) {
-			photouri = Uri.fromFile(photoFile);
-			drawericon.setImageURI(photouri);
-			image.setImageURI(photouri);
-		} else {
-			image.setImageResource(R.drawable.ic_launcher);
-			drawericon.setImageResource(R.drawable.ic_launcher);
-		}
 
 		quit.setOnClickListener(new OnClickListener() {
 
@@ -474,8 +360,7 @@ public class PersonalCenterActivity extends Activity {
 									map.put("deal_readstatus", "unread");// 隐藏的
 								}
 
-								Log.e("deal_readstatuspersoncenter",
-										deal_readstatus);
+								Log.e(logtag+"deal_readstat",deal_readstatus);
 								if (deal_readstatus.compareTo("unread") == 0) {// 未读消息
 									map.put("deal_readstatusIcon",
 											R.drawable.ic_dealunread);
@@ -552,7 +437,7 @@ public class PersonalCenterActivity extends Activity {
 
 					@Override
 					public void onResponse(String response) {
-						Log.w("longwayway_selectpublish_result", response);
+						Log.w(logtag+"longway_result", response);
 						try {
 
 							JSONObject jasitem = null;
@@ -593,8 +478,7 @@ public class PersonalCenterActivity extends Activity {
 				}, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Log.e("longwayway_selectpublish_result",
-								error.getMessage(), error);
+						Log.e(logtag+"longway_result",error.getMessage(), error);
 						Toast errorinfo = Toast.makeText(null, "网络连接失败",
 								Toast.LENGTH_LONG);
 						errorinfo.show();
@@ -623,7 +507,7 @@ public class PersonalCenterActivity extends Activity {
 
 					@Override
 					public void onResponse(String response) {
-						Log.w("shortway_selectrequest_result", response);
+						Log.w(logtag+"shortway_result", response);
 						try {
 
 							JSONObject jasitem = null;
@@ -670,8 +554,7 @@ public class PersonalCenterActivity extends Activity {
 				}, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Log.e("shortway_selectresult_result",
-								error.getMessage(), error);
+						Log.e(logtag+"shortway_result",error.getMessage(), error);
 						// Toast errorinfo = Toast.makeText(null, "网络连接失败",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
@@ -700,7 +583,7 @@ public class PersonalCenterActivity extends Activity {
 
 					@Override
 					public void onResponse(String response) {
-						Log.w("commute_selectrequest_result", response);
+						Log.w(logtag+"commute_result", response);
 						try {
 
 							JSONObject jasitem = null;
@@ -749,8 +632,7 @@ public class PersonalCenterActivity extends Activity {
 				}, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
-						Log.e("commute_selectresult_result",
-								error.getMessage(), error);
+						Log.e(logtag+"commute_result",error.getMessage(), error);
 						// Toast errorinfo = Toast.makeText(null, "网络连接失败",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
