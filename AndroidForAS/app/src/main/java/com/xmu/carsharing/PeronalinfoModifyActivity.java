@@ -14,6 +14,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.Tool.CarinfoStatus;
 import com.Tool.Tool;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
