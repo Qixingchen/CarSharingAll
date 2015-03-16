@@ -17,8 +17,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,12 +31,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.Tool.BaiduLocation;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.baidu.location.LocationClientOption.LocationMode;
-import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.CityInfo;
@@ -55,11 +50,10 @@ import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
-import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 
 public class ChooseAddressActivity extends Activity implements
 		OnGetPoiSearchResultListener, OnGetSuggestionResultListener,
-		OnGetGeoCoderResultListener {
+		OnGetGeoCoderResultListener,BaiduLocation.GetHignLocationCallBack,BaiduLocation.GetCityCallBack {
 
 	EditText choose;
 	int intentcall;
@@ -80,31 +74,35 @@ public class ChooseAddressActivity extends Activity implements
 	// 用户手机号
 	String UserPhoneNumber;
 
+	//TODO 迁移百度地图
 	// 百度map
 	String PointUserName, PointMapName;
-	float longitude, latitude;
+	double longitude, latitude;
 
 	// private PoiSearch mPoiSearch = null;
 	private SuggestionSearch mSuggestionSearch = null;
 	private BaiduMap mBaiduMap = null;
 	private GeoCoder mSearch = null; // 搜索模块，也可去掉地图模块独立使用
-	/**
-	 * 搜索关键字输入窗口
-	 */
+
+	//搜索关键字输入窗口
 	private AutoCompleteTextView keyWorldsView = null;
 	private ArrayAdapter<String> sugAdapter = null;
 	private int load_Index = 0;
 
 	// 百度mapend
 
-	// 百度定位
 
-	public LocationClient mLocationClient = null;
-	public BDLocationListener myListener = new MyLocationListener();
-	String UserCity, city;
-	LocationClientOption option;
-
-	// 百度定位end
+	//TODO 迁移定位
+//	// 百度定位
+//
+//	public LocationClient mLocationClient = null;
+//	public BDLocationListener myListener = new MyLocationListener();
+//
+//	LocationClientOption option;
+//
+	private BaiduLocation baidulocation;
+	private String UserCity, city;
+//	// 百度定位end
 
 	// database intent 辅助
 	int Locationcount;
@@ -146,69 +144,11 @@ public class ChooseAddressActivity extends Activity implements
 
 		// database end!!!
 
-		// 百度地图操作
-
-		// 在使用SDK各组件之前初始化context信息，传入ApplicationContext
-		// 注意该方法要再setContentView方法之前实现
-		SDKInitializer.initialize(getApplicationContext());
-
-		// 初始化搜索模块，注册搜索事件监听
-		// mPoiSearch = PoiSearch.newInstance();
-		// mPoiSearch.setOnGetPoiSearchResultListener(this);
-
-		// 初始化搜索模块，注册事件监听
-		mSearch = GeoCoder.newInstance();
-		mSearch.setOnGetGeoCodeResultListener(this);
-
-		mSuggestionSearch = SuggestionSearch.newInstance();
-		mSuggestionSearch.setOnGetSuggestionResultListener(this);
-		keyWorldsView = (AutoCompleteTextView) findViewById(R.id.chooseaddress_start);
-		sugAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_dropdown_item_1line);
-		keyWorldsView.setAdapter(sugAdapter);
-		// mBaiduMap = ((SupportMapFragment) (getSupportFragmentManager()
-		// .findFragmentById(R.id.map))).getBaiduMap();
-
-		keyWorldsView.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void afterTextChanged(Editable arg0) {
-
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-
-			}
-
-			@Override
-			public void onTextChanged(CharSequence cs, int arg1, int arg2,
-					int arg3) {
-				if (cs.length() <= 0) {
-					return;
-				}
-				if (UserCity != null && !UserCity.isEmpty()) {
-					city = UserCity;
-				} else {
-					city = "";
-				}
-				/**
-				 * 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
-				 */
-				mSuggestionSearch
-						.requestSuggestion((new SuggestionSearchOption())
-								.keyword(cs.toString()).city(city));
-			}
-		});
-
-		// 百度地图end
 
 		// 百度定位
 
-		mLocationClient = new LocationClient(getApplicationContext()); // 声明LocationClient类
-		mLocationClient.registerLocationListener(myListener); // 注册监听函数
-		mLocationClient.start();
+		baidulocation = new BaiduLocation(this);
+		baidulocation.getUserCity(ChooseAddressActivity.this);
 
 		// 百度定位end
 
@@ -230,25 +170,7 @@ public class ChooseAddressActivity extends Activity implements
 				Toast.makeText(getApplicationContext(),
 						getString(R.string.warningInfo_waitForLocation),
 						Toast.LENGTH_SHORT).show();
-
-				LocationClientOption option = new LocationClientOption();
-				option.setLocationMode(LocationMode.Hight_Accuracy);// 设置定位模式
-				option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度,默认值gcj02
-				option.setScanSpan(1024);// 设置发起定位请求的间隔时间为5000ms
-				option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
-				mLocationClient.setLocOption(option);
-				if (mLocationClient != null && mLocationClient.isStarted()) {
-					mLocationClient.requestLocation();
-				} else if (mLocationClient == null) {
-					Log.e("百度定位", "定位客户端空");
-				} else {
-					Log.e("百度定位", "定位客户端没启动");
-				}
-				// 百度定位结束
-
-				// Intent myposition = new Intent(ChooseAddressActivity.this,
-				// FindPositionActivity.class);
-				// startActivity(myposition);
+				baidulocation.getHignLocation(ChooseAddressActivity.this);
 			}
 		});
 
@@ -435,6 +357,7 @@ public class ChooseAddressActivity extends Activity implements
 		}
 		longitude = (float) result.getLocation().longitude;
 		latitude = (float) result.getLocation().latitude;
+		result.getAddress().toString();
 
 		LatLng ptCenter = new LatLng(latitude, longitude);
 		mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(ptCenter));
@@ -516,6 +439,21 @@ public class ChooseAddressActivity extends Activity implements
 	// 百度地圖結束
 
 	// 百度定位
+
+	//精确定位回调函数
+	@Override
+	public void getHignLocationCallback(double longi,double lati,String addr){
+		longitude = longi;
+		latitude = lati;
+		PointMapName = addr;
+	}
+
+	//获取城市回调函数
+	@Override
+	public String getcityname(String mcity){
+		UserCity = mcity;
+		return mcity;
+	}
 
 	public class MyLocationListener implements BDLocationListener {
 		@Override
@@ -624,14 +562,14 @@ public class ChooseAddressActivity extends Activity implements
 
 	@Override
 	protected void onStop() {
-		mLocationClient.stop();
+		baidulocation.Stop();
 		super.onStop();
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		mLocationClient.stop();
+		baidulocation.Destory();
 		result.close();
 		result2.close();
 		db1.close();
@@ -644,25 +582,11 @@ public class ChooseAddressActivity extends Activity implements
 	@Override
 	public void onResume() {
 		super.onResume(); // Always call the superclass method first
-		mLocationClient.start();
+		baidulocation.Resume();
 
 		// database intent 辅助
 		Locationcount = 0;
 		// database intent 辅助end
-		// 百度定位
-
-		option = new LocationClientOption();
-		option.setLocationMode(LocationMode.Hight_Accuracy);// 设置定位模式
-		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度,默认值gcj02
-		option.setScanSpan(0);// 设置发起定位请求的间隔时间为5000ms
-		option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
-		mLocationClient.setLocOption(option);
-		if (mLocationClient != null && mLocationClient.isStarted()) {
-			mLocationClient.requestLocation();
-		} else {
-			Log.w("百度定位", "定位客户端空或没启动");
-		}
-		// 百度定位结束
 
 		// list赋值
 

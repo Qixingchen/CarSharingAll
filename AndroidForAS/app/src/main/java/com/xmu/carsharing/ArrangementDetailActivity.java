@@ -17,13 +17,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.Tool.AppStat;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class ArrangementDetailActivity extends Activity {
 
@@ -37,8 +36,6 @@ public class ArrangementDetailActivity extends Activity {
 	private int Date[];
 	private ImageView fanhui;
 	private Button reorder;
-	private SimpleDateFormat standard_date, standard_time, primary_date,
-			primary_date1, primary_time;
 	private Date test_date = new Date();
 	private String primary_short_startdate = null,
 			primary_short_starttime = null, primary_short_endtime = null,
@@ -75,18 +72,6 @@ public class ArrangementDetailActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		// actionbarEND!!
-
-		// 日期、时间标准格式
-		standard_date = new SimpleDateFormat("yyyy-MM-dd",
-				Locale.SIMPLIFIED_CHINESE);
-		primary_date = new SimpleDateFormat("yyyy年MM月dd日",
-				Locale.SIMPLIFIED_CHINESE);
-		primary_date1 = new SimpleDateFormat("yyyy年M月d日",
-				Locale.SIMPLIFIED_CHINESE);
-		standard_time = new SimpleDateFormat("HH:mm:ss",
-				Locale.SIMPLIFIED_CHINESE);
-		primary_time = new SimpleDateFormat("HH时mm分ss秒",
-				Locale.SIMPLIFIED_CHINESE);
 
 		Bundle bundle = this.getIntent().getExtras();
 		sp.setText(bundle.getString("tsp")); // 起点
@@ -170,14 +155,14 @@ public class ArrangementDetailActivity extends Activity {
 					shortway.putExtra("userrole", role);
 					shortway.putExtra("pre_page", "ReOrder");
 					try {
-						test_date = standard_date.parse(startDate);
-						primary_short_startdate = primary_date
+						test_date = AppStat.时间格式化.yyyy_MM_dd.parse(startDate);
+						primary_short_startdate = AppStat.时间格式化.yyyy年M月d日
 								.format(test_date);
-						test_date = standard_time.parse(startTime);
-						primary_short_starttime = primary_time
+						test_date = AppStat.时间格式化.HH_mm_ss.parse(startTime);
+						primary_short_starttime = AppStat.时间格式化.HH时mm分ss秒
 								.format(test_date);
-						test_date = standard_time.parse(endTime);
-						primary_short_endtime = primary_time.format(test_date);
+						test_date = AppStat.时间格式化.HH_mm_ss.parse(endTime);
+						primary_short_endtime = AppStat.时间格式化.HH时mm分ss秒.format(test_date);
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
@@ -203,17 +188,17 @@ public class ArrangementDetailActivity extends Activity {
 					commute.putExtra("epy", DSY);
 					Log.e("DSY", String.valueOf(DSY));
 					try {
-						test_date = standard_date.parse(startDate);
-						primary_commute_startdate = primary_date1
+						test_date = AppStat.时间格式化.yyyy_MM_dd.parse(startDate);
+						primary_commute_startdate = AppStat.时间格式化.yyyy年M月d日
 								.format(test_date);
-						test_date = standard_date.parse(endDate);
-						primary_commute_enddate = primary_date1
+						test_date = AppStat.时间格式化.yyyy_MM_dd.parse(endDate);
+						primary_commute_enddate = AppStat.时间格式化.yyyy年M月d日
 								.format(test_date);
-						test_date = standard_time.parse(startTime);
-						primary_commute_starttime = primary_time
+						test_date = AppStat.时间格式化.HH_mm_ss.parse(startTime);
+						primary_commute_starttime = AppStat.时间格式化.HH时mm分ss秒
 								.format(test_date);
-						test_date = standard_time.parse(endTime);
-						primary_commute_endtime = primary_time
+						test_date = AppStat.时间格式化.HH_mm_ss.parse(endTime);
+						primary_commute_endtime = AppStat.时间格式化.HH时mm分ss秒
 								.format(test_date);
 					} catch (ParseException e) {
 						
@@ -245,8 +230,8 @@ public class ArrangementDetailActivity extends Activity {
 					longway.putExtra("epy", DSY);
 					Log.e("DSY", String.valueOf(DSY));
 					try {
-						test_date = standard_date.parse(startDate);
-						primary_longway_startdate = primary_date1
+						test_date = AppStat.时间格式化.yyyy_MM_dd.parse(startDate);
+						primary_longway_startdate = AppStat.时间格式化.yyyy年M月d日
 								.format(test_date);
 					} catch (ParseException e) {
 						
