@@ -18,11 +18,9 @@ import com.baidu.location.LocationClientOption;
  */
 public class BaiduLocation {
 
-	private LocationClient mLocationClient = null;
+	public LocationClient mLocationClient = null;
 	private BDLocationListener getcityLocation = new GetcityLocationListener();
 	private BDLocationListener getHignLocation = new GetHighLocationListener();
-	private String city;
-	private BDLocation location;
 
 	public String UserCity = null;
 
@@ -58,41 +56,34 @@ public class BaiduLocation {
 			return false;
 		} else {
 			mLocationClient.start();
-			//return true;TODO 这里会造成死循环！
+			//return true;//TODO 这里会造成死循环！
 			return false;
 		}
 	}
 
 	//启动精确定位,传入回调函数
 	public void getHignLocation( GetHignLocationCallBack gethlcb ) {
+		mLocationClient.stop();
+		Log.w(logtag,"获取精确地址中");
+		mLocationClient.unRegisterLocationListener(getcityLocation);
 		mLocationClient.registerLocationListener(getHignLocation);    //注册监听函数
 		mLocationClient.setLocOption(setoption(AppStat.百度定位设置选项.精确定位));
 		getHignLocationCallBack = gethlcb;
 		mLocationClient.start();
-		if (mLocationClient != null && mLocationClient.isStarted()) {
-			mLocationClient.requestLocation();
-		} else if (shouldRestartAndDo()) {
-			getHignLocation(gethlcb);
-		} else {
-			Log.e(logtag, "定位客户端空");
-		}
 
 	}
 
 
 	//获取用户城市,传入回调函数
 	public void getUserCity(GetCityCallBack getccb) {
+		mLocationClient.stop();
+		Log.w(logtag,"获取用户城市中");
+		mLocationClient.unRegisterLocationListener(getHignLocation);
 		mLocationClient.registerLocationListener(getcityLocation);    //注册监听函数
-		mLocationClient.setLocOption(setoption(AppStat.百度定位设置选项.定位城市));
+		LocationClientOption options = setoption(AppStat.百度定位设置选项.定位城市);
+		mLocationClient.setLocOption(options);
 		getCityCallBack = getccb;
 		mLocationClient.start();
-		if (mLocationClient != null && mLocationClient.isStarted()) {
-			mLocationClient.requestLocation();
-		} else if (shouldRestartAndDo()) {
-			getUserCity(getccb);
-		} else {
-			Log.e(logtag, "定位客户端空");
-		}
 	}
 
 
@@ -109,6 +100,7 @@ public class BaiduLocation {
 			} else {
 				UserCity = location.getCity();
 				getCityCallBack.getcityname(UserCity);
+				Log.e(logtag, "城市名"+UserCity);
 				mLocationClient.stop();
 			}
 
@@ -125,6 +117,7 @@ public class BaiduLocation {
 				mLocationClient.stop();
 				getHignLocationCallBack.getHignLocationCallback(location.getLongitude()
 						,location.getLatitude(),location.getAddrStr());
+				Log.e(logtag,"获取地址"+location.getAddrStr());
 			}
 
 
@@ -138,6 +131,9 @@ public class BaiduLocation {
 		options.setCoorType("gcj02");// 返回的定位结果是百度经纬度,默认值gcj02
 		options.setScanSpan(1200);// 设置发起定位请求的间隔时间为5000ms
 		options.setIsNeedAddress(true);// 返回的定位结果包含地址信息
+		options.setAddrType("all");
+		options.setProdName("厦大拼车");
+		options.setNeedDeviceDirect(false);//返回的定位结果包含手机机头的方向
 
 		if (whatToLocation == AppStat.百度定位设置选项.定位城市) {
 			options.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);// 设置定位模式

@@ -34,6 +34,8 @@ import android.widget.Toast;
 import com.Tool.BaiduLocation;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.CityInfo;
@@ -53,7 +55,7 @@ import com.baidu.mapapi.search.sug.SuggestionSearch;
 
 public class ChooseAddressActivity extends Activity implements
 		OnGetPoiSearchResultListener, OnGetSuggestionResultListener,
-		OnGetGeoCoderResultListener,BaiduLocation.GetHignLocationCallBack,BaiduLocation.GetCityCallBack {
+		OnGetGeoCoderResultListener, BaiduLocation.GetHignLocationCallBack, BaiduLocation.GetCityCallBack {
 
 	EditText choose;
 	int intentcall;
@@ -147,8 +149,10 @@ public class ChooseAddressActivity extends Activity implements
 
 		// 百度定位
 
+
 		baidulocation = new BaiduLocation(this);
 		baidulocation.getUserCity(ChooseAddressActivity.this);
+		//baidulocation.demotest();
 
 		// 百度定位end
 
@@ -171,6 +175,7 @@ public class ChooseAddressActivity extends Activity implements
 						getString(R.string.warningInfo_waitForLocation),
 						Toast.LENGTH_SHORT).show();
 				baidulocation.getHignLocation(ChooseAddressActivity.this);
+
 			}
 		});
 
@@ -186,6 +191,7 @@ public class ChooseAddressActivity extends Activity implements
 					} else {
 						city = getString(R.string.defaultCity);
 					}
+					//todo try-catch
 					mSearch.geocode(new GeoCodeOption().city(city).address(
 							choose.getText().toString()));
 					// baidumapend
@@ -204,7 +210,7 @@ public class ChooseAddressActivity extends Activity implements
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			                        long arg3) {
 				Intent startplace = new Intent();
 
 				// 表名 ,要获取的字段名，WHERE 条件，WHere值，don't group the rows，
@@ -248,7 +254,7 @@ public class ChooseAddressActivity extends Activity implements
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			                        long arg3) {
 				Intent startplace = new Intent();
 
 				// 表名 ,要获取的字段名，WHERE 条件，WHere值，don't group the rows，
@@ -384,11 +390,11 @@ public class ChooseAddressActivity extends Activity implements
 
 		Cursor dbresult = db1.query(getString(R.string.dbtable_placeliked),
 				null, getString(R.string.dbstring_PlaceMapName) + "=?",
-				new String[] { PointMapName }, null, null, null);
+				new String[]{PointMapName}, null, null, null);
 		if (0 == dbresult.getCount()) {
 			dbresult = db1.query(getString(R.string.dbtable_placehistory),
 					null, getString(R.string.dbstring_PlaceMapName) + "=?",
-					new String[] { PointMapName }, null, null, null);
+					new String[]{PointMapName}, null, null, null);
 			if (0 == dbresult.getCount()) {
 				ContentValues content = new ContentValues();
 				content.put(getString(R.string.dbstring_PlaceUserName), choose
@@ -442,19 +448,71 @@ public class ChooseAddressActivity extends Activity implements
 
 	//精确定位回调函数
 	@Override
-	public void getHignLocationCallback(double longi,double lati,String addr){
+	public void getHignLocationCallback(double longi, double lati, String addr) {
 		longitude = longi;
 		latitude = lati;
 		PointMapName = addr;
+
+		//数据库操作
+		Cursor dbresult = db1.query(
+				getString(R.string.dbtable_placeliked), null,
+				getString(R.string.dbstring_PlaceMapName) + "=?",
+				new String[]{PointMapName}, null, null, null);
+		if (0 == dbresult.getCount()) {
+			dbresult = db1.query(
+					getString(R.string.dbtable_placehistory), null,
+					getString(R.string.dbstring_PlaceMapName) + "=?",
+					new String[]{PointMapName}, null, null, null);
+			if (0 == dbresult.getCount()) {
+				ContentValues content = new ContentValues();
+				content.put(getString(R.string.dbstring_PlaceUserName),
+						PointUserName);
+				content.put(getString(R.string.dbstring_PlaceMapName),
+						PointMapName);
+				content.put(getString(R.string.dbstring_longitude),
+						longitude);
+				content.put(getString(R.string.dbstring_latitude),
+						latitude);
+				db1.insert(getString(R.string.dbtable_placehistory),
+						null, content);
+				Log.w("历史数据库", "添加" + PointUserName + "  map:"
+						+ PointMapName + String.valueOf(longitude)
+						+ "&" + String.valueOf(latitude));
+
+			}
+			dbresult.close();
+			//数据库操作 结束
+		}
+
+		// intent
+
+		Intent startplace = new Intent();
+
+		startplace.putExtra(getString(R.string.dbstring_PlaceUserName),
+				PointUserName);
+		startplace.putExtra(getString(R.string.dbstring_PlaceMapName),
+				PointMapName);
+		startplace.putExtra(getString(R.string.dbstring_longitude),
+				String.valueOf(longitude));
+		startplace.putExtra(getString(R.string.dbstring_latitude),
+				String.valueOf(latitude));
+
+		ChooseAddressActivity.this.setResult(RESULT_OK, startplace);
+		ChooseAddressActivity.this.finish();
+
+		// intent end
+
+
 	}
 
 	//获取城市回调函数
 	@Override
-	public String getcityname(String mcity){
+	public String getcityname(String mcity) {
 		UserCity = mcity;
 		return mcity;
 	}
 
+	//todo 无用的监听器
 	public class MyLocationListener implements BDLocationListener {
 		@Override
 		public void onReceiveLocation(BDLocation location) {
@@ -509,12 +567,12 @@ public class ChooseAddressActivity extends Activity implements
 				Cursor dbresult = db1.query(
 						getString(R.string.dbtable_placeliked), null,
 						getString(R.string.dbstring_PlaceMapName) + "=?",
-						new String[] { PointMapName }, null, null, null);
+						new String[]{PointMapName}, null, null, null);
 				if (0 == dbresult.getCount()) {
 					dbresult = db1.query(
 							getString(R.string.dbtable_placehistory), null,
 							getString(R.string.dbstring_PlaceMapName) + "=?",
-							new String[] { PointMapName }, null, null, null);
+							new String[]{PointMapName}, null, null, null);
 					if (0 == dbresult.getCount()) {
 						ContentValues content = new ContentValues();
 						content.put(getString(R.string.dbstring_PlaceUserName),
@@ -569,14 +627,20 @@ public class ChooseAddressActivity extends Activity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		baidulocation.Destory();
-		result.close();
-		result2.close();
-		db1.close();
+		try{
+			baidulocation.Destory();
+			result.close();
+			result2.close();
+			db1.close();
 
-		mSearch.destroy();
-		// mPoiSearch.destroy();
-		mSuggestionSearch.destroy();
+			mSearch.destroy();
+			// mPoiSearch.destroy();
+			mSuggestionSearch.destroy();
+		}catch (Throwable e){
+			e.printStackTrace();
+		}
+
+
 	}
 
 	@Override
@@ -599,10 +663,10 @@ public class ChooseAddressActivity extends Activity implements
 
 		@SuppressWarnings("deprecation")
 		ListAdapter adapter1 = new SimpleCursorAdapter(this,
-				R.layout.choose_start_vlist, result, new String[] {
-						getString(R.string.dbstring_PlaceUserName),
-						getString(R.string.dbstring_PlaceMapName) }, new int[] {
-						R.id.re_address, R.id.detail });
+				R.layout.choose_start_vlist, result, new String[]{
+				getString(R.string.dbstring_PlaceUserName),
+				getString(R.string.dbstring_PlaceMapName)}, new int[]{
+				R.id.re_address, R.id.detail});
 		list1.setAdapter(adapter1);
 
 		result2 = db1.query(getString(R.string.dbtable_placehistory), null,
@@ -611,10 +675,10 @@ public class ChooseAddressActivity extends Activity implements
 
 		@SuppressWarnings("deprecation")
 		ListAdapter adapter2 = new SimpleCursorAdapter(this,
-				R.layout.choose_start_vlist, result2, new String[] {
-						getString(R.string.dbstring_PlaceUserName),
-						getString(R.string.dbstring_PlaceMapName) }, new int[] {
-						R.id.re_address, R.id.detail });
+				R.layout.choose_start_vlist, result2, new String[]{
+				getString(R.string.dbstring_PlaceUserName),
+				getString(R.string.dbstring_PlaceMapName)}, new int[]{
+				R.id.re_address, R.id.detail});
 
 		list2.setAdapter(adapter2);
 
