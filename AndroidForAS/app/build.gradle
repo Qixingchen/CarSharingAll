@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'Google Inc.:Google APIs:21'
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 'Google Inc.:Google APIs:22'
+    buildToolsVersion "22"
 
     defaultConfig {
         applicationId "com.xmu.carsharing"
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 22
     }
 
     signingConfigs {
@@ -35,8 +35,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:21.0.3'
-    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:support-v4:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.0.0'
     compile "com.google.android.gms:play-services:3.1.+"
     compile files('libs/baidumapapi_v3_0_0.jar')
     compile files('libs/httpmime-4.1.1.jar')
