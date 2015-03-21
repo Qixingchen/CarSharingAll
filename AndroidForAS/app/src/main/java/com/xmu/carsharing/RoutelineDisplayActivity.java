@@ -32,7 +32,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.overlayutil.DrivingRouteOvelray;
+import com.baidu.mapapi.overlayutil.DrivingRouteOverlay;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.route.DrivingRouteLine;
 import com.baidu.mapapi.search.route.DrivingRoutePlanOption;
@@ -414,7 +414,7 @@ public class RoutelineDisplayActivity extends Activity implements
 		
 		if (result.error == SearchResult.ERRORNO.NO_ERROR) {
 			route = result.getRouteLines().get(0);
-			DrivingRouteOvelray overlay = new DrivingRouteOvelray(mBaidumap);
+			DrivingRouteOverlay overlay = new DrivingRouteOverlay(mBaidumap);
 			mBaidumap.setOnMarkerClickListener(overlay);
 			overlay.setData(result.getRouteLines().get(0));
 			overlay.addToMap();

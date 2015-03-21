@@ -100,7 +100,7 @@ public class BaiduLocation {
 			} else {
 				UserCity = location.getCity();
 				getCityCallBack.getcityname(UserCity);
-				Log.e(logtag, "城市名"+UserCity);
+				Log.w(logtag+"城市函数", "城市名"+UserCity);
 				mLocationClient.stop();
 			}
 
