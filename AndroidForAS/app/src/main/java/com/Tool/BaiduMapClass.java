@@ -152,7 +152,6 @@ public class BaiduMapClass implements OnGetSuggestionResultListener {
 		mSuggestionSearch = SuggestionSearch.newInstance();
 		mSuggestionSearch.setOnGetSuggestionResultListener(this);
 		keyWorldsView.setAdapter(sugAdapter);
-		Log.w(logtag,"自动填充已调用");
 
 		keyWorldsView.addTextChangedListener(new TextWatcher() {
 
@@ -179,7 +178,6 @@ public class BaiduMapClass implements OnGetSuggestionResultListener {
 				} else {
 					city = "";
 				}
-				Log.w(logtag,"自动填充检索"+cs.toString());
 				// 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
 				mSuggestionSearch
 						.requestSuggestion(new SuggestionSearchOption()

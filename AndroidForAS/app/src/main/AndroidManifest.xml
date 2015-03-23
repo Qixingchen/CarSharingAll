@@ -19,8 +19,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!--网络权限-->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <!--创建快捷方式 TODO 建议删除-->
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
     <!--更改wifi状态-->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <!--获取wifi状态-->
@@ -39,9 +37,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- 允许应用读取低级别的系统日志文件 -->
     <uses-permission android:name="android.permission.READ_LOGS"/>
-    <!-- 允许拨打电话 TODO 为什么需要这个权限？ -->
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <!--SD卡读取权限，用户写入离线定位数据 todo 百度的权限说明不符-->
+    <!--挂载/反挂载SD卡-->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <!--注册和接收GCM消息-->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>

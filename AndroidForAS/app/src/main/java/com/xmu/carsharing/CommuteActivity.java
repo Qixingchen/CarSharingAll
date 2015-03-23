@@ -7,26 +7,6 @@
 
 package com.xmu.carsharing;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.Tool.Drawer;
-import com.Tool.IdentityBtn;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -37,12 +17,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -63,19 +39,34 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.Tool.DataBaseAct;
+import com.Tool.Drawer;
+import com.Tool.IdentityBtn;
+import com.Tool.ToolWithActivityIn;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 public class CommuteActivity extends Activity {
 
-	private int mHour, mMinute, mday, month, myear;
 	static final int TIME_DIALOG = 0;
 	static final int DATE_DIALOG = 1;
 	static final int TIME_DIALOG01 = 2;
 	static final int DATE_DIALOG01 = 3;
 	private RequestQueue queue;
-
 	private String username;
 	public static String commute_result;
 
-	boolean isExit;
 	private ImageView exchange;
 	private static boolean requestok, carinfook;
 	private boolean bstart, bend, blicensenum, bcarbrand, bcolor, bmodel, bmon,
@@ -92,61 +83,59 @@ public class CommuteActivity extends Activity {
 	private Button sure;
 	private RadioGroup commute_group;
 	private CheckBox mon, tue, wed, thu, fri, sat, sun;
-	private static final String IMAGE_FILE_NAME2 = "faceImage2.jpg";
 
-	SimpleDateFormat standard_date, standard_time, primary_date, primary_time;
-	String standard_commute_startdate = null, standard_commute_enddate = null,
+	private String standard_commute_startdate = null, standard_commute_enddate = null,
 			standard_commute_starttime = null, standard_commute_endtime = null;
-	Date test_date, now = new Date();
 
-	Button startdate;
-	Button enddate;
-	Button earlystarttime;
-	Button latestarttime;
-	Button increase;
-	Button decrease;
-	Button startplace;
-	Button endplace;
+	private Button startdate;
+	private Button enddate;
+	private Button earlystarttime;
+	private Button latestarttime;
+	private Button increase;
+	private Button decrease;
+	private Button startplace;
+	private Button endplace;
 
-	float startplace_longitude;
-	float startplace_latitude;
-	float destination_longitude;
-	float destination_latitude;
-	String supplycar;
-	String weekrepeat = "";
+	private float startplace_longitude;
+	private float startplace_latitude;
+	private float destination_longitude;
+	private float destination_latitude;
+	private String supplycar;
+	private String weekrepeat = "";
 
-	int sum = 0;
-	TextView s1;
+	private int sum = 0;
+	private TextView s1;
 
-	Calendar c = Calendar.getInstance();
+	private Calendar c = Calendar.getInstance();
 
 	// 用户手机号
-	String UserPhoneNumber;
+	private String UserPhoneNumber;
 
 	// 收藏
-	ImageView star1, star2;
+	private ImageView star1, star2;
 	// 收藏end
 
 	// 表单数据保存
 
-	String StartPointUserName, StartPointMapName, EndPointUserName,
+	private String StartPointUserName, StartPointMapName, EndPointUserName,
 			EndPointMapName;
 
 	// 表单数据保存end
 
 	// database
 
-	DatabaseHelper db;
-	SQLiteDatabase db1;
+	private DataBaseAct dataBaseAct;
 
 	// databasse end
 
 	// actionbar!!
-	Drawer drawer;
-	private DrawerLayout mDrawerLayout;
+	private Drawer drawer;
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	// actionbarend!!
+
+	//tool类
+	ToolWithActivityIn toolWithActivityIn;
 
 	// carnum,phonenum,carbrand,carmodel,carcolor,capacity
 	public void carinfo(final String phonenum, final String carnum,
@@ -226,25 +215,15 @@ public class CommuteActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_commute);
 
+		toolWithActivityIn = new ToolWithActivityIn(this);
+
         final IdentityBtn function_identity; /*身份选择，已封装在IdentityBtn.java中*/
         function_identity = new IdentityBtn(this, R.id.commute_layout);
 
 		//actionbar
 		drawer = new Drawer(this, R.id.commute_layout);
 		mDrawerToggle = drawer.newdrawer();
-		mDrawerLayout = drawer.setDrawerLayout();
 		//actionbar end
-
-		// 日期、时间标准格式
-		standard_date = new SimpleDateFormat("yyyy-MM-dd",
-				Locale.SIMPLIFIED_CHINESE);
-		primary_date = new SimpleDateFormat("yyyy年MM月dd日",
-				Locale.SIMPLIFIED_CHINESE);
-		standard_time = new SimpleDateFormat("HH:mm:ss",
-				Locale.SIMPLIFIED_CHINESE);
-		primary_time = new SimpleDateFormat("HH时mm分ss秒",
-				Locale.SIMPLIFIED_CHINESE);
-
 
 		queue = Volley.newRequestQueue(this);
 		exchange = (ImageView) findViewById(R.id.commute_exchange);
@@ -317,12 +296,7 @@ public class CommuteActivity extends Activity {
 		star2 = (ImageView) findViewById(R.id.commute_star01);
 
 		// 提取用户手机号
-		SharedPreferences sharedPref = this
-				.getSharedPreferences(
-						getString(R.string.PreferenceDefaultName),
-						Context.MODE_PRIVATE);
-		UserPhoneNumber = sharedPref.getString(
-				getString(R.string.PreferenceUserPhoneNumber), "0");
+		UserPhoneNumber = toolWithActivityIn.get用户手机号从偏好文件();
 
 		// judge the value of "pre_page"
 		Bundle bundle = this.getIntent().getExtras();
@@ -390,9 +364,7 @@ public class CommuteActivity extends Activity {
 		// judge the value of "pre_page"
 
 		// database
-		db = new DatabaseHelper(getApplicationContext(), UserPhoneNumber, null,
-				1);
-		db1 = db.getWritableDatabase();
+		dataBaseAct = new DataBaseAct(this,UserPhoneNumber);
 
 
 		// database end
@@ -403,38 +375,17 @@ public class CommuteActivity extends Activity {
 			public void onClick(View arg0) {
 
 				if (bstart) {
-					if (Pointisliked(StartPointMapName)) {
-						// Define 'where' part of query.
-						String selection = getString(R.string.dbstring_PlaceMapName)
-								+ " LIKE ?";
-						// Specify arguments in placeholder order.
+					if (dataBaseAct.is偏爱地点记录中有该记录(StartPointMapName)) {
 						String[] selelectionArgs = { StartPointMapName };
-						// Issue SQL statement.
-						db1.delete(getString(R.string.dbtable_placeliked),
-								selection, selelectionArgs);
+						dataBaseAct.delete偏好地点(selelectionArgs);
 						star1.setImageResource(R.drawable.ic_action_not_important);
 
 					} else {
-						ContentValues content = new ContentValues();
-						content.put(getString(R.string.dbstring_PlaceUserName),
-								StartPointUserName);
-						content.put(getString(R.string.dbstring_PlaceMapName),
-								StartPointMapName);
-						content.put(getString(R.string.dbstring_longitude),
-								startplace_longitude);
-						content.put(getString(R.string.dbstring_latitude),
-								startplace_latitude);
-						db1.insert(getString(R.string.dbtable_placeliked),
-								null, content);
+						dataBaseAct.add偏好地点(StartPointMapName,StartPointUserName,
+								startplace_longitude,startplace_latitude);
 
-						// Define 'where' part of query.
-						String selection = getString(R.string.dbstring_PlaceMapName)
-								+ " LIKE ?";
-						// Specify arguments in placeholder order.
 						String[] selelectionArgs = { StartPointMapName };
-						// Issue SQL statement.
-						db1.delete(getString(R.string.dbtable_placehistory),
-								selection, selelectionArgs);
+						dataBaseAct.delete历史地点(selelectionArgs);
 						star1.setImageResource(R.drawable.ic_action_important);
 					}
 
@@ -449,38 +400,17 @@ public class CommuteActivity extends Activity {
 			public void onClick(View arg0) {
 
 				if (bend) {
-					if (Pointisliked(EndPointMapName)) {
-						// Define 'where' part of query.
-						String selection = getString(R.string.dbstring_PlaceMapName)
-								+ " LIKE ?";
-						// Specify arguments in placeholder order.
+					if (dataBaseAct.is偏爱地点记录中有该记录(EndPointMapName)) {
 						String[] selelectionArgs = { EndPointMapName };
-						// Issue SQL statement.
-						db1.delete(getString(R.string.dbtable_placeliked),
-								selection, selelectionArgs);
+						dataBaseAct.delete偏好地点(selelectionArgs);
 						star2.setImageResource(R.drawable.ic_action_not_important);
 
 					} else {
-						ContentValues content = new ContentValues();
-						content.put(getString(R.string.dbstring_PlaceUserName),
-								EndPointUserName);
-						content.put(getString(R.string.dbstring_PlaceMapName),
-								EndPointMapName);
-						content.put(getString(R.string.dbstring_longitude),
-								destination_longitude);
-						content.put(getString(R.string.dbstring_latitude),
-								destination_latitude);
-						db1.insert(getString(R.string.dbtable_placeliked),
-								null, content);
+						dataBaseAct.add偏好地点(EndPointMapName,EndPointUserName,
+								destination_longitude,destination_latitude);
 
-						// Define 'where' part of query.
-						String selection = getString(R.string.dbstring_PlaceMapName)
-								+ " LIKE ?";
-						// Specify arguments in placeholder order.
 						String[] selelectionArgs = { EndPointMapName };
-						// Issue SQL statement.
-						db1.delete(getString(R.string.dbtable_placehistory),
-								selection, selelectionArgs);
+						dataBaseAct.delete历史地点(selelectionArgs);
 						star2.setImageResource(R.drawable.ic_action_important);
 					}
 
@@ -634,24 +564,6 @@ public class CommuteActivity extends Activity {
 				if (bsun)
 					weekrepeat += "7";
 
-				// 强制转换日期格式start
-				try {
-					test_date = primary_date.parse(commute_startdate);
-					standard_commute_startdate = standard_date
-							.format(test_date);
-					test_date = primary_date.parse(commute_enddate);
-					standard_commute_enddate = standard_date.format(test_date);
-					test_date = primary_time.parse(commute_starttime);
-					standard_commute_starttime = standard_time
-							.format(test_date);
-					test_date = primary_time.parse(commute_endtime);
-					standard_commute_endtime = standard_time.format(test_date);
-				} catch (ParseException e) {
-					
-					e.printStackTrace();
-				}
-
-				// 强制转换日期格式end!
 
 				String commute_baseurl = getString(R.string.uri_base)
 						+ getString(R.string.uri_CommuteRequest)
@@ -754,26 +666,6 @@ public class CommuteActivity extends Activity {
 					protected Map<String, String> getParams() {
 						// POST方法重写getParams函数
 
-						// 强制转换日期格式start
-						try {
-							test_date = primary_date.parse(commute_startdate);
-							standard_commute_startdate = standard_date
-									.format(test_date);
-							test_date = primary_date.parse(commute_enddate);
-							standard_commute_enddate = standard_date
-									.format(test_date);
-							test_date = primary_time.parse(commute_starttime);
-							standard_commute_starttime = standard_time
-									.format(test_date);
-							test_date = primary_time.parse(commute_endtime);
-							standard_commute_endtime = standard_time
-									.format(test_date);
-						} catch (ParseException e) {
-							
-							e.printStackTrace();
-						}
-
-						// 强制转换日期格式end!
 
 						Map<String, String> params = new HashMap<String, String>();
 						params.put(getString(R.string.uri_phonenum),
@@ -937,7 +829,7 @@ public class CommuteActivity extends Activity {
 
 				// 收藏
 
-				if (Pointisliked(StartPointMapName)) {
+				if (dataBaseAct.is偏爱地点记录中有该记录(StartPointMapName)) {
 					star1.setImageResource(R.drawable.ic_action_important);
 				} else {
 					star1.setImageResource(R.drawable.ic_action_not_important);
@@ -966,7 +858,7 @@ public class CommuteActivity extends Activity {
 
 				// 收藏
 
-				if (Pointisliked(EndPointMapName)) {
+				if (dataBaseAct.is偏爱地点记录中有该记录(EndPointMapName)) {
 					star2.setImageResource(R.drawable.ic_action_important);
 				} else {
 					star2.setImageResource(R.drawable.ic_action_not_important);
@@ -984,22 +876,6 @@ public class CommuteActivity extends Activity {
 
 	}
 
-	// 判断是否收藏
-	private Boolean Pointisliked(String mapname) {
-
-		// 表名 ,要获取的字段名，WHERE 条件，WHere值，don't group the rows，don't filter by row
-		// groups，排序条件。
-		Cursor isliked = db1.query(getString(R.string.dbtable_placeliked),
-				null, getString(R.string.dbstring_PlaceMapName) + "=?",
-				new String[] { mapname }, null, null, null);
-
-		if (isliked.getCount() != 0) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -1034,9 +910,7 @@ public class CommuteActivity extends Activity {
 
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			
-			mHour = hourOfDay;
-			mMinute = minute;
+
 			DisplayToast("时间为:" + String.valueOf(hourOfDay) + "时"
 					+ String.valueOf(minute) + "分" + "00秒");
 			earlystarttime.setText(String.valueOf(hourOfDay) + "时"
@@ -1050,9 +924,7 @@ public class CommuteActivity extends Activity {
 
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			
-			mHour = hourOfDay;
-			mMinute = minute;
+
 			DisplayToast("时间为:" + String.valueOf(hourOfDay) + "时"
 					+ String.valueOf(minute) + "分" + "00秒");
 			latestarttime.setText(String.valueOf(hourOfDay) + "时"
@@ -1066,10 +938,7 @@ public class CommuteActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 				int dayofMonth) {
-			
-			mday = dayofMonth;
-			month = monthofYear;
-			myear = year;
+
 			DisplayToast(String.valueOf(year) + "年"
 					+ String.valueOf(monthofYear + 1) + "月"
 					+ String.valueOf(dayofMonth) + "日");
@@ -1085,10 +954,7 @@ public class CommuteActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 				int dayofMonth) {
-			
-			mday = dayofMonth;
-			month = monthofYear;
-			myear = year;
+
 			DisplayToast(String.valueOf(year) + "年"
 					+ String.valueOf(monthofYear + 1) + "月"
 					+ String.valueOf(dayofMonth) + "日");
@@ -1101,13 +967,10 @@ public class CommuteActivity extends Activity {
 	};
 	TextWatcher numTextWatcher = new TextWatcher() {
 		private CharSequence temp;
-		private int editStart;
-		private int editEnd;
-
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			
+
 			temp = s;
 		}
 
@@ -1120,9 +983,7 @@ public class CommuteActivity extends Activity {
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			
-			editStart = licensenum.getSelectionStart();
-			editEnd = licensenum.getSelectionEnd();
+
 			if (temp.length() > 0) {
 				blicensenum = true;
 			} else {
@@ -1134,9 +995,6 @@ public class CommuteActivity extends Activity {
 	};
 	TextWatcher detTextWatcher = new TextWatcher() {
 		private CharSequence temp;
-		private int editStart;
-		private int editEnd;
-
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
@@ -1153,9 +1011,7 @@ public class CommuteActivity extends Activity {
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			
-			editStart = carbrand.getSelectionStart();
-			editEnd = carbrand.getSelectionEnd();
+
 			if (temp.length() != 0) {
 				bcarbrand = true;
 			} else {
@@ -1168,8 +1024,6 @@ public class CommuteActivity extends Activity {
 
 	TextWatcher coTextWatcher = new TextWatcher() {
 		private CharSequence temp;
-		private int editStart;
-		private int editEnd;
 
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
@@ -1187,9 +1041,7 @@ public class CommuteActivity extends Activity {
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			
-			editStart = carbrand.getSelectionStart();
-			editEnd = carbrand.getSelectionEnd();
+
 			if (temp.length() != 0) {
 				bcolor = true;
 			} else {
@@ -1202,8 +1054,6 @@ public class CommuteActivity extends Activity {
 
 	TextWatcher moTextWatcher = new TextWatcher() {
 		private CharSequence temp;
-		private int editStart;
-		private int editEnd;
 
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
@@ -1221,9 +1071,7 @@ public class CommuteActivity extends Activity {
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			
-			editStart = carbrand.getSelectionStart();
-			editEnd = carbrand.getSelectionEnd();
+
 			if (temp.length() != 0) {
 				bmodel = true;
 			} else {
@@ -1286,8 +1134,7 @@ public class CommuteActivity extends Activity {
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy(); // Always call the superclass
-		// Stop method tracing that the activity started during onCreate()
+		super.onDestroy();
 		android.os.Debug.stopMethodTracing();
 	}
 
