@@ -84,15 +84,16 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 5.1 Google APIs" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="play-services-3.1.59" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-22.0.0" level="project" />
+    <orderEntry type="library" exported="" name="baidumapapi_v3_3_0" level="project" />
+    <orderEntry type="library" exported="" name="Volley" level="project" />
+    <orderEntry type="library" exported="" name="SMSSDK-1.1.9" level="project" />
+    <orderEntry type="library" exported="" name="httpmime-4.1.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.0.0" level="project" />
-    <orderEntry type="library" exported="" name="baidumapapi_v3_0_0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-3.1.59" level="project" />
     <orderEntry type="library" exported="" name="locSDK_5.01" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
-    <orderEntry type="library" exported="" name="SMSSDK-1.1.9" level="project" />
-    <orderEntry type="library" exported="" name="appcompat-v7-22.0.0" level="project" />
-    <orderEntry type="library" exported="" name="Volley" level="project" />
-    <orderEntry type="library" exported="" name="httpmime-4.1.1" level="project" />
+
   </component>
 </module>
 

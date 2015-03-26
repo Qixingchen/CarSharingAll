@@ -1,10 +1,13 @@
 package com.Tool;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.xmu.carsharing.R;
 
 /**
  * Created by 雨蓝 on 2015/2/22.
@@ -14,9 +17,11 @@ public class ToolWithActivityIn {
 	//	false代表不存在
 	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	private Activity mactivity;
+	private Context mcontext;
 
 	public ToolWithActivityIn(Activity mactivity) {
 		this.mactivity = mactivity;
+		mcontext = mactivity.getApplicationContext();
 	}
 
 
@@ -32,6 +37,17 @@ public class ToolWithActivityIn {
 			return false;
 		}
 		return true;
+	}
+
+	public String get用户手机号从偏好文件(){
+		SharedPreferences sharedPref = mactivity
+				.getSharedPreferences(mcontext.
+						getString(R.string.PreferenceDefaultName),
+						Context.MODE_PRIVATE);
+		String UserPhoneNumber;
+		UserPhoneNumber = sharedPref.getString(mcontext.
+				getString(R.string.PreferenceUserPhoneNumber), "0");
+		return UserPhoneNumber;
 	}
 
 }

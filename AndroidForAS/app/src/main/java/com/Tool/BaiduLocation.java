@@ -50,17 +50,6 @@ public class BaiduLocation {
 		mLocationClient = new LocationClient(mcontext);     //声明LocationClient类
 	}
 
-	//判断并重启定位
-	private boolean shouldRestartAndDo() {
-		if (mLocationClient.isStarted()) {
-			return false;
-		} else {
-			mLocationClient.start();
-			//return true;//TODO 这里会造成死循环！
-			return false;
-		}
-	}
-
 	//启动精确定位,传入回调函数
 	public void getHignLocation( GetHignLocationCallBack gethlcb ) {
 		mLocationClient.stop();
@@ -100,7 +89,7 @@ public class BaiduLocation {
 			} else {
 				UserCity = location.getCity();
 				getCityCallBack.getcityname(UserCity);
-				Log.e(logtag, "城市名"+UserCity);
+				Log.w(logtag+"城市函数", "城市名"+UserCity);
 				mLocationClient.stop();
 			}
 
