@@ -28,8 +28,10 @@ import java.util.Map;
  */
 public class OrderReleasing {
 
-    public Activity activity;
-    public int viewid;
+	//todo 调整公开性
+	private Activity activity;
+	private String Logtag = "历史订单界面";
+	//todo 修改无法理解的简称
     public String carsharing_type,tsp,tep,tst,
             startdate,enddate,starttime,endtime,
             trs,dealstatus,userrole,weekrepeat;
@@ -45,13 +47,17 @@ public class OrderReleasing {
 
     RequestQueue queue;
 
-    public OrderReleasing(Activity act,int id){
+	//回调函数
+	private GetordersCallBack getordersCallBack;
+
+
+    public OrderReleasing(Activity act){
         this.activity = act;
-        this.viewid = id;
     }
 
     private void longway_selectrequest(final String phonenum,
-                                      final String request,final String act) {
+                                      final String request,final String act
+                                      ) {
 
         String longwayway_selectpublish_baseurl = activity.getString(R.string.uri_base)
                 + activity.getString(R.string.uri_LongwayPublish)
@@ -65,22 +71,23 @@ public class OrderReleasing {
 
                     @Override
                     public void onResponse(String response) {
-                        Log.w("longwayway_selectpublish_result", response);
+                        Log.w(Logtag+"长途", response);
                         try {
                             int i;
                             Bundle bundle = new Bundle();
                             JSONObject jasitem = null;
                             JSONObject jas = new JSONObject(response);
                             JSONArray jasA = jas.getJSONArray("result");
-
+	                        //todo 分拆函数
                                 if(act.compareTo("PersonCenterDetaillist") == 0) {
                                     for (i = 0; i < jasA.length(); i++) {
                                         jasitem = jasA.getJSONObject(i);
-                                        Log.e("jasitemtime",jasitem.getString("requestTime"));
-                                        Log.e("request",request);
+                                        Log.e(Logtag+"jasitemtime",
+		                                        jasitem.getString("requestTime"));
+                                        Log.e(Logtag+"request",request);
                                         if (jasitem.getString("publishTime").equals(
                                                 request)) {
-
+	                                        //todo carsharing_type似乎无意义
                                             carsharing_type = "longway";
                                             tsp = jasitem.getString("startPlace");
                                             tep = jasitem.getString("destination");
@@ -132,6 +139,7 @@ public class OrderReleasing {
                                         "该订单已不存在", Toast.LENGTH_SHORT).show();
                             }
                             loadok = true;
+	                        getordersCallBack.getordersCallBack();
                         } catch (JSONException e) {
 
                             e.printStackTrace();
@@ -141,7 +149,7 @@ public class OrderReleasing {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("commute_selectresult_result",
+                Log.e(Logtag+"长途",
                         error.getMessage(), error);
             }
         }) {
@@ -168,7 +176,7 @@ public class OrderReleasing {
 
             @Override
             public void onResponse(String response) {
-                Log.w("commute_selectrequest_result", response);
+                Log.w(Logtag+"上下班", response);
                 try {
                     int i;
                     Bundle bundle = new Bundle();
@@ -278,7 +286,7 @@ public class OrderReleasing {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("commute_selectresult_result",
+                Log.e(Logtag+"上下班",
                         error.getMessage(), error);
                 // Toast errorinfo = Toast.makeText(null, "网络连接失败",
                 // Toast.LENGTH_LONG);
@@ -406,7 +414,7 @@ public class OrderReleasing {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("shortway_selectresult_result",
+                Log.e(Logtag+"短途",
                         error.getMessage(), error);
             }
         }) {
@@ -420,11 +428,19 @@ public class OrderReleasing {
 
     }
 
-    public void orders(String UserPhoneNumber, String requesttime,final String act){
+    public void orders(String UserPhoneNumber, String requesttime,final String act,
+                       GetordersCallBack getordersCB){
 
         queue = Volley.newRequestQueue(activity);
         mylist1_0.clear();
+	    getordersCallBack = getordersCB;
         shortway_selectrequest(UserPhoneNumber, requesttime,act);
 
     }
+
+	//结果回调函数
+	public interface GetordersCallBack{
+		public void getordersCallBack();
+	}
+
 }

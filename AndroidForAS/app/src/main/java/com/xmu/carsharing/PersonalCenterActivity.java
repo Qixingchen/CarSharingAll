@@ -54,7 +54,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PersonalCenterActivity extends Activity {
+public class PersonalCenterActivity extends Activity implements OrderReleasing.GetordersCallBack {
 
 	TextView firsthistory;
 	TextView firstdeal;
@@ -113,7 +113,7 @@ public class PersonalCenterActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_personal_center);
 
-        histotical_orders = new OrderReleasing(this,R.id.person_center_layout);
+        histotical_orders = new OrderReleasing(this);
 
 		//actionbar
 		drawer = new Drawer(this, R.id.person_center_layout);
@@ -318,9 +318,9 @@ public class PersonalCenterActivity extends Activity {
 		}
 
 		// 向服务器发起查询短途、上下班、长途拼车订单请求start!
-        histotical_orders.orders(UserPhoneNumber,"none","PersonalCenter");
-        Log.e("histotical_orders.bfirsthistory",String.valueOf(histotical_orders.bfirsthistory));
-        PrepareForDisplay(histotical_orders.firstItem_type);
+        histotical_orders.orders(UserPhoneNumber,"none","PersonalCenter",
+		        PersonalCenterActivity.this);
+
 		// 向服务器发起查询短途、上下班、长途拼车订单请求end!
 
 		// 查询订单结果信息
@@ -763,4 +763,11 @@ public class PersonalCenterActivity extends Activity {
 
 	};
 
+	//我发布过的订单回调接口
+	@Override
+	public void getordersCallBack() {
+		Log.e(logtag+"histotical_orders.bfirsthistory",String.valueOf(histotical_orders
+				.bfirsthistory));
+		PrepareForDisplay(histotical_orders.firstItem_type);
+	}
 }

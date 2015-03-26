@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 
 import com.Tool.OrderReleasing;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,61 +42,64 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-public class PersonCenterDetaillistActivity extends Activity {
+public class PersonCenterDetaillistActivity extends Activity implements OrderReleasing.GetordersCallBack {
 
 	DatabaseHelper db;
 	SQLiteDatabase db1;
 	ListView list1;
-    ImageButton deletebtn;
+	ImageButton deletebtn;
 	// private Vector<String> mdeal_readstatus = new Vector<>();
 	private ImageView statusImage;
 	private String UserPhoneNumber;
-    OrderReleasing histotical_orders; /*查询发布过的订单（已封装在OrderRealeasing.java中）*/
+	OrderReleasing histotical_orders; /*查询发布过的订单（已封装在OrderRealeasing.java中）*/
 
-    private void PrepareForIntent(String requesttime,String carsharing_type){
+	private String requesttime;
+	private int intentcall;
 
-        Bundle bundle = new Bundle();
-        Intent intent = new Intent(
-                PersonCenterDetaillistActivity.this,
-                ArrangementDetailActivity.class);
+	private void PrepareForIntent(String requesttime, String carsharing_type) {
 
-        bundle.putString("carsharing_type",carsharing_type);
-        bundle.putString("tsp",histotical_orders.tsp);//startplace
-        bundle.putString("tep",histotical_orders.tep);//destination
-        bundle.putString("tst",histotical_orders.tst);
-        bundle.putString("startdate",histotical_orders.startdate);
-        bundle.putString("trs", histotical_orders.trs);
-        bundle.putString("dealstatus",histotical_orders.dealstatus);
-        bundle.putString("userrole",histotical_orders.userrole);
+		Bundle bundle = new Bundle();
+		Intent intent = new Intent(
+				PersonCenterDetaillistActivity.this,
+				ArrangementDetailActivity.class);
 
-        if(carsharing_type.compareTo("longway") != 0) {
+		bundle.putString("carsharing_type", carsharing_type);
+		bundle.putString("tsp", histotical_orders.tsp);//startplace
+		bundle.putString("tep", histotical_orders.tep);//destination
+		bundle.putString("tst", histotical_orders.tst);
+		bundle.putString("startdate", histotical_orders.startdate);
+		bundle.putString("trs", histotical_orders.trs);
+		bundle.putString("dealstatus", histotical_orders.dealstatus);
+		bundle.putString("userrole", histotical_orders.userrole);
 
-            bundle.putString("requesttime", requesttime);
-            bundle.putFloat("SPX", histotical_orders.SPX);
-            bundle.putFloat("SPY", histotical_orders.SPY);
-            bundle.putFloat("DSX", histotical_orders.DSX);
-            bundle.putFloat("DSY", histotical_orders.DSY);
-            bundle.putString("starttime",histotical_orders.starttime);
-            bundle.putString("endtime",histotical_orders.endtime);
+		if (carsharing_type.compareTo("longway") != 0) {
 
-            if(histotical_orders.carsharing_type.compareTo("commute") == 0){
+			bundle.putString("requesttime", requesttime);
+			bundle.putFloat("SPX", histotical_orders.SPX);
+			bundle.putFloat("SPY", histotical_orders.SPY);
+			bundle.putFloat("DSX", histotical_orders.DSX);
+			bundle.putFloat("DSY", histotical_orders.DSY);
+			bundle.putString("starttime", histotical_orders.starttime);
+			bundle.putString("endtime", histotical_orders.endtime);
 
-                bundle.putString("enddate",histotical_orders.enddate);
-                bundle.putString("weekrepeat",histotical_orders.weekrepeat);
+			if (histotical_orders.carsharing_type.compareTo("commute") == 0) {
 
-            }
-        }
+				bundle.putString("enddate", histotical_orders.enddate);
+				bundle.putString("weekrepeat", histotical_orders.weekrepeat);
 
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
+			}
+		}
+
+		intent.putExtras(bundle);
+		startActivity(intent);
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_person_center_detaillist);
 
-        histotical_orders = new OrderReleasing(this,R.id.WacthAllMessSent);
+		histotical_orders = new OrderReleasing(this);
 
 		View itemView = View.inflate(PersonCenterDetaillistActivity.this,
 				R.layout.dealstatus_listitem, null);
@@ -115,7 +119,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 		deletebtn = (ImageButton) findViewById(R.id.mymessage_delete);
 		list1 = (ListView) findViewById(R.id.WacthAllMessSent);
 
-		int intentcall = bundle.getInt("intent");
+		intentcall = bundle.getInt("intent");
 
 		// actionbar操作!!
 
@@ -131,6 +135,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 		ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
 
+		//todo 1需要在appstat中定义可读名称
 		if (1 == intentcall) {
 
 			MyAdapter sAdapter_messSent = new MyAdapter(this,
@@ -143,14 +148,15 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int position, long arg3) {
-					
-					String requesttime = PersonalCenterActivity.mylist1.get(
+				                        int position, long arg3) {
+
+					requesttime = PersonalCenterActivity.mylist1.get(
 							position).get("requst");
-                    Log.e("requesttime", requesttime);
-                    histotical_orders.orders(UserPhoneNumber, requesttime,"PersonCenterDetaillist");
-                    Log.e("carsharing_type",histotical_orders.carsharing_type);
-                    PrepareForIntent(requesttime,histotical_orders.carsharing_type);
+					Log.e("requesttime", requesttime);
+					//todo PersonCenterDetaillist放在appstat定义成int
+					histotical_orders.orders(UserPhoneNumber, requesttime,
+							"PersonCenterDetaillist",PersonCenterDetaillistActivity.this);
+
 				}
 			});
 			// Item监听跳转end!
@@ -166,11 +172,11 @@ public class PersonCenterDetaillistActivity extends Activity {
 			// PersonalCenterActivity.mylist2, 2); // 数据来源
 			SimpleAdapter sAdapter_messSent = new SimpleAdapter(this,
 					PersonalCenterActivity.mylist2,
-					R.layout.dealstatus_listitem, new String[] { "Title",
-							"text", "requst", "deal_readstatus",
-							"deal_readstatusIcon" }, new int[] { R.id.dealtime,
-							R.id.dealkind, R.id.dealid, R.id.dealstatus,
-							R.id.list_dealstatus });
+					R.layout.dealstatus_listitem, new String[]{"Title",
+					"text", "requst", "deal_readstatus",
+					"deal_readstatusIcon"}, new int[]{R.id.dealtime,
+					R.id.dealkind, R.id.dealid, R.id.dealstatus,
+					R.id.list_dealstatus});
 
 			// 添加并且显示
 			list.setAdapter(sAdapter_messSent);
@@ -179,7 +185,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 			list.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int position, long arg3) {
+				                        int position, long arg3) {
 
 					Intent intent = new Intent(
 							PersonCenterDetaillistActivity.this,
@@ -211,6 +217,16 @@ public class PersonCenterDetaillistActivity extends Activity {
 		}
 
 	}
+
+	@Override
+	public void getordersCallBack() {
+
+		if (1 == intentcall) {
+			Log.e("carsharing_type", histotical_orders.carsharing_type);
+			PrepareForIntent(requesttime, histotical_orders.carsharing_type);
+		}
+	}
+
 
 
 
