@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Tool.Drawer;
+import com.Tool.OrderReleasing;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -58,9 +59,13 @@ public class PersonalCenterActivity extends Activity {
 	TextView firstdeal;
 	TextView firstfavorite;
 
-	public static ArrayList<HashMap<String, String>> mylist1 = new ArrayList<HashMap<String, String>>();
-	public static ArrayList<HashMap<String, Object>> mylist2 = new ArrayList<HashMap<String, Object>>();
-	public static ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
+
+    public static ArrayList<HashMap<String, String>> mylist1 = new ArrayList<HashMap<String, String>>();
+    public static ArrayList<HashMap<String, Object>> mylist2 = new ArrayList<HashMap<String, Object>>();
+    public static ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
+
+    OrderReleasing histotical_orders; /*查询发布过的订单（已封装在OrderRealeasing.java中）*/
+
 	public static RequestQueue queue;
 
 	// actionbar!!
@@ -70,7 +75,7 @@ public class PersonalCenterActivity extends Activity {
 	// actionbarend!!
 
 	boolean isExit;
-	boolean bfirsthistory = false, bfirstdeal = false, bfirstfavorite = false;
+	boolean  bfirstdeal = false, bfirstfavorite = false;
 	Context context = PersonalCenterActivity.this;
 	static ImageView image;
 
@@ -92,7 +97,6 @@ public class PersonalCenterActivity extends Activity {
 	String UserPhoneNumber;
 
 	// database
-	private boolean loadok;
 	DatabaseHelper db;
 	SQLiteDatabase db1;
 	Cursor dbresult;
@@ -107,6 +111,8 @@ public class PersonalCenterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_personal_center);
+
+        histotical_orders = new OrderReleasing(this,R.id.person_center_layout);
 
 		//actionbar
 		drawer = new Drawer(this, R.id.person_center_layout);
@@ -182,7 +188,7 @@ public class PersonalCenterActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				
-				if (loadok == true) {
+				if (histotical_orders.loadok == true) {
 					Intent historymore = new Intent();
 					historymore.setClass(PersonalCenterActivity.this,
 							PersonCenterDetaillistActivity.class);
@@ -202,7 +208,7 @@ public class PersonalCenterActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				
-				if (loadok == true) {
+				if (histotical_orders.loadok == true) {
 					Intent receivingmore = new Intent();
 					receivingmore.setClass(PersonalCenterActivity.this,
 							PersonCenterDetaillistActivity.class);
@@ -236,6 +242,13 @@ public class PersonalCenterActivity extends Activity {
 		});
 
 	}
+
+    private void PrepareForDisplay(String firstitem_type){
+        if(histotical_orders.bfirsthistory)
+            firsthistory.setText(histotical_orders.startplace[0] + " 至  "
+                    + histotical_orders.endplace[0]);
+        mylist1 = histotical_orders.mylist1_0;
+    }
 
 	@Override
 	public void onResume() {
@@ -290,11 +303,9 @@ public class PersonalCenterActivity extends Activity {
 				startActivity(quit);
 			}
 		});
-		loadok = false;
 		mylist1.clear();
 		mylist2.clear();
 		firsthistory.setText(R.string.first_history);
-		bfirsthistory = false;// 初始化
 		firstdeal.setText(R.string.first_receiving);
 		bfirstdeal = false;
 		firstfavorite.setText(R.string.first_address);
@@ -305,14 +316,18 @@ public class PersonalCenterActivity extends Activity {
 			bfirstfavorite = true;
 		}
 
-		// 向服务器发起查询上下班拼车订单请求start!
-		selectrequest(UserPhoneNumber);
-		// 向服务器发起查询上下班拼车订单请求end!
+		// 向服务器发起查询短途、上下班、长途拼车订单请求start!
+        histotical_orders.orders(UserPhoneNumber,"none","PersonalCenter");
+        Log.e("histotical_orders.bfirsthistory",String.valueOf(histotical_orders.bfirsthistory));
+        PrepareForDisplay(histotical_orders.firstItem_type);
+		// 向服务器发起查询短途、上下班、长途拼车订单请求end!
 
 		// 查询订单结果信息
 		sharingresult(UserPhoneNumber);
 
 	}
+
+
 
 	private void sharingresult(final String phonenum) {
 		
@@ -423,7 +438,7 @@ public class PersonalCenterActivity extends Activity {
 
 	}
 
-	private void longway_selectrequest(final String phonenum) {
+/*	private void longway_selectrequest(final String phonenum) {
 		
 		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
 				+ getString(R.string.uri_LongwayPublish)
@@ -647,7 +662,7 @@ public class PersonalCenterActivity extends Activity {
 
 		queue.add(stringRequest);
 
-	}
+	}*/
 
 	public void placeLikedListFlush() {
 		mylist3.clear();

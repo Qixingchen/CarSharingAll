@@ -224,61 +224,8 @@ public class PeronalinfoModifyActivity extends Activity {
 		queue.add(stringRequest);
 	}
 
-/*	private void selectcarinfo(final String phonenum) {
-		
-		String carinfo_selectrequest_baseurl = getString(R.string.uri_base)
-				+ getString(R.string.uri_CarInfo)
-				+ getString(R.string.uri_selectcarinfo_action);
-
-		// Log.d("carinfo_selectrequest_baseurl",carinfo_selectrequest_baseurl);
-		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				carinfo_selectrequest_baseurl, new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						
-						Log.e("carinfo_selectresult_result", response);
-						String jas_id = null;
-						JSONObject json1 = null;
-						try {
-							json1 = new JSONObject(response);
-							JSONObject json = json1.getJSONObject("result");
-							jas_id = json.getString("id");
-							Log.d("jas_id", jas_id);
-
-							if (jas_id.compareTo("") == 0) {
-								carinfochoosing_type = 1;
-								Log.e("carinfochoosing_type", "1");
-							} else {
-								carinfochoosing_type = 2;
-								Log.e("carinfochoosing_type", "2");
-							}
-						} catch (JSONException e) {
-							
-							e.printStackTrace();
-						}
-					}
-
-				}, new Response.ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						
-						Log.e("carinfo_selectresult_result",
-								error.getMessage(), error);
-					}
-				}) {
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("phonenum", phonenum);
-				return params;
-			}
-		};
-
-		queue.add(stringRequest);
-	}*/
-
     CarinfoStatus function_carstatus; /*车辆表是否已存在的判断，已封装在CarinfoStatus.java中*/
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 

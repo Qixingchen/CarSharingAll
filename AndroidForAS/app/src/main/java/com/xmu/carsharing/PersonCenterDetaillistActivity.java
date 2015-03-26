@@ -10,18 +10,8 @@ package com.xmu.carsharing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.Tool.OrderReleasing;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -38,7 +28,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 public class PersonCenterDetaillistActivity extends Activity {
 
@@ -48,13 +37,53 @@ public class PersonCenterDetaillistActivity extends Activity {
     ImageButton deletebtn;
 	// private Vector<String> mdeal_readstatus = new Vector<>();
 	private ImageView statusImage;
-	public static RequestQueue queue;
 	private String UserPhoneNumber;
+    OrderReleasing histotical_orders; /*查询发布过的订单（已封装在OrderRealeasing.java中）*/
+
+    private void PrepareForIntent(String requesttime,String carsharing_type){
+
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(
+                PersonCenterDetaillistActivity.this,
+                ArrangementDetailActivity.class);
+
+        bundle.putString("carsharing_type",carsharing_type);
+        bundle.putString("tsp",histotical_orders.tsp);//startplace
+        bundle.putString("tep",histotical_orders.tep);//destination
+        bundle.putString("tst",histotical_orders.tst);
+        bundle.putString("startdate",histotical_orders.startdate);
+        bundle.putString("trs", histotical_orders.trs);
+        bundle.putString("dealstatus",histotical_orders.dealstatus);
+        bundle.putString("userrole",histotical_orders.userrole);
+
+        if(carsharing_type.compareTo("longway") != 0) {
+
+            bundle.putString("requesttime", requesttime);
+            bundle.putFloat("SPX", histotical_orders.SPX);
+            bundle.putFloat("SPY", histotical_orders.SPY);
+            bundle.putFloat("DSX", histotical_orders.DSX);
+            bundle.putFloat("DSY", histotical_orders.DSY);
+            bundle.putString("starttime",histotical_orders.starttime);
+            bundle.putString("endtime",histotical_orders.endtime);
+
+            if(histotical_orders.carsharing_type.compareTo("commute") == 0){
+
+                bundle.putString("enddate",histotical_orders.enddate);
+                bundle.putString("weekrepeat",histotical_orders.weekrepeat);
+
+            }
+        }
+
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_person_center_detaillist);
+
+        histotical_orders = new OrderReleasing(this,R.id.WacthAllMessSent);
 
 		View itemView = View.inflate(PersonCenterDetaillistActivity.this,
 				R.layout.dealstatus_listitem, null);
@@ -62,7 +91,6 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
-		queue = Volley.newRequestQueue(this);
 		SharedPreferences sharedPref = this
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
@@ -107,11 +135,13 @@ public class PersonCenterDetaillistActivity extends Activity {
 					
 					String requesttime = PersonalCenterActivity.mylist1.get(
 							position).get("requst");
-					shortway_selectrequest(UserPhoneNumber, requesttime);
+                    Log.e("requesttime", requesttime);
+                    histotical_orders.orders(UserPhoneNumber, requesttime,"PersonCenterDetaillist");
+                    Log.e("carsharing_type",histotical_orders.carsharing_type);
+                    PrepareForIntent(requesttime,histotical_orders.carsharing_type);
 				}
 			});
 			// Item监听跳转end!
-
 		}
 
 		if (2 == intentcall) {
@@ -138,18 +168,6 @@ public class PersonCenterDetaillistActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int position, long arg3) {
-					
-
-					// (array.size() < position)
-					// array.add(position,String);
-					// if((mdeal_readstatus[position].compareTo("receive") == 0)
-					// || (mdeal_readstatus[position].compareTo("reject") == 0)
-					// ){
-					// statusImage.setImageResource(R.drawable.ic_dealread);
-					// }else if(mdeal_readstatus[position].compareTo("unread")
-					// == 0){
-					// statusImage.setImageResource(R.drawable.ic_dealunread);
-					// }
 
 					Intent intent = new Intent(
 							PersonCenterDetaillistActivity.this,
@@ -162,9 +180,9 @@ public class PersonCenterDetaillistActivity extends Activity {
 							"deal_readstatus",
 							(String) PersonalCenterActivity.mylist2.get(
 									position).get("deal_readstatus"));
-					// intent.putEx
+
 					startActivity(intent);
-					// startActivityForResult(intent,1);
+
 				}
 			});
 		}
@@ -182,7 +200,9 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 	}
 
-	private void shortway_selectrequest(final String phonenum,
+
+
+/*	private void shortway_selectrequest(final String phonenum,
 			final String request) {
 		
 		String shortway_selectrequest_baseurl = getString(R.string.uri_base)
@@ -293,9 +313,9 @@ public class PersonCenterDetaillistActivity extends Activity {
 		};
 		queue.add(stringRequest);
 
-	}
+	}*/
 
-	private void commute_selectrequest(final String phonenum,
+/*	private void commute_selectrequest(final String phonenum,
 			final String request) {
 		
 		String commute_selectrequest_baseurl = getString(R.string.uri_base)
@@ -408,9 +428,9 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 		queue.add(stringRequest);
 
-	}
+	}*/
 
-	public void longway_selectrequest(final String phonenum,
+/*	public void longway_selectrequest(final String phonenum,
 			final String request) {
 		
 		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
@@ -492,7 +512,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 		queue.add(stringRequest);
 
-	}
+	}*/
 	// @Override
 	// protected void onActivityResult(int requestCode, int resultCode, Intent
 	// data) {

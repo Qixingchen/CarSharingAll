@@ -78,6 +78,7 @@ public class ArrangementDetailActivity extends Activity {
 		ep.setText(bundle.getString("tep")); // 终点
 		st.setText(bundle.getString("tst")); // 开始时间
 		rs.setText(bundle.getString("trs")); // 需要座位
+        startDate = bundle.getString("startdate");
 		role = bundle.getString("userrole");
 		mdealstatus = bundle.getString("dealstatus");
 		if ((role.compareTo("p") == 0)
@@ -96,17 +97,24 @@ public class ArrangementDetailActivity extends Activity {
 
 		final String stp[] = bundle.getString("tsp").split(",");
 		final String ep[] = bundle.getString("tep").split(",");
-		SPX = bundle.getFloat("SPX"); // 起点经度
-		SPY = bundle.getFloat("SPY"); // 起点纬度
-		DSX = bundle.getFloat("DSX"); // 终点经度
-		DSY = bundle.getFloat("DSY"); // 终点纬度
-		startDate = bundle.getString("startdate");
-		endDate = bundle.getString("enddate");
-		startTime = bundle.getString("starttime");
-		endTime = bundle.getString("endtime");
-		weekrepeat = bundle.getString("weekrepeat");
-		carsharing_type = bundle.getString("carsharing_type");
-		requesttime = bundle.getString("requesttime");
+
+
+        carsharing_type = bundle.getString("carsharing_type");
+        if(carsharing_type.compareTo("longway")!=0) {
+            SPX = bundle.getFloat("SPX"); // 起点经度
+            SPY = bundle.getFloat("SPY"); // 起点纬度
+            DSX = bundle.getFloat("DSX"); // 终点经度
+            DSY = bundle.getFloat("DSY"); // 终点纬度
+            startTime = bundle.getString("starttime");
+            endTime = bundle.getString("endtime");
+            requesttime = bundle.getString("requesttime");
+
+            if(carsharing_type.compareTo("commute") == 0){
+                endDate = bundle.getString("enddate");
+                weekrepeat = bundle.getString("weekrepeat");
+            }
+        }
+
 
 		// actionbar中返回键监听
 
@@ -119,16 +127,6 @@ public class ArrangementDetailActivity extends Activity {
 			}
 		});
 		// end
-
-		// if (carsharing_type.compareTo("shortway") == 0) {
-		// // 查询短途订单状态start!
-		// shortway_updatestatus(UserPhoneNumber, requesttime);
-		// // 查询短途订单状态end!
-		// } else {
-		// // 查询长途订单状态start!
-		// commute_updatestatus(UserPhoneNumber, requesttime);
-		// // 查询长途订单状态end!
-		// }
 
 		// reorder按钮的监听
 		reorder.setOnClickListener(new OnClickListener() {
@@ -247,80 +245,5 @@ public class ArrangementDetailActivity extends Activity {
 		});
 
 	}
-	// private void commute_updatestatus(final String phonenum,
-	// final String time){
-	// 
-	// String commute_updatestatus_baseurl =getString(R.string.uri_base)
-	// + getString(R.string.uri_CommuteRequest)
-	// +getString(R.string.uri_updatestatus_action);
-	// //
-	// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!updatestatus.action?";
-	//
-	// StringRequest stringRequest = new StringRequest(Request.Method.POST,
-	// commute_updatestatus_baseurl,
-	// new Response.Listener<String>() {
-	//
-	// @Override
-	// public void onResponse(String response) {
-	// 
-	// // System.out.println("123");
-	// Log.e("commute_updatestatus_result",response);
-	// }
-	// }, new Response.ErrorListener() {
-	// @Override
-	// public void onErrorResponse(VolleyError error) {
-	// 
-	// Log.e("shortway_updatestatus_result",
-	// error.getMessage(), error);
-	// }
-	// })
-	// {
-	// protected Map<String, String> getParams() {
-	// Map<String, String> params = new HashMap<String, String>();
-	// params.put("phonenum", phonenum);
-	// params.put("time", time);
-	// return params;
-	// }
-	// }
-	// ;
-	// queue.add(stringRequest);
-	// }
-	//
-	// private void shortway_updatestatus(final String phonenum,
-	// final String time) {
-	// 
-	// String shortway_updatestatus_baseurl =getString(R.string.uri_base)
-	// + getString(R.string.uri_ShortwayRequest)
-	// +getString(R.string.uri_updatestatus_action);
-	// //
-	// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!updatestatus.action?";
-	//
-	// StringRequest stringRequest = new StringRequest(Request.Method.POST,
-	// shortway_updatestatus_baseurl,
-	// new Response.Listener<String>() {
-	//
-	// @Override
-	// public void onResponse(String response) {
-	// 
-	// Log.e("shortway_updatestatus_result",response);
-	// }
-	// }, new Response.ErrorListener() {
-	//
-	// @Override
-	// public void onErrorResponse(VolleyError error) {
-	// 
-	// Log.e("shortway_updatestatus_result",
-	// error.getMessage(), error);
-	// }
-	// }){
-	// protected Map<String, String> getParams() {
-	// Map<String, String> params = new HashMap<String, String>();
-	// params.put("phonenum", phonenum);
-	// params.put("time", time);
-	// return params;
-	// }
-	// };
-	// queue.add(stringRequest);
-	// }
 
 }
