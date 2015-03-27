@@ -244,12 +244,6 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 
 	}
 
-    private void PrepareForDisplay(String firstitem_type){
-        if(histotical_orders.bfirsthistory)
-            firsthistory.setText(histotical_orders.startplace[0] + " 至  "
-                    + histotical_orders.endplace[0]);
-        mylist1 = histotical_orders.mylist1_0;
-    }
 
 	@Override
 	public void onResume() {
@@ -764,10 +758,21 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	};
 
 	//我发布过的订单回调接口
-	@Override
-	public void getordersCallBack() {
-		Log.e(logtag+"histotical_orders.bfirsthistory",String.valueOf(histotical_orders
-				.bfirsthistory));
-		PrepareForDisplay(histotical_orders.firstItem_type);
+	public void getorders_personalcenter(ArrayList mylist1_0,String firstItem_type,
+	                              String startplace[],
+	                              String endplace[],boolean bfirsthistory) {
+
+		Log.e(logtag+"histotical_orders.bfirsthistory",String.valueOf(bfirsthistory));
+//		PrepareForDisplay(histotical_orders.firstItem_type);
+			if(bfirsthistory)
+				firsthistory.setText(startplace[0] + " 至  "
+						+ endplace[0]);
+			mylist1 = mylist1_0;
+
 	}
+
+	public void getordersCallBack(float longitude_latitude[],String place_name[],
+	                              String date_time[],String carsharing_type,
+	                              String dealstatus,String userrole,String weekrepeat,
+	                              String tst,String rest_seats){}
 }

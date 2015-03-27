@@ -56,44 +56,6 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 	private String requesttime;
 	private int intentcall;
 
-	private void PrepareForIntent(String requesttime, String carsharing_type) {
-
-		Bundle bundle = new Bundle();
-		Intent intent = new Intent(
-				PersonCenterDetaillistActivity.this,
-				ArrangementDetailActivity.class);
-
-		bundle.putString("carsharing_type", carsharing_type);
-		bundle.putString("tsp", histotical_orders.tsp);//startplace
-		bundle.putString("tep", histotical_orders.tep);//destination
-		bundle.putString("tst", histotical_orders.tst);
-		bundle.putString("startdate", histotical_orders.startdate);
-		bundle.putString("trs", histotical_orders.trs);
-		bundle.putString("dealstatus", histotical_orders.dealstatus);
-		bundle.putString("userrole", histotical_orders.userrole);
-
-		if (carsharing_type.compareTo("longway") != 0) {
-
-			bundle.putString("requesttime", requesttime);
-			bundle.putFloat("SPX", histotical_orders.SPX);
-			bundle.putFloat("SPY", histotical_orders.SPY);
-			bundle.putFloat("DSX", histotical_orders.DSX);
-			bundle.putFloat("DSY", histotical_orders.DSY);
-			bundle.putString("starttime", histotical_orders.starttime);
-			bundle.putString("endtime", histotical_orders.endtime);
-
-			if (histotical_orders.carsharing_type.compareTo("commute") == 0) {
-
-				bundle.putString("enddate", histotical_orders.enddate);
-				bundle.putString("weekrepeat", histotical_orders.weekrepeat);
-
-			}
-		}
-
-		intent.putExtras(bundle);
-		startActivity(intent);
-	}
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -218,16 +180,56 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 
 	}
 
-	@Override
-	public void getordersCallBack() {
+	public void getordersCallBack(float longitude_latitude[],String place_name[],
+	                              String date_time[],String carsharing_type,
+	                              String dealstatus,String userrole,String weekrepeat,
+	                              String tst,String rest_seats) {
 
 		if (1 == intentcall) {
-			Log.e("carsharing_type", histotical_orders.carsharing_type);
-			PrepareForIntent(requesttime, histotical_orders.carsharing_type);
+			Log.e("carsharing_type", carsharing_type);
+	//		PrepareForIntent(requesttime, histotical_orders.carsharing_type);
+
+				Bundle bundle = new Bundle();
+				Intent intent = new Intent(
+						PersonCenterDetaillistActivity.this,
+						ArrangementDetailActivity.class);
+
+				bundle.putString("carsharing_type", carsharing_type);
+				bundle.putString("tsp", place_name[0]);//startplace
+				bundle.putString("tep", place_name[1]);//destination
+				bundle.putString("tst", tst);
+				bundle.putString("startdate", date_time[0]);
+				bundle.putString("trs", rest_seats);
+				bundle.putString("dealstatus", dealstatus);
+				bundle.putString("userrole", userrole);
+
+				if (carsharing_type.compareTo("longway") != 0) {
+
+					bundle.putString("requesttime", requesttime);
+					bundle.putFloat("SPX", longitude_latitude[0]);
+					bundle.putFloat("SPY", longitude_latitude[1]);
+					bundle.putFloat("DSX", longitude_latitude[2]);
+					bundle.putFloat("DSY", longitude_latitude[3]);
+					bundle.putString("starttime", date_time[2]);
+					bundle.putString("endtime", date_time[3]);
+
+					if (carsharing_type.compareTo("commute") == 0) {
+
+						bundle.putString("enddate", date_time[1]);
+						bundle.putString("weekrepeat", weekrepeat);
+
+					}
+				}
+
+				intent.putExtras(bundle);
+				startActivity(intent);
 		}
 	}
 
 
+	public void getorders_personalcenter(ArrayList mylist1_0,String firstItem_type,
+	                                     String startplace[],
+	                                     String endplace[],boolean bfirsthistory){}
 
 
 /*	private void shortway_selectrequest(final String phonenum,

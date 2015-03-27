@@ -32,23 +32,35 @@ public class OrderReleasing {
 	private Activity activity;
 	private String Logtag = "历史订单界面";
 	//todo 修改无法理解的简称
-    public String carsharing_type,tsp,tep,tst,
+/*    public String carsharing_type,tsp,tep,tst,
             startdate,enddate,starttime,endtime,
-            trs,dealstatus,userrole,weekrepeat;
-    //tsp:startPlace's name,tep:endPlace's name,tst?
-    public float SPX,SPY,DSX,DSY;
+            trs,dealstatus,userrole,weekrepeat;*/
+    //tsp:startPlace's name,tep:endPlace's name,trs:剩余容量
+	private static float[] longitude_latitude = new float[4];
+	//数组按序为：startplaceX,startplaceY,endplaceX,endplaceY
 
-    public boolean bfirsthistory = false;
-    public boolean loadok = false;
-    public String firstItem_type; //首页显示的历史订单的类型
-    public String startplace[];
-    public String endplace[];
-    public static ArrayList<HashMap<String, String>> mylist1_0 = new ArrayList<HashMap<String, String>>();
+	private static String[] date_time = new String[4];
+	//数组按序为：startdate,enddate,starttime,endtime（没有就赋值为NULL）
+
+	private static String[] place_name = new String[2];
+	//数组按序为：startplace's name ,endplace's name
+
+	private String carsharing_type,dealstatus,userrole,weekrepeat = "",tst = "",
+	rest_seats = "xx"; //tst?
+
+    private boolean bfirsthistory = false;
+	public boolean loadok = false;
+    private String firstItem_type; //首页显示的历史订单的类型
+	private String[] startplace ;
+	private String[] endplace;
+    private static ArrayList<HashMap<String, String>> mylist1_0 = new
+			ArrayList<HashMap<String, String>>();
 
     RequestQueue queue;
 
 	//回调函数
 	private GetordersCallBack getordersCallBack;
+	private GetordersCallBack getorders_personalcenter;
 
 
     public OrderReleasing(Activity act){
@@ -89,17 +101,26 @@ public class OrderReleasing {
                                                 request)) {
 	                                        //todo carsharing_type似乎无意义
                                             carsharing_type = "longway";
-                                            tsp = jasitem.getString("startPlace");
-                                            tep = jasitem.getString("destination");
-                                            tst = jasitem.getString("startDate");
-                                            trs = "xx";
+                                            place_name[0] = jasitem.getString
+		                                            ("startPlace");
+                                            place_name[1] = jasitem.getString
+		                                            ("destination");
+                                            date_time[0] = jasitem.getString("startDate");
                                             userrole = jasitem.getString("userRole");
-                                            startdate = jasitem.getString("startDate");
                                             dealstatus = "2";
-
                                             break;
                                         }
                                     }
+	                                if (i == jasA.length()&&act.compareTo("PersonCenterDetaillist") == 0) {
+		                                Toast.makeText(activity.getApplicationContext(),
+				                                "该订单已不存在", Toast.LENGTH_SHORT).show();
+	                                }
+	                                else { //已经监听到点击的Item，可以开始回调了
+		                                getordersCallBack.getordersCallBack
+				                                (longitude_latitude, place_name, date_time,
+						                                carsharing_type, dealstatus,
+						                                userrole, weekrepeat, tst, rest_seats);
+	                                }
                                 }
 
                     /*------------PersonalCenterActivity.java---start--------------------*/
@@ -130,16 +151,22 @@ public class OrderReleasing {
                                             bfirsthistory = true;
                                         }
                                     }
+	                                loadok = true;
+	                                if(bfirsthistory == true)
+		                                Log.e("历史订单第一条记录:","longwayyes");
+	                                else
+		                                Log.e("历史订单第一条记录:","longwayno");
+	                                if(loadok == true)
+		                                Log.e("loadok:","longwayyes");
+	                                else
+		                                Log.e("loadok:","longwayno");
+	                                getordersCallBack.getorders_personalcenter
+			                                (mylist1_0,firstItem_type,startplace,
+					                                endplace,bfirsthistory);
                                 }
-                            else i = 0;  //do nothing..
+
                     /*------------PersonalCenterActivity.java---end-----------------------*/
 
-                            if (i == jasA.length()&&act.compareTo("PersonCenterDetaillist") == 0) {
-                                Toast.makeText(activity.getApplicationContext(),
-                                        "该订单已不存在", Toast.LENGTH_SHORT).show();
-                            }
-                            loadok = true;
-	                        getordersCallBack.getordersCallBack();
                         } catch (JSONException e) {
 
                             e.printStackTrace();
@@ -184,7 +211,7 @@ public class OrderReleasing {
                     JSONObject jas = new JSONObject(response);
                     JSONArray jasA = jas.getJSONArray("result");
 
-                 //       if(act.compareTo("PersonCenterDetaillist") == 0) {
+                        if(act.compareTo("PersonCenterDetaillist") == 0) {
                             for (i = 0; i < jasA.length(); i++) {
                                 jasitem = jasA.getJSONObject(i);
                                 Log.e("jasitemtime",jasitem.getString("requestTime"));
@@ -194,20 +221,20 @@ public class OrderReleasing {
 
                                     carsharing_type = "commute";
 
-                                    SPX = Float
+                                    longitude_latitude[0] = Float
                                             .parseFloat(jasitem
                                                     .getString("startPlaceX"));
-                                    SPY = Float
+	                                longitude_latitude[1] = Float
                                             .parseFloat(jasitem
                                                     .getString("startPlaceY"));
-                                    DSX = Float
+	                                longitude_latitude[2] = Float
                                             .parseFloat(jasitem
                                                     .getString("destinationX"));
-                                    DSY = Float
+	                                longitude_latitude[3] = Float
                                             .parseFloat(jasitem
                                                     .getString("destinationY"));
-                                    tsp = jasitem.getString("startPlace");
-                                    tep = jasitem.getString("destination");
+                                    place_name[0] = jasitem.getString("startPlace");
+                                    place_name[1] = jasitem.getString("destination");
                                     tst = jasitem.getString("startDate")
                                             + "至"
                                             + jasitem
@@ -223,19 +250,27 @@ public class OrderReleasing {
                                             + jasitem
                                             .getString("weekRepeat");
 
-                                    startdate = jasitem.getString("startDate");
-                                    enddate = jasitem.getString("endDate");
-                                    starttime = jasitem.getString("startTime");
-                                    endtime = jasitem.getString("endTime");
+                                    date_time[0] = jasitem.getString("startDate");
+                                    date_time[1] = jasitem.getString("endDate");
+                                    date_time[2] = jasitem.getString("startTime");
+                                    date_time[3] = jasitem.getString("endTime");
                                     weekrepeat = jasitem.getString("weekRepeat");
-                                    trs = "xx";
                                     dealstatus = jasitem.getString("dealStatus");
                                     userrole = jasitem.getString("supplyCar");
 
                                     break;
                                 }
                             }
-                  //      }
+	                        if (i == jasA.length()) {
+		                        longway_selectrequest(phonenum, request,act);
+	                        }
+	                        else { //已经监听到点击的Item，可以开始回调了
+		                        getordersCallBack.getordersCallBack
+				                        (longitude_latitude, place_name, date_time,
+						                        carsharing_type, dealstatus,
+						                        userrole, weekrepeat, tst, rest_seats);
+	                        }
+                        }
 
                         /*------------PersonalCenterActivity.java---start--------------------*/
                          if(act.compareTo("PersonalCenter") == 0) {
@@ -268,15 +303,18 @@ public class OrderReleasing {
                                     bfirsthistory = true;
                                 }
                             }
+	                         if(bfirsthistory == true)
+		                         Log.e("历史订单第一条记录:","commutewayyes");
+	                         else
+		                         Log.e("历史订单第一条记录:","commutewayno");
+	                         if(loadok == true)
+		                         Log.e("loadok:","commuteyes");
+	                         else
+		                         Log.e("loadok:","commuteno");
+	                         longway_selectrequest(phonenum, request,act);
                         }
                     /*------------PersonalCenterActivity.java---end-----------------------*/
 
-                  //  else i=0; //do nothing..
-
-                    if (i == jasA.length()) {
-                        longway_selectrequest(phonenum, request,act);
-                    }
-                    loadok = true;
                 } catch (JSONException e) {
 
                     e.printStackTrace();
@@ -319,13 +357,13 @@ public class OrderReleasing {
                     public void onResponse(String response) {
                         Log.w("selectrequest_result", response);
                         try {
-                            int i;
+                            int i = 0;
                             JSONObject jasitem;
                             JSONObject jas = new JSONObject(response);
                             JSONArray jasA = jas.getJSONArray("result");
 
                     /*------------PersonCenterDetaillistActivity.java---start--------------*/
-                             //   if(act.compareTo("PersonCenterDetaillist") == 0) {
+                                if(act.compareTo("PersonCenterDetaillist") == 0) {
                                     for (i = 0; i < jasA.length(); i++) {
                                         jasitem = jasA.getJSONObject(i);
                                         Log.e("jasitemtime",jasitem.getString("requestTime"));
@@ -334,20 +372,22 @@ public class OrderReleasing {
                                                 request)) {
 
                                             carsharing_type = "shortway";
-                                            SPX = Float
-                                                    .parseFloat(jasitem
-                                                            .getString("startPlaceX"));
-                                            SPY = Float
+	                                        longitude_latitude [0] = Float
+			                                        .parseFloat(jasitem
+					                                        .getString("startPlaceX"));
+	                                        longitude_latitude [1] = Float
                                                     .parseFloat(jasitem
                                                             .getString("startPlaceY"));
-                                            DSX = Float
+	                                        longitude_latitude [2] = Float
                                                     .parseFloat(jasitem
                                                             .getString("destinationX"));
-                                            DSY = Float
+	                                        longitude_latitude [3] = Float
                                                     .parseFloat(jasitem
                                                             .getString("destinationY"));
-                                            tsp = jasitem.getString("startPlace");
-                                            tep = jasitem.getString("destination");
+                                            place_name [0] = jasitem.getString
+		                                            ("startPlace");
+                                            place_name [1] = jasitem.getString
+		                                            ("destination");
                                             tst = jasitem.getString("startDate")
                                                     + " "
                                                     + jasitem
@@ -355,16 +395,28 @@ public class OrderReleasing {
                                                     + "-"
                                                     + jasitem
                                                     .getString("endTime");
-                                            startdate = jasitem.getString("startDate");
-                                            starttime = jasitem.getString("startTime");
-                                            endtime = jasitem.getString("endTime");
-                                            trs = "xx";
+                                            date_time [0] = jasitem.getString
+		                                            ("startDate");
+	                                        date_time [1] = "";
+                                            date_time [2] = jasitem.getString
+		                                            ("startTime");
+                                            date_time [3] = jasitem.getString
+		                                            ("endTime");
                                             dealstatus = jasitem.getString("dealStatus");
                                             userrole = jasitem.getString("userRole");
-                                            break;
+	                                        break;
                                         }
                                     }
-                            //    }
+	                                if (i == jasA.length()) {
+		                                commute_selectrequest(phonenum, request,act);
+	                                }
+	                                else { //已经监听到点击的Item，可以开始回调了
+		                                getordersCallBack.getordersCallBack
+				                                (longitude_latitude, place_name, date_time,
+						                                carsharing_type, dealstatus,
+						                                userrole, weekrepeat, tst, rest_seats);
+	                                }
+                                }
                     /*------------PersonCenterDetaillistActivity.java---end--------------*/
 
                     /*------------PersonalCenterActivity.java---start--------------------*/
@@ -394,17 +446,21 @@ public class OrderReleasing {
 
                                             bfirsthistory = true;
                                         }
+	                                    if(bfirsthistory == true)
+	                                        Log.e("历史订单第一条记录:","shortwayyes");
+	                                    else
+		                                    Log.e("历史订单第一条记录:","shortwayno");
+	                                    if(loadok == true)
+		                                    Log.e("loadok:","shortwayyes");
+	                                    else
+		                                    Log.e("loadok:","shortwayno");
                                         Log.e("bfirsthistory_order", String.valueOf(bfirsthistory));
+	                                    commute_selectrequest(phonenum, request,act);
                                     }
                                 }
                     /*------------PersonalCenterActivity.java---end-----------------------*/
 
-                          //  else i = 0; //do nothing..
 
-                            if (i == jasA.length()) {
-                                commute_selectrequest(phonenum, request,act);
-                            }
-                            loadok = true;
                         } catch (JSONException e) {
 
                             e.printStackTrace();
@@ -433,14 +489,25 @@ public class OrderReleasing {
 
         queue = Volley.newRequestQueue(activity);
         mylist1_0.clear();
-	    getordersCallBack = getordersCB;
+	    if(act.compareTo("PersonCenterDetaillist") == 0) {
+		    getordersCallBack = getordersCB;
+	    }
+	    else if(act.compareTo("PersonalCenter") == 0){
+		    getorders_personalcenter = getordersCB;
+	    }
         shortway_selectrequest(UserPhoneNumber, requesttime,act);
 
     }
 
 	//结果回调函数
 	public interface GetordersCallBack{
-		public void getordersCallBack();
+		public void getordersCallBack(float longitude_latitude[],String place_name[],
+		                              String date_time[],String carsharing_type,
+		                              String dealstatus,String userrole,String weekrepeat,
+		                              String tst,String rest_seats);
+		public void getorders_personalcenter(ArrayList mylist1_0,String firstItem_type,
+		                                     String startplace[],
+		                                     String endplace[],boolean bfirsthistory);
 	}
 
 }
