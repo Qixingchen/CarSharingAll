@@ -52,4 +52,9 @@ public class AppStat {
 		public static final int 定位城市 = 1;
 		public static final int 精确定位 = 2;
 	}
+
+	public static class is个人中心Or详情界面 {
+		public static final int 个人中心 = 1;
+		public static final int 详情界面 = 2;
+	}
 }

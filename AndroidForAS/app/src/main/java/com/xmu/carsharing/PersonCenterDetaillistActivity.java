@@ -12,19 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+import com.Tool.AppStat;
 import com.Tool.OrderReleasing;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.Tool.DatabaseHelper;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -115,9 +106,9 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 					requesttime = PersonalCenterActivity.mylist1.get(
 							position).get("requst");
 					Log.e("requesttime", requesttime);
-					//todo PersonCenterDetaillist放在appstat定义成int
+
 					histotical_orders.orders(UserPhoneNumber, requesttime,
-							"PersonCenterDetaillist",PersonCenterDetaillistActivity.this);
+							AppStat.is个人中心Or详情界面.详情界面,PersonCenterDetaillistActivity.this);
 
 				}
 			});

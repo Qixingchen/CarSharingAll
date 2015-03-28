@@ -68,7 +68,7 @@ public class OrderReleasing {
     }
 
     private void longway_selectrequest(final String phonenum,
-                                      final String request,final String act
+                                      final String request,final int act
                                       ) {
 
         String longwayway_selectpublish_baseurl = activity.getString(R.string.uri_base)
@@ -91,7 +91,7 @@ public class OrderReleasing {
                             JSONObject jas = new JSONObject(response);
                             JSONArray jasA = jas.getJSONArray("result");
 	                        //todo 分拆函数
-                                if(act.compareTo("PersonCenterDetaillist") == 0) {
+                                if(act == AppStat.is个人中心Or详情界面.详情界面) {
                                     for (i = 0; i < jasA.length(); i++) {
                                         jasitem = jasA.getJSONObject(i);
                                         Log.e(Logtag+"jasitemtime",
@@ -99,7 +99,7 @@ public class OrderReleasing {
                                         Log.e(Logtag+"request",request);
                                         if (jasitem.getString("publishTime").equals(
                                                 request)) {
-	                                        //todo carsharing_type似乎无意义
+
                                             carsharing_type = "longway";
                                             place_name[0] = jasitem.getString
 		                                            ("startPlace");
@@ -111,7 +111,8 @@ public class OrderReleasing {
                                             break;
                                         }
                                     }
-	                                if (i == jasA.length()&&act.compareTo("PersonCenterDetaillist") == 0) {
+	                                if (i == jasA.length()&&act == AppStat.is个人中心Or详情界面
+			                                .详情界面) {
 		                                Toast.makeText(activity.getApplicationContext(),
 				                                "该订单已不存在", Toast.LENGTH_SHORT).show();
 	                                }
@@ -124,7 +125,7 @@ public class OrderReleasing {
                                 }
 
                     /*------------PersonalCenterActivity.java---start--------------------*/
-                                else if(act.compareTo("PersonalCenter") == 0) {
+                                else if(act == AppStat.is个人中心Or详情界面.个人中心) {
                                     for (i = 0; i < jasA.length(); i++) {
                                         jasitem = jasA.getJSONObject(i);
                                         HashMap<String, String> map = new HashMap<String, String>();
@@ -143,24 +144,22 @@ public class OrderReleasing {
                                         if (bfirsthistory == false) {
 
                                             firstItem_type = "longway";
-                                            String startplace[] = jasitem.getString(
+                                            startplace = jasitem.getString(
                                                     "startPlace").split(",");
-                                            String endplace[] = jasitem.getString(
+                                            endplace = jasitem.getString(
                                                     "destination").split(",");
 
                                             bfirsthistory = true;
                                         }
                                     }
+
 	                                loadok = true;
 	                                if(bfirsthistory == true)
 		                                Log.e("历史订单第一条记录:","longwayyes");
 	                                else
 		                                Log.e("历史订单第一条记录:","longwayno");
-	                                if(loadok == true)
-		                                Log.e("loadok:","longwayyes");
-	                                else
-		                                Log.e("loadok:","longwayno");
-	                                getordersCallBack.getorders_personalcenter
+
+	                                getorders_personalcenter.getorders_personalcenter
 			                                (mylist1_0,firstItem_type,startplace,
 					                                endplace,bfirsthistory);
                                 }
@@ -192,7 +191,7 @@ public class OrderReleasing {
     }
 
     private void commute_selectrequest(final String phonenum,
-                                       final String request,final String act) {
+                                       final String request,final int act) {
 
         String commute_selectrequest_baseurl = activity.getString(R.string.uri_base)
                 + activity.getString(R.string.uri_CommuteRequest)
@@ -211,7 +210,7 @@ public class OrderReleasing {
                     JSONObject jas = new JSONObject(response);
                     JSONArray jasA = jas.getJSONArray("result");
 
-                        if(act.compareTo("PersonCenterDetaillist") == 0) {
+                        if(act == AppStat.is个人中心Or详情界面.详情界面) {
                             for (i = 0; i < jasA.length(); i++) {
                                 jasitem = jasA.getJSONObject(i);
                                 Log.e("jasitemtime",jasitem.getString("requestTime"));
@@ -273,7 +272,7 @@ public class OrderReleasing {
                         }
 
                         /*------------PersonalCenterActivity.java---start--------------------*/
-                         if(act.compareTo("PersonalCenter") == 0) {
+                         if(act == AppStat.is个人中心Or详情界面.个人中心) {
                             for (i = 0; i < jasA.length(); i++) {
                                 jasitem = jasA.getJSONObject(i);
                                 HashMap<String, String> map = new HashMap<String, String>();
@@ -307,10 +306,7 @@ public class OrderReleasing {
 		                         Log.e("历史订单第一条记录:","commutewayyes");
 	                         else
 		                         Log.e("历史订单第一条记录:","commutewayno");
-	                         if(loadok == true)
-		                         Log.e("loadok:","commuteyes");
-	                         else
-		                         Log.e("loadok:","commuteno");
+
 	                         longway_selectrequest(phonenum, request,act);
                         }
                     /*------------PersonalCenterActivity.java---end-----------------------*/
@@ -343,7 +339,7 @@ public class OrderReleasing {
     }
 
     private void shortway_selectrequest(final String phonenum,
-                                        final String request,final String act) {
+                                        final String request,final int act) {
 
         String shortway_selectrequest_baseurl = activity.getString(R.string.uri_base)
                 + activity.getString(R.string.uri_ShortwayRequest)
@@ -363,7 +359,7 @@ public class OrderReleasing {
                             JSONArray jasA = jas.getJSONArray("result");
 
                     /*------------PersonCenterDetaillistActivity.java---start--------------*/
-                                if(act.compareTo("PersonCenterDetaillist") == 0) {
+                                if(act == AppStat.is个人中心Or详情界面.详情界面) {
                                     for (i = 0; i < jasA.length(); i++) {
                                         jasitem = jasA.getJSONObject(i);
                                         Log.e("jasitemtime",jasitem.getString("requestTime"));
@@ -420,7 +416,7 @@ public class OrderReleasing {
                     /*------------PersonCenterDetaillistActivity.java---end--------------*/
 
                     /*------------PersonalCenterActivity.java---start--------------------*/
-                                 if(act.compareTo("PersonalCenter") == 0) {
+                                 if(act == AppStat.is个人中心Or详情界面.个人中心) {
                                     for (i = 0; i < jasA.length(); i++) {
                                         jasitem = jasA.getJSONObject(i);
                                         HashMap<String, String> map = new HashMap<String, String>();
@@ -446,17 +442,15 @@ public class OrderReleasing {
 
                                             bfirsthistory = true;
                                         }
-	                                    if(bfirsthistory == true)
-	                                        Log.e("历史订单第一条记录:","shortwayyes");
-	                                    else
-		                                    Log.e("历史订单第一条记录:","shortwayno");
-	                                    if(loadok == true)
-		                                    Log.e("loadok:","shortwayyes");
-	                                    else
-		                                    Log.e("loadok:","shortwayno");
-                                        Log.e("bfirsthistory_order", String.valueOf(bfirsthistory));
-	                                    commute_selectrequest(phonenum, request,act);
+
                                     }
+	                                 if(bfirsthistory == true)
+		                                 Log.e("历史订单第一条记录:","shortwayyes");
+	                                 else
+		                                 Log.e("历史订单第一条记录:","shortwayno");
+
+	                                 Log.e("bfirsthistory_order", String.valueOf(bfirsthistory));
+	                                 commute_selectrequest(phonenum, request,act);
                                 }
                     /*------------PersonalCenterActivity.java---end-----------------------*/
 
@@ -484,15 +478,15 @@ public class OrderReleasing {
 
     }
 
-    public void orders(String UserPhoneNumber, String requesttime,final String act,
+    public void orders(String UserPhoneNumber, String requesttime,final int act,
                        GetordersCallBack getordersCB){
 
         queue = Volley.newRequestQueue(activity);
         mylist1_0.clear();
-	    if(act.compareTo("PersonCenterDetaillist") == 0) {
+	    if(act == AppStat.is个人中心Or详情界面.详情界面) {
 		    getordersCallBack = getordersCB;
 	    }
-	    else if(act.compareTo("PersonalCenter") == 0){
+	    else if(act == AppStat.is个人中心Or详情界面.个人中心){
 		    getorders_personalcenter = getordersCB;
 	    }
         shortway_selectrequest(UserPhoneNumber, requesttime,act);

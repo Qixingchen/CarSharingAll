@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 	public DatabaseHelper(Context context, String name, CursorFactory cursorFactory,
-			int version) {
+	                      int version) {
 		super(context, name, cursorFactory, version);
 	}
 

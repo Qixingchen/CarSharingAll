@@ -36,6 +36,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.Tool.AppStat;
 import com.Tool.DatabaseHelper;
 import com.Tool.Drawer;
 import com.Tool.OrderReleasing;
@@ -312,7 +313,7 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 		}
 
 		// 向服务器发起查询短途、上下班、长途拼车订单请求start!
-        histotical_orders.orders(UserPhoneNumber,"none","PersonalCenter",
+        histotical_orders.orders(UserPhoneNumber,"none", AppStat.is个人中心Or详情界面.个人中心,
 		        PersonalCenterActivity.this);
 
 		// 向服务器发起查询短途、上下班、长途拼车订单请求end!
