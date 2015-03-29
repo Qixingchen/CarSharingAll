@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Android/Android.iml" filepath="$PROJECT_DIR$/Android/Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/CarsharingServer/CarsharingServer.iml" filepath="$PROJECT_DIR$/server/CarsharingServer/CarsharingServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidForAS/app/src/main/main.iml" filepath="$PROJECT_DIR$/AndroidForAS/app/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqltest/sqltest.iml" filepath="$PROJECT_DIR$/sqltest/sqltest.iml" />
+    </modules>
+  </component>
+</project>
+

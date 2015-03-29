@@ -1,9 +1,9 @@
 /*
- * ¡°¸ü¶à¡±
- * Îª¸öÈËÖĞĞÄÈı¸ö¡°µã»÷²é¿´¡±¹²ÓÃ
- * 1.intentcall=1  ¼àÌıÃ¿Ò»Ìõitem£¬µã»÷¸ÃÌõitemÊ±°´Ğò·ÃÎÊ·şÎñÆ÷µÄÈıÖÖÀàĞÍ¶©µ¥£¬¸ù¾İÇëÇóÊ±¼ä»ñÈ¡¾ßÌå¶©µ¥ĞÅÏ¢£¬´«Öµµ½¶©µ¥ÏêÇé½çÃæ
+ * ï¿½ï¿½ï¿½ï¿½ï¿½à¡±
+ * Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¿´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * 1.intentcall=1  ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½itemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½itemÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½å¶©ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * 2.intentcall=2
- * 3.intentcall=3 µ÷ÓÃÊÊÅäÆ÷ÏÔÊ¾ÔÚ±¾µØÒÑ´æ´¢µÄÊÕ²ØµÄµØÖ·
+ * 3.intentcall=3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ú±ï¿½ï¿½ï¿½ï¿½Ñ´æ´¢ï¿½ï¿½ï¿½Õ²ØµÄµï¿½Ö·
  */
 
 package com.example.carsharing;
@@ -79,28 +79,28 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 		int intentcall = bundle.getInt("intent");
 
-		// actionbar²Ù×÷!!
+		// actionbarï¿½ï¿½ï¿½ï¿½!!
 
-		// »æÖÆÏòÉÏ!!
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!!
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		// actionbarEND!!
 
-		// °ó¶¨XMLÖĞµÄListView£¬×÷ÎªItemµÄÈİÆ÷
+		// ï¿½ï¿½XMLï¿½Ğµï¿½ListViewï¿½ï¿½ï¿½ï¿½ÎªItemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		ListView list = (ListView) findViewById(R.id.WacthAllMessSent);
-		// Éú³É¶¯Ì¬Êı×é£¬²¢ÇÒ×ªÔØÊı¾İ
+		// ï¿½ï¿½ï¿½É¶ï¿½Ì¬ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 		ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
 
 		if (1 == intentcall) {
 
 			MyAdapter sAdapter_messSent = new MyAdapter(this,
-					PersonalCenterActivity.mylist1, 1); // Êı¾İÀ´Ô´
-			// Ìí¼Ó²¢ÇÒÏÔÊ¾
+					PersonalCenterActivity.mylist1, 1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
+			// ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 			list.setAdapter(sAdapter_messSent);
 
-			// Item¼àÌıÌø×ªstart!
+			// Itemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªstart!
 			list.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -112,7 +112,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					shortway_selectrequest(UserPhoneNumber, requesttime);
 				}
 			});
-			// Item¼àÌıÌø×ªend!
+			// Itemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªend!
 
 		}
 
@@ -121,9 +121,9 @@ public class PersonCenterDetaillistActivity extends Activity {
 			// Bundle dealbundle = this.getIntent().getExtras();
 			// deal_readstatus = dealbundle.getString("deal_readstatus");
 
-			// Éú³ÉÊÊÅäÆ÷£¬Êı×é===¡·ListItem
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½===ï¿½ï¿½ListItem
 			// MyAdapter sAdapter_messSent = new MyAdapter(this,
-			// PersonalCenterActivity.mylist2, 2); // Êı¾İÀ´Ô´
+			// PersonalCenterActivity.mylist2, 2); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
 			SimpleAdapter sAdapter_messSent = new SimpleAdapter(this,
 					PersonalCenterActivity.mylist2,
 					R.layout.dealstatus_listitem, new String[] { "Title",
@@ -132,10 +132,10 @@ public class PersonCenterDetaillistActivity extends Activity {
 							R.id.dealkind, R.id.dealid, R.id.dealstatus,
 							R.id.list_dealstatus });
 
-			// Ìí¼Ó²¢ÇÒÏÔÊ¾
+			// ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 			list.setAdapter(sAdapter_messSent);
 
-			// ¼àÌıitem
+			// ï¿½ï¿½ï¿½ï¿½item
 			list.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
@@ -174,11 +174,11 @@ public class PersonCenterDetaillistActivity extends Activity {
 		if (3 == intentcall) {
 
 			MyAdapter sAdapter_messSent = new MyAdapter(this,
-					PersonalCenterActivity.mylist3, 3); // Êı¾İÀ´Ô´
-			// Ìí¼Ó²¢ÇÒÏÔÊ¾
+					PersonalCenterActivity.mylist3, 3); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
+			// ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 			list.setAdapter(sAdapter_messSent);
 
-			// Éú³ÉÊÊÅäÆ÷£¬Êı×é===¡·ListItem
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½===ï¿½ï¿½ListItem
 
 		}
 
@@ -218,32 +218,32 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 									bundle.putString("requesttime", request);
 
-									bundle.putFloat("SPX", Float
+									bundle.putFloat("èµ·å§‹åœ°_Xåæ ‡", Float
 											.parseFloat(jasitem
 													.getString("startPlaceX")));
 									Log.e("startPlaceX",
 											jasitem.getString("startPlaceX"));
-									bundle.putFloat("SPY", Float
+									bundle.putFloat("èµ·å§‹åœ°_Yåæ ‡", Float
 											.parseFloat(jasitem
 													.getString("startPlaceY")));
 									Log.e("startPlaceY",
 											jasitem.getString("startPlaceY"));
-									bundle.putFloat("DSX", Float
+									bundle.putFloat("ç›®çš„åœ°_Xåæ ‡", Float
 											.parseFloat(jasitem
 													.getString("destinationX")));
 									Log.e("destinationX",
 											jasitem.getString("destinationX"));
-									bundle.putFloat("DSY", Float
+									bundle.putFloat("ç›®çš„åœ°_Yåæ ‡", Float
 											.parseFloat(jasitem
 													.getString("destinationY")));
 									Log.e("destinationY",
 											jasitem.getString("destinationY"));
-									bundle.putString("tsp",
+									bundle.putString("èµ·å§‹åœ°_å",
 											jasitem.getString("startPlace"));
-									bundle.putString("tep",
+									bundle.putString("ç›®çš„åœ°_å",
 											jasitem.getString("destination"));
 									bundle.putString(
-											"tst",
+											"å‡ºå‘æ—¥æœŸæ€»ä¿¡æ¯",
 											jasitem.getString("startDate")
 													+ " "
 													+ jasitem
@@ -257,7 +257,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 											jasitem.getString("startTime"));
 									bundle.putString("endtime",
 											jasitem.getString("endTime"));
-									bundle.putString("trs", "xx");
+									bundle.putString("å¤‡æ³¨", "xx");
 									bundle.putString("dealstatus",
 											jasitem.getString("dealStatus"));
 									bundle.putString("userrole",
@@ -282,7 +282,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("shortway_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -326,26 +326,26 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 									bundle.putString("requesttime", request);
 
-									bundle.putFloat("SPX", Float
+									bundle.putFloat("èµ·å§‹åœ°_Xåæ ‡", Float
 											.parseFloat(jasitem
 													.getString("startPlaceX")));
-									bundle.putFloat("SPY", Float
+									bundle.putFloat("èµ·å§‹åœ°_Yåæ ‡", Float
 											.parseFloat(jasitem
 													.getString("startPlaceY")));
-									bundle.putFloat("DSX", Float
+									bundle.putFloat("ç›®çš„åœ°_Xåæ ‡", Float
 											.parseFloat(jasitem
 													.getString("destinationX")));
-									bundle.putFloat("DSY", Float
+									bundle.putFloat("ç›®çš„åœ°_Yåæ ‡", Float
 											.parseFloat(jasitem
 													.getString("destinationY")));
-									bundle.putString("tsp",
+									bundle.putString("èµ·å§‹åœ°_å",
 											jasitem.getString("startPlace"));
-									bundle.putString("tep",
+									bundle.putString("ç›®çš„åœ°_å",
 											jasitem.getString("destination"));
 									bundle.putString(
-											"tst",
+											"å‡ºå‘æ—¥æœŸæ€»ä¿¡æ¯",
 											jasitem.getString("startDate")
-													+ "ÖÁ"
+													+ "ï¿½ï¿½"
 													+ jasitem
 															.getString("endDate")
 													+ "  "
@@ -355,7 +355,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 													+ jasitem
 															.getString("endTime")
 													+ "  "
-													+ "Ã¿ÖÜ:"
+													+ "Ã¿ï¿½ï¿½:"
 													+ jasitem
 															.getString("weekRepeat"));
 									bundle.putString("startdate",
@@ -368,7 +368,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 											jasitem.getString("endTime"));
 									bundle.putString("weekrepeat",
 											jasitem.getString("weekRepeat"));
-									bundle.putString("trs", "xx");
+									bundle.putString("å¤‡æ³¨", "xx");
 									bundle.putString("dealstatus",
 											jasitem.getString("dealStatus"));
 									bundle.putString("userrole",
@@ -396,7 +396,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("commute_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -444,24 +444,15 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 									bundle.putString("requesttime", request);
 
-									bundle.putString("tsp",
+									bundle.putString("èµ·å§‹åœ°_å",
 											jasitem.getString("startPlace"));
-									bundle.putString("tep",
-											jasitem.getString("destination"));
-									bundle.putString("tst",
-											jasitem.getString("startDate"));
-									bundle.putString("trs", "xx");
-									bundle.putString("userrole",
-											jasitem.getString("userRole"));
-									bundle.putString("startdate",
-											jasitem.getString("startDate"));
 									bundle.putString("dealstatus", "2");
 									break;
 								}
 							}
 							if (i == jasA.length()) {
 								Toast.makeText(getApplicationContext(),
-										"¸Ã¶©µ¥ÒÑ²»´æÔÚ", Toast.LENGTH_SHORT).show();
+										"ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_SHORT).show();
 							} else {
 								Intent intent = new Intent(
 										PersonCenterDetaillistActivity.this,
@@ -480,7 +471,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("commute_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "ÍøÂçÁ¬½ÓÊ§°Ü",
+						// Toast errorinfo = Toast.makeText(null, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -500,7 +491,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 	// data) {
 	// if(requestCode==1){
 	// switch(resultCode){
-	// case 1 :{//½ÓÊÜ»ò¾Ü¾ø
+	// case 1 :{//ï¿½ï¿½ï¿½Ü»ï¿½Ü¾ï¿½
 	// Log.e("aaa","a");
 	// statusImage.setImageResource(R.drawable.ic_dealread);
 	// break;

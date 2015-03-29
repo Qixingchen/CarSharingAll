@@ -1,5 +1,5 @@
-/*����������棬��listitem�����ֵ���ɵĽ���
- * ����ʾ�Ķ����ڽ���ý���ʱ����һ���������ˢ��״̬
+/*����������棬��listitem�����ֵ���ɵĽ���
+ * ����ʾ�Ķ����ڽ���ý���ʱ����һ���������ˢ��״̬
  */
 
 package com.example.carsharing;
@@ -36,9 +36,9 @@ import com.android.volley.toolbox.Volley;
 public class ArrangementDetailActivity extends Activity {
 
 	public static RequestQueue queue;
-	private float SPX, SPY, DSX, DSY;
+	private float 起始地_X坐标, 起始地_Y坐标, 目的地_X坐标, 目的地_Y坐标;
 	private String carsharing_type, requesttime;
-	private TextView sp, ep, st, rs, userrole, dealstatus;
+	private TextView 出发地, 目的地, 出发时间, 备注, userrole, dealstatus;
 	private String UserPhoneNumber;
 	private String startDate, endDate, startTime, endTime, weekrepeat,
 			mdealstatus;
@@ -69,60 +69,60 @@ public class ArrangementDetailActivity extends Activity {
 
 		reorder = (Button) findViewById(R.id.arrangement_reorder);
 		fanhui = (ImageView) findViewById(android.R.id.home);
-		sp = (TextView) findViewById(R.id.arrangementdetail_startaddress);
-		ep = (TextView) findViewById(R.id.arrangementdetail_endaddress);
-		st = (TextView) findViewById(R.id.arrangementdetail_starttime);
-		rs = (TextView) findViewById(R.id.arrangementdetail_remainsites);
+		出发地 = (TextView) findViewById(R.id.arrangementdetail_startaddress);
+		目的地 = (TextView) findViewById(R.id.arrangementdetail_endaddress);
+		出发时间 = (TextView) findViewById(R.id.arrangementdetail_starttime);
+		备注 = (TextView) findViewById(R.id.arrangementdetail_remainsites);
 		userrole = (TextView) findViewById(R.id.arrangementdetail_userrole);
 		dealstatus = (TextView) findViewById(R.id.arrangementdetail_orderstatus);
 
 		final String role;
 
-		// actionbar����!!
-		// ��������!!
+		// actionbar����!!
+		// ��������!!
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		// actionbarEND!!
 
-		// ���ڡ�ʱ���׼��ʽ
+		// ���ڡ�ʱ���׼��ʽ
 		standard_date = new SimpleDateFormat("yyyy-MM-dd",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_date = new SimpleDateFormat("yyyy��MM��dd��",
+		primary_date = new SimpleDateFormat("yyyy��MM��dd��",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_date1 = new SimpleDateFormat("yyyy��M��d��",
+		primary_date1 = new SimpleDateFormat("yyyy��M��d��",
 				Locale.SIMPLIFIED_CHINESE);
 		standard_time = new SimpleDateFormat("HH:mm:ss",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_time = new SimpleDateFormat("HHʱmm��ss��",
+		primary_time = new SimpleDateFormat("HHʱmm��ss��",
 				Locale.SIMPLIFIED_CHINESE);
 
 		Bundle bundle = this.getIntent().getExtras();
-		sp.setText(bundle.getString("tsp")); // ���
-		ep.setText(bundle.getString("tep")); // �յ�
-		st.setText(bundle.getString("tst")); // ��ʼʱ��
-		rs.setText(bundle.getString("trs")); // ��Ҫ��λ
+		出发地.setText(bundle.getString("起始地_名")); // ���
+		目的地.setText(bundle.getString("目的地_名")); // �յ�
+		出发时间.setText(bundle.getString("出发日期总信息")); // ��ʼʱ��
+		备注.setText(bundle.getString("备注")); // ��Ҫ��λ
 		role = bundle.getString("userrole");
 		mdealstatus = bundle.getString("dealstatus");
 		if ((role.compareTo("p") == 0)
-				|| (bundle.getString("userrole").compareTo("n") == 0)) {// ����
-			userrole.setText("�˿�");
+				|| (bundle.getString("userrole").compareTo("n") == 0)) {// ���
+			userrole.setText("�˿�");
 		} else {
-			userrole.setText("˾��");
+			userrole.setText("˾��");
 		}
-		if (mdealstatus.compareTo("0") == 0) {// ����״̬
-			dealstatus.setText("���������ھ���Ϊ��ƥ�䣬���Եȣ�");
+		if (mdealstatus.compareTo("0") == 0) {// ����״̬
+			dealstatus.setText("���������ھ���Ϊ��ƥ�䣬���Եȣ�");
 		} else if (mdealstatus.compareTo("1") == 0) {
-			dealstatus.setText("������ƥ�䣬����գ�");
+			dealstatus.setText("������ƥ�䣬����գ�");
 		} else if (mdealstatus.compareTo("2") == 0) {
-			dealstatus.setText("��;ƴ��");
+			dealstatus.setText("��;ƴ��");
 		}
 
-		final String stp[] = bundle.getString("tsp").split(",");
-		final String ep[] = bundle.getString("tep").split(",");
-		SPX = bundle.getFloat("SPX"); // ��㾭��
-		SPY = bundle.getFloat("SPY"); // ���γ��
-		DSX = bundle.getFloat("DSX"); // �յ㾭��
-		DSY = bundle.getFloat("DSY"); // �յ�γ��
+		final String stp[] = bundle.getString("起始地_名").split(",");
+		final String 目的地[] = bundle.getString("目的地_名").split(",");
+		起始地_X坐标 = bundle.getFloat("起始地_X坐标"); // ��㾭��
+		起始地_Y坐标 = bundle.getFloat("起始地_Y坐标"); // ���γ��
+		目的地_X坐标 = bundle.getFloat("目的地_X坐标"); // �յ㾭��
+		目的地_Y坐标 = bundle.getFloat("目的地_Y坐标"); // �յ�γ��
 		startDate = bundle.getString("startdate");
 		endDate = bundle.getString("enddate");
 		startTime = bundle.getString("starttime");
@@ -131,7 +131,7 @@ public class ArrangementDetailActivity extends Activity {
 		carsharing_type = bundle.getString("carsharing_type");
 		requesttime = bundle.getString("requesttime");
 
-		// actionbar�з��ؼ�����
+		// actionbar�з��ؼ�����
 
 		fanhui.setOnClickListener(new OnClickListener() {
 
@@ -144,16 +144,16 @@ public class ArrangementDetailActivity extends Activity {
 		// end
 
 		// if (carsharing_type.compareTo("shortway") == 0) {
-		// // ��ѯ��;����״̬start!
+		// // ��ѯ��;����״̬start!
 		// shortway_updatestatus(UserPhoneNumber, requesttime);
-		// // ��ѯ��;����״̬end!
+		// // ��ѯ��;����״̬end!
 		// } else {
-		// // ��ѯ��;����״̬start!
+		// // ��ѯ��;����״̬start!
 		// commute_updatestatus(UserPhoneNumber, requesttime);
-		// // ��ѯ��;����״̬end!
+		// // ��ѯ��;����״̬end!
 		// }
 
-		// reorder��ť�ļ���
+		// reorder��ť�ļ���
 		reorder.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -165,16 +165,16 @@ public class ArrangementDetailActivity extends Activity {
 							ShortWayActivity.class);
 					shortway.putExtra("stpusername", stp[0]);
 					shortway.putExtra("stpmapname", stp[1]);
-					shortway.putExtra("epusername", ep[0]);
-					shortway.putExtra("epmapname", ep[1]);
-					shortway.putExtra("stpx", SPX);
-					Log.e("SPX", String.valueOf(SPX));
-					shortway.putExtra("stpy", SPY);
-					Log.e("SPY", String.valueOf(SPY));
-					shortway.putExtra("epx", DSX);
-					Log.e("DSX", String.valueOf(DSX));
-					shortway.putExtra("epy", DSY);
-					Log.e("DSY", String.valueOf(DSY));
+					shortway.putExtra("epusername", 目的地[0]);
+					shortway.putExtra("epmapname", 目的地[1]);
+					shortway.putExtra("stpx", 起始地_X坐标);
+					Log.e("起始地_X坐标", String.valueOf(起始地_X坐标));
+					shortway.putExtra("stpy", 起始地_Y坐标);
+					Log.e("起始地_Y坐标", String.valueOf(起始地_Y坐标));
+					shortway.putExtra("epx", 目的地_X坐标);
+					Log.e("目的地_X坐标", String.valueOf(目的地_X坐标));
+					shortway.putExtra("epy", 目的地_Y坐标);
+					Log.e("目的地_Y坐标", String.valueOf(目的地_Y坐标));
 					shortway.putExtra("userrole", role);
 					shortway.putExtra("pre_page", "ReOrder");
 					try {
@@ -201,16 +201,16 @@ public class ArrangementDetailActivity extends Activity {
 							CommuteActivity.class);
 					commute.putExtra("stpusername", stp[0]);
 					commute.putExtra("stpmapname", stp[1]);
-					commute.putExtra("epusername", ep[0]);
-					commute.putExtra("epmapname", ep[1]);
-					commute.putExtra("stpx", SPX);
-					Log.e("SPX", String.valueOf(SPX));
-					commute.putExtra("stpy", SPY);
-					Log.e("SPY", String.valueOf(SPY));
-					commute.putExtra("epx", DSX);
-					Log.e("DSX", String.valueOf(DSX));
-					commute.putExtra("epy", DSY);
-					Log.e("DSY", String.valueOf(DSY));
+					commute.putExtra("epusername", 目的地[0]);
+					commute.putExtra("epmapname", 目的地[1]);
+					commute.putExtra("stpx", 起始地_X坐标);
+					Log.e("起始地_X坐标", String.valueOf(起始地_X坐标));
+					commute.putExtra("stpy", 起始地_Y坐标);
+					Log.e("起始地_Y坐标", String.valueOf(起始地_Y坐标));
+					commute.putExtra("epx", 目的地_X坐标);
+					Log.e("目的地_X坐标", String.valueOf(目的地_X坐标));
+					commute.putExtra("epy", 目的地_Y坐标);
+					Log.e("目的地_Y坐标", String.valueOf(目的地_Y坐标));
 					try {
 						test_date = standard_date.parse(startDate);
 						primary_commute_startdate = primary_date1
@@ -244,15 +244,15 @@ public class ArrangementDetailActivity extends Activity {
 					Intent longway = new Intent(ArrangementDetailActivity.this,
 							LongWayActivity.class);
 					longway.putExtra("stpmapname", stp[0]);
-					longway.putExtra("epmapname", ep[0]);
-					longway.putExtra("stpx", SPX);
-					Log.e("SPX", String.valueOf(SPX));
-					longway.putExtra("stpy", SPY);
-					Log.e("SPY", String.valueOf(SPY));
-					longway.putExtra("epx", DSX);
-					Log.e("DSX", String.valueOf(DSX));
-					longway.putExtra("epy", DSY);
-					Log.e("DSY", String.valueOf(DSY));
+					longway.putExtra("epmapname", 目的地[0]);
+					longway.putExtra("stpx", 起始地_X坐标);
+					Log.e("起始地_X坐标", String.valueOf(起始地_X坐标));
+					longway.putExtra("stpy", 起始地_Y坐标);
+					Log.e("起始地_Y坐标", String.valueOf(起始地_Y坐标));
+					longway.putExtra("epx", 目的地_X坐标);
+					Log.e("目的地_X坐标", String.valueOf(目的地_X坐标));
+					longway.putExtra("epy", 目的地_Y坐标);
+					Log.e("目的地_Y坐标", String.valueOf(目的地_Y坐标));
 					try {
 						test_date = standard_date.parse(startDate);
 						primary_longway_startdate = primary_date1
