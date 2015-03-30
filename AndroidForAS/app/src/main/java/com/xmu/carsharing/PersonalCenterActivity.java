@@ -195,7 +195,7 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 					historymore.setClass(PersonalCenterActivity.this,
 							PersonCenterDetaillistActivity.class);
 
-					historymore.putExtra("intent", 1);
+					historymore.putExtra("intent", AppStat.个人中心_详情几面跳转代号.发布的消息);
 					startActivity(historymore);
 				} else {
 					Toast.makeText(getApplicationContext(),
@@ -214,7 +214,7 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 					Intent receivingmore = new Intent();
 					receivingmore.setClass(PersonalCenterActivity.this,
 							PersonCenterDetaillistActivity.class);
-					receivingmore.putExtra("intent", 2);
+					receivingmore.putExtra("intent", AppStat.个人中心_详情几面跳转代号.收到的匹配);
 					startActivity(receivingmore);
 				} else {
 					Toast.makeText(getApplicationContext(),
@@ -233,7 +233,7 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 				Intent addressmore = new Intent();
 				addressmore.setClass(PersonalCenterActivity.this,
 						PersonCenterDetaillistActivity.class);
-				addressmore.putExtra("intent", 3);
+				addressmore.putExtra("intent", AppStat.个人中心_详情几面跳转代号.收藏的地点);
 				startActivity(addressmore);
 				// } else {
 				// Toast.makeText(getApplicationContext(),
@@ -250,7 +250,7 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	public void onResume() {
 
 		super.onResume();
-
+		//todo 锁定列表信息，或者将完成判断置否
 		SharedPreferences filename = context.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),Context.MODE_PRIVATE);
 		UserPhoneNumber = filename.getString("refreshfilename", "文件名");

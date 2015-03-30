@@ -47,6 +47,9 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 	private String requesttime;
 	private int intentcall;
 
+	// 绑定XML中的ListView，作为Item的容器
+	private ListView list;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,92 +85,13 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 
 		// actionbarEND!!
 
-		// 绑定XML中的ListView，作为Item的容器
-		ListView list = (ListView) findViewById(R.id.WacthAllMessSent);
+		list = (ListView) findViewById(R.id.WacthAllMessSent);
+
 		// 生成动态数组，并且转载数据
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 		ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
 
-		//todo 1需要在appstat中定义可读名称
-		if (1 == intentcall) {
 
-			MyAdapter sAdapter_messSent = new MyAdapter(this,
-					PersonalCenterActivity.mylist1, 1); // 数据来源
-			// 添加并且显示
-			list.setAdapter(sAdapter_messSent);
-
-			// Item监听跳转start!
-			list.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-				                        int position, long arg3) {
-
-					requesttime = PersonalCenterActivity.mylist1.get(
-							position).get("requst");
-					Log.e("requesttime", requesttime);
-
-					histotical_orders.orders(UserPhoneNumber, requesttime,
-							AppStat.is个人中心Or详情界面.详情界面,PersonCenterDetaillistActivity.this);
-
-				}
-			});
-			// Item监听跳转end!
-		}
-
-		if (2 == intentcall) {
-
-			// Bundle dealbundle = this.getIntent().getExtras();
-			// deal_readstatus = dealbundle.getString("deal_readstatus");
-
-			// 生成适配器，数组===》ListItem
-			// MyAdapter sAdapter_messSent = new MyAdapter(this,
-			// PersonalCenterActivity.mylist2, 2); // 数据来源
-			SimpleAdapter sAdapter_messSent = new SimpleAdapter(this,
-					PersonalCenterActivity.mylist2,
-					R.layout.dealstatus_listitem, new String[]{"Title",
-					"text", "requst", "deal_readstatus",
-					"deal_readstatusIcon"}, new int[]{R.id.dealtime,
-					R.id.dealkind, R.id.dealid, R.id.dealstatus,
-					R.id.list_dealstatus});
-
-			// 添加并且显示
-			list.setAdapter(sAdapter_messSent);
-
-			// 监听item
-			list.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-				                        int position, long arg3) {
-
-					Intent intent = new Intent(
-							PersonCenterDetaillistActivity.this,
-							RoutelineDisplayActivity.class);
-					intent.putExtra(
-							"dealid",
-							(String) PersonalCenterActivity.mylist2.get(
-									position).get("requst"));
-					intent.putExtra(
-							"deal_readstatus",
-							(String) PersonalCenterActivity.mylist2.get(
-									position).get("deal_readstatus"));
-
-					startActivity(intent);
-
-				}
-			});
-		}
-
-		if (3 == intentcall) {
-
-			MyAdapter sAdapter_messSent = new MyAdapter(this,
-					PersonalCenterActivity.mylist3, 3); // 数据来源
-			// 添加并且显示
-			list.setAdapter(sAdapter_messSent);
-
-			// 生成适配器，数组===》ListItem
-
-		}
 
 	}
 
@@ -222,6 +146,93 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 	                                     String startplace[],
 	                                     String endplace[],boolean bfirsthistory){}
 
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		list.setClickable(true);
+		if (AppStat.个人中心_详情几面跳转代号.发布的消息 == intentcall) {
+
+			final MyAdapter sAdapter_messSent = new MyAdapter(this,
+					PersonalCenterActivity.mylist1, 1); // 数据来源
+			// 添加并且显示
+			list.setAdapter(sAdapter_messSent);
+
+			// Item监听跳转start!
+			list.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+				                        int position, long arg3) {
+					list.setClickable(false);
+					requesttime = PersonalCenterActivity.mylist1.get(
+							position).get("requst");
+					Log.e("requesttime", requesttime);
+
+					histotical_orders.orders(UserPhoneNumber, requesttime,
+							AppStat.is个人中心Or详情界面.详情界面,PersonCenterDetaillistActivity.this);
+					sAdapter_messSent.notifyDataSetChanged();
+
+				}
+			});
+			// Item监听跳转end!
+		}
+
+		if (AppStat.个人中心_详情几面跳转代号.收到的匹配 == intentcall) {
+
+			// Bundle dealbundle = this.getIntent().getExtras();
+			// deal_readstatus = dealbundle.getString("deal_readstatus");
+
+			// 生成适配器，数组===》ListItem
+			// MyAdapter sAdapter_messSent = new MyAdapter(this,
+			// PersonalCenterActivity.mylist2, 2); // 数据来源
+			SimpleAdapter sAdapter_messSent = new SimpleAdapter(this,
+					PersonalCenterActivity.mylist2,
+					R.layout.dealstatus_listitem, new String[]{"Title",
+					"text", "requst", "deal_readstatus",
+					"deal_readstatusIcon"}, new int[]{R.id.dealtime,
+					R.id.dealkind, R.id.dealid, R.id.dealstatus,
+					R.id.list_dealstatus});
+
+			// 添加并且显示
+			list.setAdapter(sAdapter_messSent);
+
+			// 监听item
+			list.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+				                        int position, long arg3) {
+
+					Intent intent = new Intent(
+							PersonCenterDetaillistActivity.this,
+							RoutelineDisplayActivity.class);
+					intent.putExtra(
+							"dealid",
+							(String) PersonalCenterActivity.mylist2.get(
+									position).get("requst"));
+					intent.putExtra(
+							"deal_readstatus",
+							(String) PersonalCenterActivity.mylist2.get(
+									position).get("deal_readstatus"));
+
+					startActivity(intent);
+
+				}
+			});
+		}
+
+		if (AppStat.个人中心_详情几面跳转代号.收藏的地点 == intentcall) {
+
+			MyAdapter sAdapter_messSent = new MyAdapter(this,
+					PersonalCenterActivity.mylist3, 3); // 数据来源
+			// 添加并且显示
+			list.setAdapter(sAdapter_messSent);
+
+			// 生成适配器，数组===》ListItem
+
+		}
+	}
 
 /*	private void shortway_selectrequest(final String phonenum,
 			final String request) {
