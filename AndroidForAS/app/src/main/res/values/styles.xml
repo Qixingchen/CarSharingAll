@@ -15,6 +15,7 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- Customize your theme here. -->
     </style>
     
     <!-- 自定义ActionBar样式，重设ActionBar背景，隐藏actionbar左侧的应用图标和标题 -->
@@ -30,5 +31,21 @@
         <item name="android:windowBackground">@android:color/transparent</item>  
         <item name="android:windowNoTitle">true</item> 
     </style>
-    
+
+
+    <style name="ToolBarBaseTheme" parent="Theme.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/Apptheme_500</item>
+        <item name="colorPrimaryDark">@color/Apptheme_700</item>
+        <item name="colorAccent">@color/Material_Deep_Orange_500</item>
+
+        <!-- Set AppCompat’s actionBarStyle -->
+        <!-- <item name="actionBarStyle">@style/MyActionBar</item> -->
+    </style>
+
+    <style name="ToolbarTheme" parent="ToolBarBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+
 </resources>
