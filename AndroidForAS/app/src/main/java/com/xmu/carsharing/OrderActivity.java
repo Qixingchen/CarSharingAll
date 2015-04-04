@@ -6,7 +6,7 @@
  */
 
 package com.xmu.carsharing;
-
+import java.text.ParseException;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -53,16 +53,20 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
-public class CommuteActivity extends Activity {
+public class OrderActivity extends Activity {
 
 	static final int TIME_DIALOG = 0;
 	static final int DATE_DIALOG = 1;
 	static final int TIME_DIALOG01 = 2;
 	static final int DATE_DIALOG01 = 3;
+	static final int DATE_DIALOG02 = 4;
 	private RequestQueue queue;
 	private String username;
 	public static String commute_result;
@@ -70,7 +74,7 @@ public class CommuteActivity extends Activity {
 	private ImageView exchange;
 	private static boolean requestok, carinfook;
 	private boolean bstart, bend, blicensenum, bcarbrand, bcolor, bmodel, bmon,
-			btue, bwed, bthu, bfri, bsat, bsun,
+			btue, bwed, bthu, bfri, bsat, bsun,bdate,
 			bstartdate, benddate, bearlystarttime, blatestarttime;
     private boolean mbpassenager,mbdriver;
 
@@ -81,12 +85,12 @@ public class CommuteActivity extends Activity {
 
 	private RadioButton mRadio1, mRadio2;
 	private Button sure;
-	private RadioGroup commute_group;
+	private RadioGroup order_group;
 	private CheckBox mon, tue, wed, thu, fri, sat, sun;
 
-	private String standard_commute_startdate = null, standard_commute_enddate = null,
-			standard_commute_starttime = null, standard_commute_endtime = null;
+	private String standard_enddate = null;
 
+	private Button datebutton;
 	private Button startdate;
 	private Button enddate;
 	private Button earlystarttime;
@@ -96,17 +100,24 @@ public class CommuteActivity extends Activity {
 	private Button startplace;
 	private Button endplace;
 
+	private int carinfochoosing_type;// 作为车辆表信息修改方法的判别
+
+	private View depdate,lastingdate,detailtime,repeat,remark;
+
 	private float startplace_longitude;
 	private float startplace_latitude;
 	private float destination_longitude;
 	private float destination_latitude;
-	private String supplycar;
+	private String userrole;
 	private String weekrepeat = "";
 
 	private int sum = 0;
 	private TextView s1;
+	private TextView noteinfo;
 
 	private Calendar c = Calendar.getInstance();
+
+	private String cstype;
 
 	// 用户手机号
 	private String UserPhoneNumber;
@@ -133,6 +144,12 @@ public class CommuteActivity extends Activity {
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	// actionbarend!!
+
+	SimpleDateFormat standard_date, standard_time, primary_date, primary_time;
+	Date test_date, now = new Date();
+	String standard_startdate = null,
+			standard_starttime = null,
+			standard_endtime = null;
 
 	//tool类
 	ToolWithActivityIn toolWithActivityIn;
@@ -208,16 +225,13 @@ public class CommuteActivity extends Activity {
 
 		queue.add(stringRequest);
 	}
-
+	private IdentityBtn function_identity; /*身份选择，已封装在IdentityBtn.java中*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_commute);
-
+		setContentView(R.layout.activity_order);
 		toolWithActivityIn = new ToolWithActivityIn(this);
-
-        final IdentityBtn function_identity; /*身份选择，已封装在IdentityBtn.java中*/
         function_identity = new IdentityBtn(this, R.id.commute_layout);
 
 		//actionbar
@@ -256,33 +270,34 @@ public class CommuteActivity extends Activity {
 		bthu = true;
 		bfri = true;
 
-		startdate = (Button) findViewById(R.id.commute_startdate);
-		earlystarttime = (Button) findViewById(R.id.commute_earliest_start_time);
-		enddate = (Button) findViewById(R.id.commute_enddate);
-		latestarttime = (Button) findViewById(R.id.commute_latest_start_time);
-		increase = (Button) findViewById(R.id.commute_increase);
-		decrease = (Button) findViewById(R.id.commute_decrease);
-		s1 = (TextView) findViewById(R.id.commute_count);
+		startdate = (Button) findViewById(R.id.startdate);
+		earlystarttime = (Button) findViewById(R.id.earliest_start_time);
+		enddate = (Button) findViewById(R.id.enddate);
+		latestarttime = (Button) findViewById(R.id.latest_start_time);
+		increase = (Button) findViewById(R.id.order_increase);
+		decrease = (Button) findViewById(R.id.order_decrease);
+		s1 = (TextView) findViewById(R.id.order_count);
 		startplace = (Button) findViewById(R.id.commute_startplace);
 		endplace = (Button) findViewById(R.id.commute_endplace);
+		datebutton = (Button)findViewById(R.id.depature_dates);
 		sure = (Button) findViewById(R.id.commute_sure);
 		sure.setEnabled(false);
 
-		carbrand = (EditText) findViewById(R.id.commute_CarBrand);
-		model = (EditText) findViewById(R.id.commute_CarModel);
-		color = (EditText) findViewById(R.id.commute_color);
-		licensenum = (EditText) findViewById(R.id.commute_Num);
+		carbrand = (EditText) findViewById(R.id.CarBrand);
+		model = (EditText) findViewById(R.id.CarModel);
+		color = (EditText) findViewById(R.id.carcolor);
+		licensenum = (EditText) findViewById(R.id.CarNum);
 
 		licensenum.addTextChangedListener(numTextWatcher);
 		carbrand.addTextChangedListener(detTextWatcher);
 		color.addTextChangedListener(coTextWatcher);
 		model.addTextChangedListener(moTextWatcher);
 
-		final TextView content = (TextView) findViewById(R.id.commute_content);
+		final TextView content = (TextView) findViewById(R.id.order_content);
 
-		commute_group = (RadioGroup) findViewById(R.id.commute_radiobutton);
-		mRadio1 = (RadioButton) findViewById(R.id.commute_radioButton1);
-		mRadio2 = (RadioButton) findViewById(R.id.commute_radioButton2);// 绑定一个RadioGroup监听器
+		order_group = (RadioGroup) findViewById(R.id.role_radiobutton);
+		mRadio1 = (RadioButton) findViewById(R.id.driver);
+		mRadio2 = (RadioButton) findViewById(R.id.passenger);// 绑定一个RadioGroup监听器
 
 		mon = (CheckBox) findViewById(R.id.commute_checkBox1);
 		tue = (CheckBox) findViewById(R.id.commute_checkBox2);
@@ -295,13 +310,48 @@ public class CommuteActivity extends Activity {
 		star1 = (ImageView) findViewById(R.id.cummute_star);
 		star2 = (ImageView) findViewById(R.id.commute_star01);
 
+		depdate = (View)findViewById(R.id.order_layout_depdate);
+		detailtime = (View)findViewById(R.id.order_layout_detailtime);
+		lastingdate = (View)findViewById(R.id.order_layout_lastingdate);
+		repeat = (View)findViewById(R.id.order_layout_rep);
+		remark = (View)findViewById(R.id.order_layout_remark);
+
+		standard_date = new SimpleDateFormat("yyyy-MM-dd",
+				Locale.SIMPLIFIED_CHINESE);
+		primary_date = new SimpleDateFormat("yyyy年MM月dd日",
+				Locale.SIMPLIFIED_CHINESE);
+		standard_time = new SimpleDateFormat("HH:mm:ss",
+				Locale.SIMPLIFIED_CHINESE);
+		primary_time = new SimpleDateFormat("HH时mm分ss秒",
+				Locale.SIMPLIFIED_CHINESE);
+
+		noteinfo=(EditText)findViewById(R.id.order_remarkText);
 		// 提取用户手机号
 		UserPhoneNumber = toolWithActivityIn.get用户手机号从偏好文件();
 
 		// judge the value of "pre_page"
 		Bundle bundle = this.getIntent().getExtras();
-		String PRE_PAGE = bundle.getString("pre_page");
-		if (PRE_PAGE.compareTo("ReOrder") == 0) { // 重新下单
+		cstype = bundle.getString("cstype");
+		if(cstype.compareTo("workcs")==0||cstype.compareTo("reworkcs")==0){
+			depdate.setVisibility(View.GONE);
+			detailtime.setVisibility(View.VISIBLE);
+			lastingdate.setVisibility(View.VISIBLE);
+			repeat.setVisibility(View.VISIBLE);
+			remark.setVisibility(View.GONE);
+		}else if(cstype.compareTo("longcs")==0||cstype.compareTo("relongcs")==0){
+			depdate.setVisibility(View.VISIBLE);
+			detailtime.setVisibility(View.GONE);
+			lastingdate.setVisibility(View.GONE);
+			repeat.setVisibility(View.GONE);
+			remark.setVisibility(View.VISIBLE);
+		}else if(cstype.compareTo("shortcs")==0||cstype.compareTo("reshortcs")==0){
+			depdate.setVisibility(View.VISIBLE);
+			detailtime.setVisibility(View.VISIBLE);
+			lastingdate.setVisibility(View.GONE);
+			repeat.setVisibility(View.GONE);
+			remark.setVisibility(View.GONE);
+		}
+		if (cstype.compareTo("reworkcs") == 0) { // 重新下单
 			startplace.setText(bundle.getString("stpusername") + ","
 					+ bundle.getString("stpmapname"));
 			bstart = true;
@@ -360,6 +410,35 @@ public class CommuteActivity extends Activity {
 				}
 			}
 			// 勾选end
+		}else if(cstype.compareTo("relongcs")==0){
+			startplace.setText(bundle.getString("stpmapname"));
+			bstart = true;
+			endplace.setText(bundle.getString("epmapname"));
+			bend = true;
+			datebutton.setText(bundle.getString("re_longway_startdate"));
+			bdate = true;
+		}else if(cstype.compareTo("reshortcs")==0){
+			startplace.setText(bundle.getString("stpusername") + ","
+					+ bundle.getString("stpmapname"));
+			bstart = true;
+			endplace.setText(bundle.getString("epusername") + ","
+					+ bundle.getString("epmapname"));
+			bend = true;
+			startplace_longitude = bundle.getFloat("stpx");
+			Log.e("startplace_longitude", String.valueOf(startplace_longitude));
+			startplace_latitude = bundle.getFloat("stpy");
+			Log.e("startplace_latitude", String.valueOf(startplace_latitude));
+			destination_longitude = bundle.getFloat("epx");
+			Log.e("destination_longitude",
+					String.valueOf(destination_longitude));
+			destination_latitude = bundle.getFloat("epy");
+			Log.e("destination_latitude", String.valueOf(destination_latitude));
+			datebutton.setText(bundle.getString("re_short_startdate"));
+			bdate = true;
+			earlystarttime.setText(bundle.getString("re_short_starttime"));
+			bearlystarttime = true;
+			latestarttime.setText(bundle.getString("re_short_endtime"));
+			blatestarttime = true;
 		}
 		// judge the value of "pre_page"
 
@@ -523,128 +602,161 @@ public class CommuteActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				
+				if(cstype.compareTo("workcs")==0||cstype.compareTo("reworkcs")==0){
+					function_identity.IdentityChoosing("commute",UserPhoneNumber);
+					if (order_group.getCheckedRadioButtonId() == mRadio1.getId()) {
+						userrole = "y";
+					} else
+						userrole = "n";
 
-				if (commute_group.getCheckedRadioButtonId() == mRadio1.getId()) {
-					supplycar = "y";
-				} else
-					supplycar = "n";
+					// 向服务器提交上下班拼车订单请求start!
+					Context phonenumber = OrderActivity.this;
+					SharedPreferences filename = phonenumber.getSharedPreferences(
+							getString(R.string.PreferenceDefaultName),
+							Context.MODE_PRIVATE);
+					username = filename.getString("refreshfilename", "0");
+					Log.e("type",cstype);
+					commute_request(username, startdate.getText().toString(),
+							enddate.getText().toString(), earlystarttime.getText()
+									.toString(), latestarttime.getText().toString());
+					// 向服务器提交上下班拼车订单请求end!
 
-				// 向服务器提交上下班拼车订单请求start!
-				Context phonenumber = CommuteActivity.this;
-				SharedPreferences filename = phonenumber.getSharedPreferences(
-						getString(R.string.PreferenceDefaultName),
-						Context.MODE_PRIVATE);
-				username = filename.getString("refreshfilename", "0");
-				commute_request(username, startdate.getText().toString(),
-						enddate.getText().toString(), earlystarttime.getText()
-								.toString(), latestarttime.getText().toString());
-				// 向服务器提交上下班拼车订单请求end!
+				}else if(cstype.compareTo("longcs")==0||cstype.compareTo("relongcs")==0){
+					function_identity.IdentityChoosing("longway",UserPhoneNumber);
+					if (order_group.getCheckedRadioButtonId() == mRadio1.getId())
+						userrole = "p";
+					else
+						userrole = "d";
 
+					// 向服务器提交长途拼车订单请求start!
+					Context phonenumber = OrderActivity.this;
+					SharedPreferences filename = phonenumber.getSharedPreferences(
+							getString(R.string.PreferenceDefaultName),
+							Context.MODE_PRIVATE);
+					username = filename.getString("refreshfilename", "0");
+					longway_request(username, userrole, datebutton.getText()
+							.toString(), startplace.getText().toString(), endplace
+							.getText().toString(), noteinfo.getText().toString());
+					// 向服务器提交长途拼车订单请求end!
+				}else if(cstype.compareTo("shortcs")==0||cstype.compareTo("reshortcs")==0){
+					function_identity.IdentityChoosing("shortway",UserPhoneNumber);
+					if (order_group.getCheckedRadioButtonId() == mRadio1.getId())
+						userrole = "d";
+					else
+						userrole = "p";
+
+					// 向服务器提交上下班拼车订单请求start!
+					shortway_request(UserPhoneNumber, datebutton.getText()
+									.toString(), earlystarttime.getText().toString(),
+							latestarttime.getText().toString());
+					// 向服务器提交上下班拼车订单请求end!
+				}
 			}
 
 			private void commute_request(final String commute_phonenum,
-					final String commute_startdate,
-					final String commute_enddate,
-					final String commute_starttime, final String commute_endtime) {
-				
-
-				weekrepeat = "";
-				if (bmon)
-					weekrepeat += "1";
-				if (btue)
-					weekrepeat += "2";
-				if (bwed)
-					weekrepeat += "3";
-				if (bthu)
-					weekrepeat += "4";
-				if (bfri)
-					weekrepeat += "5";
-				if (bsat)
-					weekrepeat += "6";
-				if (bsun)
-					weekrepeat += "7";
+						final String commute_startdate,
+						final String commute_enddate,
+						final String commute_starttime, final String commute_endtime) {
 
 
-				String commute_baseurl = getString(R.string.uri_base)
-						+ getString(R.string.uri_CommuteRequest)
-						+ getString(R.string.uri_addrequest_action);
-				// + "phonenum=" + commute_phonenum + "&startplacex=" +
-				// String.valueOf(startplace_longitude) +
-				// "&startplacey=" + String.valueOf(startplace_latitude) +
-				// "&destinationx=" + String.valueOf(destination_longitude) +
-				// "&destinationy=" + String.valueOf(destination_latitude) +
-				// "&startdate=" + standard_commute_startdate
-				// + "&enddate=" + standard_commute_enddate
-				// + "&starttime=" + standard_commute_starttime
-				// + "&endtime=" + standard_commute_endtime + "&weekrepeat=" +
-				// weekrepeat + "&supplycar=" + supplycar;
+					weekrepeat = "";
+					if (bmon)
+						weekrepeat += "1";
+					if (btue)
+						weekrepeat += "2";
+					if (bwed)
+						weekrepeat += "3";
+					if (bthu)
+						weekrepeat += "4";
+					if (bfri)
+						weekrepeat += "5";
+					if (bsat)
+						weekrepeat += "6";
+					if (bsun)
+						weekrepeat += "7";
 
-				Log.e("commute_URL", commute_baseurl);
-				// Instantiate the RequestQueue.
-				// Request a string response from the provided URL.
-				StringRequest stringRequest = new StringRequest(
-						Request.Method.POST, commute_baseurl,
-						new Response.Listener<String>() {
 
-							@Override
-							public void onResponse(String response) {
-								Log.d("commute_result", response);
-								JSONObject json1 = null;
-								try {
-									json1 = new JSONObject(response);
-									requestok = json1.getBoolean("result");
-								} catch (JSONException e) {
-									
-									e.printStackTrace();
-								}
+					String commute_baseurl = getString(R.string.uri_base)
+							+ getString(R.string.uri_CommuteRequest)
+							+ getString(R.string.uri_addrequest_action);
+					// + "phonenum=" + commute_phonenum + "&startplacex=" +
+					// String.valueOf(startplace_longitude) +
+					// "&startplacey=" + String.valueOf(startplace_latitude) +
+					// "&destinationx=" + String.valueOf(destination_longitude) +
+					// "&destinationy=" + String.valueOf(destination_latitude) +
+					// "&startdate=" + standard_startdate
+					// + "&enddate=" + standard_enddate
+					// + "&starttime=" + standard_starttime
+					// + "&endtime=" + standard_endtime + "&weekrepeat=" +
+					// weekrepeat + "&userrole=" + userrole;
 
-								if (requestok == true) {
+					Log.e("commute_URL", commute_baseurl);
+					// Instantiate the RequestQueue.
+					// Request a string response from the provided URL.
+					StringRequest stringRequest = new StringRequest(
+							Request.Method.POST, commute_baseurl,
+							new Response.Listener<String>() {
 
-									if (function_identity.carinfochoosing_type == 1) {
-										// add
-										// 向服务器发送车辆信息修改请求start!
-										carinfo(commute_phonenum, licensenum
-												.getText().toString(), carbrand
-												.getText().toString(), model
-												.getText().toString(), color
-												.getText().toString(), String
-												.valueOf(sum), 1);
-										// 向服务器发送车辆信息修改end!
-									} else {
-										// update
-										// 向服务器发送车辆信息修改请求start!
-										carinfo(commute_phonenum, licensenum
-												.getText().toString(), carbrand
-												.getText().toString(), model
-												.getText().toString(), color
-												.getText().toString(), String
-												.valueOf(sum), 2);
-										// 向服务器发送车辆信息修改end!
+								@Override
+								public void onResponse(String response) {
+									Log.d("commute_result", response);
+									JSONObject json1 = null;
+									try {
+										json1 = new JSONObject(response);
+										requestok = json1.getBoolean("result");
+									} catch (JSONException e) {
+
+										e.printStackTrace();
 									}
 
-									Intent sure = new Intent(
-											CommuteActivity.this,
-											OrderResponseActivity.class);
-									sure.putExtra(
-											getString(R.string.request_response),
-											"true");
-									sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-									startActivity(sure);
-								} else {
-									// Toast errorinfo =
-									// Toast.makeText(getApplicationContext(),
-									// "提交失败", Toast.LENGTH_LONG);
-									// errorinfo.show();
-									Intent sure = new Intent(
-											CommuteActivity.this,
-											OrderResponseActivity.class);
-									sure.putExtra(
-											getString(R.string.request_response),
-											"false");
-									sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-									startActivity(sure);
+									if (requestok == true) {
+										Log.e("statue", "requestok");
+										if (function_identity.carinfochoosing_type == 1) {
+											// add
+											// 向服务器发送车辆信息修改请求start!
+											carinfo(commute_phonenum, licensenum
+													.getText().toString(), carbrand
+													.getText().toString(), model
+													.getText().toString(), color
+													.getText().toString(), String
+													.valueOf(sum), 1);
+											// 向服务器发送车辆信息修改end!
+											Log.e("statue", "carinok");
+										} else {
+											// update
+											// 向服务器发送车辆信息修改请求start!
+											carinfo(commute_phonenum, licensenum
+													.getText().toString(), carbrand
+													.getText().toString(), model
+													.getText().toString(), color
+													.getText().toString(), String
+													.valueOf(sum), 2);
+											// 向服务器发送车辆信息修改end!
+										}
+
+										Intent sure = new Intent(
+												OrderActivity.this,
+												OrderResponseActivity.class);
+										sure.putExtra(
+												getString(R.string.request_response),
+												"true");
+										sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+										startActivity(sure);
+									} else {
+										// Toast errorinfo =
+										// Toast.makeText(getApplicationContext(),
+										// "提交失败", Toast.LENGTH_LONG);
+										// errorinfo.show();
+										Intent sure = new Intent(
+												OrderActivity.this,
+												OrderResponseActivity.class);
+										sure.putExtra(
+												getString(R.string.request_response),
+												"false");
+										sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+										startActivity(sure);
+									}
 								}
-							}
 						}, new Response.ErrorListener() {
 							@Override
 							public void onErrorResponse(VolleyError error) {
@@ -654,7 +766,7 @@ public class CommuteActivity extends Activity {
 								// Toast errorinfo = Toast.makeText(null,
 								// "网络连接失败", Toast.LENGTH_LONG);
 								// errorinfo.show();
-								Intent sure = new Intent(CommuteActivity.this,
+								Intent sure = new Intent(OrderActivity.this,
 										OrderResponseActivity.class);
 								sure.putExtra(
 										getString(R.string.request_response),
@@ -665,7 +777,42 @@ public class CommuteActivity extends Activity {
 						}) {
 					protected Map<String, String> getParams() {
 						// POST方法重写getParams函数
+						// 强制转换日期格式start
+						try {
+							test_date = primary_date.parse(commute_enddate);
+							standard_enddate = standard_date
+									.format(test_date);
+						} catch (ParseException e) {
 
+							e.printStackTrace();
+						}
+
+						try {
+							test_date = primary_date.parse(commute_startdate);
+							standard_startdate = standard_date
+									.format(test_date);
+						} catch (ParseException e) {
+
+							e.printStackTrace();
+						}
+
+						try {
+							test_date = primary_time.parse(commute_starttime);
+							standard_starttime = standard_time
+									.format(test_date);
+						} catch (ParseException e) {
+
+							e.printStackTrace();
+						}
+
+						try {
+							test_date = primary_time.parse(commute_endtime);
+							standard_endtime = standard_time.format(test_date);
+						} catch (ParseException e) {
+
+							e.printStackTrace();
+						}
+						// 强制转换日期格式end!
 
 						Map<String, String> params = new HashMap<String, String>();
 						params.put(getString(R.string.uri_phonenum),
@@ -683,24 +830,24 @@ public class CommuteActivity extends Activity {
 						params.put(getString(R.string.uri_destination),
 								endplace.getText().toString());
 						params.put(getString(R.string.uri_startdate),
-								standard_commute_startdate);
+								standard_startdate);
 						params.put(getString(R.string.uri_enddate),
-								standard_commute_enddate);
+								standard_enddate);
 						params.put(getString(R.string.uri_starttime),
-								standard_commute_starttime);
+								standard_starttime);
 						params.put(getString(R.string.uri_endtime),
-								standard_commute_endtime);
+								standard_endtime);
 						params.put(getString(R.string.uri_weekrepeat),
 								weekrepeat);
-						params.put(getString(R.string.uri_supplycar), supplycar);
+						params.put(getString(R.string.uri_supplycar), userrole);
 						// Log.w("phonemum", commute_phonenum);
 						// Log.w("startplacex",
 						// String.valueOf(startplace_longitude));
-						// Log.w("startdate", standard_commute_startdate);
-						// Log.w("starttime", standard_commute_starttime);
+						// Log.w("startdate", standard_startdate);
+						// Log.w("starttime", standard_starttime);
 						// Log.w("weekrepeat",weekrepeat );
-						// Log.w("supplycar",supplycar );
-						// Log.w("enddate",standard_commute_enddate );
+						// Log.w("userrole",userrole );
+						// Log.w("enddate",standard_enddate );
 
 						return params;
 					}
@@ -709,6 +856,314 @@ public class CommuteActivity extends Activity {
 				queue.add(stringRequest);
 
 			}
+			private void shortway_request(final String shortway_phonenum,
+			                              final String shortway_date,
+			                              final String shortway_starttime,
+			                              final String shortway_endtime) {
+
+
+				// 强制转换日期格式start
+				try {
+					test_date = primary_date.parse(shortway_date);
+					standard_startdate = standard_date
+							.format(test_date);
+				} catch (ParseException e) {
+
+					e.printStackTrace();
+				}
+
+				try {
+					test_date = primary_time.parse(shortway_starttime);
+					standard_starttime = standard_time
+							.format(test_date);
+				} catch (ParseException e) {
+
+					e.printStackTrace();
+				}
+
+				try {
+					test_date = primary_time.parse(shortway_endtime);
+					standard_endtime = standard_time.format(test_date);
+				} catch (ParseException e) {
+
+					e.printStackTrace();
+				}
+				// 强制转换日期格式end!
+
+				String shortway_baseurl = getString(R.string.uri_base)
+						+ getString(R.string.uri_ShortwayRequest)
+						+ getString(R.string.uri_addrequest_action);
+				// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!addrequest.action?";
+
+				Log.w("URL", shortway_baseurl);
+				StringRequest stringRequest = new StringRequest(
+						Request.Method.POST, shortway_baseurl,
+						new Response.Listener<String>() {
+
+							@Override
+							public void onResponse(String response) {
+								Log.d("shortway_result", response);
+								JSONObject json1 = null;
+								try {
+									json1 = new JSONObject(response);
+									requestok = json1.getBoolean("result");
+								} catch (JSONException e) {
+
+									e.printStackTrace();
+								}
+								if (requestok == true) {
+
+									if (function_identity.carinfochoosing_type == 1) {
+										// add
+										// 向服务器发送车辆信息修改请求start!
+										carinfo(shortway_phonenum, licensenum
+												.getText().toString(), carbrand
+												.getText().toString(), model
+												.getText().toString(), color
+												.getText().toString(), String
+												.valueOf(sum), 1);
+										// 向服务器发送车辆信息修改end!
+									} else {
+										// update
+										// 向服务器发送车辆信息修改请求start!
+										carinfo(shortway_phonenum, licensenum
+												.getText().toString(), carbrand
+												.getText().toString(), model
+												.getText().toString(), color
+												.getText().toString(), String
+												.valueOf(sum), 2);
+										// 向服务器发送车辆信息修改end!
+									}
+
+									Intent sure = new Intent(
+											OrderActivity.this,
+											OrderResponseActivity.class);
+									sure.putExtra(
+											getString(R.string.request_response),
+											"true");
+									sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									startActivity(sure);
+								} else {
+									// Toast errorinfo =
+									// Toast.makeText(getApplicationContext(),
+									// "提交失败", Toast.LENGTH_LONG);
+									// errorinfo.show();
+									Intent sure = new Intent(
+											OrderActivity.this,
+											OrderResponseActivity.class);
+									sure.putExtra(
+											getString(R.string.request_response),
+											"false");
+								}
+							}
+
+						}, new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.e("shortway_result", error.getMessage(),
+								error);
+						// Toast errorinfo = Toast.makeText(null,
+						// "网络连接失败", Toast.LENGTH_LONG);
+						// errorinfo.show();
+						Intent sure = new Intent(OrderActivity.this,
+								OrderResponseActivity.class);
+						sure.putExtra(
+								getString(R.string.request_response),
+								"false");
+						sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(sure);
+					}
+				}) {
+					protected Map<String, String> getParams() {
+						// POST方法重写getParams函数
+
+						// 强制转换日期格式start
+						try {
+							test_date = primary_date.parse(shortway_date);
+							standard_startdate = standard_date
+									.format(test_date);
+						} catch (ParseException e) {
+
+							e.printStackTrace();
+						}
+
+						try {
+							test_date = primary_time.parse(shortway_starttime);
+							standard_starttime = standard_time
+									.format(test_date);
+						} catch (ParseException e) {
+
+							e.printStackTrace();
+						}
+
+						try {
+							test_date = primary_time.parse(shortway_endtime);
+							standard_endtime = standard_time
+									.format(test_date);
+						} catch (ParseException e) {
+
+							e.printStackTrace();
+						}
+						// 强制转换日期格式end!
+
+						Map<String, String> params = new HashMap<String, String>();
+						params.put("phonenum", shortway_phonenum);
+						params.put("userrole", userrole);
+						params.put("startplacex",
+								String.valueOf(startplace_longitude));
+						params.put("startplacey",
+								String.valueOf(startplace_latitude));
+						params.put(getString(R.string.uri_startplace),
+								startplace.getText().toString());
+						params.put("destinationx",
+								String.valueOf(destination_longitude));
+						params.put("destinationy",
+								String.valueOf(destination_latitude));
+						params.put(getString(R.string.uri_destination),
+								endplace.getText().toString());
+						params.put("startdate", standard_startdate);
+						params.put("starttime", standard_starttime);
+						params.put("endtime", standard_endtime);
+
+						return params;
+					}
+				};
+
+				queue.add(stringRequest);
+			}
+			private void longway_request(final String longway_phonenum,
+			                             final String longway_userrole,
+			                             final String longway_startdate,
+			                             final String longway_startplace,
+			                             final String longway_destination,
+			                             final String longway_noteinfo) {
+
+
+				String longway_addrequest_baseurl = getString(R.string.uri_base)
+						+ getString(R.string.uri_LongwayPublish)
+						+ getString(R.string.uri_addpublish_action);
+				// + "phonenum=" + longway_phonenum
+				// + "&userrole=" + longway_userrole
+				// + "&startdate=" + standard_longway_startdate
+				// + "&startplace=" + longway_startplace
+				// + "&destination=" + longway_destination
+				// + "&noteinfo=" + longway_noteinfo;
+
+				// Log.d("longway_baseurl",longway_addrequest_baseurl);
+
+				StringRequest stringRequest = new StringRequest(
+						Request.Method.POST, longway_addrequest_baseurl,
+						new Response.Listener<String>() {
+
+							@Override
+							public void onResponse(String response) {
+								Log.d("longway_result", response);
+								JSONObject json1 = null;
+								try {
+									json1 = new JSONObject(response);
+									requestok = json1.getBoolean("result");
+								} catch (JSONException e) {
+
+									e.printStackTrace();
+								}
+								if (requestok == true) {
+
+									if (carinfochoosing_type == 1) {
+										// add
+										// 向服务器发送车辆信息修改请求start!
+										carinfo(longway_phonenum, licensenum
+												.getText().toString(), carbrand
+												.getText().toString(), model
+												.getText().toString(), color
+												.getText().toString(), String
+												.valueOf(sum), 1);
+										// 向服务器发送车辆信息修改end!
+									} else {
+										// update
+										// 向服务器发送车辆信息修改请求start!
+										carinfo(longway_phonenum, licensenum
+												.getText().toString(), carbrand
+												.getText().toString(), model
+												.getText().toString(), color
+												.getText().toString(), String
+												.valueOf(sum), 2);
+										// 向服务器发送车辆信息修改end!
+									}
+
+									Intent sure = new Intent(
+										OrderActivity.this,
+											OrderResponseActivity.class);
+									sure.putExtra(
+											getString(R.string.request_response),
+											"true");
+									sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									startActivity(sure);
+								} else {
+									// Toast errorinfo =
+									// Toast.makeText(getApplicationContext(),
+									// "提交失败", Toast.LENGTH_LONG);
+									// errorinfo.show();
+									Intent sure = new Intent(
+											OrderActivity.this,
+											OrderResponseActivity.class);
+									sure.putExtra(
+											getString(R.string.request_response),
+											"false");
+									sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									startActivity(sure);
+								}
+							}
+						}, new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.e("longway_result", error.getMessage(),
+								error);
+						// Toast errorinfo = Toast.makeText(null,
+						// "网络连接失败", Toast.LENGTH_LONG);
+						// errorinfo.show();
+						Intent sure = new Intent(OrderActivity.this,
+								OrderResponseActivity.class);
+						sure.putExtra(
+								getString(R.string.request_response),
+								"false");
+						sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(sure);
+					}
+				}) {
+					protected Map<String, String> getParams() {
+						// POST方法重写getParams函数
+
+						// 强制转换日期格式start
+						try {
+							test_date = primary_date.parse(longway_startdate);
+							standard_startdate = standard_date
+									.format(test_date);
+						} catch (ParseException e) {
+
+							e.printStackTrace();
+						}
+
+						// 强制转换日期格式end!
+
+						Map<String, String> params = new HashMap<String, String>();
+						params.put(getString(R.string.uri_phonenum),
+								longway_phonenum);
+						params.put(getString(R.string.uri_userrole),
+								longway_userrole);
+						params.put(getString(R.string.uri_startplace),
+								longway_startplace);
+						params.put(getString(R.string.uri_destination),
+								longway_destination);
+						params.put(getString(R.string.uri_startdate),
+								standard_startdate);
+						params.put(getString(R.string.uri_noteinfo),
+								longway_noteinfo);
+
+						return params;
+					}
+				};
+				queue.add(stringRequest);
+			}
 		});
 
 		startplace.setOnClickListener(new OnClickListener() {
@@ -716,7 +1171,7 @@ public class CommuteActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				
-				startActivityForResult(new Intent(CommuteActivity.this,
+				startActivityForResult(new Intent(OrderActivity.this,
 						ChooseAddressActivity.class), 1);
 			}
 		});
@@ -726,7 +1181,7 @@ public class CommuteActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				
-				startActivityForResult(new Intent(CommuteActivity.this,
+				startActivityForResult(new Intent(OrderActivity.this,
 						ChooseArrivalActivity.class), 2);
 			}
 		});
@@ -782,6 +1237,14 @@ public class CommuteActivity extends Activity {
 			public void onClick(View arg0) {
 				
 				showDialog(TIME_DIALOG);
+			}
+		});
+
+		datebutton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+
+				showDialog(DATE_DIALOG02);
 			}
 		});
 
@@ -895,6 +1358,10 @@ public class CommuteActivity extends Activity {
 		case TIME_DIALOG01:
 			return new TimePickerDialog(this, mTimeSetListener1,
 					c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
+		case DATE_DIALOG02:
+			return new DatePickerDialog(this,mDateSetListener2,c.get(Calendar.YEAR),
+					c.get(Calendar.MONTH),
+					c.get(Calendar.DAY_OF_MONTH));
 
 		}
 		return null;
@@ -933,22 +1400,39 @@ public class CommuteActivity extends Activity {
 			confirm();
 		}
 	};
-	private OnDateSetListener mDateSetListener = new OnDateSetListener() {
+	private OnDateSetListener mDateSetListener2 = new OnDateSetListener() {
 
 		@Override
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
-				int dayofMonth) {
+		                      int dayofMonth) {
 
 			DisplayToast(String.valueOf(year) + "年"
 					+ String.valueOf(monthofYear + 1) + "月"
 					+ String.valueOf(dayofMonth) + "日");
-			startdate.setText(String.valueOf(year) + "年"
+			datebutton.setText(String.valueOf(year) + "年"
 					+ String.valueOf(monthofYear + 1) + "月"
 					+ String.valueOf(dayofMonth) + "日");
-			bstartdate = true;
+			bdate = true;
 			confirm();
 		}
 	};
+
+	private OnDateSetListener mDateSetListener = new OnDateSetListener() {
+
+		@Override
+		public void onDateSet(DatePicker arg0, int year, int monthofYear,
+		                      int dayofMonth) {
+			DisplayToast(String.valueOf(year) + "年"
+					+ String.valueOf(monthofYear + 1) + "月"
+					+ String.valueOf(dayofMonth) + "日");
+			datebutton.setText(String.valueOf(year) + "年"
+					+ String.valueOf(monthofYear + 1) + "月"
+					+ String.valueOf(dayofMonth) + "日");
+			bdate = true;
+			confirm();
+		}
+	};
+
 	private OnDateSetListener mDateSetListener1 = new OnDateSetListener() {
 
 		@Override
@@ -1083,15 +1567,36 @@ public class CommuteActivity extends Activity {
 	};
 
 	public void confirm() {
-		if (bstart
-				&& bend
-				&& (bmon || btue || bwed || bthu || bfri || bsat || bsun)
-				&& ((mbdriver && blicensenum && bcolor && bcarbrand) ||mbpassenager)
-				&& bstartdate && benddate && bearlystarttime && blatestarttime
-				&& (sum > 0)) {
-			sure.setEnabled(true);
-		} else {
-			sure.setEnabled(false);
+		mbdriver = function_identity.bdriver;
+		mbpassenager = function_identity.bpassenager;
+		if(cstype.compareTo("reworkcs")==0||cstype.compareTo("workcs")==0){
+			if (bstart
+					&& bend
+					&& (bmon || btue || bwed || bthu || bfri || bsat || bsun)
+					&& ((mbdriver && blicensenum && bcolor && bcarbrand) ||mbpassenager)
+					&& bstartdate && benddate && bearlystarttime && blatestarttime
+					&& (sum > 0)) {
+				sure.setEnabled(true);
+			} else {
+				sure.setEnabled(false);
+			}
+		}else if(cstype.compareTo("relongcs")==0||cstype.compareTo("longcs")==0){
+			if (bstart && bend
+					&& ((mbdriver && blicensenum && bcolor && bcarbrand) || (mbpassenager))
+					&& bdate && (sum > 0)) {
+				sure.setEnabled(true);
+			} else {
+				sure.setEnabled(false);
+			}
+		}else if(cstype.compareTo("reshortcs")==0||cstype.compareTo("shortcs")==0){
+			if (bstart
+					&& bend
+					&& ((mbdriver && blicensenum && bcolor && bcarbrand) || mbpassenager)
+					&& bearlystarttime && blatestarttime && bdate && (sum > 0)) {
+				sure.setEnabled(true);
+			} else {
+				sure.setEnabled(false);
+			}
 		}
 	}
 
@@ -1122,7 +1627,7 @@ public class CommuteActivity extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			Intent returnp = new Intent(CommuteActivity.this,
+			Intent returnp = new Intent(OrderActivity.this,
 					PersonalCenterActivity.class);
 			returnp.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(returnp);

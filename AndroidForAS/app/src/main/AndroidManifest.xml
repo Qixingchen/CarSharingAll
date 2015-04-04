@@ -127,25 +127,11 @@
 
         </activity>
         <activity
-            android:name=".ShortWayActivity"
-            android:label="@string/title_activity_short_way"
-            android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
-        <activity
-            android:name=".CommuteActivity"
+            android:name=".OrderActivity"
             android:label="@string/title_activity_commute"
             android:theme="@style/StyleForActionbarActivity"
             android:windowSoftInputMode="adjustPan">
 
-
-        </activity>
-        <activity
-            android:name=".LongWayActivity"
-            android:label="@string/title_activity_long_way_main"
-            android:theme="@style/StyleForActionbarActivity"
-            android:windowSoftInputMode="adjustPan">
 
         </activity>
         <activity
@@ -191,7 +177,7 @@
 
         </activity>
         <activity
-            android:name="longwaylist_fragmenttabhost.MainActivity"
+            android:name="longwaylist_fragmenttabhost.LongWayListActivity"
             android:label="@string/title_activity_longway_list"
             android:theme="@style/StyleForActionbarActivity">
 
@@ -224,14 +210,6 @@
             android:theme="@style/StyleForActionbarActivity">
 
 
-        </activity>
-        <activity
-            android:name=".ReOrderShortwayActivity"
-            android:label="@string/title_activity_re_order_shortway">
-        </activity>
-        <activity
-            android:name=".ReOrderCommuteActivity"
-            android:label="@string/title_activity_re_order_commute">
         </activity>
         <activity
             android:name=".LongWayArrangementDetail"

@@ -14,14 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xmu.carsharing.AboutActivity;
-import com.xmu.carsharing.CommuteActivity;
-import com.xmu.carsharing.LongWayActivity;
+import com.xmu.carsharing.OrderActivity;
 import com.xmu.carsharing.PersonalCenterActivity;
 import com.xmu.carsharing.R;
 import com.xmu.carsharing.SettingActivity;
-import com.xmu.carsharing.ShortWayActivity;
 
 import java.io.File;
+
+import longwaylist_fragmenttabhost.LongWayListActivity;
 
 
 /*
@@ -151,8 +151,9 @@ public class Drawer {
 				}
 
 				mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
-				Intent shortway = new Intent(activity, ShortWayActivity.class);
+				Intent shortway = new Intent(activity,OrderActivity.class);
 				shortway.putExtra("pre_page", pageNmae);
+				shortway.putExtra("cstype", "shortcs");
 				activity.startActivity(shortway);
 			}
 		});
@@ -168,8 +169,9 @@ public class Drawer {
 				}
 
 				mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
-				Intent longway = new Intent(activity, LongWayActivity.class);
+				Intent longway = new Intent(activity, LongWayListActivity.class);
 				longway.putExtra("pre_page", pageNmae);
+				longway.putExtra("cstype", "longcs");
 				activity.startActivity(longway);
 			}
 		});
@@ -185,8 +187,9 @@ public class Drawer {
 				}
 
 				mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
-				Intent commute = new Intent(activity, CommuteActivity.class);
+				Intent commute = new Intent(activity, OrderActivity.class);
 				commute.putExtra("pre_page", pageNmae);
+				commute.putExtra("cstype", "workcs");
 				activity.startActivity(commute);
 			}
 		});

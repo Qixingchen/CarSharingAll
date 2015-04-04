@@ -1,5 +1,5 @@
-/*����������棬��listitem�����ֵ���ɵĽ���
- * ����ʾ�Ķ����ڽ���ý���ʱ����һ���������ˢ��״̬
+/*??????????棬??listitem??????????????
+ * ???????????????????????????????????????
  */
 
 package com.example.carsharing;
@@ -78,51 +78,51 @@ public class ArrangementDetailActivity extends Activity {
 
 		final String role;
 
-		// actionbar����!!
-		// ��������!!
+		// actionbar????!!
+		// ????????!!
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		// actionbarEND!!
 
-		// ���ڡ�ʱ���׼��ʽ
+		// ?????????????
 		standard_date = new SimpleDateFormat("yyyy-MM-dd",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_date = new SimpleDateFormat("yyyy��MM��dd��",
+		primary_date = new SimpleDateFormat("yyyy??MM??dd??",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_date1 = new SimpleDateFormat("yyyy��M��d��",
+		primary_date1 = new SimpleDateFormat("yyyy??M??d??",
 				Locale.SIMPLIFIED_CHINESE);
 		standard_time = new SimpleDateFormat("HH:mm:ss",
 				Locale.SIMPLIFIED_CHINESE);
-		primary_time = new SimpleDateFormat("HHʱmm��ss��",
+		primary_time = new SimpleDateFormat("HH?mm??ss??",
 				Locale.SIMPLIFIED_CHINESE);
 
 		Bundle bundle = this.getIntent().getExtras();
-		出发地.setText(bundle.getString("起始地_名")); // ���
-		目的地.setText(bundle.getString("目的地_名")); // �յ�
-		出发时间.setText(bundle.getString("出发日期总信息")); // ��ʼʱ��
-		备注.setText(bundle.getString("备注")); // ��Ҫ��λ
+		出发地.setText(bundle.getString("起始地_名")); // ???
+		目的地.setText(bundle.getString("目的地_名")); // ???
+		出发时间.setText(bundle.getString("出发日期总信息")); // ??????
+		备注.setText(bundle.getString("备注")); // ?????λ
 		role = bundle.getString("userrole");
 		mdealstatus = bundle.getString("dealstatus");
 		if ((role.compareTo("p") == 0)
-				|| (bundle.getString("userrole").compareTo("n") == 0)) {// ���
-			userrole.setText("�˿�");
+				|| (bundle.getString("userrole").compareTo("n") == 0)) {// ???
+			userrole.setText("???");
 		} else {
-			userrole.setText("˾��");
+			userrole.setText("???");
 		}
-		if (mdealstatus.compareTo("0") == 0) {// ����״̬
-			dealstatus.setText("���������ھ���Ϊ��ƥ�䣬���Եȣ�");
+		if (mdealstatus.compareTo("0") == 0) {// ??????
+			dealstatus.setText("?????????????????????????");
 		} else if (mdealstatus.compareTo("1") == 0) {
-			dealstatus.setText("������ƥ�䣬����գ�");
+			dealstatus.setText("???????????????");
 		} else if (mdealstatus.compareTo("2") == 0) {
-			dealstatus.setText("��;ƴ��");
+			dealstatus.setText("??????");
 		}
 
 		final String stp[] = bundle.getString("起始地_名").split(",");
 		final String 目的地[] = bundle.getString("目的地_名").split(",");
-		起始地_X坐标 = bundle.getFloat("起始地_X坐标"); // ��㾭��
-		起始地_Y坐标 = bundle.getFloat("起始地_Y坐标"); // ���γ��
-		目的地_X坐标 = bundle.getFloat("目的地_X坐标"); // �յ㾭��
-		目的地_Y坐标 = bundle.getFloat("目的地_Y坐标"); // �յ�γ��
+		起始地_X坐标 = bundle.getFloat("起始地_X坐标"); // ?????
+		起始地_Y坐标 = bundle.getFloat("起始地_Y坐标"); // ???γ??
+		目的地_X坐标 = bundle.getFloat("目的地_X坐标"); // ?????
+		目的地_Y坐标 = bundle.getFloat("目的地_Y坐标"); // ???γ??
 		startDate = bundle.getString("startdate");
 		endDate = bundle.getString("enddate");
 		startTime = bundle.getString("starttime");
@@ -131,7 +131,7 @@ public class ArrangementDetailActivity extends Activity {
 		carsharing_type = bundle.getString("carsharing_type");
 		requesttime = bundle.getString("requesttime");
 
-		// actionbar�з��ؼ�����
+		// actionbar?з????????
 
 		fanhui.setOnClickListener(new OnClickListener() {
 
@@ -144,16 +144,16 @@ public class ArrangementDetailActivity extends Activity {
 		// end
 
 		// if (carsharing_type.compareTo("shortway") == 0) {
-		// // ��ѯ��;����״̬start!
+		// // ????????????start!
 		// shortway_updatestatus(UserPhoneNumber, requesttime);
-		// // ��ѯ��;����״̬end!
+		// // ????????????end!
 		// } else {
-		// // ��ѯ��;����״̬start!
+		// // ????????????start!
 		// commute_updatestatus(UserPhoneNumber, requesttime);
-		// // ��ѯ��;����״̬end!
+		// // ????????????end!
 		// }
 
-		// reorder��ť�ļ���
+		// reorder????????
 		reorder.setOnClickListener(new OnClickListener() {
 
 			@Override

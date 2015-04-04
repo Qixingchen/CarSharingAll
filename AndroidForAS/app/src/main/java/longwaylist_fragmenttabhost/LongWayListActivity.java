@@ -13,12 +13,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.xmu.carsharing.AboutActivity;
-import com.xmu.carsharing.CommuteActivity;
-import com.xmu.carsharing.LongWayActivity;
+import com.xmu.carsharing.OrderActivity;
 import com.xmu.carsharing.PersonalCenterActivity;
 import com.xmu.carsharing.R;
 import com.xmu.carsharing.SettingActivity;
-import com.xmu.carsharing.ShortWayActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +38,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabContentFactory;
@@ -49,7 +46,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity {
+public class LongWayListActivity extends FragmentActivity {
 	public static final String PAGE1_ID = "page1";
 	public static final String PAGE2_ID = "page2";
 
@@ -113,7 +110,7 @@ public class MainActivity extends FragmentActivity {
 		TabContentFactory factory = new TabContentFactory() {
 			@Override
 			public View createTabContent(String tag) {
-				return new View(MainActivity.this);
+				return new View(LongWayListActivity.this);
 			}
 		};
 
@@ -238,7 +235,7 @@ public class MainActivity extends FragmentActivity {
 				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent shortway = new Intent(getApplicationContext(),
-						ShortWayActivity.class);
+						OrderActivity.class);
 				shortway.putExtra("pre_page", "Drawer");
 				startActivity(shortway);
 			}
@@ -251,7 +248,7 @@ public class MainActivity extends FragmentActivity {
 				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent longway = new Intent(getApplicationContext(),
-						MainActivity.class);
+						LongWayListActivity.class);
 				startActivity(longway);
 			}
 		});
@@ -263,7 +260,7 @@ public class MainActivity extends FragmentActivity {
 				
 				mDrawerLayout.closeDrawer(findViewById(R.id.left_drawer));
 				Intent commute = new Intent(getApplicationContext(),
-						CommuteActivity.class);
+						OrderActivity.class);
 				commute.putExtra("pre_page", "Drawer");
 				startActivity(commute);
 			}
@@ -439,8 +436,8 @@ public class MainActivity extends FragmentActivity {
 		switch (item.getItemId()) {
 
 		case R.id.LongwayListAdd: {
-			Intent newlongway = new Intent(MainActivity.this,
-					LongWayActivity.class);
+			Intent newlongway = new Intent(LongWayListActivity.this,
+					OrderActivity.class);
 			newlongway.putExtra("pre_page", "Main");
 			startActivity(newlongway);
 		}
@@ -478,14 +475,14 @@ public class MainActivity extends FragmentActivity {
 		longway.setBackgroundDrawable(getResources().getDrawable(
 				R.color.blue_0099cc));
 		// Get the Camera instance as the activity achieves full user focus
-		Context phonenumber = MainActivity.this;
+		Context phonenumber = LongWayListActivity.this;
 		SharedPreferences filename = phonenumber
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
 						Context.MODE_PRIVATE);
 		UserPhoneNumber = filename.getString("refreshfilename", "0");
 		drawernum.setText(UserPhoneNumber);
-		Context context = MainActivity.this;
+		Context context = LongWayListActivity.this;
 		SharedPreferences sharedPref = context.getSharedPreferences(
 				UserPhoneNumber, Context.MODE_PRIVATE);
 		String fullname = sharedPref.getString("refreshname", "姓名");

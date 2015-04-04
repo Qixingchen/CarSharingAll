@@ -24,9 +24,9 @@ public class AppStat {
 	//抽屉跳转的类名
 	public static class 抽屉跳转的类名 {
 		public static final String 个人中心 = "PersonalCenterActivity";
-		public static final String 上下班 = "CommuteActivity";
-		public static final String 短途 = "ShortWayActivity";
-		public static final String 长途 = "LongWayActivity";
+		public static final String 上下班 = "OrderActivity";
+		public static final String 短途 = "OrderActivity";
+		public static final String 长途 = "OrderActivity";
 		public static final String 出租车 = "";
 		public static final String 设置 = "SettingActivity";
 		public static final String 关于 = "AboutActivity";

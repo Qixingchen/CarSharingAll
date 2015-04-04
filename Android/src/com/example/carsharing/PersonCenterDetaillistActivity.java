@@ -1,9 +1,9 @@
 /*
- * �����ࡱ
- * Ϊ������������������鿴������
- * 1.intentcall=1  ����ÿһ��item���������itemʱ������ʷ��������������Ͷ�������������ʱ���ȡ���嶩����Ϣ����ֵ�������������
+ * ??????
+ * ??????????????????????????
+ * 1.intentcall=1  ????????item?????????item????????????????????????????????????????????嶩???????????????????????
  * 2.intentcall=2
- * 3.intentcall=3 ������������ʾ�ڱ����Ѵ洢���ղصĵ�ַ
+ * 3.intentcall=3 ????????????????????洢????????
  */
 
 package com.example.carsharing;
@@ -79,28 +79,28 @@ public class PersonCenterDetaillistActivity extends Activity {
 
 		int intentcall = bundle.getInt("intent");
 
-		// actionbar����!!
+		// actionbar????!!
 
-		// ��������!!
+		// ????????!!
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		// actionbarEND!!
 
-		// ��XML�е�ListView����ΪItem������
+		// ??XML?е?ListView?????Item??????
 		ListView list = (ListView) findViewById(R.id.WacthAllMessSent);
-		// ���ɶ�̬���飬����ת������
+		// ?????????飬???????????
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 		ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
 
 		if (1 == intentcall) {
 
 			MyAdapter sAdapter_messSent = new MyAdapter(this,
-					PersonalCenterActivity.mylist1, 1); // ������Դ
-			// ��Ӳ�����ʾ
+					PersonalCenterActivity.mylist1, 1); // ???????
+			// ?????????
 			list.setAdapter(sAdapter_messSent);
 
-			// Item������תstart!
+			// Item???????start!
 			list.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -112,7 +112,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					shortway_selectrequest(UserPhoneNumber, requesttime);
 				}
 			});
-			// Item������תend!
+			// Item???????end!
 
 		}
 
@@ -121,9 +121,9 @@ public class PersonCenterDetaillistActivity extends Activity {
 			// Bundle dealbundle = this.getIntent().getExtras();
 			// deal_readstatus = dealbundle.getString("deal_readstatus");
 
-			// ����������������===��ListItem
+			// ????????????????===??ListItem
 			// MyAdapter sAdapter_messSent = new MyAdapter(this,
-			// PersonalCenterActivity.mylist2, 2); // ������Դ
+			// PersonalCenterActivity.mylist2, 2); // ???????
 			SimpleAdapter sAdapter_messSent = new SimpleAdapter(this,
 					PersonalCenterActivity.mylist2,
 					R.layout.dealstatus_listitem, new String[] { "Title",
@@ -132,10 +132,10 @@ public class PersonCenterDetaillistActivity extends Activity {
 							R.id.dealkind, R.id.dealid, R.id.dealstatus,
 							R.id.list_dealstatus });
 
-			// ��Ӳ�����ʾ
+			// ?????????
 			list.setAdapter(sAdapter_messSent);
 
-			// ����item
+			// ????item
 			list.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
@@ -174,11 +174,11 @@ public class PersonCenterDetaillistActivity extends Activity {
 		if (3 == intentcall) {
 
 			MyAdapter sAdapter_messSent = new MyAdapter(this,
-					PersonalCenterActivity.mylist3, 3); // ������Դ
-			// ��Ӳ�����ʾ
+					PersonalCenterActivity.mylist3, 3); // ???????
+			// ?????????
 			list.setAdapter(sAdapter_messSent);
 
-			// ����������������===��ListItem
+			// ????????????????===??ListItem
 
 		}
 
@@ -282,7 +282,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("shortway_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "��������ʧ��",
+						// Toast errorinfo = Toast.makeText(null, "???????????",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -345,7 +345,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 									bundle.putString(
 											"出发日期总信息",
 											jasitem.getString("startDate")
-													+ "��"
+													+ "??"
 													+ jasitem
 															.getString("endDate")
 													+ "  "
@@ -355,7 +355,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 													+ jasitem
 															.getString("endTime")
 													+ "  "
-													+ "ÿ��:"
+													+ "???:"
 													+ jasitem
 															.getString("weekRepeat"));
 									bundle.putString("startdate",
@@ -396,7 +396,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("commute_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "��������ʧ��",
+						// Toast errorinfo = Toast.makeText(null, "???????????",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -452,7 +452,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 							}
 							if (i == jasA.length()) {
 								Toast.makeText(getApplicationContext(),
-										"�ö����Ѳ�����", Toast.LENGTH_SHORT).show();
+										"????????????", Toast.LENGTH_SHORT).show();
 							} else {
 								Intent intent = new Intent(
 										PersonCenterDetaillistActivity.this,
@@ -471,7 +471,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 					public void onErrorResponse(VolleyError error) {
 						Log.e("commute_selectresult_result",
 								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "��������ʧ��",
+						// Toast errorinfo = Toast.makeText(null, "???????????",
 						// Toast.LENGTH_LONG);
 						// errorinfo.show();
 					}
@@ -491,7 +491,7 @@ public class PersonCenterDetaillistActivity extends Activity {
 	// data) {
 	// if(requestCode==1){
 	// switch(resultCode){
-	// case 1 :{//���ܻ�ܾ�
+	// case 1 :{//???????
 	// Log.e("aaa","a");
 	// statusImage.setImageResource(R.drawable.ic_dealread);
 	// break;

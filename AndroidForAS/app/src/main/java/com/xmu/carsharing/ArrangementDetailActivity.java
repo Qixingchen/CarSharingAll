@@ -137,7 +137,8 @@ public class ArrangementDetailActivity extends Activity {
 				if (carsharing_type.compareTo("shortway") == 0) {
 					Intent shortway = new Intent(
 							ArrangementDetailActivity.this,
-							ShortWayActivity.class);
+							OrderActivity.class);
+					shortway.putExtra("cstype", "reshortcs");
 					shortway.putExtra("stpusername", stp[0]);
 					shortway.putExtra("stpmapname", stp[1]);
 					shortway.putExtra("epusername", ep[0]);
@@ -172,7 +173,8 @@ public class ArrangementDetailActivity extends Activity {
 					startActivity(shortway);
 				} else if (carsharing_type.compareTo("commute") == 0) {
 					Intent commute = new Intent(ArrangementDetailActivity.this,
-							CommuteActivity.class);
+							OrderActivity.class);
+					commute.putExtra("cstype", "reworkcs");
 					commute.putExtra("stpusername", stp[0]);
 					commute.putExtra("stpmapname", stp[1]);
 					commute.putExtra("epusername", ep[0]);
@@ -216,7 +218,8 @@ public class ArrangementDetailActivity extends Activity {
 					startActivity(commute);
 				} else if (carsharing_type.compareTo("longway") == 0) {
 					Intent longway = new Intent(ArrangementDetailActivity.this,
-							LongWayActivity.class);
+							OrderActivity.class);
+					longway.putExtra("cstype", "relongcs");
 					longway.putExtra("stpmapname", stp[0]);
 					longway.putExtra("epmapname", ep[0]);
 					longway.putExtra("stpx", SPX);
