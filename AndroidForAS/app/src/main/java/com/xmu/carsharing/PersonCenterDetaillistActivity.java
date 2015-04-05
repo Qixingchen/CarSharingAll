@@ -154,7 +154,7 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 		list.setClickable(true);
 		if (AppStat.个人中心_详情几面跳转代号.发布的消息 == intentcall) {
 
-			final MyAdapter sAdapter_messSent = new MyAdapter(this,
+			final DeleteAdapter sAdapter_messSent = new DeleteAdapter(this,
 					PersonalCenterActivity.mylist1, 1); // 数据来源
 			// 添加并且显示
 			list.setAdapter(sAdapter_messSent);
@@ -185,7 +185,7 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 			// deal_readstatus = dealbundle.getString("deal_readstatus");
 
 			// 生成适配器，数组===》ListItem
-			// MyAdapter sAdapter_messSent = new MyAdapter(this,
+			// DeleteAdapter sAdapter_messSent = new DeleteAdapter(this,
 			// PersonalCenterActivity.mylist2, 2); // 数据来源
 			SimpleAdapter sAdapter_messSent = new SimpleAdapter(this,
 					PersonalCenterActivity.mylist2,
@@ -224,7 +224,7 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 
 		if (AppStat.个人中心_详情几面跳转代号.收藏的地点 == intentcall) {
 
-			MyAdapter sAdapter_messSent = new MyAdapter(this,
+			DeleteAdapter sAdapter_messSent = new DeleteAdapter(this,
 					PersonalCenterActivity.mylist3, 3); // 数据来源
 			// 添加并且显示
 			list.setAdapter(sAdapter_messSent);

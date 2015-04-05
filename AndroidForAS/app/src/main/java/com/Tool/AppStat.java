@@ -32,6 +32,17 @@ public class AppStat {
 		public static final String 关于 = "AboutActivity";
 	}
 
+	//材料抽屉按钮序号
+	public static class 材料抽屉按钮序号 {
+		public static final int 个人中心 = 0;
+		public static final int 上下班拼车 = 1;
+		public static final int 短途拼车 = 2;
+		public static final int 长途拼车列表 = 3;
+		public static final int 出租车拼车 = 4;
+		public static final int 设置 = 5;
+		public static final int 关于 = 6;
+	}
+
 	//时间格式化器
 	public static class 时间格式化 {
 		private static Locale locale = Locale.SIMPLIFIED_CHINESE;

@@ -35,7 +35,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-public class MyAdapter extends BaseAdapter {
+public class DeleteAdapter extends BaseAdapter {
 
 	private ArrayList<HashMap<String, String>> data;
 	private LayoutInflater layoutInflater;
@@ -55,19 +55,20 @@ public class MyAdapter extends BaseAdapter {
 
 	// database end
 
-	public MyAdapter(Context context, ArrayList<HashMap<String, String>> data,
-			int intentcall) {
+	public DeleteAdapter(Context context, ArrayList<HashMap<String, String>> data,
+	                     int intentcall) {
 		this.context = context;
 		this.data = data;
 		this.layoutInflater = LayoutInflater.from(context);
 		this.intentcall = intentcall;
 	}
 
-	public MyAdapter(Context context, ArrayList<HashMap<String, String>> data) {
+	public DeleteAdapter(Context context, ArrayList<HashMap<String, String>> data) {
 		this.context = context;
 		this.data = data;
 		this.layoutInflater = LayoutInflater.from(context);
 	}
+
 
 	@Override
 	public int getCount() {

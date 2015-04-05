@@ -55,6 +55,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class PersonalCenterActivity extends Activity implements OrderReleasing.GetordersCallBack {
 
 	TextView firsthistory;
@@ -776,4 +777,5 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	                              String date_time[],String carsharing_type,
 	                              String dealstatus,String userrole,String weekrepeat,
 	                              String tst,String rest_seats){}
+
 }
