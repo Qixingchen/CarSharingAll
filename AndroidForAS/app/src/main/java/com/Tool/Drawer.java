@@ -145,7 +145,7 @@ public class Drawer {
 			@Override
 			public void onClick(View arg0) {
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.短途) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.短途) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
@@ -163,7 +163,7 @@ public class Drawer {
 			@Override
 			public void onClick(View arg0) {
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.长途) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.长途) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
@@ -181,7 +181,7 @@ public class Drawer {
 			@Override
 			public void onClick(View arg0) {
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.上下班) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.上下班) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
@@ -198,7 +198,7 @@ public class Drawer {
 
 			@Override
 			public void onClick(View arg0) {
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.关于) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.关于) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
@@ -214,7 +214,7 @@ public class Drawer {
 			@Override
 			public void onClick(View arg0) {
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.设置) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.设置) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
@@ -231,7 +231,7 @@ public class Drawer {
 			public void onClick(View arg0) {
 				//TODO 出租车部分未完成，直接关闭抽屉
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.出租车) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.出租车) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
@@ -245,7 +245,7 @@ public class Drawer {
 			@Override
 			public void onClick(View arg0) {
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.个人中心) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.个人中心) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}

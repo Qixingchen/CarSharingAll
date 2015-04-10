@@ -56,7 +56,7 @@ public class BaiduLocation {
 		Log.w(logtag,"获取精确地址中");
 		mLocationClient.unRegisterLocationListener(getcityLocation);
 		mLocationClient.registerLocationListener(getHignLocation);    //注册监听函数
-		mLocationClient.setLocOption(setoption(AppStat.百度定位设置选项.精确定位));
+		mLocationClient.setLocOption(setoption(AppStat.baidu定位设置选项.精确定位));
 		getHignLocationCallBack = gethlcb;
 		mLocationClient.start();
 
@@ -69,7 +69,7 @@ public class BaiduLocation {
 		Log.w(logtag,"获取用户城市中");
 		mLocationClient.unRegisterLocationListener(getHignLocation);
 		mLocationClient.registerLocationListener(getcityLocation);    //注册监听函数
-		LocationClientOption options = setoption(AppStat.百度定位设置选项.定位城市);
+		LocationClientOption options = setoption(AppStat.baidu定位设置选项.定位城市);
 		mLocationClient.setLocOption(options);
 		getCityCallBack = getccb;
 		mLocationClient.start();
@@ -124,7 +124,7 @@ public class BaiduLocation {
 		options.setProdName("厦大拼车");
 		options.setNeedDeviceDirect(false);//返回的定位结果包含手机机头的方向
 
-		if (whatToLocation == AppStat.百度定位设置选项.定位城市) {
+		if (whatToLocation == AppStat.baidu定位设置选项.定位城市) {
 			options.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);// 设置定位模式
 		} else {
 			options.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式

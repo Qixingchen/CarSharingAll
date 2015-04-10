@@ -154,14 +154,14 @@ public class ArrangementDetailActivity extends Activity {
 					shortway.putExtra("userrole", role);
 					shortway.putExtra("pre_page", "ReOrder");
 					try {
-						test_date = AppStat.时间格式化.yyyy_MM_dd.parse(startDate);
-						primary_short_startdate = AppStat.时间格式化.yyyy年M月d日
+						test_date = AppStat.time格式化.yyyy_MM_dd.parse(startDate);
+						primary_short_startdate = AppStat.time格式化.yyyy年M月d日
 								.format(test_date);
-						test_date = AppStat.时间格式化.HH_mm_ss.parse(startTime);
-						primary_short_starttime = AppStat.时间格式化.HH时mm分ss秒
+						test_date = AppStat.time格式化.HH_mm_ss.parse(startTime);
+						primary_short_starttime = AppStat.time格式化.HH时mm分ss秒
 								.format(test_date);
-						test_date = AppStat.时间格式化.HH_mm_ss.parse(endTime);
-						primary_short_endtime = AppStat.时间格式化.HH时mm分ss秒.format(test_date);
+						test_date = AppStat.time格式化.HH_mm_ss.parse(endTime);
+						primary_short_endtime = AppStat.time格式化.HH时mm分ss秒.format(test_date);
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
@@ -188,17 +188,17 @@ public class ArrangementDetailActivity extends Activity {
 					commute.putExtra("epy", DSY);
 					Log.e("DSY", String.valueOf(DSY));
 					try {
-						test_date = AppStat.时间格式化.yyyy_MM_dd.parse(startDate);
-						primary_commute_startdate = AppStat.时间格式化.yyyy年M月d日
+						test_date = AppStat.time格式化.yyyy_MM_dd.parse(startDate);
+						primary_commute_startdate = AppStat.time格式化.yyyy年M月d日
 								.format(test_date);
-						test_date = AppStat.时间格式化.yyyy_MM_dd.parse(endDate);
-						primary_commute_enddate = AppStat.时间格式化.yyyy年M月d日
+						test_date = AppStat.time格式化.yyyy_MM_dd.parse(endDate);
+						primary_commute_enddate = AppStat.time格式化.yyyy年M月d日
 								.format(test_date);
-						test_date = AppStat.时间格式化.HH_mm_ss.parse(startTime);
-						primary_commute_starttime = AppStat.时间格式化.HH时mm分ss秒
+						test_date = AppStat.time格式化.HH_mm_ss.parse(startTime);
+						primary_commute_starttime = AppStat.time格式化.HH时mm分ss秒
 								.format(test_date);
-						test_date = AppStat.时间格式化.HH_mm_ss.parse(endTime);
-						primary_commute_endtime = AppStat.时间格式化.HH时mm分ss秒
+						test_date = AppStat.time格式化.HH_mm_ss.parse(endTime);
+						primary_commute_endtime = AppStat.time格式化.HH时mm分ss秒
 								.format(test_date);
 					} catch (ParseException e) {
 						
@@ -231,8 +231,8 @@ public class ArrangementDetailActivity extends Activity {
 					longway.putExtra("epy", DSY);
 					Log.e("DSY", String.valueOf(DSY));
 					try {
-						test_date = AppStat.时间格式化.yyyy_MM_dd.parse(startDate);
-						primary_longway_startdate = AppStat.时间格式化.yyyy年M月d日
+						test_date = AppStat.time格式化.yyyy_MM_dd.parse(startDate);
+						primary_longway_startdate = AppStat.time格式化.yyyy年M月d日
 								.format(test_date);
 					} catch (ParseException e) {
 						

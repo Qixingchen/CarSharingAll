@@ -39,9 +39,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.Tool.AppStat;
 import com.Tool.DataBaseAct;
 import com.Tool.Drawer;
 import com.Tool.IdentityBtn;
+import com.Tool.ServerSubmit;
 import com.Tool.ToolWithActivityIn;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -53,11 +55,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class OrderActivity extends Activity {
@@ -68,8 +67,7 @@ public class OrderActivity extends Activity {
 	static final int DATE_DIALOG01 = 3;
 	static final int DATE_DIALOG02 = 4;
 	private RequestQueue queue;
-	private String username;
-	public static String commute_result;
+	private String userPhoneNum;
 
 	private ImageView exchange;
 	private static boolean requestok, carinfook;
@@ -145,86 +143,91 @@ public class OrderActivity extends Activity {
 
 	// actionbarend!!
 
-	SimpleDateFormat standard_date, standard_time, primary_date, primary_time;
-	Date test_date, now = new Date();
+	//todo 迁移中
+//	SimpleDateFormat standard_date, standard_time, primary_date, primary_time;
+//	Date test_date, now = new Date();
 	String standard_startdate = null,
 			standard_starttime = null,
 			standard_endtime = null;
 
 	//tool类
 	ToolWithActivityIn toolWithActivityIn;
+	ServerSubmit serverSubmit;
 
+	//todo 迁移中
 	// carnum,phonenum,carbrand,carmodel,carcolor,capacity
-	public void carinfo(final String phonenum, final String carnum,
-			final String carbrand, final String carmodel,
-			final String carcolor, final String car_capacity, int type) {
-		
+//	public void carinfo(final String phonenum, final String carnum,
+//			final String carbrand, final String carmodel,
+//			final String carcolor, final String car_capacity, int type) {
+//
+//
+//		String carinfotype;
+//		if (type == 1) {
+//			carinfotype = getString(R.string.uri_addcarinfo_action);
+//		} else {
+//			carinfotype = getString(R.string.uri_updatecarinfo_action);
+//		}
+//
+//		String carinfo_baseurl = getString(R.string.uri_base)
+//				+ getString(R.string.uri_CarInfo) + carinfotype;
+//		// + "carnum=" + carnum + "&phonenum="
+//		// + phonenum + "&carbrand=" + carbrand + "&carmodel=" + carmodel
+//		// + "&carcolor=" + carcolor +"&capacity=" + car_capacity;
+//
+//		// "http://192.168.1.111:8080/CarsharingServer/CarInfo!changeinfo.action?";
+//
+//		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// 中文编码
+//
+//		Log.d("carinfo_URL", carinfo_baseurl);
+//		// Instantiate the RequestQueue.
+//		// Request a string response from the provided URL.
+//		StringRequest stringRequest = new StringRequest(Request.Method.POST,
+//				carinfo_baseurl, new Response.Listener<String>() {
+//
+//					@Override
+//					public void onResponse(String response) {
+//						Log.d("carinfo_result", response);
+//						JSONObject json1 = null;
+//						try {
+//							json1 = new JSONObject(response);
+//							carinfook = json1.getBoolean("result");
+//						} catch (JSONException e) {
+//
+//							e.printStackTrace();
+//						}
+//						if (carinfook == false) {
+//							Toast errorinfo = Toast.makeText(
+//									getApplicationContext(), "车辆信息修改失败",
+//									Toast.LENGTH_LONG);
+//							errorinfo.show();
+//						}
+//
+//					}
+//				}, new Response.ErrorListener() {
+//					@Override
+//					public void onErrorResponse(VolleyError error) {
+//						Log.e("carinfo_result", error.getMessage(), error);
+//						// Toast errorinfo = Toast.makeText(null,
+//						// "网络连接失败", Toast.LENGTH_LONG);
+//						// errorinfo.show();
+//					}
+//				}) {
+//			protected Map<String, String> getParams() {
+//				Map<String, String> params = new HashMap<String, String>();
+//				params.put("carnum", carnum);
+//				params.put("phonenum", phonenum);
+//				params.put("carbrand", carbrand);
+//				params.put("carmodel", carmodel);
+//				params.put("carcolor", carcolor);
+//				params.put("capacity", car_capacity);
+//				return params;
+//			}
+//		};
+//
+//		queue.add(stringRequest);
+//	}
+//
 
-		String carinfotype;
-		if (type == 1) {
-			carinfotype = getString(R.string.uri_addcarinfo_action);
-		} else {
-			carinfotype = getString(R.string.uri_updatecarinfo_action);
-		}
-
-		String carinfo_baseurl = getString(R.string.uri_base)
-				+ getString(R.string.uri_CarInfo) + carinfotype;
-		// + "carnum=" + carnum + "&phonenum="
-		// + phonenum + "&carbrand=" + carbrand + "&carmodel=" + carmodel
-		// + "&carcolor=" + carcolor +"&capacity=" + car_capacity;
-
-		// "http://192.168.1.111:8080/CarsharingServer/CarInfo!changeinfo.action?";
-
-		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// 中文编码
-
-		Log.d("carinfo_URL", carinfo_baseurl);
-		// Instantiate the RequestQueue.
-		// Request a string response from the provided URL.
-		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				carinfo_baseurl, new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.d("carinfo_result", response);
-						JSONObject json1 = null;
-						try {
-							json1 = new JSONObject(response);
-							carinfook = json1.getBoolean("result");
-						} catch (JSONException e) {
-							
-							e.printStackTrace();
-						}
-						if (carinfook == false) {
-							Toast errorinfo = Toast.makeText(
-									getApplicationContext(), "车辆信息修改失败",
-									Toast.LENGTH_LONG);
-							errorinfo.show();
-						}
-
-					}
-				}, new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e("carinfo_result", error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null,
-						// "网络连接失败", Toast.LENGTH_LONG);
-						// errorinfo.show();
-					}
-				}) {
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("carnum", carnum);
-				params.put("phonenum", phonenum);
-				params.put("carbrand", carbrand);
-				params.put("carmodel", carmodel);
-				params.put("carcolor", carcolor);
-				params.put("capacity", car_capacity);
-				return params;
-			}
-		};
-
-		queue.add(stringRequest);
-	}
 	private IdentityBtn function_identity; /*身份选择，已封装在IdentityBtn.java中*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -232,6 +235,7 @@ public class OrderActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order);
 		toolWithActivityIn = new ToolWithActivityIn(this);
+		serverSubmit = new ServerSubmit(this);
         function_identity = new IdentityBtn(this, R.id.commute_layout);
 
 		//actionbar
@@ -316,42 +320,36 @@ public class OrderActivity extends Activity {
 		repeat = (View)findViewById(R.id.order_layout_rep);
 		remark = (View)findViewById(R.id.order_layout_remark);
 
-		standard_date = new SimpleDateFormat("yyyy-MM-dd",
-				Locale.SIMPLIFIED_CHINESE);
-		primary_date = new SimpleDateFormat("yyyy年MM月dd日",
-				Locale.SIMPLIFIED_CHINESE);
-		standard_time = new SimpleDateFormat("HH:mm:ss",
-				Locale.SIMPLIFIED_CHINESE);
-		primary_time = new SimpleDateFormat("HH时mm分ss秒",
-				Locale.SIMPLIFIED_CHINESE);
-
 		noteinfo=(EditText)findViewById(R.id.order_remarkText);
 		// 提取用户手机号
 		UserPhoneNumber = toolWithActivityIn.get用户手机号从偏好文件();
 
 		// judge the value of "pre_page"
 		Bundle bundle = this.getIntent().getExtras();
-		cstype = bundle.getString("cstype");
-		if(cstype.compareTo("workcs")==0||cstype.compareTo("reworkcs")==0){
+		cstype = bundle.getString(AppStat.order页面跳转意图.意图名称);
+		if(cstype.compareTo(AppStat.order页面跳转意图.上下班)==0||cstype.compareTo(AppStat
+				.order页面跳转意图.上下班重新下单)==0){
 			depdate.setVisibility(View.GONE);
 			detailtime.setVisibility(View.VISIBLE);
 			lastingdate.setVisibility(View.VISIBLE);
 			repeat.setVisibility(View.VISIBLE);
 			remark.setVisibility(View.GONE);
-		}else if(cstype.compareTo("longcs")==0||cstype.compareTo("relongcs")==0){
+		}else if(cstype.compareTo(AppStat.order页面跳转意图.长途)==0||cstype.compareTo
+				(AppStat.order页面跳转意图.长途重新下单)==0){
 			depdate.setVisibility(View.VISIBLE);
 			detailtime.setVisibility(View.GONE);
 			lastingdate.setVisibility(View.GONE);
 			repeat.setVisibility(View.GONE);
 			remark.setVisibility(View.VISIBLE);
-		}else if(cstype.compareTo("shortcs")==0||cstype.compareTo("reshortcs")==0){
+		}else if(cstype.compareTo(AppStat.order页面跳转意图.短途)==0||cstype.compareTo
+				(AppStat.order页面跳转意图.短途重新下单)==0){
 			depdate.setVisibility(View.VISIBLE);
 			detailtime.setVisibility(View.VISIBLE);
 			lastingdate.setVisibility(View.GONE);
 			repeat.setVisibility(View.GONE);
 			remark.setVisibility(View.GONE);
 		}
-		if (cstype.compareTo("reworkcs") == 0) { // 重新下单
+		if (cstype.compareTo(AppStat.order页面跳转意图.上下班重新下单) == 0) { // 重新下单
 			startplace.setText(bundle.getString("stpusername") + ","
 					+ bundle.getString("stpmapname"));
 			bstart = true;
@@ -410,14 +408,14 @@ public class OrderActivity extends Activity {
 				}
 			}
 			// 勾选end
-		}else if(cstype.compareTo("relongcs")==0){
+		}else if(cstype.compareTo(AppStat.order页面跳转意图.长途重新下单)==0){
 			startplace.setText(bundle.getString("stpmapname"));
 			bstart = true;
 			endplace.setText(bundle.getString("epmapname"));
 			bend = true;
 			datebutton.setText(bundle.getString("re_longway_startdate"));
 			bdate = true;
-		}else if(cstype.compareTo("reshortcs")==0){
+		}else if(cstype.compareTo(AppStat.order页面跳转意图.短途重新下单)==0){
 			startplace.setText(bundle.getString("stpusername") + ","
 					+ bundle.getString("stpmapname"));
 			bstart = true;
@@ -601,7 +599,9 @@ public class OrderActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				
+
+				userPhoneNum =toolWithActivityIn.get用户手机号从偏好文件();
+
 				if(cstype.compareTo("workcs")==0||cstype.compareTo("reworkcs")==0){
 					function_identity.IdentityChoosing("commute",UserPhoneNumber);
 					if (order_group.getCheckedRadioButtonId() == mRadio1.getId()) {
@@ -610,15 +610,14 @@ public class OrderActivity extends Activity {
 						userrole = "n";
 
 					// 向服务器提交上下班拼车订单请求start!
-					Context phonenumber = OrderActivity.this;
-					SharedPreferences filename = phonenumber.getSharedPreferences(
-							getString(R.string.PreferenceDefaultName),
-							Context.MODE_PRIVATE);
-					username = filename.getString("refreshfilename", "0");
+
 					Log.e("type",cstype);
-					commute_request(username, startdate.getText().toString(),
-							enddate.getText().toString(), earlystarttime.getText()
-									.toString(), latestarttime.getText().toString());
+					serverSubmit.commute订单提交(userPhoneNum,startdate.getText().toString
+							(),enddate.getText().toString(),earlystarttime.getText()
+							.toString(),latestarttime.getText().toString(),weekrepeat,
+							startplace_longitude,startplace_latitude,
+							destination_longitude,destination_latitude,
+							startplace.toString(),endplace.toString(),userrole);
 					// 向服务器提交上下班拼车订单请求end!
 
 				}else if(cstype.compareTo("longcs")==0||cstype.compareTo("relongcs")==0){
@@ -633,9 +632,8 @@ public class OrderActivity extends Activity {
 					SharedPreferences filename = phonenumber.getSharedPreferences(
 							getString(R.string.PreferenceDefaultName),
 							Context.MODE_PRIVATE);
-					username = filename.getString("refreshfilename", "0");
-					longway_request(username, userrole, datebutton.getText()
-							.toString(), startplace.getText().toString(), endplace
+					serverSubmit.longway订单提交(userPhoneNum,userrole,datebutton.getText()
+							.toString(),startplace.getText().toString(), endplace
 							.getText().toString(), noteinfo.getText().toString());
 					// 向服务器提交长途拼车订单请求end!
 				}else if(cstype.compareTo("shortcs")==0||cstype.compareTo("reshortcs")==0){
@@ -646,524 +644,393 @@ public class OrderActivity extends Activity {
 						userrole = "p";
 
 					// 向服务器提交上下班拼车订单请求start!
-					shortway_request(UserPhoneNumber, datebutton.getText()
-									.toString(), earlystarttime.getText().toString(),
-							latestarttime.getText().toString());
+
+					serverSubmit.shortway订单提交(userPhoneNum,datebutton.getText()
+							.toString(),earlystarttime.getText().toString(),
+							latestarttime.getText().toString(),userrole,
+							startplace_longitude,startplace_latitude,
+							destination_longitude,destination_latitude,startplace.toString(),
+							endplace.toString());
 					// 向服务器提交上下班拼车订单请求end!
 				}
 			}
 
-			private void commute_request(final String commute_phonenum,
-						final String commute_startdate,
-						final String commute_enddate,
-						final String commute_starttime, final String commute_endtime) {
+//			//todo 正在移动
+//			private void commute_request(final String commute_phonenum,
+//						final String commute_startdate,
+//						final String commute_enddate,
+//						final String commute_starttime, final String commute_endtime) {
+//
+//
+//					weekrepeat = "";
+//					if (bmon)
+//						weekrepeat += "1";
+//					if (btue)
+//						weekrepeat += "2";
+//					if (bwed)
+//						weekrepeat += "3";
+//					if (bthu)
+//						weekrepeat += "4";
+//					if (bfri)
+//						weekrepeat += "5";
+//					if (bsat)
+//						weekrepeat += "6";
+//					if (bsun)
+//						weekrepeat += "7";
+//
+//
+//					String commute_baseurl = getString(R.string.uri_base)
+//							+ getString(R.string.uri_CommuteRequest)
+//							+ getString(R.string.uri_addrequest_action);
+//					// + "phonenum=" + commute_phonenum + "&startplacex=" +
+//					// String.valueOf(startplace_longitude) +
+//					// "&startplacey=" + String.valueOf(startplace_latitude) +
+//					// "&destinationx=" + String.valueOf(destination_longitude) +
+//					// "&destinationy=" + String.valueOf(destination_latitude) +
+//					// "&startdate=" + standard_startdate
+//					// + "&enddate=" + standard_enddate
+//					// + "&starttime=" + standard_starttime
+//					// + "&endtime=" + standard_endtime + "&weekrepeat=" +
+//					// weekrepeat + "&userrole=" + userrole;
+//
+//					Log.e("commute_URL", commute_baseurl);
+//					// Instantiate the RequestQueue.
+//					// Request a string response from the provided URL.
+//					StringRequest stringRequest = new StringRequest(
+//							Request.Method.POST, commute_baseurl,
+//							new Response.Listener<String>() {
+//
+//								@Override
+//								public void onResponse(String response) {
+//									Log.d("commute_result", response);
+//									JSONObject json1 = null;
+//									try {
+//										json1 = new JSONObject(response);
+//										requestok = json1.getBoolean("result");
+//									} catch (JSONException e) {
+//
+//										e.printStackTrace();
+//									}
+//
+//									if (requestok == true) {
+//										Log.e("statue", "requestok");
+//										if (function_identity.carinfochoosing_type == 1) {
+//											// add
+//											// 向服务器发送车辆信息修改请求start!
+//											carinfo(commute_phonenum, licensenum
+//													.getText().toString(), carbrand
+//													.getText().toString(), model
+//													.getText().toString(), color
+//													.getText().toString(), String
+//													.valueOf(sum), 1);
+//											// 向服务器发送车辆信息修改end!
+//											Log.e("statue", "carinok");
+//										} else {
+//											// update
+//											// 向服务器发送车辆信息修改请求start!
+//											carinfo(commute_phonenum, licensenum
+//													.getText().toString(), carbrand
+//													.getText().toString(), model
+//													.getText().toString(), color
+//													.getText().toString(), String
+//													.valueOf(sum), 2);
+//											// 向服务器发送车辆信息修改end!
+//										}
+//
+//										Intent sure = new Intent(
+//												OrderActivity.this,
+//												OrderResponseActivity.class);
+//										sure.putExtra(
+//												getString(R.string.request_response),
+//												"true");
+//										sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//										startActivity(sure);
+//									} else {
+//										// Toast errorinfo =
+//										// Toast.makeText(getApplicationContext(),
+//										// "提交失败", Toast.LENGTH_LONG);
+//										// errorinfo.show();
+//										Intent sure = new Intent(
+//												OrderActivity.this,
+//												OrderResponseActivity.class);
+//										sure.putExtra(
+//												getString(R.string.request_response),
+//												"false");
+//										sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//										startActivity(sure);
+//									}
+//								}
+//						}, new Response.ErrorListener() {
+//							@Override
+//							public void onErrorResponse(VolleyError error) {
+//								Log.e("commute_result", error.getMessage(),
+//										error);
+//								// Toast errorinfo = Toast.makeText(null,
+//								// "网络连接失败", Toast.LENGTH_LONG);
+//								// errorinfo.show();
+//								Intent sure = new Intent(OrderActivity.this,
+//										OrderResponseActivity.class);
+//								sure.putExtra(
+//										getString(R.string.request_response),
+//										"false");
+//								sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//								startActivity(sure);
+//							}
+//						}) {
+//					protected Map<String, String> getParams() {
+//						// POST方法重写getParams函数
+//						// 强制转换日期格式start
+//						try {
+//							test_date = primary_date.parse(commute_enddate);
+//							standard_enddate = standard_date
+//									.format(test_date);
+//						} catch (ParseException e) {
+//
+//							e.printStackTrace();
+//						}
+//
+//						try {
+//							test_date = primary_date.parse(commute_startdate);
+//							standard_startdate = standard_date
+//									.format(test_date);
+//						} catch (ParseException e) {
+//
+//							e.printStackTrace();
+//						}
+//
+//						try {
+//							test_date = primary_time.parse(commute_starttime);
+//							standard_starttime = standard_time
+//									.format(test_date);
+//						} catch (ParseException e) {
+//
+//							e.printStackTrace();
+//						}
+//
+//						try {
+//							test_date = primary_time.parse(commute_endtime);
+//							standard_endtime = standard_time.format(test_date);
+//						} catch (ParseException e) {
+//
+//							e.printStackTrace();
+//						}
+//						// 强制转换日期格式end!
+//
+//						Map<String, String> params = new HashMap<String, String>();
+//						params.put(getString(R.string.uri_phonenum),
+//								commute_phonenum);
+//						params.put(getString(R.string.uri_startplacex),
+//								String.valueOf(startplace_longitude));
+//						params.put(getString(R.string.uri_startplacey),
+//								String.valueOf(startplace_latitude));
+//						params.put(getString(R.string.uri_startplace),
+//								startplace.getText().toString());
+//						params.put(getString(R.string.uri_destinationx),
+//								String.valueOf(destination_longitude));
+//						params.put(getString(R.string.uri_destinationy),
+//								String.valueOf(destination_latitude));
+//						params.put(getString(R.string.uri_destination),
+//								endplace.getText().toString());
+//						params.put(getString(R.string.uri_startdate),
+//								standard_startdate);
+//						params.put(getString(R.string.uri_enddate),
+//								standard_enddate);
+//						params.put(getString(R.string.uri_starttime),
+//								standard_starttime);
+//						params.put(getString(R.string.uri_endtime),
+//								standard_endtime);
+//						params.put(getString(R.string.uri_weekrepeat),
+//								weekrepeat);
+//						params.put(getString(R.string.uri_supplycar), userrole);
+//						// Log.w("phonemum", commute_phonenum);
+//						// Log.w("startplacex",
+//						// String.valueOf(startplace_longitude));
+//						// Log.w("startdate", standard_startdate);
+//						// Log.w("starttime", standard_starttime);
+//						// Log.w("weekrepeat",weekrepeat );
+//						// Log.w("userrole",userrole );
+//						// Log.w("enddate",standard_enddate );
+//
+//						return params;
+//					}
+//				};
+//
+//				queue.add(stringRequest);
+//
+//			}
 
-
-					weekrepeat = "";
-					if (bmon)
-						weekrepeat += "1";
-					if (btue)
-						weekrepeat += "2";
-					if (bwed)
-						weekrepeat += "3";
-					if (bthu)
-						weekrepeat += "4";
-					if (bfri)
-						weekrepeat += "5";
-					if (bsat)
-						weekrepeat += "6";
-					if (bsun)
-						weekrepeat += "7";
-
-
-					String commute_baseurl = getString(R.string.uri_base)
-							+ getString(R.string.uri_CommuteRequest)
-							+ getString(R.string.uri_addrequest_action);
-					// + "phonenum=" + commute_phonenum + "&startplacex=" +
-					// String.valueOf(startplace_longitude) +
-					// "&startplacey=" + String.valueOf(startplace_latitude) +
-					// "&destinationx=" + String.valueOf(destination_longitude) +
-					// "&destinationy=" + String.valueOf(destination_latitude) +
-					// "&startdate=" + standard_startdate
-					// + "&enddate=" + standard_enddate
-					// + "&starttime=" + standard_starttime
-					// + "&endtime=" + standard_endtime + "&weekrepeat=" +
-					// weekrepeat + "&userrole=" + userrole;
-
-					Log.e("commute_URL", commute_baseurl);
-					// Instantiate the RequestQueue.
-					// Request a string response from the provided URL.
-					StringRequest stringRequest = new StringRequest(
-							Request.Method.POST, commute_baseurl,
-							new Response.Listener<String>() {
-
-								@Override
-								public void onResponse(String response) {
-									Log.d("commute_result", response);
-									JSONObject json1 = null;
-									try {
-										json1 = new JSONObject(response);
-										requestok = json1.getBoolean("result");
-									} catch (JSONException e) {
-
-										e.printStackTrace();
-									}
-
-									if (requestok == true) {
-										Log.e("statue", "requestok");
-										if (function_identity.carinfochoosing_type == 1) {
-											// add
-											// 向服务器发送车辆信息修改请求start!
-											carinfo(commute_phonenum, licensenum
-													.getText().toString(), carbrand
-													.getText().toString(), model
-													.getText().toString(), color
-													.getText().toString(), String
-													.valueOf(sum), 1);
-											// 向服务器发送车辆信息修改end!
-											Log.e("statue", "carinok");
-										} else {
-											// update
-											// 向服务器发送车辆信息修改请求start!
-											carinfo(commute_phonenum, licensenum
-													.getText().toString(), carbrand
-													.getText().toString(), model
-													.getText().toString(), color
-													.getText().toString(), String
-													.valueOf(sum), 2);
-											// 向服务器发送车辆信息修改end!
-										}
-
-										Intent sure = new Intent(
-												OrderActivity.this,
-												OrderResponseActivity.class);
-										sure.putExtra(
-												getString(R.string.request_response),
-												"true");
-										sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-										startActivity(sure);
-									} else {
-										// Toast errorinfo =
-										// Toast.makeText(getApplicationContext(),
-										// "提交失败", Toast.LENGTH_LONG);
-										// errorinfo.show();
-										Intent sure = new Intent(
-												OrderActivity.this,
-												OrderResponseActivity.class);
-										sure.putExtra(
-												getString(R.string.request_response),
-												"false");
-										sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-										startActivity(sure);
-									}
-								}
-						}, new Response.ErrorListener() {
-							@Override
-							public void onErrorResponse(VolleyError error) {
-								Log.e("commute_result", error.getMessage(),
-										error);
-								commute_result = null;
-								// Toast errorinfo = Toast.makeText(null,
-								// "网络连接失败", Toast.LENGTH_LONG);
-								// errorinfo.show();
-								Intent sure = new Intent(OrderActivity.this,
-										OrderResponseActivity.class);
-								sure.putExtra(
-										getString(R.string.request_response),
-										"false");
-								sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-								startActivity(sure);
-							}
-						}) {
-					protected Map<String, String> getParams() {
-						// POST方法重写getParams函数
-						// 强制转换日期格式start
-						try {
-							test_date = primary_date.parse(commute_enddate);
-							standard_enddate = standard_date
-									.format(test_date);
-						} catch (ParseException e) {
-
-							e.printStackTrace();
-						}
-
-						try {
-							test_date = primary_date.parse(commute_startdate);
-							standard_startdate = standard_date
-									.format(test_date);
-						} catch (ParseException e) {
-
-							e.printStackTrace();
-						}
-
-						try {
-							test_date = primary_time.parse(commute_starttime);
-							standard_starttime = standard_time
-									.format(test_date);
-						} catch (ParseException e) {
-
-							e.printStackTrace();
-						}
-
-						try {
-							test_date = primary_time.parse(commute_endtime);
-							standard_endtime = standard_time.format(test_date);
-						} catch (ParseException e) {
-
-							e.printStackTrace();
-						}
-						// 强制转换日期格式end!
-
-						Map<String, String> params = new HashMap<String, String>();
-						params.put(getString(R.string.uri_phonenum),
-								commute_phonenum);
-						params.put(getString(R.string.uri_startplacex),
-								String.valueOf(startplace_longitude));
-						params.put(getString(R.string.uri_startplacey),
-								String.valueOf(startplace_latitude));
-						params.put(getString(R.string.uri_startplace),
-								startplace.getText().toString());
-						params.put(getString(R.string.uri_destinationx),
-								String.valueOf(destination_longitude));
-						params.put(getString(R.string.uri_destinationy),
-								String.valueOf(destination_latitude));
-						params.put(getString(R.string.uri_destination),
-								endplace.getText().toString());
-						params.put(getString(R.string.uri_startdate),
-								standard_startdate);
-						params.put(getString(R.string.uri_enddate),
-								standard_enddate);
-						params.put(getString(R.string.uri_starttime),
-								standard_starttime);
-						params.put(getString(R.string.uri_endtime),
-								standard_endtime);
-						params.put(getString(R.string.uri_weekrepeat),
-								weekrepeat);
-						params.put(getString(R.string.uri_supplycar), userrole);
-						// Log.w("phonemum", commute_phonenum);
-						// Log.w("startplacex",
-						// String.valueOf(startplace_longitude));
-						// Log.w("startdate", standard_startdate);
-						// Log.w("starttime", standard_starttime);
-						// Log.w("weekrepeat",weekrepeat );
-						// Log.w("userrole",userrole );
-						// Log.w("enddate",standard_enddate );
-
-						return params;
-					}
-				};
-
-				queue.add(stringRequest);
-
-			}
-			private void shortway_request(final String shortway_phonenum,
-			                              final String shortway_date,
-			                              final String shortway_starttime,
-			                              final String shortway_endtime) {
-
-
-				// 强制转换日期格式start
-				try {
-					test_date = primary_date.parse(shortway_date);
-					standard_startdate = standard_date
-							.format(test_date);
-				} catch (ParseException e) {
-
-					e.printStackTrace();
-				}
-
-				try {
-					test_date = primary_time.parse(shortway_starttime);
-					standard_starttime = standard_time
-							.format(test_date);
-				} catch (ParseException e) {
-
-					e.printStackTrace();
-				}
-
-				try {
-					test_date = primary_time.parse(shortway_endtime);
-					standard_endtime = standard_time.format(test_date);
-				} catch (ParseException e) {
-
-					e.printStackTrace();
-				}
-				// 强制转换日期格式end!
-
-				String shortway_baseurl = getString(R.string.uri_base)
-						+ getString(R.string.uri_ShortwayRequest)
-						+ getString(R.string.uri_addrequest_action);
-				// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!addrequest.action?";
-
-				Log.w("URL", shortway_baseurl);
-				StringRequest stringRequest = new StringRequest(
-						Request.Method.POST, shortway_baseurl,
-						new Response.Listener<String>() {
-
-							@Override
-							public void onResponse(String response) {
-								Log.d("shortway_result", response);
-								JSONObject json1 = null;
-								try {
-									json1 = new JSONObject(response);
-									requestok = json1.getBoolean("result");
-								} catch (JSONException e) {
-
-									e.printStackTrace();
-								}
-								if (requestok == true) {
-
-									if (function_identity.carinfochoosing_type == 1) {
-										// add
-										// 向服务器发送车辆信息修改请求start!
-										carinfo(shortway_phonenum, licensenum
-												.getText().toString(), carbrand
-												.getText().toString(), model
-												.getText().toString(), color
-												.getText().toString(), String
-												.valueOf(sum), 1);
-										// 向服务器发送车辆信息修改end!
-									} else {
-										// update
-										// 向服务器发送车辆信息修改请求start!
-										carinfo(shortway_phonenum, licensenum
-												.getText().toString(), carbrand
-												.getText().toString(), model
-												.getText().toString(), color
-												.getText().toString(), String
-												.valueOf(sum), 2);
-										// 向服务器发送车辆信息修改end!
-									}
-
-									Intent sure = new Intent(
-											OrderActivity.this,
-											OrderResponseActivity.class);
-									sure.putExtra(
-											getString(R.string.request_response),
-											"true");
-									sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-									startActivity(sure);
-								} else {
-									// Toast errorinfo =
-									// Toast.makeText(getApplicationContext(),
-									// "提交失败", Toast.LENGTH_LONG);
-									// errorinfo.show();
-									Intent sure = new Intent(
-											OrderActivity.this,
-											OrderResponseActivity.class);
-									sure.putExtra(
-											getString(R.string.request_response),
-											"false");
-								}
-							}
-
-						}, new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e("shortway_result", error.getMessage(),
-								error);
-						// Toast errorinfo = Toast.makeText(null,
-						// "网络连接失败", Toast.LENGTH_LONG);
-						// errorinfo.show();
-						Intent sure = new Intent(OrderActivity.this,
-								OrderResponseActivity.class);
-						sure.putExtra(
-								getString(R.string.request_response),
-								"false");
-						sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						startActivity(sure);
-					}
-				}) {
-					protected Map<String, String> getParams() {
-						// POST方法重写getParams函数
-
-						// 强制转换日期格式start
-						try {
-							test_date = primary_date.parse(shortway_date);
-							standard_startdate = standard_date
-									.format(test_date);
-						} catch (ParseException e) {
-
-							e.printStackTrace();
-						}
-
-						try {
-							test_date = primary_time.parse(shortway_starttime);
-							standard_starttime = standard_time
-									.format(test_date);
-						} catch (ParseException e) {
-
-							e.printStackTrace();
-						}
-
-						try {
-							test_date = primary_time.parse(shortway_endtime);
-							standard_endtime = standard_time
-									.format(test_date);
-						} catch (ParseException e) {
-
-							e.printStackTrace();
-						}
-						// 强制转换日期格式end!
-
-						Map<String, String> params = new HashMap<String, String>();
-						params.put("phonenum", shortway_phonenum);
-						params.put("userrole", userrole);
-						params.put("startplacex",
-								String.valueOf(startplace_longitude));
-						params.put("startplacey",
-								String.valueOf(startplace_latitude));
-						params.put(getString(R.string.uri_startplace),
-								startplace.getText().toString());
-						params.put("destinationx",
-								String.valueOf(destination_longitude));
-						params.put("destinationy",
-								String.valueOf(destination_latitude));
-						params.put(getString(R.string.uri_destination),
-								endplace.getText().toString());
-						params.put("startdate", standard_startdate);
-						params.put("starttime", standard_starttime);
-						params.put("endtime", standard_endtime);
-
-						return params;
-					}
-				};
-
-				queue.add(stringRequest);
-			}
-			private void longway_request(final String longway_phonenum,
-			                             final String longway_userrole,
-			                             final String longway_startdate,
-			                             final String longway_startplace,
-			                             final String longway_destination,
-			                             final String longway_noteinfo) {
-
-
-				String longway_addrequest_baseurl = getString(R.string.uri_base)
-						+ getString(R.string.uri_LongwayPublish)
-						+ getString(R.string.uri_addpublish_action);
-				// + "phonenum=" + longway_phonenum
-				// + "&userrole=" + longway_userrole
-				// + "&startdate=" + standard_longway_startdate
-				// + "&startplace=" + longway_startplace
-				// + "&destination=" + longway_destination
-				// + "&noteinfo=" + longway_noteinfo;
-
-				// Log.d("longway_baseurl",longway_addrequest_baseurl);
-
-				StringRequest stringRequest = new StringRequest(
-						Request.Method.POST, longway_addrequest_baseurl,
-						new Response.Listener<String>() {
-
-							@Override
-							public void onResponse(String response) {
-								Log.d("longway_result", response);
-								JSONObject json1 = null;
-								try {
-									json1 = new JSONObject(response);
-									requestok = json1.getBoolean("result");
-								} catch (JSONException e) {
-
-									e.printStackTrace();
-								}
-								if (requestok == true) {
-
-									if (carinfochoosing_type == 1) {
-										// add
-										// 向服务器发送车辆信息修改请求start!
-										carinfo(longway_phonenum, licensenum
-												.getText().toString(), carbrand
-												.getText().toString(), model
-												.getText().toString(), color
-												.getText().toString(), String
-												.valueOf(sum), 1);
-										// 向服务器发送车辆信息修改end!
-									} else {
-										// update
-										// 向服务器发送车辆信息修改请求start!
-										carinfo(longway_phonenum, licensenum
-												.getText().toString(), carbrand
-												.getText().toString(), model
-												.getText().toString(), color
-												.getText().toString(), String
-												.valueOf(sum), 2);
-										// 向服务器发送车辆信息修改end!
-									}
-
-									Intent sure = new Intent(
-										OrderActivity.this,
-											OrderResponseActivity.class);
-									sure.putExtra(
-											getString(R.string.request_response),
-											"true");
-									sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-									startActivity(sure);
-								} else {
-									// Toast errorinfo =
-									// Toast.makeText(getApplicationContext(),
-									// "提交失败", Toast.LENGTH_LONG);
-									// errorinfo.show();
-									Intent sure = new Intent(
-											OrderActivity.this,
-											OrderResponseActivity.class);
-									sure.putExtra(
-											getString(R.string.request_response),
-											"false");
-									sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-									startActivity(sure);
-								}
-							}
-						}, new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e("longway_result", error.getMessage(),
-								error);
-						// Toast errorinfo = Toast.makeText(null,
-						// "网络连接失败", Toast.LENGTH_LONG);
-						// errorinfo.show();
-						Intent sure = new Intent(OrderActivity.this,
-								OrderResponseActivity.class);
-						sure.putExtra(
-								getString(R.string.request_response),
-								"false");
-						sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						startActivity(sure);
-					}
-				}) {
-					protected Map<String, String> getParams() {
-						// POST方法重写getParams函数
-
-						// 强制转换日期格式start
-						try {
-							test_date = primary_date.parse(longway_startdate);
-							standard_startdate = standard_date
-									.format(test_date);
-						} catch (ParseException e) {
-
-							e.printStackTrace();
-						}
-
-						// 强制转换日期格式end!
-
-						Map<String, String> params = new HashMap<String, String>();
-						params.put(getString(R.string.uri_phonenum),
-								longway_phonenum);
-						params.put(getString(R.string.uri_userrole),
-								longway_userrole);
-						params.put(getString(R.string.uri_startplace),
-								longway_startplace);
-						params.put(getString(R.string.uri_destination),
-								longway_destination);
-						params.put(getString(R.string.uri_startdate),
-								standard_startdate);
-						params.put(getString(R.string.uri_noteinfo),
-								longway_noteinfo);
-
-						return params;
-					}
-				};
-				queue.add(stringRequest);
-			}
+//			private void shortway_request(final String shortway_phonenum,
+//			                              final String shortway_date,
+//			                              final String shortway_starttime,
+//			                              final String shortway_endtime) {
+//
+//				//todo 迁移中
+//
+//				// 强制转换日期格式start
+////				try {
+////					test_date = primary_date.parse(shortway_date);
+////					standard_startdate = standard_date
+////							.format(test_date);
+////				} catch (ParseException e) {
+////
+////					e.printStackTrace();
+////				}
+////
+////				try {
+////					test_date = primary_time.parse(shortway_starttime);
+////					standard_starttime = standard_time
+////							.format(test_date);
+////				} catch (ParseException e) {
+////
+////					e.printStackTrace();
+////				}
+////
+////				try {
+////					test_date = primary_time.parse(shortway_endtime);
+////					standard_endtime = standard_time.format(test_date);
+////				} catch (ParseException e) {
+////
+////					e.printStackTrace();
+////				}
+//				// 强制转换日期格式end!
+//
+//
+//			}
+//
+//
+//			private void longway_request(final String longway_phonenum,
+//			                             final String longway_userrole,
+//			                             final String longway_startdate,
+//			                             final String longway_startplace,
+//			                             final String longway_destination,
+//			                             final String longway_noteinfo) {
+//
+//
+//				String longway_addrequest_baseurl = getString(R.string.uri_base)
+//						+ getString(R.string.uri_LongwayPublish)
+//						+ getString(R.string.uri_addpublish_action);
+//				// + "phonenum=" + longway_phonenum
+//				// + "&userrole=" + longway_userrole
+//				// + "&startdate=" + standard_longway_startdate
+//				// + "&startplace=" + longway_startplace
+//				// + "&destination=" + longway_destination
+//				// + "&noteinfo=" + longway_noteinfo;
+//
+//				// Log.d("longway_baseurl",longway_addrequest_baseurl);
+//
+//				StringRequest stringRequest = new StringRequest(
+//						Request.Method.POST, longway_addrequest_baseurl,
+//						new Response.Listener<String>() {
+//
+//							@Override
+//							public void onResponse(String response) {
+//								Log.d("longway_result", response);
+//								JSONObject json1 = null;
+//								try {
+//									json1 = new JSONObject(response);
+//									requestok = json1.getBoolean("result");
+//								} catch (JSONException e) {
+//
+//									e.printStackTrace();
+//								}
+//								if (requestok == true) {
+//
+//									if (carinfochoosing_type == 1) {
+//										// add
+//										// 向服务器发送车辆信息修改请求start!
+//										carinfo(longway_phonenum, licensenum
+//												.getText().toString(), carbrand
+//												.getText().toString(), model
+//												.getText().toString(), color
+//												.getText().toString(), String
+//												.valueOf(sum), 1);
+//										// 向服务器发送车辆信息修改end!
+//									} else {
+//										// update
+//										// 向服务器发送车辆信息修改请求start!
+//										carinfo(longway_phonenum, licensenum
+//												.getText().toString(), carbrand
+//												.getText().toString(), model
+//												.getText().toString(), color
+//												.getText().toString(), String
+//												.valueOf(sum), 2);
+//										// 向服务器发送车辆信息修改end!
+//									}
+//
+//									Intent sure = new Intent(
+//										OrderActivity.this,
+//											OrderResponseActivity.class);
+//									sure.putExtra(
+//											getString(R.string.request_response),
+//											"true");
+//									sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//									startActivity(sure);
+//								} else {
+//									// Toast errorinfo =
+//									// Toast.makeText(getApplicationContext(),
+//									// "提交失败", Toast.LENGTH_LONG);
+//									// errorinfo.show();
+//									Intent sure = new Intent(
+//											OrderActivity.this,
+//											OrderResponseActivity.class);
+//									sure.putExtra(
+//											getString(R.string.request_response),
+//											"false");
+//									sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//									startActivity(sure);
+//								}
+//							}
+//						}, new Response.ErrorListener() {
+//					@Override
+//					public void onErrorResponse(VolleyError error) {
+//						Log.e("longway_result", error.getMessage(),
+//								error);
+//						// Toast errorinfo = Toast.makeText(null,
+//						// "网络连接失败", Toast.LENGTH_LONG);
+//						// errorinfo.show();
+//						Intent sure = new Intent(OrderActivity.this,
+//								OrderResponseActivity.class);
+//						sure.putExtra(
+//								getString(R.string.request_response),
+//								"false");
+//						sure.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//						startActivity(sure);
+//					}
+//				}) {
+//					protected Map<String, String> getParams() {
+//						// POST方法重写getParams函数
+//
+//						// 强制转换日期格式start
+//						try {
+//							test_date = primary_date.parse(longway_startdate);
+//							standard_startdate = standard_date
+//									.format(test_date);
+//						} catch (ParseException e) {
+//
+//							e.printStackTrace();
+//						}
+//
+//						// 强制转换日期格式end!
+//
+//						Map<String, String> params = new HashMap<String, String>();
+//						params.put(getString(R.string.uri_phonenum),
+//								longway_phonenum);
+//						params.put(getString(R.string.uri_userrole),
+//								longway_userrole);
+//						params.put(getString(R.string.uri_startplace),
+//								longway_startplace);
+//						params.put(getString(R.string.uri_destination),
+//								longway_destination);
+//						params.put(getString(R.string.uri_startdate),
+//								standard_startdate);
+//						params.put(getString(R.string.uri_noteinfo),
+//								longway_noteinfo);
+//
+//						return params;
+//					}
+//				};
+//				queue.add(stringRequest);
+//			}
 		});
 
 		startplace.setOnClickListener(new OnClickListener() {
@@ -1574,6 +1441,7 @@ public class OrderActivity extends Activity {
 					&& bend
 					&& (bmon || btue || bwed || bthu || bfri || bsat || bsun)
 					&& ((mbdriver && blicensenum && bcolor && bcarbrand) ||mbpassenager)
+					//todo bstartdate 有问题
 					&& bstartdate && benddate && bearlystarttime && blatestarttime
 					&& (sum > 0)) {
 				sure.setEnabled(true);
