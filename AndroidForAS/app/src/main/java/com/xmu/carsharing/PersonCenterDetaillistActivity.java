@@ -113,8 +113,9 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 			Log.e("status","im in 发布的消息");
 			mylist1产生();
 
-			final MyAdapter sAdapter_messSent = new MyAdapter(this,mylist1,
+			final DeleteAdapter sAdapter_messSent = new DeleteAdapter(this,mylist1,
 					AppStat.个人中心_详情界面跳转代号.发布的消息); // 数据来源
+
 			// 添加并且显示
 			list.setAdapter(sAdapter_messSent);
 
@@ -178,7 +179,7 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 
 		if (AppStat.个人中心_详情界面跳转代号.收藏的地点 == intentcall) {
 
-			MyAdapter sAdapter_messSent = new MyAdapter(this,
+			DeleteAdapter sAdapter_messSent = new DeleteAdapter(this,
 					PersonalCenterActivity.mylist3, 3); // 数据来源
 			// 添加并且显示
 			list.setAdapter(sAdapter_messSent);

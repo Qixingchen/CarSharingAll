@@ -56,36 +56,36 @@ public class IdentityBtn {
 
         if (SharingType.compareTo("commute") == 0) {
 
-            carbrand = (EditText) activity.findViewById(R.id.commute_CarBrand);
-            model = (EditText) activity.findViewById(R.id.commute_CarModel);
-            color = (EditText) activity.findViewById(R.id.commute_color);
-            licensenum = (EditText) activity.findViewById(R.id.commute_Num);
-            mRadio1 = (RadioButton) activity.findViewById(R.id.commute_radioButton1);
-            mRadio2 = (RadioButton) activity.findViewById(R.id.commute_radioButton2);// 绑定一个RadioGroup监听器
-            content = (TextView) activity.findViewById(R.id.commute_content);
-            group = (RadioGroup) activity.findViewById(R.id.commute_radiobutton);
+            carbrand = (EditText) activity.findViewById(R.id.CarBrand);
+            model = (EditText) activity.findViewById(R.id.CarModel);
+            color = (EditText) activity.findViewById(R.id.carcolor);
+            licensenum = (EditText) activity.findViewById(R.id.CarNum);
+            mRadio1 = (RadioButton) activity.findViewById(R.id.driver);
+            mRadio2 = (RadioButton) activity.findViewById(R.id.passenger);// 绑定一个RadioGroup监听器
+            content = (TextView) activity.findViewById(R.id.order_content);
+            group = (RadioGroup) activity.findViewById(R.id.role_radiobutton);
 
         } else if (SharingType.compareTo("shortway") == 0) {
 
-            carbrand = (EditText) activity.findViewById(R.id.shortway_CarBrand);
-            model = (EditText) activity.findViewById(R.id.shortway_CarModel);
-            color = (EditText) activity.findViewById(R.id.shortway_color);
-            licensenum = (EditText) activity.findViewById(R.id.shortway_Num);
-            mRadio1 = (RadioButton) activity.findViewById(R.id.shortway_radioButton1);
-            mRadio2 = (RadioButton) activity.findViewById(R.id.shortway_radioButton2);// 绑定一个RadioGroup监听器
-            content = (TextView) activity.findViewById(R.id.shortway_content);
-            group = (RadioGroup) activity.findViewById(R.id.shortway_radiobutton01);
+            carbrand = (EditText) activity.findViewById(R.id.CarBrand);
+            model = (EditText) activity.findViewById(R.id.CarModel);
+            color = (EditText) activity.findViewById(R.id.carcolor);
+            licensenum = (EditText) activity.findViewById(R.id.CarNum);
+            mRadio1 = (RadioButton) activity.findViewById(R.id.driver);
+            mRadio2 = (RadioButton) activity.findViewById(R.id.passenger);// 绑定一个RadioGroup监听器
+            content = (TextView) activity.findViewById(R.id.order_content);
+            group = (RadioGroup) activity.findViewById(R.id.role_radiobutton);
 
         } else {
 
-            carbrand = (EditText) activity.findViewById(R.id.longway_CarBrand);
-            model = (EditText) activity.findViewById(R.id.longway_CarModel);
-            color = (EditText) activity.findViewById(R.id.longway_color);
-            licensenum = (EditText) activity.findViewById(R.id.longway_Num);
-            mRadio1 = (RadioButton) activity.findViewById(R.id.longway_radioButton01);
-            mRadio2 = (RadioButton) activity.findViewById(R.id.longway_radioButton02);// 绑定一个RadioGroup监听器
-            content = (TextView) activity.findViewById(R.id.longway_content);
-            group = (RadioGroup) activity.findViewById(R.id.longway_radiobutton);
+            carbrand = (EditText) activity.findViewById(R.id.CarBrand);
+            model = (EditText) activity.findViewById(R.id.CarModel);
+            color = (EditText) activity.findViewById(R.id.carcolor);
+            licensenum = (EditText) activity.findViewById(R.id.CarNum);
+            mRadio1 = (RadioButton) activity.findViewById(R.id.driver);
+            mRadio2 = (RadioButton) activity.findViewById(R.id.passenger);// 绑定一个RadioGroup监听器
+            content = (TextView) activity.findViewById(R.id.order_content);
+            group = (RadioGroup) activity.findViewById(R.id.role_radiobutton);
 
         }
 
@@ -97,7 +97,6 @@ public class IdentityBtn {
 
                 // "我能提供车"不变，"我不能提供车"使车牌号等编辑框不可编辑，并更改textView
                 if (checkedId == mRadio2.getId()) {
-
                     bpassenager = true;
                     bdriver = false;
 
@@ -155,7 +154,8 @@ public class IdentityBtn {
                     carbrand.setInputType(InputType.TYPE_NULL);
                     color.setInputType(InputType.TYPE_NULL);
                     model.setInputType(InputType.TYPE_NULL);
-                } else {
+
+                } else if(checkedId == mRadio1.getId()){
 
                     bpassenager = false;
                     bdriver = true;

@@ -30,5 +30,7 @@
     <string name="title_activity_routeline_display">查看路线</string>
     <string name="title_activity_re_order_shortway">重新下单</string>
     <string name="title_activity_re_order_commute">重新下单</string>
+    <string name="title_activity_test_for_materal_drawer">材料设计</string>
+    <string name="title_activity_order">提交订单</string>
 
 </resources>

@@ -6,22 +6,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Environment;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xmu.carsharing.AboutActivity;
-import com.xmu.carsharing.CommuteActivity;
-import com.xmu.carsharing.LongWayActivity;
+import com.xmu.carsharing.OrderActivity;
 import com.xmu.carsharing.PersonalCenterActivity;
 import com.xmu.carsharing.R;
 import com.xmu.carsharing.SettingActivity;
-import com.xmu.carsharing.ShortWayActivity;
 
 import java.io.File;
+
+import longwaylist_fragmenttabhost.LongWayListActivity;
 
 
 /*
@@ -145,14 +145,15 @@ public class Drawer {
 			@Override
 			public void onClick(View arg0) {
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.短途) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.短途) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
 
 				mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
-				Intent shortway = new Intent(activity, ShortWayActivity.class);
+				Intent shortway = new Intent(activity,OrderActivity.class);
 				shortway.putExtra("pre_page", pageNmae);
+				shortway.putExtra("cstype", "shortcs");
 				activity.startActivity(shortway);
 			}
 		});
@@ -162,14 +163,15 @@ public class Drawer {
 			@Override
 			public void onClick(View arg0) {
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.长途) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.长途) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
 
 				mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
-				Intent longway = new Intent(activity, LongWayActivity.class);
+				Intent longway = new Intent(activity, LongWayListActivity.class);
 				longway.putExtra("pre_page", pageNmae);
+				longway.putExtra("cstype", "longcs");
 				activity.startActivity(longway);
 			}
 		});
@@ -179,14 +181,15 @@ public class Drawer {
 			@Override
 			public void onClick(View arg0) {
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.上下班) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.上下班) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
 
 				mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
-				Intent commute = new Intent(activity, CommuteActivity.class);
+				Intent commute = new Intent(activity, OrderActivity.class);
 				commute.putExtra("pre_page", pageNmae);
+				commute.putExtra("cstype", "workcs");
 				activity.startActivity(commute);
 			}
 		});
@@ -195,7 +198,7 @@ public class Drawer {
 
 			@Override
 			public void onClick(View arg0) {
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.关于) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.关于) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
@@ -211,7 +214,7 @@ public class Drawer {
 			@Override
 			public void onClick(View arg0) {
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.设置) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.设置) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
@@ -228,7 +231,7 @@ public class Drawer {
 			public void onClick(View arg0) {
 				//TODO 出租车部分未完成，直接关闭抽屉
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.出租车) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.出租车) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}
@@ -242,7 +245,7 @@ public class Drawer {
 			@Override
 			public void onClick(View arg0) {
 
-				if (activity.getClass().getSimpleName() == AppStat.抽屉跳转的类名.个人中心) {
+				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.个人中心) {
 					mDrawerLayout.closeDrawer(activity.findViewById(R.id.left_drawer));
 					return;
 				}

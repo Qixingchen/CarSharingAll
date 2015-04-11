@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-
-<string name="drawer_yourname">路人甲</string>
-<string name="drawer_yourphone">18000000000</string>  
-
-</resources>

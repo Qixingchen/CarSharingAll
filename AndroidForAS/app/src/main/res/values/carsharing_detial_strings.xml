@@ -7,7 +7,7 @@
     <string name="end_place">选择终点</string>
     <string name="longway_start_place">输入起点</string>
     <string name="longway_end_place">输入终点</string>
-    <string name="start_date">出发日期</string>
+    <string name="depature_date">出发日期</string>
     <string name="earliest_start_time">最早出发时间</string>
     <string name="latest_start_time">最晚出发时间</string>
     <string name="i_want_to_be_passanger">我想当乘客</string>
@@ -19,8 +19,8 @@
     <string name="pick_date">日期</string>
     <string name="pick_time">时间</string>
     <string name="remark">备注</string>
-    <string name="commute_start_date">开始日期</string>
-    <string name="end_date">结束日期</string>
+    <string name="order_start_date">开始日期</string>
+    <string name="order_end_date">结束日期</string>
     <string name="repeat">重复</string>
     <string name="Monday">周一</string>
     <string name="Tuesday">周二</string>

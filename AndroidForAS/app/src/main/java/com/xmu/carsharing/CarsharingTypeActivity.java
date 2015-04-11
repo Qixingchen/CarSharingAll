@@ -35,8 +35,9 @@ public class CarsharingTypeActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				Intent longcs = new Intent(CarsharingTypeActivity.this,
-						LongWayActivity.class);
+						OrderActivity.class);
 				longcs.putExtra("pre_page", "CarsharingType");
+				longcs.putExtra("cstype", "longcs");
 				startActivity(longcs);
 			}
 		});
@@ -45,8 +46,9 @@ public class CarsharingTypeActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				Intent shortcs = new Intent(CarsharingTypeActivity.this,
-						ShortWayActivity.class);
+						OrderActivity.class);
 				shortcs.putExtra("pre_page", "CarsharingType");
+				shortcs.putExtra("cstype", "shortcs");
 				startActivity(shortcs);
 			}
 		});
@@ -56,8 +58,9 @@ public class CarsharingTypeActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				Intent workcs = new Intent(CarsharingTypeActivity.this,
-						CommuteActivity.class);
+						OrderActivity.class);
 				workcs.putExtra("pre_page", "CarsharingType");
+				workcs.putExtra("cstype", "workcs");
 				startActivity(workcs);
 			}
 		});

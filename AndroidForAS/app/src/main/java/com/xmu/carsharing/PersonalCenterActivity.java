@@ -56,6 +56,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class PersonalCenterActivity extends Activity implements OrderReleasing.GetordersCallBack {
 
 	TextView firsthistory;
@@ -549,4 +550,12 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 		Log.e("write_ok?",String.valueOf(writetodb));
 
 	}
+
+    //todo 检查是否必要
+	public void getordersCallBack(float longitude_latitude[],String place_name[],
+	                              String date_time[],String carsharing_type,
+	                              String dealstatus,String userrole,String weekrepeat,
+	                              String tst,String rest_seats){}
+
+
 }

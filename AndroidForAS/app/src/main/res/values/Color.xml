@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="Apptheme_500">#4CAF50</color>
+    <color name="Apptheme_300">#81C784</color>
+    <color name="Apptheme_700">#388E3C</color>
+    <color name="Apptheme_900">#1B5E20</color>
+    <color name="Material_Deep_Orange_500">#F44336</color>
+
+</resources>

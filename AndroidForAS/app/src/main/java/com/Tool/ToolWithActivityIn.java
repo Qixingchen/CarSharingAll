@@ -50,4 +50,23 @@ public class ToolWithActivityIn {
 		return UserPhoneNumber;
 	}
 
+	public String get用户姓名从偏好文件(){
+		SharedPreferences sharedPref = mactivity
+				.getSharedPreferences(get用户手机号从偏好文件(),
+						Context.MODE_PRIVATE);
+		String UserName;
+		UserName = sharedPref.getString(mcontext.
+				getString(R.string.PreferenceUserName), "不知道你叫什么呢");
+		return UserName;
+	}
+
+	public String get用户姓名从偏好文件(String UserPhineNum){
+		SharedPreferences sharedPref = mactivity
+				.getSharedPreferences(UserPhineNum,Context.MODE_PRIVATE);
+		String UserName;
+		UserName = sharedPref.getString(mcontext.
+				getString(R.string.PreferenceUserName), "不知道你叫什么呢");
+		return UserName;
+	}
+
 }

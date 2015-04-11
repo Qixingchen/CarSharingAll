@@ -38,6 +38,8 @@ dependencies {
     compile 'com.android.support:support-v4:22.0.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile "com.google.android.gms:play-services:3.1.+"
+    compile 'com.android.support:recyclerview-v7:21.0.+'
+    compile 'de.hdodenhof:circleimageview:1.2.1'
     compile files('libs/baidumapapi_v3_3_0.jar')
     compile files('libs/httpmime-4.1.1.jar')
     compile files('libs/locSDK_5.01.jar')
