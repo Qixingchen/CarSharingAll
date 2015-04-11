@@ -58,7 +58,7 @@ public class AppStat {
 		public static final int 详情界面 = 2;
 	}
 
-	public static class 个人中心_详情几面跳转代号 {
+	public static class 个人中心_详情界面跳转代号 {
 		public static final int 发布的消息 = 1;
 		public static final int 收到的匹配 = 2;
 		public static final int 收藏的地点 = 3;

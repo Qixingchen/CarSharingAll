@@ -3,7 +3,6 @@ package com.Tool;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,11 +30,9 @@ public class OrderReleasing {
 	//todo 调整公开性
 	private Activity activity;
 	private String Logtag = "历史订单界面";
-	//todo 修改无法理解的简称
-/*    public String carsharing_type,tsp,tep,tst,
-            startdate,enddate,starttime,endtime,
-            trs,dealstatus,userrole,weekrepeat;*/
-    //tsp:startPlace's name,tep:endPlace's name,trs:剩余容量
+
+	private boolean WriteToDb_ok = false;
+
 	private static float[] longitude_latitude = new float[4];
 	//数组按序为：startplaceX,startplaceY,endplaceX,endplaceY
 
@@ -45,463 +42,298 @@ public class OrderReleasing {
 	private static String[] place_name = new String[2];
 	//数组按序为：startplace's name ,endplace's name
 
-	private String carsharing_type,dealstatus,userrole,weekrepeat = "",tst = "",
-	rest_seats = "xx"; //tst?
-
-    private boolean bfirsthistory = false;
-	public boolean loadok = false;
-    private String firstItem_type; //首页显示的历史订单的类型
-	private String[] startplace ;
-	private String[] endplace;
-    private static ArrayList<HashMap<String, String>> mylist1_0 = new
+	private String carsharing_type, dealstatus, userrole, weekrepeat = "",
+			Date_time_list = "", //起始日期和时间
+			 display_item = "",requesttime = "";
+	private int rest_seats;
+	private static ArrayList<HashMap<String, String>> mylist1_0 = new
 			ArrayList<HashMap<String, String>>();
 
-    RequestQueue queue;
+	private String UserPhoneNumber;
+	private ToolWithActivityIn getPhone;
+	private DataBaseAct dbact;
+
+	RequestQueue queue;
 
 	//回调函数
 	private GetordersCallBack getordersCallBack;
-	private GetordersCallBack getorders_personalcenter;
 
 
-    public OrderReleasing(Activity act){
-        this.activity = act;
-    }
+	public OrderReleasing(Activity act) {
+		this.activity = act;
+		getPhone = new ToolWithActivityIn(activity);
+		UserPhoneNumber = getPhone.get用户手机号从偏好文件();
+		dbact = new DataBaseAct(activity, UserPhoneNumber);
+	}
 
-    private void longway_selectrequest(final String phonenum,
-                                      final String request,final int act
-                                      ) {
+	private void longway_selectrequest(final String phonenum) {
 
-        String longwayway_selectpublish_baseurl = activity.getString(R.string.uri_base)
-                + activity.getString(R.string.uri_LongwayPublish)
-                + activity.getString(R.string.uri_selectpublish_action);
+		String longwayway_selectpublish_baseurl = activity.getString(R.string.uri_base)
+				+ activity.getString(R.string.uri_LongwayPublish)
+				+ activity.getString(R.string.uri_selectpublish_action);
 
-        // "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
+		// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                longwayway_selectpublish_baseurl,
-                new Response.Listener<String>() {
+		StringRequest stringRequest = new StringRequest(Request.Method.POST,
+				longwayway_selectpublish_baseurl,
+				new Response.Listener<String>() {
 
-                    @Override
-                    public void onResponse(String response) {
-                        Log.w(Logtag+"长途", response);
-                        try {
-                            int i;
-                            Bundle bundle = new Bundle();
-                            JSONObject jasitem = null;
-                            JSONObject jas = new JSONObject(response);
-                            JSONArray jasA = jas.getJSONArray("result");
-	                        //todo 分拆函数
-                                if(act == AppStat.is个人中心Or详情界面.详情界面) {
-                                    for (i = 0; i < jasA.length(); i++) {
-                                        jasitem = jasA.getJSONObject(i);
-                                        Log.e(Logtag+"jasitemtime",
-		                                        jasitem.getString("requestTime"));
-                                        Log.e(Logtag+"request",request);
-                                        if (jasitem.getString("publishTime").equals(
-                                                request)) {
+					@Override
+					public void onResponse(String response) {
+						Log.w(Logtag + "长途", response);
+						try {
+							int i;
+							JSONObject jasitem = null;
+							JSONObject jas = new JSONObject(response);
+							JSONArray jasA = jas.getJSONArray("result");
+							Log.e("jasAlength_longway",String.valueOf(jasA.length()));
+								for (i = 0; i < jasA.length(); i++) {
+									jasitem = jasA.getJSONObject(i);
+									getJson(jasitem, "longway");
+								}
+							WriteToDb_ok = true;
+							Log.e("write_ok_oerderreleas?",String.valueOf(WriteToDb_ok));
+							getordersCallBack.getordersCallBack(WriteToDb_ok);
 
-                                            carsharing_type = "longway";
-                                            place_name[0] = jasitem.getString
-		                                            ("startPlace");
-                                            place_name[1] = jasitem.getString
-		                                            ("destination");
-                                            date_time[0] = jasitem.getString("startDate");
-                                            userrole = jasitem.getString("userRole");
-                                            dealstatus = "2";
-                                            break;
-                                        }
-                                    }
-	                                if (i == jasA.length()&&act == AppStat.is个人中心Or详情界面
-			                                .详情界面) {
-		                                Toast.makeText(activity.getApplicationContext(),
-				                                "该订单已不存在", Toast.LENGTH_SHORT).show();
-	                                }
-	                                else { //已经监听到点击的Item，可以开始回调了
-		                                getordersCallBack.getordersCallBack
-				                                (longitude_latitude, place_name, date_time,
-						                                carsharing_type, dealstatus,
-						                                userrole, weekrepeat, tst, rest_seats);
-	                                }
-                                }
+						} catch (JSONException e) {
 
-                    /*------------PersonalCenterActivity.java---start--------------------*/
-                                else if(act == AppStat.is个人中心Or详情界面.个人中心) {
-                                    for (i = 0; i < jasA.length(); i++) {
-                                        jasitem = jasA.getJSONObject(i);
-                                        HashMap<String, String> map = new HashMap<String, String>();
-                                        map.put("Title", jasitem.getString("startDate"));
-                                        map.put("text",
-                                                jasitem.getString("startPlace")
-                                                        + "  "
-                                                        + " 至 "
-                                                        + "  "
-                                                        + jasitem
-                                                        .getString("destination")
-                                                        + "  ");
-                                        map.put("requst",
-                                                jasitem.getString("publishTime"));
-                                        mylist1_0.add(map);
-                                        if (bfirsthistory == false) {
+							e.printStackTrace();
+						}
+					}
 
-                                            firstItem_type = "longway";
-                                            startplace = jasitem.getString(
-                                                    "startPlace").split(",");
-                                            endplace = jasitem.getString(
-                                                    "destination").split(",");
+				}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				Log.e(Logtag + "长途",
+						error.getMessage(), error);
+			}
+		}) {
+			protected Map<String, String> getParams() {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("phonenum", phonenum);
+				return params;
+			}
+		};
 
-                                            bfirsthistory = true;
-                                        }
-                                    }
+		queue.add(stringRequest);
 
-	                                loadok = true;
-	                                if(bfirsthistory == true)
-		                                Log.e("历史订单第一条记录:","longwayyes");
-	                                else
-		                                Log.e("历史订单第一条记录:","longwayno");
+	}
 
-	                                getorders_personalcenter.getorders_personalcenter
-			                                (mylist1_0,firstItem_type,startplace,
-					                                endplace,bfirsthistory);
-                                }
+	private void commute_selectrequest(final String phonenum) {
 
-                    /*------------PersonalCenterActivity.java---end-----------------------*/
+		String commute_selectrequest_baseurl = activity.getString(R.string.uri_base)
+				+ activity.getString(R.string.uri_CommuteRequest)
+				+ activity.getString(R.string.uri_selectrequest_action);
+		// "http://192.168.1.111:8080/CarsharingServer/CommuteRequest!selectrequest.action?";
+		StringRequest stringRequest = new StringRequest(Request.Method.POST,
+				commute_selectrequest_baseurl, new Response.Listener<String>() {
 
-                        } catch (JSONException e) {
+			@Override
+			public void onResponse(String response) {
+				Log.w(Logtag + "上下班", response);
+				try {
+					int i;
+					JSONObject jasitem = null;
+					JSONObject jas = new JSONObject(response);
+					JSONArray jasA = jas.getJSONArray("result");
 
-                            e.printStackTrace();
-                        }
-                    }
+					Log.e("jasAlength_commute",String.valueOf(jasA.length()));
+					for (i = 0; i < jasA.length(); i++) {
+						jasitem = jasA.getJSONObject(i);
+						getJson(jasitem, "commute");
+					}
+					longway_selectrequest(phonenum);
+				} catch (JSONException e) {
 
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(Logtag+"长途",
-                        error.getMessage(), error);
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("phonenum", phonenum);
-                return params;
-            }
-        };
+					e.printStackTrace();
+				}
+			}
 
-        queue.add(stringRequest);
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				Log.e(Logtag + "上下班",
+						error.getMessage(), error);
+			}
+		}) {
+			protected Map<String, String> getParams() {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("phonenum", phonenum);
+				return params;
+			}
+		};
 
-    }
+		queue.add(stringRequest);
 
-    private void commute_selectrequest(final String phonenum,
-                                       final String request,final int act) {
-
-        String commute_selectrequest_baseurl = activity.getString(R.string.uri_base)
-                + activity.getString(R.string.uri_CommuteRequest)
-                + activity.getString(R.string.uri_selectrequest_action);
-        // "http://192.168.1.111:8080/CarsharingServer/CommuteRequest!selectrequest.action?";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                commute_selectrequest_baseurl, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.w(Logtag+"上下班", response);
-                try {
-                    int i;
-                    Bundle bundle = new Bundle();
-                    JSONObject jasitem = null;
-                    JSONObject jas = new JSONObject(response);
-                    JSONArray jasA = jas.getJSONArray("result");
-
-                        if(act == AppStat.is个人中心Or详情界面.详情界面) {
-                            for (i = 0; i < jasA.length(); i++) {
-                                jasitem = jasA.getJSONObject(i);
-                                Log.e("jasitemtime",jasitem.getString("requestTime"));
-                                Log.e("request",request);
-                                if (jasitem.getString("requestTime").equals(
-                                        request)) {
-
-                                    carsharing_type = "commute";
-
-                                    longitude_latitude[0] = Float
-                                            .parseFloat(jasitem
-                                                    .getString("startPlaceX"));
-	                                longitude_latitude[1] = Float
-                                            .parseFloat(jasitem
-                                                    .getString("startPlaceY"));
-	                                longitude_latitude[2] = Float
-                                            .parseFloat(jasitem
-                                                    .getString("destinationX"));
-	                                longitude_latitude[3] = Float
-                                            .parseFloat(jasitem
-                                                    .getString("destinationY"));
-                                    place_name[0] = jasitem.getString("startPlace");
-                                    place_name[1] = jasitem.getString("destination");
-                                    tst = jasitem.getString("startDate")
-                                            + "至"
-                                            + jasitem
-                                            .getString("endDate")
-                                            + "  "
-                                            + jasitem
-                                            .getString("startTime")
-                                            + "-"
-                                            + jasitem
-                                            .getString("endTime")
-                                            + "  "
-                                            + "每周:"
-                                            + jasitem
-                                            .getString("weekRepeat");
-
-                                    date_time[0] = jasitem.getString("startDate");
-                                    date_time[1] = jasitem.getString("endDate");
-                                    date_time[2] = jasitem.getString("startTime");
-                                    date_time[3] = jasitem.getString("endTime");
-                                    weekrepeat = jasitem.getString("weekRepeat");
-                                    dealstatus = jasitem.getString("dealStatus");
-                                    userrole = jasitem.getString("supplyCar");
-
-                                    break;
-                                }
-                            }
-	                        if (i == jasA.length()) {
-		                        longway_selectrequest(phonenum, request,act);
-	                        }
-	                        else { //已经监听到点击的Item，可以开始回调了
-		                        getordersCallBack.getordersCallBack
-				                        (longitude_latitude, place_name, date_time,
-						                        carsharing_type, dealstatus,
-						                        userrole, weekrepeat, tst, rest_seats);
-	                        }
-                        }
-
-                        /*------------PersonalCenterActivity.java---start--------------------*/
-                         if(act == AppStat.is个人中心Or详情界面.个人中心) {
-                            for (i = 0; i < jasA.length(); i++) {
-                                jasitem = jasA.getJSONObject(i);
-                                HashMap<String, String> map = new HashMap<String, String>();
-                                map.put("Title",
-                                        jasitem.getString("requestTime")
-                                                + " 每周"
-                                                + jasitem
-                                                .getString("weekRepeat"));
-                                map.put("text",
-                                        jasitem.getString("startPlace")
-                                                + "  "
-                                                + " 至 "
-                                                + jasitem
-                                                .getString("destination")
-                                                + "  ");
-                                map.put("requst",
-                                        jasitem.getString("requestTime"));
-                                mylist1_0.add(map);
-                                if (bfirsthistory == false) {
-
-                                    firstItem_type = "commute";
-                                    startplace = jasitem.getString(
-                                            "startPlace").split(",");
-                                    endplace = jasitem.getString(
-                                            "destination").split(",");
-
-                                    bfirsthistory = true;
-                                }
-                            }
-	                         if(bfirsthistory == true)
-		                         Log.e("历史订单第一条记录:","commutewayyes");
-	                         else
-		                         Log.e("历史订单第一条记录:","commutewayno");
-
-	                         longway_selectrequest(phonenum, request,act);
-                        }
-                    /*------------PersonalCenterActivity.java---end-----------------------*/
-
-                } catch (JSONException e) {
-
-                    e.printStackTrace();
-                }
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(Logtag+"上下班",
-                        error.getMessage(), error);
-                // Toast errorinfo = Toast.makeText(null, "网络连接失败",
-                // Toast.LENGTH_LONG);
-                // errorinfo.show();
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("phonenum", phonenum);
-                return params;
-            }
-        };
-
-        queue.add(stringRequest);
-
-    }
-
-    private void shortway_selectrequest(final String phonenum,
-                                        final String request,final int act) {
-
-        String shortway_selectrequest_baseurl = activity.getString(R.string.uri_base)
-                + activity.getString(R.string.uri_ShortwayRequest)
-                + activity.getString(R.string.uri_selectrequest_action);
-        // "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                shortway_selectrequest_baseurl,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.w("selectrequest_result", response);
-                        try {
-                            int i = 0;
-                            JSONObject jasitem;
-                            JSONObject jas = new JSONObject(response);
-                            JSONArray jasA = jas.getJSONArray("result");
-
-                    /*------------PersonCenterDetaillistActivity.java---start--------------*/
-                                if(act == AppStat.is个人中心Or详情界面.详情界面) {
-                                    for (i = 0; i < jasA.length(); i++) {
-                                        jasitem = jasA.getJSONObject(i);
-                                        Log.e("jasitemtime",jasitem.getString("requestTime"));
-                                        Log.e("request",request);
-                                        if (jasitem.getString("requestTime").equals(
-                                                request)) {
-
-                                            carsharing_type = "shortway";
-	                                        longitude_latitude [0] = Float
-			                                        .parseFloat(jasitem
-					                                        .getString("startPlaceX"));
-	                                        longitude_latitude [1] = Float
-                                                    .parseFloat(jasitem
-                                                            .getString("startPlaceY"));
-	                                        longitude_latitude [2] = Float
-                                                    .parseFloat(jasitem
-                                                            .getString("destinationX"));
-	                                        longitude_latitude [3] = Float
-                                                    .parseFloat(jasitem
-                                                            .getString("destinationY"));
-                                            place_name [0] = jasitem.getString
-		                                            ("startPlace");
-                                            place_name [1] = jasitem.getString
-		                                            ("destination");
-                                            tst = jasitem.getString("startDate")
-                                                    + " "
-                                                    + jasitem
-                                                    .getString("startTime")
-                                                    + "-"
-                                                    + jasitem
-                                                    .getString("endTime");
-                                            date_time [0] = jasitem.getString
-		                                            ("startDate");
-	                                        date_time [1] = "";
-                                            date_time [2] = jasitem.getString
-		                                            ("startTime");
-                                            date_time [3] = jasitem.getString
-		                                            ("endTime");
-                                            dealstatus = jasitem.getString("dealStatus");
-                                            userrole = jasitem.getString("userRole");
-	                                        break;
-                                        }
-                                    }
-	                                if (i == jasA.length()) {
-		                                commute_selectrequest(phonenum, request,act);
-	                                }
-	                                else { //已经监听到点击的Item，可以开始回调了
-		                                getordersCallBack.getordersCallBack
-				                                (longitude_latitude, place_name, date_time,
-						                                carsharing_type, dealstatus,
-						                                userrole, weekrepeat, tst, rest_seats);
-	                                }
-                                }
-                    /*------------PersonCenterDetaillistActivity.java---end--------------*/
-
-                    /*------------PersonalCenterActivity.java---start--------------------*/
-                                 if(act == AppStat.is个人中心Or详情界面.个人中心) {
-                                    for (i = 0; i < jasA.length(); i++) {
-                                        jasitem = jasA.getJSONObject(i);
-                                        HashMap<String, String> map = new HashMap<String, String>();
-                                        map.put("Title", jasitem.getString("startDate"));
-                                        map.put("text",
-                                                jasitem.getString("startPlace")
-                                                        + "  "
-                                                        + " 至  "
-                                                        + "  "
-                                                        + jasitem
-                                                        .getString("destination")
-                                                        + "  ");
-                                        map.put("requst",
-                                                jasitem.getString("requestTime"));
-                                        mylist1_0.add(map);
-                                        if (bfirsthistory == false) {
-
-                                            firstItem_type = "shortway";
-                                            startplace = jasitem.getString(
-                                                    "startPlace").split(",");
-                                            endplace = jasitem.getString(
-                                                    "destination").split(",");
-
-                                            bfirsthistory = true;
-                                        }
-
-                                    }
-	                                 if(bfirsthistory == true)
-		                                 Log.e("历史订单第一条记录:","shortwayyes");
-	                                 else
-		                                 Log.e("历史订单第一条记录:","shortwayno");
-
-	                                 Log.e("bfirsthistory_order", String.valueOf(bfirsthistory));
-	                                 commute_selectrequest(phonenum, request,act);
-                                }
-                    /*------------PersonalCenterActivity.java---end-----------------------*/
+	}
 
 
-                        } catch (JSONException e) {
+	private void shortway_selectrequest(final String phonenum) {
 
-                            e.printStackTrace();
-                        }
-                    }
+		String shortway_selectrequest_baseurl = activity.getString(R.string.uri_base)
+				+ activity.getString(R.string.uri_ShortwayRequest)
+				+ activity.getString(R.string.uri_selectrequest_action);
+		// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
 
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(Logtag+"短途",
-                        error.getMessage(), error);
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("phonenum", phonenum);
-                return params;
-            }
-        };
-        queue.add(stringRequest);
+		StringRequest stringRequest = new StringRequest(Request.Method.POST,
+				shortway_selectrequest_baseurl,
+				new Response.Listener<String>() {
+					@Override
+					public void onResponse(String response) {
+						Log.w("selectrequest_result", response);
+						try {
+							int i = 0;
+							JSONObject jasitem;
+							JSONObject jas = new JSONObject(response);
+							JSONArray jasA = jas.getJSONArray("result");
 
-    }
+							Log.e("jasAlength_shortway",String.valueOf(jasA.length()));
+							for (i = 0; i < jasA.length(); i++) {
+								jasitem = jasA.getJSONObject(i);
+								getJson(jasitem, "shortway");
+							}
+							commute_selectrequest(phonenum);
 
-    public void orders(String UserPhoneNumber, String requesttime,final int act,
-                       GetordersCallBack getordersCB){
+                    /*------------PersonalCenterActivity .java---start--------------------*/
+						/*	if (act == AppStat.is个人中心Or详情界面.个人中心) {
+								for (i = 0; i < jasA.length(); i++) {
+									jasitem = jasA.getJSONObject(i);
+									HashMap<String, String> map = new HashMap<String, String>();
+									map.put("Title", jasitem.getString("startDate"));
+									map.put("text",
+											jasitem.getString("startPlace")
+													+ "  "
+													+ " 至  "
+													+ "  "
+													+ jasitem
+													.getString("destination")
+													+ "  ");
+									map.put("requst",
+											jasitem.getString("requestTime"));
+									mylist1_0.add(map);
+									if (bfirsthistory == false) {
 
-        queue = Volley.newRequestQueue(activity);
-        mylist1_0.clear();
-	    if(act == AppStat.is个人中心Or详情界面.详情界面) {
-		    getordersCallBack = getordersCB;
-	    }
-	    else if(act == AppStat.is个人中心Or详情界面.个人中心){
-		    getorders_personalcenter = getordersCB;
-	    }
-        shortway_selectrequest(UserPhoneNumber, requesttime,act);
+										firstItem_type = "shortway";
+										startplace = jasitem.getString(
+												"startPlace").split(",");
+										endplace = jasitem.getString(
+												"destination").split(",");
 
-    }
+										bfirsthistory = true;
+									}
+
+								}
+								if (bfirsthistory == true)
+									Log.e("历史订单第一条记录:", "shortwayyes");
+								else
+									Log.e("历史订单第一条记录:", "shortwayno");
+
+								Log.e("bfirsthistory_order", String.valueOf(bfirsthistory));
+								commute_selectrequest(phonenum, request, act);
+							}*/
+                 /*   ------------PersonalCenterActivity .java---end-----------------------*/
+
+
+						} catch (JSONException e) {
+
+							e.printStackTrace();
+						}
+					}
+
+				}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				Log.e(Logtag + "短途",
+						error.getMessage(), error);
+			}
+		}) {
+			protected Map<String, String> getParams() {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("phonenum", phonenum);
+				return params;
+			}
+		};
+		queue.add(stringRequest);
+
+	}
+
+	private void getJson(JSONObject jasitem, String carsharing_type) throws
+			JSONException {
+
+
+		place_name[0] = jasitem.getString("startPlace");
+		place_name[1] = jasitem.getString("destination");
+		date_time[0] = jasitem.getString("startDate");
+		display_item = place_name[0] + "  至  " + place_name[1]; //不是first_item
+		rest_seats = 4;
+
+		if(carsharing_type.compareTo("longway") != 0) {
+
+			requesttime = jasitem.getString("requestTime");
+			date_time[2] = jasitem.getString("startTime");
+			date_time[3] = jasitem.getString("endTime");
+			longitude_latitude[0] = Float
+					.parseFloat(jasitem
+							.getString("startPlaceX"));
+			longitude_latitude[1] = Float
+					.parseFloat(jasitem
+							.getString("startPlaceY"));
+			longitude_latitude[2] = Float
+					.parseFloat(jasitem
+							.getString("destinationX"));
+			longitude_latitude[3] = Float
+					.parseFloat(jasitem
+							.getString("destinationY"));
+			dealstatus = jasitem.getString("dealStatus");
+
+			if (carsharing_type.compareTo("commute") == 0) {
+
+				//todo 应该改服务器上的命名
+				if(jasitem.getString("supplyCar").compareTo("y") == 0)
+					userrole = "p";
+				else userrole = "d";
+				date_time[1] = jasitem.getString("endDate");
+				weekrepeat = jasitem.getString("weekRepeat");
+
+			} else if (carsharing_type.compareTo("shortway") == 0) {
+
+				date_time[1] = "";
+				weekrepeat = "";
+				userrole = jasitem.getString("userRole");
+			}
+		}
+		else { //longway
+
+			date_time[1] = "";
+			date_time[2] = "";
+			date_time[3] = "";
+			longitude_latitude[0] = 0;
+			longitude_latitude[1] = 0;
+			longitude_latitude[2] = 0;
+			longitude_latitude[3] = 0;
+			dealstatus = "";
+			weekrepeat = "";
+			requesttime = jasitem.getString("publishTime");
+			userrole = jasitem.getString("userRole");
+
+		}
+		dbact.add_OdersToDb(carsharing_type, requesttime, longitude_latitude,
+				place_name, date_time, dealstatus, userrole, weekrepeat,
+				display_item, rest_seats);
+	}
+
+
+	public void orders(String UserPhoneNumber,GetordersCallBack getordersCB) {
+
+		queue = Volley.newRequestQueue(activity);
+		getordersCallBack = getordersCB;
+		shortway_selectrequest(UserPhoneNumber); //将历史订单从服务器载入数据库
+
+	}
 
 	//结果回调函数
-	public interface GetordersCallBack{
-		public void getordersCallBack(float longitude_latitude[],String place_name[],
-		                              String date_time[],String carsharing_type,
-		                              String dealstatus,String userrole,String weekrepeat,
-		                              String tst,String rest_seats);
-		public void getorders_personalcenter(ArrayList mylist1_0,String firstItem_type,
-		                                     String startplace[],
-		                                     String endplace[],boolean bfirsthistory);
+	public interface GetordersCallBack {
+		public void getordersCallBack(boolean WriteToDb_ok);
 	}
 
 }

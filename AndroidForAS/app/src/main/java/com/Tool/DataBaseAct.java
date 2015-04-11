@@ -170,7 +170,125 @@ public class DataBaseAct {
 
 	}
 
+	public void add_OdersToDb(String carsharing_type, String requesttime,
+	                          float longitude_latitude[],String place_name[],
+	                         String date_time[],String dealstatus,String userrole,
+	                         String weekrepeat,String  display_firstitem,
+	                         Integer rest_seats){
 
+		Log.e("write to db","writing");
+
+		ContentValues content = new ContentValues();
+		/*3个表的公共字段*/
+		content.put(mcontext.getString(R.string.dbstring_requesttime),requesttime);
+		content.put(mcontext.getString(R.string.dbstring_StartplaceName),place_name[0]);
+		content.put(mcontext.getString(R.string.dbstring_EndplaceName),place_name[1]);
+		content.put(mcontext.getString(R.string.dbstring_Display_firstItem),display_firstitem);
+		content.put(mcontext.getString(R.string.dbstring_Startdate),date_time[0]);
+		content.put(mcontext.getString(R.string.dbstring_Dealstatus),dealstatus);
+		content.put(mcontext.getString(R.string.dbstring_Userrole),userrole);
+		content.put(mcontext.getString(R.string.dbstring_Restseats),rest_seats);
+		content.put(mcontext.getString(R.string.dbstring_Carsharing_type),carsharing_type);
+
+		if(carsharing_type.compareTo("longway") != 0) {
+
+			/*2个表的公共字段*/
+			content.put(mcontext.getString(R.string.dbstring_StartplaceX),
+					longitude_latitude[0]);
+			content.put(mcontext.getString(R.string.dbstring_StartplaceY),
+					longitude_latitude[1]);
+			content.put(mcontext.getString(R.string.dbstring_EndplaceX),
+					longitude_latitude[2]);
+			content.put(mcontext.getString(R.string.dbstring_EndplaceY),
+					longitude_latitude[3]);
+			content.put(mcontext.getString(R.string.dbstring_Starttime),date_time[2]);
+			content.put(mcontext.getString(R.string.dbstring_Endtime),date_time[3]);
+
+			if (carsharing_type.compareTo("commute") == 0) {
+
+				content.put(mcontext.getString(R.string.dbstring_Enddate),date_time[1]);
+				content.put(mcontext.getString(R.string.dbstring_Weekrepeat),
+						weekrepeat);
+				db1.insert(mcontext.getString(R.string.dbtable_commuteOrders),null, content);
+				Log.e("write to db","commute write ok!");
+			} else if (carsharing_type.compareTo("shortway") == 0) {
+				db1.insert(mcontext.getString(R.string.dbtable_shortwayOrders),null, content);
+				Log.e("write to db","shortway write ok!");
+			}
+		}
+		else { //longway
+			db1.insert(mcontext.getString(R.string.dbtable_longwayOrders),null,content);
+			Log.e("write to db","longway write ok!");
+		}
+
+	}
+
+		//shortway>commute>longway  查询第一条历史记录
+	public String read_FirstOrder() {
+		Cursor dbresult = db1.query(
+				mcontext.getString(R.string.dbtable_shortwayOrders),
+				new String[] {mcontext.getString(R.string.dbstring_Display_firstItem)},
+				mcontext.getString(R.string.dbstring_id) + "=?",
+				new String[]{"1"}, null, null, null);
+
+		if (0 == dbresult.getCount()) {
+			dbresult = db1.query(mcontext.getString(R.string.dbtable_commuteOrders),
+			new String[] {mcontext.getString(R.string.dbstring_Display_firstItem)},
+					mcontext.getString(R.string.dbstring_id) + "=?",
+					new String[]{"1"}, null, null, null);
+
+			if(0 == dbresult.getCount()){
+				dbresult = db1.query(mcontext.getString(R.string.dbtable_longwayOrders),
+				new String[] {mcontext.getString(R.string.dbstring_Display_firstItem)},
+						mcontext.getString(R.string.dbstring_id) + "=?",
+						new String[]{"1"}, null, null, null);
+				if(0 == dbresult.getCount())
+					return "查询不到您发布过的订单噢..";
+			}
+		}
+		return dbresult.getString(0);
+	}
+
+		//获取被点击的item的详细信息
+	public Cursor read某条历史订单(String requesttime){  //用requesttime来确定被点击的是哪一条
+		Cursor dbresult = db1.query(
+				mcontext.getString(R.string.dbtable_shortwayOrders),null,
+				mcontext.getString(R.string.dbstring_id) + "=?",
+				new String[]{requesttime}, null, null, null);
+
+		if (0 == dbresult.getCount()) {
+			dbresult = db1.query(mcontext.getString(R.string.dbtable_commuteOrders),null,
+					mcontext.getString(R.string.dbstring_id) + "=?",
+					new String[]{requesttime}, null, null, null);
+			if(0 == dbresult.getCount()){
+				dbresult = db1.query(mcontext.getString(R.string.dbtable_longwayOrders),null,
+						mcontext.getString(R.string.dbstring_id) + "=?",
+						new String[]{requesttime}, null, null, null);
+			}
+		}
+	//	dbresult.moveToFirst();
+		return dbresult;
+	}
+
+		//All orders
+	public Cursor[] read所有订单(){
+
+		Cursor[] cursors = new Cursor[3];
+		cursors[0] = db1.query(
+				mcontext.getString(R.string.dbtable_shortwayOrders),
+				null, null, null, null, null, null);
+
+		cursors[1] = db1.query(
+				mcontext.getString(R.string.dbtable_commuteOrders),
+				null, null, null, null, null, null);
+
+		cursors[2] = db1.query(
+				mcontext.getString(R.string.dbtable_longwayOrders),
+				null, null, null, null, null, null);
+
+		return cursors;  //Cursor数组
+
+	}
 
 	public void Destory() {
 		db1.close();

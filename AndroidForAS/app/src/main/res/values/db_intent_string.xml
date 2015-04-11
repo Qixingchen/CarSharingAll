@@ -6,6 +6,8 @@
 
     <!-- refreshfilename -->
 
+    <string name="dbstring_id">_id</string>
+
     <string name="dbstring_longitude">longitude</string>
     <string name="dbstring_latitude">latitude</string>
     <string name="dbtable_placeliked">placeLiked</string>
@@ -19,5 +21,28 @@
     <string name="PreferenceUserPassword">password</string>
     <string name="request_response">judge_request</string>
     <string name="defaultCity">厦门</string>
+
+    <!--历史订单 表名-->
+    <string name="dbtable_shortwayOrders">shortwayOrders</string>
+    <string name="dbtable_commuteOrders">commuteOrders</string>
+    <string name="dbtable_longwayOrders">longwayOrders</string>
+    <!--历史订单 字段名-->
+    <string name="dbstring_requesttime">requesttime</string>
+    <string name="dbstring_StartplaceX">StartplaceX</string>
+    <string name="dbstring_StartplaceY">StartplaceY</string>
+    <string name="dbstring_EndplaceX">EndplaceX</string>
+    <string name="dbstring_EndplaceY">EndplaceY</string>
+    <string name="dbstring_StartplaceName">StartplaceName</string>
+    <string name="dbstring_EndplaceName">EndplaceName</string>
+    <string name="dbstring_Display_firstItem">Display_firstItem</string>
+    <string name="dbstring_Startdate">Startdate</string>
+    <string name="dbstring_Enddate">Enddate</string>
+    <string name="dbstring_Starttime">Starttime</string>
+    <string name="dbstring_Endtime">Endtime</string>
+    <string name="dbstring_Weekrepeat">Weekrepeat</string>
+    <string name="dbstring_Dealstatus">Dealstatus</string>
+    <string name="dbstring_Userrole">Userrole</string>
+    <string name="dbstring_Restseats">Restseats</string>
+    <string name="dbstring_Carsharing_type">Carsharing_type</string>
 
 </resources>

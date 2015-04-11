@@ -27,14 +27,14 @@ import java.util.Date;
 public class ArrangementDetailActivity extends Activity {
 
 	public static RequestQueue queue;
-	private float SPX, SPY, DSX, DSY;
+	private float startplaceX, dtartplaceY, endplaceX, endplaceY;
 	private String carsharing_type, requesttime;
-	private TextView sp, ep, st, rs, userrole, dealstatus;
+	private TextView startplace, endplace, date_日期时间组合, restseats, userrole, dealstatus;
 	private String UserPhoneNumber;
 	private String startDate, endDate, startTime, endTime, weekrepeat,
 			mdealstatus;
 	private int Date[];
-	private ImageView fanhui;
+	private ImageView btn_返回;
 	private Button reorder;
 	private Date test_date = new Date();
 	private String primary_short_startdate = null,
@@ -57,15 +57,15 @@ public class ArrangementDetailActivity extends Activity {
 		queue = Volley.newRequestQueue(this);
 
 		reorder = (Button) findViewById(R.id.arrangement_reorder);
-		fanhui = (ImageView) findViewById(android.R.id.home);
-		sp = (TextView) findViewById(R.id.arrangementdetail_startaddress);
-		ep = (TextView) findViewById(R.id.arrangementdetail_endaddress);
-		st = (TextView) findViewById(R.id.arrangementdetail_starttime);
-		rs = (TextView) findViewById(R.id.arrangementdetail_remainsites);
+		btn_返回 = (ImageView) findViewById(android.R.id.home);
+		startplace = (TextView) findViewById(R.id.arrangementdetail_startaddress);
+		endplace = (TextView) findViewById(R.id.arrangementdetail_endaddress);
+		date_日期时间组合 = (TextView) findViewById(R.id.arrangementdetail_starttime);
+		restseats = (TextView) findViewById(R.id.arrangementdetail_remainsites);
 		userrole = (TextView) findViewById(R.id.arrangementdetail_userrole);
 		dealstatus = (TextView) findViewById(R.id.arrangementdetail_orderstatus);
 
-		final String role;
+		final String userrole;
 
 		// actionbar操作!!
 		// 绘制向上!!
@@ -74,18 +74,37 @@ public class ArrangementDetailActivity extends Activity {
 		// actionbarEND!!
 
 		Bundle bundle = this.getIntent().getExtras();
-		sp.setText(bundle.getString("tsp")); // 起点
-		ep.setText(bundle.getString("tep")); // 终点
-		st.setText(bundle.getString("tst")); // 开始时间
-		rs.setText(bundle.getString("trs")); // 需要座位
+		carsharing_type = bundle.getString("carsharing_type");
+		if(carsharing_type.compareTo("longway") != 0) {
+			startplaceX = bundle.getFloat("startplaceX"); // 起点经度
+			dtartplaceY = bundle.getFloat("startplaceY"); // 起点纬度
+			endplaceX = bundle.getFloat("endplaceX"); // 终点经度
+			endplaceY = bundle.getFloat("endplaceY"); // 终点纬度
+			startTime = bundle.getString("starttime");
+			endTime = bundle.getString("endtime");
+			requesttime = bundle.getString("requesttime");
+
+			if(carsharing_type.compareTo("commute") == 0){
+				endDate = bundle.getString("enddate");
+				weekrepeat = bundle.getString("weekrepeat");
+			}
+		}
+
+		final String stp[] = bundle.getString("startplace").split(",");
+		final String ep[] = bundle.getString("endplace").split(",");
+
+		startplace.setText(bundle.getString("statrplace")); // 起点
+		endplace.setText(bundle.getString("endplace")); // 终点
+		date_日期时间组合.setText(bundle.getString("date_日期时间组合")); // 开始时间
+		restseats.setText(bundle.getString("restseats")); // 需要座位
         startDate = bundle.getString("startdate");
-		role = bundle.getString("userrole");
+		userrole = bundle.getString("userrole");
 		mdealstatus = bundle.getString("dealstatus");
-		if ((role.compareTo("p") == 0)
+		if ((userrole.compareTo("p") == 0)
 				|| (bundle.getString("userrole").compareTo("n") == 0)) {// 身份
-			userrole.setText("乘客");
+			this.userrole.setText("乘客");
 		} else {
-			userrole.setText("司机");
+			this.userrole.setText("司机");
 		}
 		if (mdealstatus.compareTo("0") == 0) {// 订单状态
 			dealstatus.setText("服务器正在尽快为您匹配，请稍等！");
@@ -95,34 +114,13 @@ public class ArrangementDetailActivity extends Activity {
 			dealstatus.setText("长途拼车");
 		}
 
-		final String stp[] = bundle.getString("tsp").split(",");
-		final String ep[] = bundle.getString("tep").split(",");
-
-
-        carsharing_type = bundle.getString("carsharing_type");
-        if(carsharing_type.compareTo("longway")!=0) {
-            SPX = bundle.getFloat("SPX"); // 起点经度
-            SPY = bundle.getFloat("SPY"); // 起点纬度
-            DSX = bundle.getFloat("DSX"); // 终点经度
-            DSY = bundle.getFloat("DSY"); // 终点纬度
-            startTime = bundle.getString("starttime");
-            endTime = bundle.getString("endtime");
-            requesttime = bundle.getString("requesttime");
-
-            if(carsharing_type.compareTo("commute") == 0){
-                endDate = bundle.getString("enddate");
-                weekrepeat = bundle.getString("weekrepeat");
-            }
-        }
-
-
 		// actionbar中返回键监听
 
-		fanhui.setOnClickListener(new OnClickListener() {
+		btn_返回.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				
+
 				ArrangementDetailActivity.this.finish();
 			}
 		});
@@ -142,15 +140,15 @@ public class ArrangementDetailActivity extends Activity {
 					shortway.putExtra("stpmapname", stp[1]);
 					shortway.putExtra("epusername", ep[0]);
 					shortway.putExtra("epmapname", ep[1]);
-					shortway.putExtra("stpx", SPX);
-					Log.e("SPX", String.valueOf(SPX));
-					shortway.putExtra("stpy", SPY);
-					Log.e("SPY", String.valueOf(SPY));
-					shortway.putExtra("epx", DSX);
-					Log.e("DSX", String.valueOf(DSX));
-					shortway.putExtra("epy", DSY);
-					Log.e("DSY", String.valueOf(DSY));
-					shortway.putExtra("userrole", role);
+					shortway.putExtra("stpx", startplaceX);
+					Log.e("startplaceX", String.valueOf(startplaceX));
+					shortway.putExtra("stpy", dtartplaceY);
+					Log.e("dtartplaceY", String.valueOf(dtartplaceY));
+					shortway.putExtra("epx", endplaceX);
+					Log.e("endplaceX", String.valueOf(endplaceX));
+					shortway.putExtra("epy", endplaceY);
+					Log.e("endplaceY", String.valueOf(endplaceY));
+					shortway.putExtra("userrole", userrole);
 					shortway.putExtra("pre_page", "ReOrder");
 					try {
 						test_date = AppStat.时间格式化.yyyy_MM_dd.parse(startDate);
@@ -177,14 +175,14 @@ public class ArrangementDetailActivity extends Activity {
 					commute.putExtra("stpmapname", stp[1]);
 					commute.putExtra("epusername", ep[0]);
 					commute.putExtra("epmapname", ep[1]);
-					commute.putExtra("stpx", SPX);
-					Log.e("SPX", String.valueOf(SPX));
-					commute.putExtra("stpy", SPY);
-					Log.e("SPY", String.valueOf(SPY));
-					commute.putExtra("epx", DSX);
-					Log.e("DSX", String.valueOf(DSX));
-					commute.putExtra("epy", DSY);
-					Log.e("DSY", String.valueOf(DSY));
+					commute.putExtra("stpx", startplaceX);
+					Log.e("startplaceX", String.valueOf(startplaceX));
+					commute.putExtra("stpy", dtartplaceY);
+					Log.e("dtartplaceY", String.valueOf(dtartplaceY));
+					commute.putExtra("epx", endplaceX);
+					Log.e("endplaceX", String.valueOf(endplaceX));
+					commute.putExtra("epy", endplaceY);
+					Log.e("endplaceY", String.valueOf(endplaceY));
 					try {
 						test_date = AppStat.时间格式化.yyyy_MM_dd.parse(startDate);
 						primary_commute_startdate = AppStat.时间格式化.yyyy年M月d日
@@ -211,7 +209,7 @@ public class ArrangementDetailActivity extends Activity {
 					commute.putExtra("re_commute_endtime",
 							primary_commute_endtime);
 					commute.putExtra("weekrepeat", weekrepeat);
-					commute.putExtra("userrole", role);
+					commute.putExtra("userrole", userrole);
 					commute.putExtra("pre_page", "ReOrder");
 					startActivity(commute);
 				} else if (carsharing_type.compareTo("longway") == 0) {
@@ -219,14 +217,14 @@ public class ArrangementDetailActivity extends Activity {
 							LongWayActivity.class);
 					longway.putExtra("stpmapname", stp[0]);
 					longway.putExtra("epmapname", ep[0]);
-					longway.putExtra("stpx", SPX);
-					Log.e("SPX", String.valueOf(SPX));
-					longway.putExtra("stpy", SPY);
-					Log.e("SPY", String.valueOf(SPY));
-					longway.putExtra("epx", DSX);
-					Log.e("DSX", String.valueOf(DSX));
-					longway.putExtra("epy", DSY);
-					Log.e("DSY", String.valueOf(DSY));
+					longway.putExtra("stpx", startplaceX);
+					Log.e("startplaceX", String.valueOf(startplaceX));
+					longway.putExtra("stpy", dtartplaceY);
+					Log.e("dtartplaceY", String.valueOf(dtartplaceY));
+					longway.putExtra("epx", endplaceX);
+					Log.e("endplaceX", String.valueOf(endplaceX));
+					longway.putExtra("epy", endplaceY);
+					Log.e("endplaceY", String.valueOf(endplaceY));
 					try {
 						test_date = AppStat.时间格式化.yyyy_MM_dd.parse(startDate);
 						primary_longway_startdate = AppStat.时间格式化.yyyy年M月d日
@@ -237,7 +235,7 @@ public class ArrangementDetailActivity extends Activity {
 					}
 					longway.putExtra("re_longway_startdate",
 							primary_longway_startdate);
-					longway.putExtra("userrole", role);
+					longway.putExtra("userrole", userrole);
 					longway.putExtra("pre_page", "ReOrder");
 					startActivity(longway);
 				}

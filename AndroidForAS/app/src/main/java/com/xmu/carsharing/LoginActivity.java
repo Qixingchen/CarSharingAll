@@ -336,6 +336,7 @@ public class LoginActivity extends Activity {
 							// 向服务器请求查询车辆信息表start!
 							// selectuserinfo(phonenum);
 							selectcarinfo(phonenum);
+							//todo 这个号码是什么！
 							selectuserimage("13210891397");
 							// 向服务器请求查询车辆信息表end!
 
@@ -356,10 +357,6 @@ public class LoginActivity extends Activity {
 									getString(R.string.PreferenceUserPassword),
 									pwd);
 							editor2.commit();
-
-							// if(loadok == true){
-
-							// }
 
 						} else {
 							Toast errorinfo = Toast.makeText(

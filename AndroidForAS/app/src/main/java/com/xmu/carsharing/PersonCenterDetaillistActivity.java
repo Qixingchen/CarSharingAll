@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 
 import com.Tool.AppStat;
+import com.Tool.DataBaseAct;
 import com.Tool.OrderReleasing;
 
 import com.Tool.DatabaseHelper;
@@ -22,6 +23,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +39,7 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 
 	DatabaseHelper db;
 	SQLiteDatabase db1;
+	DataBaseAct dbact;
 	ListView list1;
 	ImageButton deletebtn;
 	// private Vector<String> mdeal_readstatus = new Vector<>();
@@ -46,6 +49,15 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 
 	private String requesttime;
 	private int intentcall;
+	boolean writetodb = false;
+
+	private String date_时间日期组合;
+
+
+	// 生成动态数组，并且转载数据
+	ArrayList<HashMap<String, String>> mylist1 = new ArrayList<HashMap<String, String>>();
+//	ArrayList<HashMap<String, String>> mylist2 = new ArrayList<HashMap<String, String>>();
+//	ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
 
 	// 绑定XML中的ListView，作为Item的容器
 	private ListView list;
@@ -56,13 +68,12 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 		setContentView(R.layout.activity_person_center_detaillist);
 
 		histotical_orders = new OrderReleasing(this);
+		dbact = new DataBaseAct(this,UserPhoneNumber);
 
 		View itemView = View.inflate(PersonCenterDetaillistActivity.this,
 				R.layout.dealstatus_listitem, null);
 		statusImage = (ImageView) itemView.findViewById(R.id.list_dealstatus);
 
-		Intent intent = getIntent();
-		Bundle bundle = intent.getExtras();
 		SharedPreferences sharedPref = this
 				.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),
@@ -75,8 +86,6 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 		deletebtn = (ImageButton) findViewById(R.id.mymessage_delete);
 		list1 = (ListView) findViewById(R.id.WacthAllMessSent);
 
-		intentcall = bundle.getInt("intent");
-
 		// actionbar操作!!
 
 		// 绘制向上!!
@@ -87,75 +96,25 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 
 		list = (ListView) findViewById(R.id.WacthAllMessSent);
 
-		// 生成动态数组，并且转载数据
-		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
-		ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
-
-
-
 	}
-
-	public void getordersCallBack(float longitude_latitude[],String place_name[],
-	                              String date_time[],String carsharing_type,
-	                              String dealstatus,String userrole,String weekrepeat,
-	                              String tst,String rest_seats) {
-
-		if (1 == intentcall) {
-			Log.e("carsharing_type", carsharing_type);
-	//		PrepareForIntent(requesttime, histotical_orders.carsharing_type);
-
-				Bundle bundle = new Bundle();
-				Intent intent = new Intent(
-						PersonCenterDetaillistActivity.this,
-						ArrangementDetailActivity.class);
-
-				bundle.putString("carsharing_type", carsharing_type);
-				bundle.putString("tsp", place_name[0]);//startplace
-				bundle.putString("tep", place_name[1]);//destination
-				bundle.putString("tst", tst);
-				bundle.putString("startdate", date_time[0]);
-				bundle.putString("trs", rest_seats);
-				bundle.putString("dealstatus", dealstatus);
-				bundle.putString("userrole", userrole);
-
-				if (carsharing_type.compareTo("longway") != 0) {
-
-					bundle.putString("requesttime", requesttime);
-					bundle.putFloat("SPX", longitude_latitude[0]);
-					bundle.putFloat("SPY", longitude_latitude[1]);
-					bundle.putFloat("DSX", longitude_latitude[2]);
-					bundle.putFloat("DSY", longitude_latitude[3]);
-					bundle.putString("starttime", date_time[2]);
-					bundle.putString("endtime", date_time[3]);
-
-					if (carsharing_type.compareTo("commute") == 0) {
-
-						bundle.putString("enddate", date_time[1]);
-						bundle.putString("weekrepeat", weekrepeat);
-
-					}
-				}
-
-				intent.putExtras(bundle);
-				startActivity(intent);
-		}
-	}
-
-
-	public void getorders_personalcenter(ArrayList mylist1_0,String firstItem_type,
-	                                     String startplace[],
-	                                     String endplace[],boolean bfirsthistory){}
-
 
 	@Override
 	public void onResume() {
 		super.onResume();
 
-		list.setClickable(true);
-		if (AppStat.个人中心_详情几面跳转代号.发布的消息 == intentcall) {
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		intentcall = bundle.getInt("intent");
+		Log.e("detail_intentcall",String.valueOf(intentcall));
 
-			final MyAdapter sAdapter_messSent = new MyAdapter(this,
-					PersonalCenterActivity.mylist1, 1); // 数据来源
+		list.setClickable(true);
+		if (AppStat.个人中心_详情界面跳转代号.发布的消息 == intentcall) { //intentcall = 1
+
+			Log.e("status","im in 发布的消息");
+			mylist1产生();
+
+			final MyAdapter sAdapter_messSent = new MyAdapter(this,mylist1,
+					AppStat.个人中心_详情界面跳转代号.发布的消息); // 数据来源
 			// 添加并且显示
 			list.setAdapter(sAdapter_messSent);
 
@@ -166,27 +125,22 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 				                        int position, long arg3) {
 					list.setClickable(false);
-					requesttime = PersonalCenterActivity.mylist1.get(
-							position).get("requst");
+					requesttime = mylist1.get(position).get("requst");
 					Log.e("requesttime", requesttime);
 
-					histotical_orders.orders(UserPhoneNumber, requesttime,
-							AppStat.is个人中心Or详情界面.详情界面,PersonCenterDetaillistActivity.this);
-					sAdapter_messSent.notifyDataSetChanged();
+					/*从数据库中查找requesttime与之对应的条目*/
+					Cursor dbresult =  dbact.read某条历史订单(requesttime);
+					bundle向详情界面传值(dbresult);
+
+			//		sAdapter_messSent.notifyDataSetChanged();
 
 				}
 			});
 			// Item监听跳转end!
 		}
 
-		if (AppStat.个人中心_详情几面跳转代号.收到的匹配 == intentcall) {
+		if (AppStat.个人中心_详情界面跳转代号.收到的匹配 == intentcall) {
 
-			// Bundle dealbundle = this.getIntent().getExtras();
-			// deal_readstatus = dealbundle.getString("deal_readstatus");
-
-			// 生成适配器，数组===》ListItem
-			// MyAdapter sAdapter_messSent = new MyAdapter(this,
-			// PersonalCenterActivity.mylist2, 2); // 数据来源
 			SimpleAdapter sAdapter_messSent = new SimpleAdapter(this,
 					PersonalCenterActivity.mylist2,
 					R.layout.dealstatus_listitem, new String[]{"Title",
@@ -222,7 +176,7 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 			});
 		}
 
-		if (AppStat.个人中心_详情几面跳转代号.收藏的地点 == intentcall) {
+		if (AppStat.个人中心_详情界面跳转代号.收藏的地点 == intentcall) {
 
 			MyAdapter sAdapter_messSent = new MyAdapter(this,
 					PersonalCenterActivity.mylist3, 3); // 数据来源
@@ -234,335 +188,152 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 		}
 	}
 
-/*	private void shortway_selectrequest(final String phonenum,
-			final String request) {
-		
-		String shortway_selectrequest_baseurl = getString(R.string.uri_base)
-				+ getString(R.string.uri_ShortwayRequest)
-				+ getString(R.string.uri_selectrequest_action);
-		// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
+	private void mylist1产生() {
+		Cursor[] cursors = new Cursor[3];
+		cursors = dbact.read所有订单();
+		Cursor dbresult1 = cursors[0]; //shortway
+		Cursor dbresult2 = cursors[1]; //commute
+		Cursor dbresult3 = cursors[2]; //longway
+		HashMap<String, String> map = new HashMap<String, String>();
+		dbresult1.moveToFirst();
+		dbresult2.moveToFirst();
+		dbresult3.moveToFirst();
+		Log.e("status","im in mylist1产生");
+		while (!dbresult1.isAfterLast()) { //短途
+			date_时间日期组合 = dbresult1.getString(R.string.dbstring_Startdate)
+					+ " "
+					+ dbresult1.getString(R.string.dbstring_Starttime); //出发时间
+			map.put("Title", date_时间日期组合 );
+			Log.e("Title", date_时间日期组合);
+			map.put("text",
+					dbresult1.getString(R.string.dbstring_StartplaceName)
+							+ "  "
+							+ " 至 "
+							+ "  "
+							+ dbresult1.getString(R.string.dbstring_EndplaceName)
+							+ "  ");
+			Log.e("text",
+					dbresult1.getString(R.string.dbstring_StartplaceName)
+							+ "  "
+							+ " 至 "
+							+ "  "
+							+ dbresult1.getString(R.string.dbstring_EndplaceName)
+							+ "  ");
+			map.put("requst",
+					dbresult1.getString(R.string.dbstring_requesttime)); //隐藏部分
+			mylist1.add(map);
+		}
+		while(!dbresult2.isAfterLast()){ //上下班
+			Log.e("status","im in dbresult2");
+			date_时间日期组合 = dbresult2.getString(R.string.dbstring_Startdate)
+					+ " "
+					+ dbresult2.getString(R.string.dbstring_Starttime)
+					+ " "
+					+ "每周"
+					+ " "
+					+ dbresult2.getString(R.string.dbstring_Weekrepeat);
+			map.put("Title", date_时间日期组合 );
+			Log.e("Title", date_时间日期组合);
+			map.put("text",
+					dbresult2.getString(R.string.dbstring_StartplaceName)
+							+ "  "
+							+ " 至  "
+							+ "  "
+							+ dbresult2.getString(R.string.dbstring_EndplaceName)
+							+ "  ");
+			Log.e("text",
+					dbresult2.getString(R.string.dbstring_StartplaceName)
+							+ "  "
+							+ " 至  "
+							+ "  "
+							+ dbresult2.getString(R.string.dbstring_EndplaceName)
+							+ "  ");
+			map.put("requst",
+					dbresult1.getString(R.string.dbstring_requesttime));
+			mylist1.add(map);
+		}
+		while(!dbresult3.isAfterLast()){ //长途
+			date_时间日期组合 = dbresult3.getString(R.string.dbstring_Startdate);
+			map.put("Title", date_时间日期组合 );
+			map.put("text",
+					dbresult3.getString(R.string.dbstring_StartplaceName)
+							+ "  "
+							+ " 至  "
+							+ "  "
+							+ dbresult3.getString(R.string.dbstring_EndplaceName)
+							+ "  ");
+			map.put("requst",
+					dbresult1.getString(R.string.dbstring_requesttime));
+			mylist1.add(map);
+		}
+	}
 
-		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				shortway_selectrequest_baseurl,
-				new Response.Listener<String>() {
-					@Override
-					public void onResponse(String response) {
-						Log.w("selectrequest_result", response);
-						try {
-							int i;
-							JSONObject jasitem;
-							JSONObject jas = new JSONObject(response);
-							JSONArray jasA = jas.getJSONArray("result");
-							for (i = 0; i < jasA.length(); i++) {
-								jasitem = jasA.getJSONObject(i);
-								if (jasitem.getString("requestTime").equals(
-										request)) {
+	private void bundle向详情界面传值(Cursor dbresult)
+	{
+		String carsharing_type = dbresult.getString(R.string.dbstring_Carsharing_type);
+		Bundle bundle = new Bundle();
+		Intent intent = new Intent(
+				PersonCenterDetaillistActivity.this,
+				ArrangementDetailActivity.class);
 
-									Bundle bundle = new Bundle();
-									Intent intent = new Intent(
-											PersonCenterDetaillistActivity.this,
-											ArrangementDetailActivity.class);
+		bundle.putString("carsharing_type", dbresult.getString(R.string.dbstring_Carsharing_type));
+		bundle.putString("startplace", dbresult.getString(R.string.dbstring_StartplaceName));
+		bundle.putString("endplace", dbresult.getString(R.string.dbstring_EndplaceName));
+		bundle.putString("startdate", dbresult.getString(R.string.dbstring_Startdate));
+		bundle.putString("restseats", dbresult.getString(R.string.dbstring_Restseats));
+		bundle.putString("dealstatus", dbresult.getString(R.string.dbstring_Dealstatus));
+		bundle.putString("userrole", dbresult.getString(R.string.dbstring_Userrole));
 
-									bundle.putString("carsharing_type",
-											"shortway");
+		if (carsharing_type.compareTo("longway") != 0) {
 
-									bundle.putString("requesttime", request);
+			bundle.putString("requesttime", requesttime);
+			bundle.putFloat("startplaceX", dbresult.getFloat(R.string.dbstring_StartplaceX));
+			bundle.putFloat("startplaceY", dbresult.getFloat(R.string.dbstring_StartplaceY));
+			bundle.putFloat("endplaceX", dbresult.getFloat(R.string.dbstring_EndplaceX));
+			bundle.putFloat("endplaceY", dbresult.getFloat(R.string.dbstring_EndplaceY));
+			bundle.putString("starttime", dbresult.getString(R.string.dbstring_Starttime));
+			bundle.putString("endtime", dbresult.getString(R.string.dbstring_Endtime));
 
-									bundle.putFloat("SPX", Float
-											.parseFloat(jasitem
-													.getString("startPlaceX")));
-									Log.e("startPlaceX",
-											jasitem.getString("startPlaceX"));
-									bundle.putFloat("SPY", Float
-											.parseFloat(jasitem
-													.getString("startPlaceY")));
-									Log.e("startPlaceY",
-											jasitem.getString("startPlaceY"));
-									bundle.putFloat("DSX", Float
-											.parseFloat(jasitem
-													.getString("destinationX")));
-									Log.e("destinationX",
-											jasitem.getString("destinationX"));
-									bundle.putFloat("DSY", Float
-											.parseFloat(jasitem
-													.getString("destinationY")));
-									Log.e("destinationY",
-											jasitem.getString("destinationY"));
-									bundle.putString("tsp",
-											jasitem.getString("startPlace"));
-									bundle.putString("tep",
-											jasitem.getString("destination"));
-									bundle.putString(
-											"tst",
-											jasitem.getString("startDate")
-													+ " "
-													+ jasitem
-															.getString("startTime")
-													+ "-"
-													+ jasitem
-															.getString("endTime"));
-									bundle.putString("startdate",
-											jasitem.getString("startDate"));
-									bundle.putString("starttime",
-											jasitem.getString("startTime"));
-									bundle.putString("endtime",
-											jasitem.getString("endTime"));
-									bundle.putString("trs", "xx");
-									bundle.putString("dealstatus",
-											jasitem.getString("dealStatus"));
-									bundle.putString("userrole",
-											jasitem.getString("userRole"));
-									// Log.e("userrole",jasitem.getString("userRole"));
-									intent.putExtras(bundle);
-									startActivity(intent);
-									break;
-								}
-							}
-							if (i == jasA.length()) {
-								commute_selectrequest(phonenum, request);
-							}
-						} catch (JSONException e) {
-							
-							e.printStackTrace();
-						}
-					}
 
-				}, new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e("shortway_selectresult_result",
-								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "网络连接失败",
-						// Toast.LENGTH_LONG);
-						// errorinfo.show();
-					}
-				}) {
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("phonenum", phonenum);
-				return params;
+			if(carsharing_type.compareTo("shortway") == 0){
+
+				date_时间日期组合 =  dbresult.getString(R.string.dbstring_Startdate)
+						+ " "
+						+ dbresult.getString(R.string.dbstring_Starttime); //出发时间
+				bundle.putString("date_日期时间组合",date_时间日期组合);
+
 			}
-		};
-		queue.add(stringRequest);
+			else if (carsharing_type.compareTo("commute") == 0) {
 
-	}*/
+				bundle.putString("enddate", dbresult.getString(R.string.dbstring_Enddate));
+				date_时间日期组合 = dbresult.getString(R.string.dbstring_Startdate)
+						+ " "
+						+ dbresult.getString(R.string.dbstring_Starttime)
+						+ " "
+						+ "每周"
+						+ " "
+						+ dbresult.getString(R.string.dbstring_Weekrepeat);
+				bundle.putString("Title", date_时间日期组合 );
+				bundle.putString("enddate", dbresult.getString(R.string.dbstring_Enddate));
+				bundle.putString("weekrepeat", dbresult.getString(R.string.dbstring_Weekrepeat));
 
-/*	private void commute_selectrequest(final String phonenum,
-			final String request) {
-		
-		String commute_selectrequest_baseurl = getString(R.string.uri_base)
-				+ getString(R.string.uri_CommuteRequest)
-				+ getString(R.string.uri_selectrequest_action);
-		// "http://192.168.1.111:8080/CarsharingServer/CommuteRequest!selectrequest.action?";
-		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				commute_selectrequest_baseurl, new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.w("commute_selectrequest_result", response);
-						try {
-							int i;
-							Bundle bundle = new Bundle();
-							JSONObject jasitem = null;
-							JSONObject jas = new JSONObject(response);
-							JSONArray jasA = jas.getJSONArray("result");
-							for (i = 0; i < jasA.length(); i++) {
-								jasitem = jasA.getJSONObject(i);
-								if (jasitem.getString("requestTime").equals(
-										request)) {
-
-									bundle.putString("carsharing_type",
-											"commute");
-
-									bundle.putString("requesttime", request);
-
-									bundle.putFloat("SPX", Float
-											.parseFloat(jasitem
-													.getString("startPlaceX")));
-									bundle.putFloat("SPY", Float
-											.parseFloat(jasitem
-													.getString("startPlaceY")));
-									bundle.putFloat("DSX", Float
-											.parseFloat(jasitem
-													.getString("destinationX")));
-									bundle.putFloat("DSY", Float
-											.parseFloat(jasitem
-													.getString("destinationY")));
-									bundle.putString("tsp",
-											jasitem.getString("startPlace"));
-									bundle.putString("tep",
-											jasitem.getString("destination"));
-									bundle.putString(
-											"tst",
-											jasitem.getString("startDate")
-													+ "至"
-													+ jasitem
-															.getString("endDate")
-													+ "  "
-													+ jasitem
-															.getString("startTime")
-													+ "-"
-													+ jasitem
-															.getString("endTime")
-													+ "  "
-													+ "每周:"
-													+ jasitem
-															.getString("weekRepeat"));
-									bundle.putString("startdate",
-											jasitem.getString("startDate"));
-									bundle.putString("enddate",
-											jasitem.getString("endDate"));
-									bundle.putString("starttime",
-											jasitem.getString("startTime"));
-									bundle.putString("endtime",
-											jasitem.getString("endTime"));
-									bundle.putString("weekrepeat",
-											jasitem.getString("weekRepeat"));
-									bundle.putString("trs", "xx");
-									bundle.putString("dealstatus",
-											jasitem.getString("dealStatus"));
-									bundle.putString("userrole",
-											jasitem.getString("supplyCar"));
-									break;
-								}
-							}
-							if (i == jasA.length()) {
-								longway_selectrequest(phonenum, request);
-							} else {
-								Intent intent = new Intent(
-										PersonCenterDetaillistActivity.this,
-										ArrangementDetailActivity.class);
-								intent.putExtras(bundle);
-								startActivity(intent);
-							}
-						} catch (JSONException e) {
-							
-							e.printStackTrace();
-						}
-					}
-
-				}, new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e("commute_selectresult_result",
-								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "网络连接失败",
-						// Toast.LENGTH_LONG);
-						// errorinfo.show();
-					}
-				}) {
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("phonenum", phonenum);
-				return params;
 			}
-		};
+		}
+		else{ //longway
+			date_时间日期组合 =  dbresult.getString(R.string.dbstring_Startdate)
+					+ " "
+					+ dbresult.getString(R.string.dbstring_Starttime); //出发时间
+			bundle.putString("date_时间日期组合",date_时间日期组合);
+		}
 
-		queue.add(stringRequest);
+		intent.putExtras(bundle);
+		startActivity(intent);
+	}
 
-	}*/
-
-/*	public void longway_selectrequest(final String phonenum,
-			final String request) {
-		
-		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
-				+ getString(R.string.uri_LongwayPublish)
-				+ getString(R.string.uri_selectpublish_action);
-
-		// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
-
-		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				longwayway_selectpublish_baseurl,
-				new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.w("longwayway_selectpublish_result", response);
-						try {
-							int i;
-							Bundle bundle = new Bundle();
-							JSONObject jasitem = null;
-							JSONObject jas = new JSONObject(response);
-							JSONArray jasA = jas.getJSONArray("result");
-							for (i = 0; i < jasA.length(); i++) {
-								jasitem = jasA.getJSONObject(i);
-								if (jasitem.getString("publishTime").equals(
-										request)) {
-
-									bundle.putString("carsharing_type",
-											"longway");
-
-									bundle.putString("requesttime", request);
-
-									bundle.putString("tsp",
-											jasitem.getString("startPlace"));
-									bundle.putString("tep",
-											jasitem.getString("destination"));
-									bundle.putString("tst",
-											jasitem.getString("startDate"));
-									bundle.putString("trs", "xx");
-									bundle.putString("userrole",
-											jasitem.getString("userRole"));
-									bundle.putString("startdate",
-											jasitem.getString("startDate"));
-									bundle.putString("dealstatus", "2");
-									break;
-								}
-							}
-							if (i == jasA.length()) {
-								Toast.makeText(getApplicationContext(),
-										"该订单已不存在", Toast.LENGTH_SHORT).show();
-							} else {
-								Intent intent = new Intent(
-										PersonCenterDetaillistActivity.this,
-										ArrangementDetailActivity.class);
-								intent.putExtras(bundle);
-								startActivity(intent);
-							}
-						} catch (JSONException e) {
-							
-							e.printStackTrace();
-						}
-					}
-
-				}, new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e("commute_selectresult_result",
-								error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "网络连接失败",
-						// Toast.LENGTH_LONG);
-						// errorinfo.show();
-					}
-				}) {
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("phonenum", phonenum);
-				return params;
-			}
-		};
-
-		queue.add(stringRequest);
-
-	}*/
-	// @Override
-	// protected void onActivityResult(int requestCode, int resultCode, Intent
-	// data) {
-	// if(requestCode==1){
-	// switch(resultCode){
-	// case 1 :{//接受或拒绝
-	// Log.e("aaa","a");
-	// statusImage.setImageResource(R.drawable.ic_dealread);
-	// break;
-	// }
-	// default:{
-	// Log.e("bbb","b");
-	// statusImage.setImageResource(R.drawable.ic_dealunread);
-	// break;
-	// }
-	// }
-	// }
-	//
-	// }
+	//回调函数.来自OrderRelease类
+	public void getordersCallBack(boolean WriteToDb_ok){
+		writetodb = WriteToDb_ok;
+		Log.e("write ok?",String.valueOf(writetodb));
+	}
 
 }

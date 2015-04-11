@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Tool.AppStat;
+import com.Tool.DataBaseAct;
 import com.Tool.DatabaseHelper;
 import com.Tool.Drawer;
 import com.Tool.OrderReleasing;
@@ -62,7 +63,8 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	TextView firstfavorite;
 
 
-    public static ArrayList<HashMap<String, String>> mylist1 = new ArrayList<HashMap<String, String>>();
+/*    public static ArrayList<HashMap<String, String>> mylist1 = new
+			ArrayList<HashMap<String, String>>();*/
     public static ArrayList<HashMap<String, Object>> mylist2 = new ArrayList<HashMap<String, Object>>();
     public static ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
 
@@ -77,7 +79,8 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	// actionbarend!!
 
 	boolean isExit;
-	boolean  bfirstdeal = false, bfirstfavorite = false;
+	boolean bfirstdeal = false, bfirstfavorite = false;
+	boolean writetodb = false;
 	Context context = PersonalCenterActivity.this;
 	static ImageView image;
 
@@ -102,10 +105,12 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	DatabaseHelper db;
 	SQLiteDatabase db1;
 	Cursor dbresult;
+	DataBaseAct dbact;
 
 	// database end!!
 
 	private String logtag = "个人中心";
+	private String first_item;
 
 	Button quit;
 
@@ -115,6 +120,7 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 		setContentView(R.layout.activity_personal_center);
 
         histotical_orders = new OrderReleasing(this);
+		dbact = new DataBaseAct(this,UserPhoneNumber); //数据库相关动作
 
 		//actionbar
 		drawer = new Drawer(this, R.id.person_center_layout);
@@ -160,6 +166,12 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 
 		// database end!!!
 
+		// 向服务器发起查询短途、上下班、长途拼车订单请求start!
+		histotical_orders.orders(UserPhoneNumber, PersonalCenterActivity.this);
+        /*将历史订单从服务器载入数据库，即刷新数据库。一次登录只做一次*/
+		// 向服务器发起查询短途、上下班、长途拼车订单请求end!
+
+	//	Listeners();
 
 		iwantcar.setOnClickListener(new OnClickListener() {
 
@@ -189,17 +201,16 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 
 			@Override
 			public void onClick(View arg0) {
-				
-				if (histotical_orders.loadok == true) {
-					Intent historymore = new Intent();
-					historymore.setClass(PersonalCenterActivity.this,
-							PersonCenterDetaillistActivity.class);
 
-					historymore.putExtra("intent", AppStat.个人中心_详情几面跳转代号.发布的消息);
+			//	Log.e("write_ok?",String.valueOf(writetodb));
+				if (writetodb == true) {
+					Intent historymore = new Intent();
+					historymore.putExtra("intent", AppStat.个人中心_详情界面跳转代号.发布的消息);
+					historymore.setClass(PersonalCenterActivity.this,PersonCenterDetaillistActivity.class);
 					startActivity(historymore);
 				} else {
 					Toast.makeText(getApplicationContext(),
-							getString(R.string.warningInfo_dataRead),
+						getString(R.string.warningInfo_dataRead),
 							Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -210,17 +221,17 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 			@Override
 			public void onClick(View arg0) {
 				
-				if (histotical_orders.loadok == true) {
+			//	if (writetodb == true) {
 					Intent receivingmore = new Intent();
 					receivingmore.setClass(PersonalCenterActivity.this,
 							PersonCenterDetaillistActivity.class);
-					receivingmore.putExtra("intent", AppStat.个人中心_详情几面跳转代号.收到的匹配);
+					receivingmore.putExtra("intent", AppStat.个人中心_详情界面跳转代号.收到的匹配);
 					startActivity(receivingmore);
-				} else {
-					Toast.makeText(getApplicationContext(),
-							getString(R.string.warningInfo_dataRead),
-							Toast.LENGTH_SHORT).show();
-				}
+			//	} else {
+			//		Toast.makeText(getApplicationContext(),
+			//				getString(R.string.warningInfo_dataRead),
+			//				Toast.LENGTH_SHORT).show();
+			//	}
 			}
 		});
 
@@ -228,18 +239,12 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 
 			@Override
 			public void onClick(View arg0) {
-				
-				// if (loadok == true) {
+
 				Intent addressmore = new Intent();
 				addressmore.setClass(PersonalCenterActivity.this,
 						PersonCenterDetaillistActivity.class);
-				addressmore.putExtra("intent", AppStat.个人中心_详情几面跳转代号.收藏的地点);
+				addressmore.putExtra("intent", AppStat.个人中心_详情界面跳转代号.收藏的地点);
 				startActivity(addressmore);
-				// } else {
-				// Toast.makeText(getApplicationContext(),
-				// getString(R.string.warningInfo_dataRead),
-				// Toast.LENGTH_SHORT).show();
-				// }
 			}
 		});
 
@@ -250,6 +255,7 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	public void onResume() {
 
 		super.onResume();
+
 		//todo 锁定列表信息，或者将完成判断置否
 		SharedPreferences filename = context.getSharedPreferences(
 						getString(R.string.PreferenceDefaultName),Context.MODE_PRIVATE);
@@ -276,11 +282,35 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 		placeLikedListFlush();
 
 
+		firsthistory.setText(R.string.first_history);
+		/*-----从本地数据库中读取第一条，shortway>commute>longway------*/
+		//todo 数据载入本地数据库完成是否如何判断
+//		while(writetodb != true) {}  //一直等到读取完
+		first_item = dbact.read_FirstOrder();
+		firsthistory.setText(first_item);
+
+
+		mylist2.clear();
+		firstdeal.setText(R.string.first_receiving);
+		bfirstdeal = false;
+
+		firstfavorite.setText(R.string.first_address);
+		bfirstfavorite = false;
+		if (dbresult.getCount() != 0) {
+			firstfavorite.setText(mylist3.get(0).get("text"));
+			bfirstfavorite = true;
+		}
+
+
+
+		// 查询订单结果信息
+		sharingresult(UserPhoneNumber);
+
 		quit.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				
+
 				SharedPreferences sharedPref = getApplicationContext()
 						.getSharedPreferences(UserPhoneNumber,
 								Context.MODE_PRIVATE);
@@ -299,27 +329,6 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 				startActivity(quit);
 			}
 		});
-		mylist1.clear();
-		mylist2.clear();
-		firsthistory.setText(R.string.first_history);
-		firstdeal.setText(R.string.first_receiving);
-		bfirstdeal = false;
-		firstfavorite.setText(R.string.first_address);
-		bfirstfavorite = false;
-
-		if (dbresult.getCount() != 0) {
-			firstfavorite.setText(mylist3.get(0).get("text"));
-			bfirstfavorite = true;
-		}
-
-		// 向服务器发起查询短途、上下班、长途拼车订单请求start!
-        histotical_orders.orders(UserPhoneNumber,"none", AppStat.is个人中心Or详情界面.个人中心,
-		        PersonalCenterActivity.this);
-
-		// 向服务器发起查询短途、上下班、长途拼车订单请求end!
-
-		// 查询订单结果信息
-		sharingresult(UserPhoneNumber);
 
 	}
 
@@ -434,232 +443,6 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 
 	}
 
-/*	private void longway_selectrequest(final String phonenum) {
-		
-		String longwayway_selectpublish_baseurl = getString(R.string.uri_base)
-				+ getString(R.string.uri_LongwayPublish)
-				+ getString(R.string.uri_selectpublish_action);
-
-		// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
-
-		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				longwayway_selectpublish_baseurl,
-				new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.w(logtag+"longway_result", response);
-						try {
-
-							JSONObject jasitem = null;
-							JSONObject jas = new JSONObject(response);
-							JSONArray jasA = jas.getJSONArray("result");
-							for (int i = 0; i < jasA.length(); i++) {
-								jasitem = jasA.getJSONObject(i);
-								HashMap<String, String> map = new HashMap<String, String>();
-								map.put("Title", jasitem.getString("startDate"));
-								map.put("text",
-										jasitem.getString("startPlace")
-												+ "  "
-												+ " 至 "
-												+ "  "
-												+ jasitem
-														.getString("destination")
-												+ "  ");
-								map.put("requst",
-										jasitem.getString("publishTime"));
-								mylist1.add(map);
-								if (bfirsthistory == false) {
-
-									String startplace[] = jasitem.getString(
-											"startPlace").split(",");
-									String endplace[] = jasitem.getString(
-											"destination").split(",");
-									firsthistory.setText(startplace[0] + " 至  "
-											+ endplace[0]);
-									bfirsthistory = true;
-								}
-							}
-							loadok = true;
-						} catch (JSONException e) {
-							
-							e.printStackTrace();
-						}
-					}
-				}, new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e(logtag+"longway_result",error.getMessage(), error);
-						Toast errorinfo = Toast.makeText(null, "网络连接失败",
-								Toast.LENGTH_LONG);
-						errorinfo.show();
-					}
-				}) {
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("phonenum", phonenum);
-				return params;
-			}
-		};
-
-		queue.add(stringRequest);
-
-	}
-
-	private void shortway_selectrequest(final String phonenum) {
-		
-		String shortway_selectrequest_baseurl = getString(R.string.uri_base)
-				+ getString(R.string.uri_ShortwayRequest)
-				+ getString(R.string.uri_selectrequest_action);
-		// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
-		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				shortway_selectrequest_baseurl,
-				new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.w(logtag+"shortway_result", response);
-						try {
-
-							JSONObject jasitem = null;
-							JSONObject jas = new JSONObject(response);
-							JSONArray jasA = jas.getJSONArray("result");
-							for (int i = 0; i < jasA.length(); i++) {
-								jasitem = jasA.getJSONObject(i);
-								HashMap<String, String> map = new HashMap<String, String>();
-								map.put("Title", jasitem.getString("startDate"));
-								map.put("text",
-										jasitem.getString("startPlace")
-												+ "  "
-												+ " 至  "
-												+ "  "
-												+ jasitem
-														.getString("destination")
-												+ "  ");
-								map.put("requst",
-										jasitem.getString("requestTime"));
-								mylist1.add(map);
-								if (bfirsthistory == false) {
-
-									String startplace[] = jasitem.getString(
-											"startPlace").split(",");
-									String endplace[] = jasitem.getString(
-											"destination").split(",");
-									// Log.e("startplace[0]",startplace[0]);
-									firsthistory.setText(
-									// jasitem
-									// .getString("requestTime")
-									// 首页不显示时间
-											startplace[0] + " 至  "
-													+ endplace[0]);
-									bfirsthistory = true;
-								}
-							}
-							longway_selectrequest(phonenum);
-							loadok = true;
-						} catch (JSONException e) {
-							
-							e.printStackTrace();
-						}
-					}
-				}, new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e(logtag+"shortway_result",error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "网络连接失败",
-						// Toast.LENGTH_LONG);
-						// errorinfo.show();
-					}
-				}) {
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("phonenum", phonenum);
-				return params;
-			}
-		};
-
-		queue.add(stringRequest);
-
-	}
-
-	private void selectrequest(final String phonenum) {
-		
-		String commute_selectrequest_baseurl = getString(R.string.uri_base)
-				+ getString(R.string.uri_CommuteRequest)
-				+ getString(R.string.uri_selectrequest_action);
-		// + "phonenum=" + phonenum;
-		// "http://192.168.1.111:8080/CarsharingServer/CommuteRequest!selectrequest.action?";
-		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				commute_selectrequest_baseurl, new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.w(logtag+"commute_result", response);
-						try {
-
-							JSONObject jasitem = null;
-							JSONObject jas = new JSONObject(response);
-							JSONArray jasA = jas.getJSONArray("result");
-							for (int i = 0; i < jasA.length(); i++) {
-								jasitem = jasA.getJSONObject(i);
-								HashMap<String, String> map = new HashMap<String, String>();
-								map.put("Title",
-										jasitem.getString("requestTime")
-												+ " 每周"
-												+ jasitem
-														.getString("weekRepeat"));
-								map.put("text",
-										jasitem.getString("startPlace")
-												+ "  "
-												+ " 至 "
-												+ jasitem
-														.getString("destination")
-												+ "  ");
-								map.put("requst",
-										jasitem.getString("requestTime"));
-								mylist1.add(map);
-								if (bfirsthistory == false) {
-
-									String startplace[] = jasitem.getString(
-											"startPlace").split(",");
-									String endplace[] = jasitem.getString(
-											"destination").split(",");
-									// Log.e("startplace[0]",startplace[0]);
-									firsthistory.setText(
-									// jasitem
-									// .getString("requestTime")
-									// 首页不显示时间
-											startplace[0] + " 至  "
-													+ endplace[0]);
-									bfirsthistory = true;
-								}
-							}
-							shortway_selectrequest(phonenum);
-						} catch (JSONException e) {
-							
-							e.printStackTrace();
-						}
-					}
-				}, new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e(logtag+"commute_result",error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "网络连接失败",
-						// Toast.LENGTH_LONG);
-						// errorinfo.show();
-					}
-				}) {
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("phonenum", phonenum);
-				return params;
-			}
-		};
-
-		queue.add(stringRequest);
-
-	}*/
-
 	public void placeLikedListFlush() {
 		mylist3.clear();
 
@@ -688,6 +471,8 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 		}
 
 	};
+
+
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
@@ -759,21 +544,9 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	};
 
 	//我发布过的订单回调接口
-	public void getorders_personalcenter(ArrayList mylist1_0,String firstItem_type,
-	                              String startplace[],
-	                              String endplace[],boolean bfirsthistory) {
-
-		Log.e(logtag+"histotical_orders.bfirsthistory",String.valueOf(bfirsthistory));
-//		PrepareForDisplay(histotical_orders.firstItem_type);
-			if(bfirsthistory)
-				firsthistory.setText(startplace[0] + " 至  "
-						+ endplace[0]);
-			mylist1 = mylist1_0;
+	public void getordersCallBack(boolean WriteToDb_ok){
+		writetodb = WriteToDb_ok;
+		Log.e("write_ok?",String.valueOf(writetodb));
 
 	}
-
-	public void getordersCallBack(float longitude_latitude[],String place_name[],
-	                              String date_time[],String carsharing_type,
-	                              String dealstatus,String userrole,String weekrepeat,
-	                              String tst,String rest_seats){}
 }

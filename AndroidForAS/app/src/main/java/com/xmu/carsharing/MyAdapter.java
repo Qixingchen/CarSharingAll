@@ -41,7 +41,6 @@ public class MyAdapter extends BaseAdapter {
 	private LayoutInflater layoutInflater;
 	private Context context;
 	public static RequestQueue queue;
-	private String username;
 	private int intentcall;
 
 	// 用户手机号
