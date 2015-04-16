@@ -89,6 +89,13 @@ workspace.xml
 tasks.xml
 gradle.xml
 libraries/
+.gradle
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+.idea/
+*.iml
 
 ## File-based project format:
 *.ipr
