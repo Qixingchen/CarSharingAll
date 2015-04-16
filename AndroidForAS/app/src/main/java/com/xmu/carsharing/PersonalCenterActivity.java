@@ -41,6 +41,7 @@ import com.Tool.DataBaseAct;
 import com.Tool.DatabaseHelper;
 import com.Tool.Drawer;
 import com.Tool.OrderReleasing;
+import com.Tool.Mylist1;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -64,12 +65,12 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	TextView firstfavorite;
 
 
-/*    public static ArrayList<HashMap<String, String>> mylist1 = new
-			ArrayList<HashMap<String, String>>();*/
+    public static ArrayList<HashMap<String, String>> mylist1 = new ArrayList<HashMap<String, String>>();
     public static ArrayList<HashMap<String, Object>> mylist2 = new ArrayList<HashMap<String, Object>>();
     public static ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
 
     OrderReleasing histotical_orders; /*查询发布过的订单（已封装在OrderRealeasing.java中）*/
+	Mylist1 getMylist1;
 
 	public static RequestQueue queue;
 
@@ -81,7 +82,7 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 
 	boolean isExit;
 	boolean bfirstdeal = false, bfirstfavorite = false;
-	boolean writetodb = false;
+	boolean writetodb = false,empty = true;//empty:标志数据表是否为空，空：true
 	Context context = PersonalCenterActivity.this;
 	static ImageView image;
 
@@ -96,8 +97,6 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	// progressbar
 	private static MyProgressDialog pd;  /*建议对progressbar的实现进行封装*/
 	// progressbar end
-
-
 
 	// 用户手机号
 	String UserPhoneNumber;
@@ -133,6 +132,7 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 		firstdeal = (TextView) findViewById(R.id.first_receiving);
 		firstfavorite = (TextView) findViewById(R.id.first_address);
 
+
 		queue = Volley.newRequestQueue(this);
 		Button historymore = (Button) findViewById(R.id.personalcenter_historymore);
 		ratingbar = (RatingBar) findViewById(R.id.personalcenter_ratingBar);
@@ -159,18 +159,13 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 						Context.MODE_PRIVATE);
 		UserPhoneNumber = filename.getString("refreshfilename", "0");
 
-		Log.e(logtag+"电话号码", UserPhoneNumber);
+		Log.e("电话号码", UserPhoneNumber);
 
 		db = new DatabaseHelper(getApplicationContext(), UserPhoneNumber, null,
 				1);
 		db1 = db.getWritableDatabase();
 
 		// database end!!!
-
-		// 向服务器发起查询短途、上下班、长途拼车订单请求start!
-		histotical_orders.orders(UserPhoneNumber, PersonalCenterActivity.this);
-        /*将历史订单从服务器载入数据库，即刷新数据库。一次登录只做一次*/
-		// 向服务器发起查询短途、上下班、长途拼车订单请求end!
 
 	//	Listeners();
 
@@ -282,15 +277,6 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 
 		placeLikedListFlush();
 
-
-		firsthistory.setText(R.string.first_history);
-		/*-----从本地数据库中读取第一条，shortway>commute>longway------*/
-		//todo 数据载入本地数据库完成是否如何判断
-//		while(writetodb != true) {}  //一直等到读取完
-		first_item = dbact.read_FirstOrder();
-		firsthistory.setText(first_item);
-
-
 		mylist2.clear();
 		firstdeal.setText(R.string.first_receiving);
 		bfirstdeal = false;
@@ -302,7 +288,22 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 			bfirstfavorite = true;
 		}
 
+		// 向服务器发起查询短途、上下班、长途拼车历史订单请求start!
+		histotical_orders.orders(UserPhoneNumber, PersonalCenterActivity.this);
+        /*将历史订单从服务器载入数据库，即刷新数据库。一次登录只做一次*/
+		// 向服务器发起查询短途、上下班、长途拼车订单请求end!
 
+
+		/*-----从本地数据库中读取第一条，shortway>commute>longway------*/
+		mylist1.clear();
+		firsthistory.setText(R.string.first_history);
+		//产生mylist1，供personalcenterdetail界面使用
+		getMylist1 = new Mylist1(this);
+		mylist1 = getMylist1.mylist1产生();
+		if(writetodb == true) {
+			if(empty == false)
+				firsthistory.setText(mylist1.get(0).get("text"));
+		}
 
 		// 查询订单结果信息
 		sharingresult(UserPhoneNumber);
@@ -332,8 +333,6 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 		});
 
 	}
-
-
 
 	private void sharingresult(final String phonenum) {
 		
@@ -428,9 +427,6 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						Log.e("sharingresult", error.getMessage(), error);
-						// Toast errorinfo = Toast.makeText(null, "网络连接失败",
-						// Toast.LENGTH_LONG);
-						// errorinfo.show();
 					}
 				}) {
 			protected Map<String, String> getParams() {
@@ -472,8 +468,6 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 		}
 
 	};
-
-
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
@@ -545,17 +539,12 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	};
 
 	//我发布过的订单回调接口
-	public void getordersCallBack(boolean WriteToDb_ok){
-		writetodb = WriteToDb_ok;
+	public void getordersCallBack(boolean WriteToDb_ok,boolean empty){
+		this.writetodb = WriteToDb_ok;
+		this.empty = empty;
 		Log.e("write_ok?",String.valueOf(writetodb));
+		Log.e("empty?",String.valueOf(empty));
 
 	}
-
-    //todo 检查是否必要
-	public void getordersCallBack(float longitude_latitude[],String place_name[],
-	                              String date_time[],String carsharing_type,
-	                              String dealstatus,String userrole,String weekrepeat,
-	                              String tst,String rest_seats){}
-
 
 }

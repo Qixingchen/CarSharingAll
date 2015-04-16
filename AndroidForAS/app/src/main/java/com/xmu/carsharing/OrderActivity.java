@@ -154,80 +154,6 @@ public class OrderActivity extends Activity {
 	ToolWithActivityIn toolWithActivityIn;
 	ServerSubmit serverSubmit;
 
-	//todo 迁移中
-	// carnum,phonenum,carbrand,carmodel,carcolor,capacity
-//	public void carinfo(final String phonenum, final String carnum,
-//			final String carbrand, final String carmodel,
-//			final String carcolor, final String car_capacity, int type) {
-//
-//
-//		String carinfotype;
-//		if (type == 1) {
-//			carinfotype = getString(R.string.uri_addcarinfo_action);
-//		} else {
-//			carinfotype = getString(R.string.uri_updatecarinfo_action);
-//		}
-//
-//		String carinfo_baseurl = getString(R.string.uri_base)
-//				+ getString(R.string.uri_CarInfo) + carinfotype;
-//		// + "carnum=" + carnum + "&phonenum="
-//		// + phonenum + "&carbrand=" + carbrand + "&carmodel=" + carmodel
-//		// + "&carcolor=" + carcolor +"&capacity=" + car_capacity;
-//
-//		// "http://192.168.1.111:8080/CarsharingServer/CarInfo!changeinfo.action?";
-//
-//		// Uri.encode(modify_baseurl, "@#&=*+-_.,:!?()/~'%");// 中文编码
-//
-//		Log.d("carinfo_URL", carinfo_baseurl);
-//		// Instantiate the RequestQueue.
-//		// Request a string response from the provided URL.
-//		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-//				carinfo_baseurl, new Response.Listener<String>() {
-//
-//					@Override
-//					public void onResponse(String response) {
-//						Log.d("carinfo_result", response);
-//						JSONObject json1 = null;
-//						try {
-//							json1 = new JSONObject(response);
-//							carinfook = json1.getBoolean("result");
-//						} catch (JSONException e) {
-//
-//							e.printStackTrace();
-//						}
-//						if (carinfook == false) {
-//							Toast errorinfo = Toast.makeText(
-//									getApplicationContext(), "车辆信息修改失败",
-//									Toast.LENGTH_LONG);
-//							errorinfo.show();
-//						}
-//
-//					}
-//				}, new Response.ErrorListener() {
-//					@Override
-//					public void onErrorResponse(VolleyError error) {
-//						Log.e("carinfo_result", error.getMessage(), error);
-//						// Toast errorinfo = Toast.makeText(null,
-//						// "网络连接失败", Toast.LENGTH_LONG);
-//						// errorinfo.show();
-//					}
-//				}) {
-//			protected Map<String, String> getParams() {
-//				Map<String, String> params = new HashMap<String, String>();
-//				params.put("carnum", carnum);
-//				params.put("phonenum", phonenum);
-//				params.put("carbrand", carbrand);
-//				params.put("carmodel", carmodel);
-//				params.put("carcolor", carcolor);
-//				params.put("capacity", car_capacity);
-//				return params;
-//			}
-//		};
-//
-//		queue.add(stringRequest);
-//	}
-//
-
 	private IdentityBtn function_identity; /*身份选择，已封装在IdentityBtn.java中*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -1215,7 +1141,7 @@ public class OrderActivity extends Activity {
 			return new TimePickerDialog(this, mTimeSetListener,
 					c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
 		case DATE_DIALOG:
-			return new DatePickerDialog(this, mDateSetListener,
+			return new DatePickerDialog(this, mDateSetListener3,
 					c.get(Calendar.YEAR), c.get(Calendar.MONTH),
 					c.get(Calendar.DAY_OF_MONTH));
 		case DATE_DIALOG01:
@@ -1284,21 +1210,23 @@ public class OrderActivity extends Activity {
 		}
 	};
 
-	private OnDateSetListener mDateSetListener = new OnDateSetListener() {
+	private OnDateSetListener mDateSetListener3 = new OnDateSetListener() {
 
 		@Override
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 		                      int dayofMonth) {
+
 			DisplayToast(String.valueOf(year) + "年"
 					+ String.valueOf(monthofYear + 1) + "月"
 					+ String.valueOf(dayofMonth) + "日");
-			datebutton.setText(String.valueOf(year) + "年"
+			startdate.setText(String.valueOf(year) + "年"
 					+ String.valueOf(monthofYear + 1) + "月"
 					+ String.valueOf(dayofMonth) + "日");
 			bdate = true;
 			confirm();
 		}
 	};
+
 
 	private OnDateSetListener mDateSetListener1 = new OnDateSetListener() {
 
