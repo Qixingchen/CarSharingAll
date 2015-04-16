@@ -31,7 +31,7 @@ public class OrderReleasing {
 	private Activity activity;
 	private String Logtag = "历史订单界面";
 
-	private boolean WriteToDb_ok = false;
+	private boolean WriteToDb_ok = false,empty = true; //empty:标志数据库是否为空。空：true
 
 	private static float[] longitude_latitude = new float[4];
 	//数组按序为：startplaceX,startplaceY,endplaceX,endplaceY
@@ -93,7 +93,9 @@ public class OrderReleasing {
 								}
 							WriteToDb_ok = true;
 							Log.e("write_ok_oerderreleas?",String.valueOf(WriteToDb_ok));
-							getordersCallBack.getordersCallBack(WriteToDb_ok);
+							if(jasA.length() != 0)  //标志此数据表是否为空
+								if(empty = true) empty = false;
+							getordersCallBack.getordersCallBack(WriteToDb_ok,empty);
 
 						} catch (JSONException e) {
 
@@ -142,6 +144,8 @@ public class OrderReleasing {
 						jasitem = jasA.getJSONObject(i);
 						getJson(jasitem, "commute");
 					}
+					if(jasA.length() != 0)  //标志此数据表是否为空
+						if(empty = true) empty = false;
 					longway_selectrequest(phonenum);
 				} catch (JSONException e) {
 
@@ -167,7 +171,6 @@ public class OrderReleasing {
 
 	}
 
-
 	private void shortway_selectrequest(final String phonenum) {
 
 		String shortway_selectrequest_baseurl = activity.getString(R.string.uri_base)
@@ -192,6 +195,8 @@ public class OrderReleasing {
 								jasitem = jasA.getJSONObject(i);
 								getJson(jasitem, "shortway");
 							}
+							if(jasA.length() != 0)  //标志此数据表是否为空
+								if(empty = true) empty = false;
 							commute_selectrequest(phonenum);
 
                     /*------------PersonalCenterActivity .java---start--------------------*/
@@ -333,7 +338,7 @@ public class OrderReleasing {
 
 	//结果回调函数
 	public interface GetordersCallBack {
-		public void getordersCallBack(boolean WriteToDb_ok);
+		public void getordersCallBack(boolean WriteToDb_ok,boolean empty);
 	}
 
 }

@@ -79,12 +79,38 @@ public class DataBaseAct {
 
 	}
 
+	private boolean is历史订单中有该记录(String request,String type){
+		Cursor dbresult;
+		if(type == "shortway") {
+			dbresult = db1.query(
+					mcontext.getString(R.string.dbtable_shortwayOrders), null,
+					mcontext.getString(R.string.dbstring_requesttime) + "=?",
+					new String[]{request}, null, null, null);
+		}else if(type == "commute"){
+			dbresult = db1.query(
+					mcontext.getString(R.string.dbtable_commuteOrders), null,
+					mcontext.getString(R.string.dbstring_requesttime) + "=?",
+					new String[]{request}, null, null, null);
+		}else{//shortway
+			dbresult = db1.query(
+					mcontext.getString(R.string.dbtable_longwayOrders), null,
+					mcontext.getString(R.string.dbstring_requesttime) + "=?",
+					new String[]{request}, null, null, null);
+		}
+		if(0 == dbresult.getCount()){
+			dbresult.close();
+			return false;
+		}else {
+			dbresult.close();
+			return true;
+		}
+	}
 		//罗列集合
 
 	public Cursor showAll偏好地点() {
 		Cursor result = db1.query(mcontext.getString(R.string.dbtable_placeliked), null,
 				null, null, null, null, null);
-		Log.w(logtag + "喜欢数量", String.valueOf(result.getCount()));
+		Log.e("喜欢数量", String.valueOf(result.getCount()));
 		return result;
 	}
 
@@ -179,13 +205,18 @@ public class DataBaseAct {
 		Log.e("write to db","writing");
 
 		ContentValues content = new ContentValues();
+
+		/*判断是否已经有该记录*/
+		if(is历史订单中有该记录(requesttime,carsharing_type)){return;};
+
 		/*3个表的公共字段*/
 		content.put(mcontext.getString(R.string.dbstring_requesttime),requesttime);
-		content.put(mcontext.getString(R.string.dbstring_StartplaceName),place_name[0]);
+		Log.e("requesttime", requesttime);
+		content.put(mcontext.getString(R.string.dbstring_StartplaceName), place_name[0]);
+		Log.e("place_name[0]",place_name[0]);
 		content.put(mcontext.getString(R.string.dbstring_EndplaceName),place_name[1]);
 		content.put(mcontext.getString(R.string.dbstring_Display_firstItem),display_firstitem);
 		content.put(mcontext.getString(R.string.dbstring_Startdate),date_time[0]);
-		content.put(mcontext.getString(R.string.dbstring_Dealstatus),dealstatus);
 		content.put(mcontext.getString(R.string.dbstring_Userrole),userrole);
 		content.put(mcontext.getString(R.string.dbstring_Restseats),rest_seats);
 		content.put(mcontext.getString(R.string.dbstring_Carsharing_type),carsharing_type);
@@ -203,70 +234,48 @@ public class DataBaseAct {
 					longitude_latitude[3]);
 			content.put(mcontext.getString(R.string.dbstring_Starttime),date_time[2]);
 			content.put(mcontext.getString(R.string.dbstring_Endtime),date_time[3]);
+			content.put(mcontext.getString(R.string.dbstring_Dealstatus),dealstatus);
 
 			if (carsharing_type.compareTo("commute") == 0) {
 
 				content.put(mcontext.getString(R.string.dbstring_Enddate),date_time[1]);
 				content.put(mcontext.getString(R.string.dbstring_Weekrepeat),
 						weekrepeat);
-				db1.insert(mcontext.getString(R.string.dbtable_commuteOrders),null, content);
+				db1.insert(mcontext.getString(R.string.dbtable_commuteOrders), null, content);
 				Log.e("write to db","commute write ok!");
 			} else if (carsharing_type.compareTo("shortway") == 0) {
 				db1.insert(mcontext.getString(R.string.dbtable_shortwayOrders),null, content);
-				Log.e("write to db","shortway write ok!");
+				Log.e("write to db", "shortway write ok!");
 			}
 		}
 		else { //longway
-			db1.insert(mcontext.getString(R.string.dbtable_longwayOrders),null,content);
+			db1.insert(mcontext.getString(R.string.dbtable_longwayOrders), null, content);
 			Log.e("write to db","longway write ok!");
 		}
 
 	}
 
 		//shortway>commute>longway  查询第一条历史记录
-	public String read_FirstOrder() {
-		Cursor dbresult = db1.query(
-				mcontext.getString(R.string.dbtable_shortwayOrders),
-				new String[] {mcontext.getString(R.string.dbstring_Display_firstItem)},
-				mcontext.getString(R.string.dbstring_id) + "=?",
-				new String[]{"1"}, null, null, null);
-
-		if (0 == dbresult.getCount()) {
-			dbresult = db1.query(mcontext.getString(R.string.dbtable_commuteOrders),
-			new String[] {mcontext.getString(R.string.dbstring_Display_firstItem)},
-					mcontext.getString(R.string.dbstring_id) + "=?",
-					new String[]{"1"}, null, null, null);
-
-			if(0 == dbresult.getCount()){
-				dbresult = db1.query(mcontext.getString(R.string.dbtable_longwayOrders),
-				new String[] {mcontext.getString(R.string.dbstring_Display_firstItem)},
-						mcontext.getString(R.string.dbstring_id) + "=?",
-						new String[]{"1"}, null, null, null);
-				if(0 == dbresult.getCount())
-					return "查询不到您发布过的订单噢..";
-			}
-		}
-		return dbresult.getString(0);
-	}
 
 		//获取被点击的item的详细信息
 	public Cursor read某条历史订单(String requesttime){  //用requesttime来确定被点击的是哪一条
 		Cursor dbresult = db1.query(
 				mcontext.getString(R.string.dbtable_shortwayOrders),null,
-				mcontext.getString(R.string.dbstring_id) + "=?",
+				mcontext.getString(R.string.dbstring_requesttime) + "=?",
 				new String[]{requesttime}, null, null, null);
 
 		if (0 == dbresult.getCount()) {
 			dbresult = db1.query(mcontext.getString(R.string.dbtable_commuteOrders),null,
-					mcontext.getString(R.string.dbstring_id) + "=?",
+					mcontext.getString(R.string.dbstring_requesttime) + "=?",
 					new String[]{requesttime}, null, null, null);
 			if(0 == dbresult.getCount()){
 				dbresult = db1.query(mcontext.getString(R.string.dbtable_longwayOrders),null,
-						mcontext.getString(R.string.dbstring_id) + "=?",
+						mcontext.getString(R.string.dbstring_requesttime) + "=?",
 						new String[]{requesttime}, null, null, null);
 			}
 		}
 	//	dbresult.moveToFirst();
+		Log.e("read某条历史订单-dbresult.getcount",String.valueOf(dbresult.getCount()));
 		return dbresult;
 	}
 
@@ -276,15 +285,21 @@ public class DataBaseAct {
 		Cursor[] cursors = new Cursor[3];
 		cursors[0] = db1.query(
 				mcontext.getString(R.string.dbtable_shortwayOrders),
-				null, null, null, null, null, null);
+				null,
+				null, null, null, null, null);
+		Log.e("cursors[0].getCount()",String.valueOf(cursors[0].getCount()));
 
 		cursors[1] = db1.query(
 				mcontext.getString(R.string.dbtable_commuteOrders),
-				null, null, null, null, null, null);
+				null,
+				null, null, null, null, null);
+		Log.e("cursors[1].getCount()",String.valueOf(cursors[1].getCount()));
 
 		cursors[2] = db1.query(
 				mcontext.getString(R.string.dbtable_longwayOrders),
-				null, null, null, null, null, null);
+				null,
+				null, null, null, null, null);
+		Log.e("cursors[2].getCount()",String.valueOf(cursors[2].getCount()));
 
 		return cursors;  //Cursor数组
 

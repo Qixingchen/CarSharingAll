@@ -26,14 +26,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		//历史订单数据表：上下班拼车，短途拼车，长途拼车
 		db.execSQL("CREATE TABLE shortwayOrders(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-				"requesttime TEXT, StartplaceX REAL, StartplaceY REAL, Float, " +
+				"requesttime TEXT, StartplaceX REAL, StartplaceY REAL, " +
 				"EndplaceX REAL,EndplaceY REAL, StartplaceName TEXT, EndplaceName TEXT, " +
 				"Display_firstItem TEXT, Startdate TEXT, Starttime TEXT, " +
 				"Endtime TEXT, Dealstatus INTEGER, Userrole TEXT, Restseats INEGER, " +
 				"Carsharing_type TEXT);");
 
 		db.execSQL("CREATE TABLE commuteOrders(_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-				"requesttime TEXT, StartplaceX REAL, StartplaceY REAL, Float, " +
+				"requesttime TEXT, StartplaceX REAL, StartplaceY REAL, " +
 				"EndplaceX REAL,EndplaceY REAL,StartplaceName TEXT, EndplaceName TEXT, " +
 				"Display_firstItem TEXT, Startdate TEXT, Enddate TEXT, Starttime TEXT," +
 				"Endtime TEXT, Weekrepeat TEXT, Dealstatus INTEGER, Userrole TEXT, Restseats INEGER, " +
@@ -41,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		db.execSQL("CREATE TABLE longwayOrders(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
 				"requesttime TEXT,  StartplaceName TEXT, EndplaceName TEXT, " +
-				"Display_firstItem TEXT, Startdate TEXT, Dealstatus INTEGER, " +
+				"Display_firstItem TEXT, Startdate TEXT, " +
 				"Userrole TEXT, Restseats INTEGER, Carsharing_type TEXT);");
 
 	}
