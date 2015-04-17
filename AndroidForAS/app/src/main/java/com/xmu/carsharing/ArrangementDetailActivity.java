@@ -29,7 +29,7 @@ public class ArrangementDetailActivity extends Activity {
 	public static RequestQueue queue;
 	private float startplaceX, dtartplaceY, endplaceX, endplaceY;
 	private String carsharing_type, requesttime;
-	private TextView startplace, endplace, date_日期时间组合, restseats, userrole, dealstatus;
+	private TextView startplace, endplace, date_时间日期组合, restseats, userrole, dealstatus;
 	private String UserPhoneNumber;
 	private String startDate, endDate, startTime, endTime, weekrepeat,
 			mdealstatus;
@@ -60,7 +60,7 @@ public class ArrangementDetailActivity extends Activity {
 		btn_返回 = (ImageView) findViewById(android.R.id.home);
 		startplace = (TextView) findViewById(R.id.arrangementdetail_startaddress);
 		endplace = (TextView) findViewById(R.id.arrangementdetail_endaddress);
-		date_日期时间组合 = (TextView) findViewById(R.id.arrangementdetail_starttime);
+		date_时间日期组合 = (TextView) findViewById(R.id.arrangementdetail_starttime);
 		restseats = (TextView) findViewById(R.id.arrangementdetail_remainsites);
 		userrole = (TextView) findViewById(R.id.arrangementdetail_userrole);
 		dealstatus = (TextView) findViewById(R.id.arrangementdetail_orderstatus);
@@ -93,9 +93,9 @@ public class ArrangementDetailActivity extends Activity {
 		final String stp[] = bundle.getString("startplace").split(",");
 		final String ep[] = bundle.getString("endplace").split(",");
 
-		startplace.setText(bundle.getString("statrplace")); // 起点
+		startplace.setText(bundle.getString("startplace")); // 起点
 		endplace.setText(bundle.getString("endplace")); // 终点
-		date_日期时间组合.setText(bundle.getString("date_日期时间组合")); // 开始时间
+		date_时间日期组合.setText(bundle.getString("date_时间日期组合")); // 开始时间
 		restseats.setText(bundle.getString("restseats")); // 需要座位
         startDate = bundle.getString("startdate");
 		userrole = bundle.getString("userrole");
@@ -106,12 +106,16 @@ public class ArrangementDetailActivity extends Activity {
 		} else {
 			this.userrole.setText("司机");
 		}
-		if (mdealstatus.compareTo("0") == 0) {// 订单状态
-			dealstatus.setText("服务器正在尽快为您匹配，请稍等！");
-		} else if (mdealstatus.compareTo("1") == 0) {
-			dealstatus.setText("订单已匹配，请查收！");
-		} else if (mdealstatus.compareTo("2") == 0) {
-			dealstatus.setText("长途拼车");
+
+		/*订单状态*/
+		if(carsharing_type.compareTo("longway") != 0) {
+			if (mdealstatus.compareTo("0") == 0) {// 订单状态
+				dealstatus.setText("服务器正在尽快为您匹配，请稍等！");
+			} else if (mdealstatus.compareTo("1") == 0) {
+				dealstatus.setText("订单已匹配，请查收！");
+			} else if (mdealstatus.compareTo("2") == 0) {
+				dealstatus.setText("长途拼车");
+			}
 		}
 
 		// actionbar中返回键监听

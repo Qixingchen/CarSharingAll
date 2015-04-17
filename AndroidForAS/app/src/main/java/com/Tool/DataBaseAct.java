@@ -259,23 +259,29 @@ public class DataBaseAct {
 
 		//获取被点击的item的详细信息
 	public Cursor read某条历史订单(String requesttime){  //用requesttime来确定被点击的是哪一条
+		Log.e("dbact-requesttime",requesttime);
 		Cursor dbresult = db1.query(
 				mcontext.getString(R.string.dbtable_shortwayOrders),null,
 				mcontext.getString(R.string.dbstring_requesttime) + "=?",
 				new String[]{requesttime}, null, null, null);
+		Log.e("read某条历史订单-count-shortway",String.valueOf(dbresult.getCount()));
+
+	/*	Log.e("dbresult-requesttime",String.valueOf(dbresult.getInt(dbresult
+				.getColumnIndex(
+				"requesttime"))));*/
 
 		if (0 == dbresult.getCount()) {
 			dbresult = db1.query(mcontext.getString(R.string.dbtable_commuteOrders),null,
-					mcontext.getString(R.string.dbstring_requesttime) + "=?",
+					mcontext.getString(R.string.dbstring_requesttime) +"=?",
 					new String[]{requesttime}, null, null, null);
+			Log.e("read某条历史订单-count-commute",String.valueOf(dbresult.getCount()));
 			if(0 == dbresult.getCount()){
 				dbresult = db1.query(mcontext.getString(R.string.dbtable_longwayOrders),null,
-						mcontext.getString(R.string.dbstring_requesttime) + "=?",
+						mcontext.getString(R.string.dbstring_requesttime)+ "=?",
 						new String[]{requesttime}, null, null, null);
+				Log.e("read某条历史订单-count-longway",String.valueOf(dbresult.getCount()));
 			}
 		}
-	//	dbresult.moveToFirst();
-		Log.e("read某条历史订单-dbresult.getcount",String.valueOf(dbresult.getCount()));
 		return dbresult;
 	}
 

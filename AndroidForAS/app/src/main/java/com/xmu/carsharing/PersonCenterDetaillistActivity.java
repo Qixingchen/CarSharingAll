@@ -192,16 +192,15 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 	{
 
 		Bundle bundle = new Bundle();
-		Intent intent = new Intent(
-				PersonCenterDetaillistActivity.this,
+		Intent intent = new Intent(PersonCenterDetaillistActivity.this,
 				ArrangementDetailActivity.class);
 
-		Log.e("carsharingtype-index", String.valueOf(dbresult.getColumnIndex
-				(mcontext.getString(R.string.dbstring_Carsharing_type))));
+		if(dbresult == null) return;
+		dbresult.moveToFirst();
+
 		String carsharing_type = dbresult.getString(dbresult.getColumnIndex
 				(mcontext.getString(R.string.dbstring_Carsharing_type)));
-		bundle.putString("carsharing_type", dbresult.getString(dbresult.getColumnIndex
-				(mcontext.getString(R.string.dbstring_Carsharing_type))));
+		bundle.putString("carsharing_type", carsharing_type);
 		bundle.putString("startplace", dbresult.getString(dbresult.getColumnIndex
 				(mcontext.getString(R.string.dbstring_StartplaceName))));
 		bundle.putString("endplace", dbresult.getString(dbresult.getColumnIndex
@@ -210,8 +209,6 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 				(mcontext.getString(R.string.dbstring_Startdate))));
 		bundle.putString("restseats", dbresult.getString(dbresult.getColumnIndex
 				(mcontext.getString(R.string.dbstring_Restseats))));
-		bundle.putString("dealstatus", dbresult.getString(dbresult.getColumnIndex
-				(mcontext.getString(R.string.dbstring_Dealstatus))));
 		bundle.putString("userrole", dbresult.getString(dbresult.getColumnIndex
 				(mcontext.getString(R.string.dbstring_Userrole))));
 
@@ -230,6 +227,8 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 					(mcontext.getString(R.string.dbstring_Starttime))));
 			bundle.putString("endtime", dbresult.getString(dbresult.getColumnIndex
 					(mcontext.getString(R.string.dbstring_Endtime))));
+			bundle.putString("dealstatus", dbresult.getString(dbresult.getColumnIndex
+					(mcontext.getString(R.string.dbstring_Dealstatus))));
 
 
 			if(carsharing_type.compareTo("shortway") == 0){
@@ -239,7 +238,7 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 						+ " "
 						+ dbresult.getString(dbresult.getColumnIndex
 						(mcontext.getString(R.string.dbstring_Starttime))); //出发时间
-				bundle.putString("date_日期时间组合",date_时间日期组合);
+				bundle.putString("date_时间日期组合",date_时间日期组合);
 
 			}
 			else if (carsharing_type.compareTo("commute") == 0) {
@@ -256,7 +255,7 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 						+ " "
 						+ dbresult.getString(dbresult.getColumnIndex
 						(mcontext.getString(R.string.dbstring_Weekrepeat)));
-				bundle.putString("Title", date_时间日期组合 );
+				bundle.putString("date_时间日期组合", date_时间日期组合 );
 				bundle.putString("enddate", dbresult.getString(dbresult.getColumnIndex
 						(mcontext.getString(R.string.dbstring_Enddate))));
 				bundle.putString("weekrepeat", dbresult.getString(dbresult.getColumnIndex
@@ -267,9 +266,7 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 		else{ //longway
 			date_时间日期组合 =  dbresult.getString(dbresult.getColumnIndex
 					(mcontext.getString(R.string.dbstring_Startdate)))
-					+ " "
-					+ dbresult.getString(dbresult.getColumnIndex
-					(mcontext.getString(R.string.dbstring_Starttime))); //出发时间
+					+ " "; //出发时间
 			bundle.putString("date_时间日期组合",date_时间日期组合);
 		}
 

@@ -36,12 +36,6 @@ public class Mylist1 {
 		Cursor dbresult2 = cursors[1]; //commute
 		Cursor dbresult3 = cursors[2]; //longway
 		dbresult1.moveToFirst();
-		Log.e("dbresult1.getCount().", String.valueOf(dbresult1.getCount()));
-		dbresult2.moveToFirst();
-		Log.e("dbresult2.getCount().", String.valueOf(dbresult2.getCount()));
-		dbresult3.moveToFirst();
-		Log.e("dbresult3.getCount().", String.valueOf(dbresult3.getCount()));
-		Log.e("status", "im in mylist1产生");
 
 		for (dbresult1.moveToFirst(); !dbresult1.isAfterLast(); dbresult1.moveToNext()) { //短途
 
