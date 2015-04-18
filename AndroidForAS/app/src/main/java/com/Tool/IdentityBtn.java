@@ -31,7 +31,6 @@ import java.util.Map;
  */
 public class IdentityBtn {
 
-    private int viewid;
     private Activity activity;
     public int carinfochoosing_type;
     //  private boolean bcarbrand, bmodel, blicensenum, bcolor;/*品牌.型号.车牌号.颜色*/
@@ -45,9 +44,8 @@ public class IdentityBtn {
     private RadioGroup group;
     public static RequestQueue queue;
 
-    public IdentityBtn(Activity act, int id) {
+    public IdentityBtn(Activity act) {
         this.activity = act;
-        this.viewid = id;
     }
 
     public boolean IdentityChoosing(String SharingType, final String UserPhoneNumber) {

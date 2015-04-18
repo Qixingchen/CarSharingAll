@@ -10,23 +10,20 @@
 package com.xmu.carsharing;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -39,9 +36,9 @@ import android.widget.Toast;
 import com.Tool.AppStat;
 import com.Tool.DataBaseAct;
 import com.Tool.DatabaseHelper;
-import com.Tool.Drawer;
-import com.Tool.OrderReleasing;
+import com.Tool.MaterialDrawer;
 import com.Tool.Mylist1;
+import com.Tool.OrderReleasing;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -58,7 +55,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class PersonalCenterActivity extends Activity implements OrderReleasing.GetordersCallBack {
+public class PersonalCenterActivity extends ActionBarActivity implements OrderReleasing.GetordersCallBack {
 
 	TextView firsthistory;
 	TextView firstdeal;
@@ -75,9 +72,7 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	public static RequestQueue queue;
 
 	// actionbar!!
-	Drawer drawer;
-	private DrawerLayout mDrawerLayout;
-	private ActionBarDrawerToggle mDrawerToggle;
+	private Toolbar toolbar;
 	// actionbarend!!
 
 	boolean isExit;
@@ -91,7 +86,6 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	TextView description;
 	TextView carnum;
 	TextView sex;
-	private final static String CACHE = "/css";
 
 	RatingBar ratingbar;
 	// progressbar
@@ -110,7 +104,6 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 	// database end!!
 
 	private String logtag = "个人中心";
-	private String first_item;
 
 	Button quit;
 
@@ -123,9 +116,9 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 		dbact = new DataBaseAct(this,UserPhoneNumber); //数据库相关动作
 
 		//actionbar
-		drawer = new Drawer(this, R.id.person_center_layout);
-		mDrawerToggle = drawer.newdrawer();
-		mDrawerLayout = drawer.setDrawerLayout();
+		toolbar = (Toolbar)findViewById(R.id.tool_bar);
+		setSupportActionBar(toolbar);
+		new MaterialDrawer(this,toolbar);
 		//actionbar end
 
 		firsthistory = (TextView) findViewById(R.id.first_history);
@@ -469,31 +462,6 @@ public class PersonalCenterActivity extends Activity implements OrderReleasing.G
 
 	};
 
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		// 在onRestoreInstanceState发生后，同步触发器状态.
-		mDrawerToggle.syncState();
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// 将事件传递给ActionBarDrawerToggle, 如果返回true，表示app 图标点击事件已经被处理
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
-			return true;
-		}
-		// 处理你的其他action bar items...
-
-		return super.onOptionsItemSelected(item);
-	}
-
-	// actionbarend!!
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {

@@ -2,21 +2,16 @@
 
 package com.xmu.carsharing;
 
-import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 
-import com.Tool.Drawer;
+import com.Tool.MaterialDrawer;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends ActionBarActivity {
 
 	// actionbar!!
-	private Drawer drawer;
-	private DrawerLayout mDrawerLayout;
-	private ActionBarDrawerToggle mDrawerToggle;
+	private Toolbar toolbar;
 	// actionbarend!!
 
 	@Override
@@ -27,45 +22,17 @@ public class AboutActivity extends Activity {
 		setContentView(R.layout.activity_about);
 
 		//actionbar
-		drawer = new Drawer(this, R.id.about_layout);
-		mDrawerToggle = drawer.newdrawer();
-		mDrawerLayout = drawer.setDrawerLayout();
+		toolbar = (Toolbar)findViewById(R.id.tool_bar);
+		setSupportActionBar(toolbar);
+		new MaterialDrawer(this,toolbar);
 		//actionbar end
 
 	}
 
-	// actionbar!!
-
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		// 在onRestoreInstanceState发生后，同步触发器状态.
-		mDrawerToggle.syncState();
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// 将事件传递给ActionBarDrawerToggle, 如果返回true，表示app 图标点击事件已经被处理
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
-			return true;
-		}
-		// 处理你的其他action bar items...
-
-		return super.onOptionsItemSelected(item);
-	}
-
-	// actionbarend!!
 	@Override
 	public void onResume() {
 
 		super.onResume();
-		drawer.OnResumeRestore();
 
 	}
 

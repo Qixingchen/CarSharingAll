@@ -19,6 +19,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -43,6 +45,7 @@ import com.Tool.AppStat;
 import com.Tool.DataBaseAct;
 import com.Tool.Drawer;
 import com.Tool.IdentityBtn;
+import com.Tool.MaterialDrawer;
 import com.Tool.ServerSubmit;
 import com.Tool.ToolWithActivityIn;
 import com.android.volley.Request;
@@ -59,7 +62,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OrderActivity extends Activity {
+public class OrderActivity extends ActionBarActivity {
 
 	static final int TIME_DIALOG = 0;
 	static final int DATE_DIALOG = 1;
@@ -138,9 +141,7 @@ public class OrderActivity extends Activity {
 	// databasse end
 
 	// actionbar!!
-	private Drawer drawer;
-	private ActionBarDrawerToggle mDrawerToggle;
-
+	private Toolbar toolbar;
 	// actionbarend!!
 
 	//todo 迁移中
@@ -162,11 +163,12 @@ public class OrderActivity extends Activity {
 		setContentView(R.layout.activity_order);
 		toolWithActivityIn = new ToolWithActivityIn(this);
 		serverSubmit = new ServerSubmit(this);
-        function_identity = new IdentityBtn(this, R.id.commute_layout);
+        function_identity = new IdentityBtn(this);
 
 		//actionbar
-		drawer = new Drawer(this, R.id.commute_layout);
-		mDrawerToggle = drawer.newdrawer();
+		toolbar = (Toolbar)findViewById(R.id.tool_bar);
+		setSupportActionBar(toolbar);
+		new MaterialDrawer(this,toolbar);
 		//actionbar end
 
 		queue = Volley.newRequestQueue(this);
@@ -1052,12 +1054,10 @@ public class OrderActivity extends Activity {
 		});
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onResume() {
 
 		super.onResume();
-		drawer.OnResumeRestore();
 
 	}
 
@@ -1394,30 +1394,6 @@ public class OrderActivity extends Activity {
 				sure.setEnabled(false);
 			}
 		}
-	}
-
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		// 在onRestoreInstanceState发生后，同步触发器状态.
-		mDrawerToggle.syncState();
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// 将事件传递给ActionBarDrawerToggle, 如果返回true，表示app 图标点击事件已经被处理
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
-			return true;
-		}
-		// 处理你的其他action bar items...
-
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

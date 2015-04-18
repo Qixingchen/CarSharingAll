@@ -18,11 +18,6 @@
             layout="@layout/tool_bar">
         </include>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World"/>
-
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -35,10 +30,5 @@
         android:scrollbars="vertical">
 
     </android.support.v7.widget.RecyclerView>
-
-
-    <!-- 抽屉导航布局 -->
-
-    <include layout="@layout/drawer_layout"/>
 
 </android.support.v4.widget.DrawerLayout>

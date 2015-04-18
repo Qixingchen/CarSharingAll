@@ -19,12 +19,14 @@ import java.io.File;
 
 /**
  * Created by 雨蓝 on 2015/4/4.
+ * todo 需要destory么?
  */
 public class MaterialDrawer {
 
 	private String username;
 	private String userphonenum;
 	private Uri userFacePhoto;
+	//todo 用户头像
 	private static final String IMAGE_FILE_NAME2 = "faceImage2.jpg";
 
 	private String TITLES[] = {"上下班拼车","短途拼车","长途拼车列表查看","出租车拼车","设置","关于"};

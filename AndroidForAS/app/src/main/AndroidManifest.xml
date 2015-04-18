@@ -108,7 +108,7 @@
         <activity
             android:name=".PersonalCenterActivity"
             android:label="@string/title_activity_personal_center"
-            android:theme="@style/StyleForActionbarActivity"
+            android:theme="@style/ToolbarTheme"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -173,13 +173,13 @@
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
             android:parentActivityName=".PersonalCenterActivity"
-            android:theme="@style/StyleForActionbarActivity">
+            android:theme="@style/ToolbarTheme">
         </activity>
         <activity
             android:name=".SettingActivity"
             android:label="@string/title_activity_setting"
             android:parentActivityName=".PersonalCenterActivity"
-            android:theme="@style/StyleForActionbarActivity">
+            android:theme="@style/ToolbarTheme">
         </activity>
         <activity
             android:name=".OrderResponseActivity"
@@ -189,7 +189,7 @@
         </activity>
         <activity
             android:name=".OrderActivity"
-            android:theme="@style/StyleForActionbarActivity"
+            android:theme="@style/ToolbarTheme"
             android:label="@string/title_activity_order"
             />
         <activity

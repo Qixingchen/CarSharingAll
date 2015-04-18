@@ -13,14 +13,13 @@ public class testForMateralDrawer extends ActionBarActivity {
 
 
 	private Toolbar toolbar;
-	private MaterialDrawer materialDrawer;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_test_for_materal_drawer);
+		setContentView(R.layout.material_drawer_main);
 		toolbar = (Toolbar)findViewById(R.id.tool_bar);
 		setSupportActionBar(toolbar);
-		materialDrawer = new MaterialDrawer(this,toolbar);
+		new MaterialDrawer(this,toolbar);
 	}
 
 

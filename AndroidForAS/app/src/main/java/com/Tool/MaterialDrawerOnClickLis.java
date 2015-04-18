@@ -93,6 +93,7 @@ public  class MaterialDrawerOnClickLis {
 				mDrawerLayout.closeDrawers();
 				Intent setting = new Intent(activity, SettingActivity.class);
 				activity.startActivity(setting);
+				break;
 
 			case AppStat.MD材料抽屉按钮序号.关于:
 				if (activity.getClass().getSimpleName() == AppStat.drawer跳转的类名.关于) {
