@@ -21,4 +21,24 @@ public class Tool {
 		}
 	}
 
+	//订单界面 获取WeekRepeat字符串
+	public static String getWeekRepeat(boolean bmon,boolean btue,boolean bwed,boolean bthu,
+	                            boolean bfri,boolean bsat,boolean bsun){
+		String weekrepeat = "";
+						if (bmon)
+									weekrepeat += "1";
+						if (btue)
+									weekrepeat += "2";
+						if (bwed)
+									weekrepeat += "3";
+						if (bthu)
+									weekrepeat += "4";
+						if (bfri)
+									weekrepeat += "5";
+						if (bsat)
+									weekrepeat += "6";
+						if (bsun)
+									weekrepeat += "7";
+		return weekrepeat;
+	}
 }

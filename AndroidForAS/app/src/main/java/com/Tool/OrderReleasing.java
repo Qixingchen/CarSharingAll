@@ -29,7 +29,7 @@ public class OrderReleasing {
 
 	//todo 调整公开性
 	private Activity activity;
-	private String Logtag = "历史订单界面";
+	private String Logtag = "我发布过的订单";
 
 	private boolean WriteToDb_ok = false,empty = true; //empty:标志数据库是否为空。空：true
 
@@ -53,7 +53,7 @@ public class OrderReleasing {
 	private ToolWithActivityIn getPhone;
 	private DataBaseAct dbact;
 
-	RequestQueue queue;
+	private RequestQueue queue;
 
 	//回调函数
 	private GetordersCallBack getordersCallBack;

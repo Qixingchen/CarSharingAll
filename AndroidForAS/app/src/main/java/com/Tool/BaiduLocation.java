@@ -105,7 +105,7 @@ public class BaiduLocation {
 			} else {
 				mLocationClient.stop();
 				getHignLocationCallBack.getHignLocationCallback(location.getLongitude()
-						,location.getLatitude(),location.getAddrStr());
+						,location.getLatitude(),location.getAddrStr(),location.getTime());
 				Log.e(logtag,"获取地址"+location.getAddrStr());
 			}
 
@@ -140,7 +140,8 @@ public class BaiduLocation {
 
 	//精确定位的回调接口
 	public interface GetHignLocationCallBack {
-		public void getHignLocationCallback(double longitude,double latitude,String addr);
+		public void getHignLocationCallback(double longitude,double latitude,
+		                                    String addr,String time);
 	}
 
 

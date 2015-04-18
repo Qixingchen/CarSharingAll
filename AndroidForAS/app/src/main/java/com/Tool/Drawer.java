@@ -32,6 +32,7 @@ import longwaylist_fragmenttabhost.LongWayListActivity;
 * 并在onresume中调用 OnResumeRestore();
 * 即可
 * todo 抽屉染色
+* todo 删除
 **/
 public class Drawer {
 
@@ -60,7 +61,7 @@ public class Drawer {
 
 	public static final String IMAGE_FILE_NAME2 = "faceImage2.jpg";
 
-	public Drawer(Activity act, int id) {
+	private Drawer(Activity act, int id) {
 		activity = act;
 		viewid = id;
 		mcontext = activity.getApplicationContext();

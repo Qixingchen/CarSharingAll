@@ -15,7 +15,7 @@ import com.xmu.carsharing.SettingActivity;
 /**
  * Created by 雨蓝 on 2015/4/4.
  * 材料设计抽屉按键监听
- * TODO 由于评测界面整合,此处需要更改
+ * TODO 由于拼车界面整合,此处需要更改
  */
 public  class MaterialDrawerOnClickLis {
 

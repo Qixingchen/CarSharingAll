@@ -216,10 +216,12 @@ public class ChooseAddressActivity extends Activity implements
 
 		//精确定位回调函数
 	@Override
-	public void getHignLocationCallback(double longi, double lati, String addr) {
+	public void getHignLocationCallback(double longi, double lati, String addr,
+	                                    String time) {
 		longitude = longi;
 		latitude = lati;
 		PointMapName = addr;
+		PointUserName = time + "时的位置";
 
 		//数据库操作
 
