@@ -3,6 +3,7 @@
  * 接入了百度接口
  * 两个ListView分别存储收藏的地址和历史地址，这些信息存在本地，会随着软件的卸载消失。
  * “我的位置”实现定位
+ * todo 删除
  */
 
 package com.xmu.carsharing;

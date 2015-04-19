@@ -76,14 +76,14 @@ public class AppStat {
 		public static final int 收藏的地点 = 3;
 	}
 
-	public static class time格式化数组序号{
+	public static class time格式化数组序号 {
 		public static final int 最早时间 = 0;
 		public static final int 最早日期 = 1;
 		public static final int 最晚时间 = 2;
 		public static final int 最晚日期 = 3;
 	}
 
-	public static class order页面跳转意图{
+	public static class order页面跳转意图 {
 		public static final String 意图名称 = "cstype";
 		public static final String 上下班 = "workcs";
 		public static final String 上下班重新下单 = "reworkcs";
@@ -94,4 +94,17 @@ public class AppStat {
 
 	}
 
+	public static class startOrDes地点Intent标号 {
+		public final static int start = 1;
+		public final static int des = 2;
+	}
+
+	public static class prefer用户详细信息对应编号{
+		public final static int 姓名 =1;
+		public final static int 年龄=2;
+		public final static int 车辆描述=3;
+		public final static int 车牌号=4;
+		public final static int 性别=5;
+
+	}
 }

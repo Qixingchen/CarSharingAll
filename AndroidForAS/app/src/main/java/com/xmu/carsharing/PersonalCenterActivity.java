@@ -12,17 +12,13 @@ package com.xmu.carsharing;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
+import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,39 +31,34 @@ import android.widget.Toast;
 
 import com.Tool.AppStat;
 import com.Tool.DataBaseAct;
-import com.Tool.DatabaseHelper;
 import com.Tool.MaterialDrawer;
 import com.Tool.Mylist1;
 import com.Tool.OrderReleasing;
-import com.android.volley.Request;
+import com.Tool.ToolWithActivityIn;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 
-public class PersonalCenterActivity extends ActionBarActivity implements OrderReleasing.GetordersCallBack {
+public class PersonalCenterActivity extends ActionBarActivity implements OrderReleasing.GetordersCallBack
+,OrderReleasing.GetPairedOrderCallBack {
 
-	TextView firsthistory;
-	TextView firstdeal;
-	TextView firstfavorite;
+	private TextView firsthistory;
+	private TextView firstdeal;
+	private TextView firstfavorite;
 
 
-    public static ArrayList<HashMap<String, String>> mylist1 = new ArrayList<HashMap<String, String>>();
-    public static ArrayList<HashMap<String, Object>> mylist2 = new ArrayList<HashMap<String, Object>>();
-    public static ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
+	public static ArrayList<HashMap<String, String>> mylist1 = new ArrayList<HashMap<String, String>>();
+	public static ArrayList<HashMap<String, Object>> mylist2 = new ArrayList<HashMap<String, Object>>();
+	public static ArrayList<HashMap<String, String>> mylist3 = new ArrayList<HashMap<String, String>>();
 
-    OrderReleasing histotical_orders; /*查询发布过的订单（已封装在OrderRealeasing.java中）*/
-	Mylist1 getMylist1;
+	private OrderReleasing histotical_orders; /*查询发布过的订单（已封装在OrderRealeasing.java中）*/
+	private Mylist1 getMylist1;
 
 	public static RequestQueue queue;
 
@@ -77,48 +68,50 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 
 	boolean isExit;
 	boolean bfirstdeal = false, bfirstfavorite = false;
-	boolean writetodb = false,empty = true;//empty:标志数据表是否为空，空：true
-	Context context = PersonalCenterActivity.this;
+	boolean writetodb = false, empty = true;//empty:标志数据表是否为空，空：true
+	private Context context = PersonalCenterActivity.this;
 	static ImageView image;
 
-	TextView name;
-	TextView age;
-	TextView description;
-	TextView carnum;
-	TextView sex;
+	private TextView name, age, description, carnum, sex;
 
-	RatingBar ratingbar;
+	private RatingBar ratingbar;
+
+	private String logtag = "个人中心";
+
+	private Button quit;
+
+
 	// progressbar
 	private static MyProgressDialog pd;  /*建议对progressbar的实现进行封装*/
 	// progressbar end
 
 	// 用户手机号
-	String UserPhoneNumber;
+	private String UserPhoneNumber;
 
 	// database
-	DatabaseHelper db;
-	SQLiteDatabase db1;
-	Cursor dbresult;
-	DataBaseAct dbact;
+//	private DatabaseHelper db;
+//	private SQLiteDatabase db1;
+	private Cursor dbresult;
+	private DataBaseAct dataBaseAct;
 
 	// database end!!
 
-	private String logtag = "个人中心";
+	//tool类
+	ToolWithActivityIn toolWithActivityIn;
 
-	Button quit;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_personal_center);
 
-        histotical_orders = new OrderReleasing(this);
-		dbact = new DataBaseAct(this,UserPhoneNumber); //数据库相关动作
+		histotical_orders = new OrderReleasing(this);
+
 
 		//actionbar
-		toolbar = (Toolbar)findViewById(R.id.tool_bar);
+		toolbar = (Toolbar) findViewById(R.id.tool_bar);
 		setSupportActionBar(toolbar);
-		new MaterialDrawer(this,toolbar);
+		new MaterialDrawer(this, toolbar);
 		//actionbar end
 
 		firsthistory = (TextView) findViewById(R.id.first_history);
@@ -143,30 +136,22 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 
 		// ratingbar 设置
 		ratingbar.setRating(1.0f);  /*评价*/
-		// database
 
-		Context phonenumber = PersonalCenterActivity.this;
-		SharedPreferences filename = phonenumber
-				.getSharedPreferences(
-						getString(R.string.PreferenceDefaultName),
-						Context.MODE_PRIVATE);
-		UserPhoneNumber = filename.getString("refreshfilename", "0");
-
+		toolWithActivityIn = new ToolWithActivityIn(this);
+		UserPhoneNumber = toolWithActivityIn.get用户手机号从偏好文件();
 		Log.e("电话号码", UserPhoneNumber);
 
-		db = new DatabaseHelper(getApplicationContext(), UserPhoneNumber, null,
-				1);
-		db1 = db.getWritableDatabase();
-
+		// database
+		dataBaseAct = new DataBaseAct(this, UserPhoneNumber); //数据库相关动作
 		// database end!!!
 
-	//	Listeners();
 
+		//	Listeners();
 		iwantcar.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				
+
 				Intent iwantcar = new Intent();
 				iwantcar.setClass(PersonalCenterActivity.this,
 						CarsharingTypeActivity.class);
@@ -178,7 +163,7 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 
 			@Override
 			public void onClick(View arg0) {
-				
+
 				Intent imageedit = new Intent();
 				imageedit.setClass(PersonalCenterActivity.this,
 						PeronalinfoModifyActivity.class);
@@ -191,15 +176,15 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 			@Override
 			public void onClick(View arg0) {
 
-			//	Log.e("write_ok?",String.valueOf(writetodb));
+				//	Log.e("write_ok?",String.valueOf(writetodb));
 				if (writetodb == true) {
 					Intent historymore = new Intent();
 					historymore.putExtra("intent", AppStat.个人中心_详情界面跳转代号.发布的消息);
-					historymore.setClass(PersonalCenterActivity.this,PersonCenterDetaillistActivity.class);
+					historymore.setClass(PersonalCenterActivity.this, PersonCenterDetaillistActivity.class);
 					startActivity(historymore);
 				} else {
 					Toast.makeText(getApplicationContext(),
-						getString(R.string.warningInfo_dataRead),
+							getString(R.string.warningInfo_dataRead),
 							Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -209,18 +194,18 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 
 			@Override
 			public void onClick(View arg0) {
-				
-			//	if (writetodb == true) {
+
+				if (writetodb == true) {
 					Intent receivingmore = new Intent();
 					receivingmore.setClass(PersonalCenterActivity.this,
 							PersonCenterDetaillistActivity.class);
 					receivingmore.putExtra("intent", AppStat.个人中心_详情界面跳转代号.收到的匹配);
 					startActivity(receivingmore);
-			//	} else {
-			//		Toast.makeText(getApplicationContext(),
-			//				getString(R.string.warningInfo_dataRead),
-			//				Toast.LENGTH_SHORT).show();
-			//	}
+				} else {
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.warningInfo_dataRead),
+							Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 
@@ -246,30 +231,18 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 		super.onResume();
 
 		//todo 锁定列表信息，或者将完成判断置否
-		SharedPreferences filename = context.getSharedPreferences(
-						getString(R.string.PreferenceDefaultName),Context.MODE_PRIVATE);
-		UserPhoneNumber = filename.getString("refreshfilename", "文件名");
-		SharedPreferences sharedPref = context.getSharedPreferences(
-				UserPhoneNumber, Context.MODE_PRIVATE);
-		String newfullname = sharedPref.getString("refreshname", "姓名");
+		UserPhoneNumber = toolWithActivityIn.get用户手机号从偏好文件();
+		SparseArray<String> userinfo = toolWithActivityIn.get用户详细信息从偏好文件(UserPhoneNumber);
 
-		String newage = sharedPref.getString("refreshage", "年龄");
-
-		String newdescription = sharedPref.getString("refreshdescription",
-				"车辆描述");
-
-		String newcarnum = sharedPref.getString("refreshnum", "车牌号");
-
-		String newsex = sharedPref.getString("refreshsex", "性别");
-		Log.e("carnum", newcarnum);
-		name.setText(newfullname);
-		age.setText(newage);
-		sex.setText(newsex);
-		description.setText(newdescription);
-		carnum.setText(newcarnum);
+		name.setText(userinfo.get(AppStat.prefer用户详细信息对应编号.姓名));
+		age.setText(userinfo.get(AppStat.prefer用户详细信息对应编号.年龄));
+		sex.setText(userinfo.get(AppStat.prefer用户详细信息对应编号.性别));
+		description.setText(userinfo.get(AppStat.prefer用户详细信息对应编号.车辆描述));
+		carnum.setText(userinfo.get(AppStat.prefer用户详细信息对应编号.车牌号));
 
 		placeLikedListFlush();
 
+		//todo 使用更好的方式刷新列表
 		mylist2.clear();
 		firstdeal.setText(R.string.first_receiving);
 		bfirstdeal = false;
@@ -283,7 +256,7 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 
 		// 向服务器发起查询短途、上下班、长途拼车历史订单请求start!
 		histotical_orders.orders(UserPhoneNumber, PersonalCenterActivity.this);
-        /*将历史订单从服务器载入数据库，即刷新数据库。一次登录只做一次*/
+		/*将历史订单从服务器载入数据库，即刷新数据库。一次登录只做一次*/
 		// 向服务器发起查询短途、上下班、长途拼车订单请求end!
 
 
@@ -293,8 +266,8 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 		//产生mylist1，供personalcenterdetail界面使用
 		getMylist1 = new Mylist1(this);
 		mylist1 = getMylist1.mylist1产生();
-		if(writetodb == true) {
-			if(empty == false)
+		if (writetodb == true) {
+			if (empty == false)
 				firsthistory.setText(mylist1.get(0).get("text"));
 		}
 
@@ -306,19 +279,8 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 			@Override
 			public void onClick(View arg0) {
 
-				SharedPreferences sharedPref = getApplicationContext()
-						.getSharedPreferences(UserPhoneNumber,
-								Context.MODE_PRIVATE);
-
-				SharedPreferences.Editor editor = sharedPref.edit();
-				editor.putString(getString(R.string.PreferenceUserPassword),
-						"0");
-				editor.commit();
-				// progressbar开始
-				pd = new MyProgressDialog(context);
-				pd.setMessage("正在注销");
-				pd.show();
-				// progressbar结束
+				toolWithActivityIn.set快速登陆密码为空(UserPhoneNumber);
+				Toast.makeText(getApplicationContext(), "正在注销", Toast.LENGTH_SHORT).show();
 				Intent quit = new Intent();
 				quit.setClass(PersonalCenterActivity.this, LoginActivity.class);
 				startActivity(quit);
@@ -327,121 +289,16 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 
 	}
 
+	//todo 迁移
 	private void sharingresult(final String phonenum) {
-		
-		String sharingresult_baseurl = getString(R.string.uri_base)
-				+ getString(R.string.uri_CarTake)
-				+ getString(R.string.uri_selectcartake_action);
 
-		StringRequest stringRequest = new StringRequest(Request.Method.POST,
-				sharingresult_baseurl, new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.w("sharingresult", response);
-						try {
-							JSONObject jasitem = null;
-							JSONObject jas = new JSONObject(response);
-							JSONArray jasA = jas.getJSONArray("result");
-							for (int i = 0; i < jasA.length(); i++) {
-								jasitem = jasA.getJSONObject(i);
-								HashMap<String, Object> map = new HashMap<String, Object>();
-								map.put("Title", jasitem.getString("dealTime"));
-
-								if (jasitem.getString("sharingType").compareTo(
-										"commute") == 0) {
-									map.put("text", "已匹配订单：上下班拼车");
-								} else if (jasitem.getString("sharingType")
-										.compareTo("shortway") == 0) {
-									map.put("text", "已匹配订单：短途拼车");
-								}
-
-								map.put("requst", jasitem.getString("dealId")); // 隐藏的
-
-								String deal_readstatus = null;
-								if (i == 0) {
-									deal_readstatus = "receive";
-									map.put("deal_readstatus", "receive");// 隐藏的
-								} else if (i == 3) {
-									deal_readstatus = "reject";
-									map.put("deal_readstatus", "reject");// 隐藏的
-								} else if (i == 2) {
-									deal_readstatus = "assessOK";
-									map.put("deal_readstatus", "assessOK");// 隐藏的
-								} else if (i == 1) {
-									deal_readstatus = "unread";
-									map.put("deal_readstatus", "unread");// 隐藏的
-								}
-
-								Log.e(logtag+"deal_readstat",deal_readstatus);
-								if (deal_readstatus.compareTo("unread") == 0) {// 未读消息
-									map.put("deal_readstatusIcon",
-											R.drawable.ic_dealunread);
-								} else if (deal_readstatus.compareTo("receive") == 0) {// 已接收订单（等价于“未评价”）
-									map.put("deal_readstatusIcon",
-											R.drawable.ic_noneassess);
-								} else if (deal_readstatus.compareTo("reject") == 0) {// 已拒绝订单
-									map.put("deal_readstatusIcon",
-											R.drawable.ic_action_dealreject);
-								} else if (deal_readstatus
-										.compareTo("assessOK") == 0) {// 订单完成（包括“评价完毕”）
-									map.put("deal_readstatusIcon",
-											R.drawable.ic_dealread);
-								}
-
-								mylist2.add(map);
-
-							}
-							if (bfirstdeal == false && jasA.length() > 0) {
-								if (jasitem.getString("sharingType").compareTo(
-										"commute") == 0) {
-									firstdeal.setText(jasitem
-											.getString("dealTime")
-											+ "  "
-											+ "上下班拼车订单");
-									bfirstdeal = true;
-								} else if (jasitem.getString("sharingType")
-										.compareTo("shortway") == 0) {
-									firstdeal.setText(jasitem
-											.getString("dealTime")
-											+ "  "
-											+ "短途拼车订单");
-									bfirstdeal = true;
-								} else {
-									firstdeal.setText(R.string.first_receiving);
-								}
-							}
-						} catch (JSONException e) {
-							
-							e.printStackTrace();
-						}
-					}
-				}, new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						Log.e("sharingresult", error.getMessage(), error);
-					}
-				}) {
-			protected Map<String, String> getParams() {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("phonenum", phonenum);
-				return params;
-			}
-		};
-
-		queue.add(stringRequest);
 
 	}
 
 	public void placeLikedListFlush() {
 		mylist3.clear();
 
-		dbresult = db1.query(getString(R.string.dbtable_placeliked), null,
-				null, null, null, null, null);
-		Log.e("number", String.valueOf(dbresult.getCount()));
-		if (dbresult.getCount() == 0) {
-			return;
-		}
+		dbresult = dataBaseAct.showAll偏好地点();
 
 		@SuppressWarnings("unchecked")
 		HashMap<String, String>[] map = new HashMap[dbresult.getColumnCount()];
@@ -450,7 +307,7 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 
 		int i = 0;
 		while (!dbresult.isAfterLast()) {
-			map[i] = new HashMap<String, String>();
+			map[i] = new HashMap<>();
 			map[i].put("Title", String.valueOf(dbresult.getString(2)));
 			map[i].put("text", String.valueOf(dbresult.getString(1)));
 
@@ -460,7 +317,9 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 			i++;
 		}
 
-	};
+	}
+
+	;
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -474,45 +333,50 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	public void exit() {
-		if (!isExit) {
-			isExit = true;
-			Toast toast = Toast.makeText(getApplicationContext(), "再按一次退出程序",
-					Toast.LENGTH_SHORT);
-			toast.setGravity(Gravity.BOTTOM, 0, 50);
-			toast.show();
-			mHandler.sendEmptyMessageDelayed(0, 2000);
+		if (Build.VERSION.SDK_INT >= 16) {
+			finishAffinity();
 		} else {
-			if (Build.VERSION.SDK_INT >= 16) {
-				finishAffinity();
-			} else {
-				Intent intent = new Intent(Intent.ACTION_MAIN);
-				intent.addCategory(Intent.CATEGORY_HOME);
-				startActivity(intent);
-				super.onDestroy();
-				System.exit(0);
-			}
-
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			startActivity(intent);
+			super.onDestroy();
+			System.exit(0);
 		}
+
 	}
-
-	Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			
-			super.handleMessage(msg);
-			isExit = false;
-		}
-
-	};
 
 	//我发布过的订单回调接口
-	public void getordersCallBack(boolean WriteToDb_ok,boolean empty){
+	public void getordersCallBack(boolean WriteToDb_ok, boolean empty) {
 		this.writetodb = WriteToDb_ok;
 		this.empty = empty;
-		Log.e("write_ok?",String.valueOf(writetodb));
-		Log.e("empty?",String.valueOf(empty));
-
+		Log.e("write_ok?", String.valueOf(writetodb));
+		Log.e("empty?", String.valueOf(empty));
 	}
 
+	@Override
+	public void getPairedOrderCallBack(JSONObject jasitem, int jasA_length) {
+		if (bfirstdeal == false && jasA_length > 0) {
+			try {
+				if (jasitem.getString("sharingType").compareTo(
+						"commute") == 0) {
+					firstdeal.setText(jasitem
+							.getString("dealTime")
+							+ "  "
+							+ "上下班拼车订单");
+					bfirstdeal = true;
+				} else if (jasitem.getString("sharingType")
+						.compareTo("shortway") == 0) {
+					firstdeal.setText(jasitem
+							.getString("dealTime")
+							+ "  "
+							+ "短途拼车订单");
+					bfirstdeal = true;
+				} else {
+					firstdeal.setText(R.string.first_receiving);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

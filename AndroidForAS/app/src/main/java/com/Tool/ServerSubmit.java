@@ -267,6 +267,7 @@ public class ServerSubmit {
 
 	}
 
+	//参数要求:用户电话,userrole,开始日期,开始地点,结束地点,注释信息
 	public void longway订单提交(final String longway_phonenum,
 	                             final String longway_userrole,
 	                             final String longway_startdate,
@@ -475,5 +476,7 @@ public class ServerSubmit {
 
 		return time格式化后;
 	}
+
+
 
 }

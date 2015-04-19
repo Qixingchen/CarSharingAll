@@ -1,7 +1,6 @@
 package com.Tool;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -27,11 +26,10 @@ import java.util.Map;
  */
 public class OrderReleasing {
 
-	//todo 调整公开性
-	private Activity activity;
+	private Activity mactivity;
 	private String Logtag = "我发布过的订单";
 
-	private boolean WriteToDb_ok = false,empty = true; //empty:标志数据库是否为空。空：true
+	private boolean WriteToDb_ok = false, empty = true; //empty:标志数据库是否为空。空：true
 
 	private static float[] longitude_latitude = new float[4];
 	//数组按序为：startplaceX,startplaceY,endplaceX,endplaceY
@@ -44,7 +42,7 @@ public class OrderReleasing {
 
 	private String carsharing_type, dealstatus, userrole, weekrepeat = "",
 			Date_time_list = "", //起始日期和时间
-			 display_item = "",requesttime = "";
+			display_item = "", requesttime = "";
 	private int rest_seats;
 	private static ArrayList<HashMap<String, String>> mylist1_0 = new
 			ArrayList<HashMap<String, String>>();
@@ -57,20 +55,21 @@ public class OrderReleasing {
 
 	//回调函数
 	private GetordersCallBack getordersCallBack;
+	private GetPairedOrderCallBack getPairedOrderCallBack;
 
 
 	public OrderReleasing(Activity act) {
-		this.activity = act;
-		getPhone = new ToolWithActivityIn(activity);
+		this.mactivity = act;
+		getPhone = new ToolWithActivityIn(mactivity);
 		UserPhoneNumber = getPhone.get用户手机号从偏好文件();
-		dbact = new DataBaseAct(activity, UserPhoneNumber);
+		dbact = new DataBaseAct(mactivity, UserPhoneNumber);
 	}
 
 	private void longway_selectrequest(final String phonenum) {
 
-		String longwayway_selectpublish_baseurl = activity.getString(R.string.uri_base)
-				+ activity.getString(R.string.uri_LongwayPublish)
-				+ activity.getString(R.string.uri_selectpublish_action);
+		String longwayway_selectpublish_baseurl = mactivity.getString(R.string.uri_base)
+				+ mactivity.getString(R.string.uri_LongwayPublish)
+				+ mactivity.getString(R.string.uri_selectpublish_action);
 
 		// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
 
@@ -86,16 +85,16 @@ public class OrderReleasing {
 							JSONObject jasitem = null;
 							JSONObject jas = new JSONObject(response);
 							JSONArray jasA = jas.getJSONArray("result");
-							Log.e("jasAlength_longway",String.valueOf(jasA.length()));
-								for (i = 0; i < jasA.length(); i++) {
-									jasitem = jasA.getJSONObject(i);
-									getJson(jasitem, "longway");
-								}
+							Log.e("jasAlength_longway", String.valueOf(jasA.length()));
+							for (i = 0; i < jasA.length(); i++) {
+								jasitem = jasA.getJSONObject(i);
+								getJson(jasitem, "longway");
+							}
 							WriteToDb_ok = true;
-							Log.e("write_ok_oerderreleas?",String.valueOf(WriteToDb_ok));
-							if(jasA.length() != 0)  //标志此数据表是否为空
-								if(empty = true) empty = false;
-							getordersCallBack.getordersCallBack(WriteToDb_ok,empty);
+							Log.e("write_ok_oerderreleas?", String.valueOf(WriteToDb_ok));
+							if (jasA.length() != 0)  //标志此数据表是否为空
+								if (empty = true) empty = false;
+							getordersCallBack.getordersCallBack(WriteToDb_ok, empty);
 
 						} catch (JSONException e) {
 
@@ -123,9 +122,9 @@ public class OrderReleasing {
 
 	private void commute_selectrequest(final String phonenum) {
 
-		String commute_selectrequest_baseurl = activity.getString(R.string.uri_base)
-				+ activity.getString(R.string.uri_CommuteRequest)
-				+ activity.getString(R.string.uri_selectrequest_action);
+		String commute_selectrequest_baseurl = mactivity.getString(R.string.uri_base)
+				+ mactivity.getString(R.string.uri_CommuteRequest)
+				+ mactivity.getString(R.string.uri_selectrequest_action);
 		// "http://192.168.1.111:8080/CarsharingServer/CommuteRequest!selectrequest.action?";
 		StringRequest stringRequest = new StringRequest(Request.Method.POST,
 				commute_selectrequest_baseurl, new Response.Listener<String>() {
@@ -139,13 +138,13 @@ public class OrderReleasing {
 					JSONObject jas = new JSONObject(response);
 					JSONArray jasA = jas.getJSONArray("result");
 
-					Log.e("jasAlength_commute",String.valueOf(jasA.length()));
+					Log.e("jasAlength_commute", String.valueOf(jasA.length()));
 					for (i = 0; i < jasA.length(); i++) {
 						jasitem = jasA.getJSONObject(i);
 						getJson(jasitem, "commute");
 					}
-					if(jasA.length() != 0)  //标志此数据表是否为空
-						if(empty = true) empty = false;
+					if (jasA.length() != 0)  //标志此数据表是否为空
+						if (empty = true) empty = false;
 					longway_selectrequest(phonenum);
 				} catch (JSONException e) {
 
@@ -173,9 +172,9 @@ public class OrderReleasing {
 
 	private void shortway_selectrequest(final String phonenum) {
 
-		String shortway_selectrequest_baseurl = activity.getString(R.string.uri_base)
-				+ activity.getString(R.string.uri_ShortwayRequest)
-				+ activity.getString(R.string.uri_selectrequest_action);
+		String shortway_selectrequest_baseurl = mactivity.getString(R.string.uri_base)
+				+ mactivity.getString(R.string.uri_ShortwayRequest)
+				+ mactivity.getString(R.string.uri_selectrequest_action);
 		// "http://192.168.1.111:8080/CarsharingServer/ShortwayRequest!selectrequest.action?";
 
 		StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -190,13 +189,13 @@ public class OrderReleasing {
 							JSONObject jas = new JSONObject(response);
 							JSONArray jasA = jas.getJSONArray("result");
 
-							Log.e("jasAlength_shortway",String.valueOf(jasA.length()));
+							Log.e("jasAlength_shortway", String.valueOf(jasA.length()));
 							for (i = 0; i < jasA.length(); i++) {
 								jasitem = jasA.getJSONObject(i);
 								getJson(jasitem, "shortway");
 							}
-							if(jasA.length() != 0)  //标志此数据表是否为空
-								if(empty = true) empty = false;
+							if (jasA.length() != 0)  //标志此数据表是否为空
+								if (empty = true) empty = false;
 							commute_selectrequest(phonenum);
 
                     /*------------PersonalCenterActivity .java---start--------------------*/
@@ -236,7 +235,7 @@ public class OrderReleasing {
 								Log.e("bfirsthistory_order", String.valueOf(bfirsthistory));
 								commute_selectrequest(phonenum, request, act);
 							}*/
-                 /*   ------------PersonalCenterActivity .java---end-----------------------*/
+	             /*   ------------PersonalCenterActivity .java---end-----------------------*/
 
 
 						} catch (JSONException e) {
@@ -272,7 +271,7 @@ public class OrderReleasing {
 		display_item = place_name[0] + "  至  " + place_name[1]; //不是first_item
 		rest_seats = 4;
 
-		if(carsharing_type.compareTo("longway") != 0) {
+		if (carsharing_type.compareTo("longway") != 0) {
 
 			requesttime = jasitem.getString("requestTime");
 			date_time[2] = jasitem.getString("startTime");
@@ -294,7 +293,7 @@ public class OrderReleasing {
 			if (carsharing_type.compareTo("commute") == 0) {
 
 				//todo 应该改服务器上的命名
-				if(jasitem.getString("supplyCar").compareTo("y") == 0)
+				if (jasitem.getString("supplyCar").compareTo("y") == 0)
 					userrole = "p";
 				else userrole = "d";
 				date_time[1] = jasitem.getString("endDate");
@@ -306,8 +305,7 @@ public class OrderReleasing {
 				weekrepeat = "";
 				userrole = jasitem.getString("userRole");
 			}
-		}
-		else { //longway
+		} else { //longway
 
 			date_time[1] = "";
 			date_time[2] = "";
@@ -328,17 +326,108 @@ public class OrderReleasing {
 	}
 
 
-	public void orders(String UserPhoneNumber,GetordersCallBack getordersCB) {
+	public void orders(String UserPhoneNumber, GetordersCallBack getordersCB) {
 
-		queue = Volley.newRequestQueue(activity);
+		queue = Volley.newRequestQueue(mactivity);
 		getordersCallBack = getordersCB;
 		shortway_selectrequest(UserPhoneNumber); //将历史订单从服务器载入数据库
 
 	}
 
-	//结果回调函数
-	public interface GetordersCallBack {
-		public void getordersCallBack(boolean WriteToDb_ok,boolean empty);
+	//匹配的订单状态
+	public void pairedOrderResult(final String phonenum, final ArrayList<HashMap<String,
+			Object>> mylist2) {
+		String sharingresult_baseurl = mactivity.getString(R.string.uri_base)
+				+ mactivity.getString(R.string.uri_CarTake)
+				+ mactivity.getString(R.string.uri_selectcartake_action);
+
+		StringRequest stringRequest = new StringRequest(Request.Method.POST,
+				sharingresult_baseurl, new Response.Listener<String>() {
+
+			@Override
+			public void onResponse(String response) {
+				Log.w("sharingresult", response);
+				try {
+					JSONObject jasitem = null;
+					JSONObject jas = new JSONObject(response);
+					JSONArray jasA = jas.getJSONArray("result");
+					for (int i = 0; i < jasA.length(); i++) {
+						jasitem = jasA.getJSONObject(i);
+						HashMap<String, Object> map = new HashMap<>();
+						map.put("Title", jasitem.getString("dealTime"));
+
+						if (jasitem.getString("sharingType").compareTo(
+								"commute") == 0) {
+							map.put("text", "已匹配订单：上下班拼车");
+						} else if (jasitem.getString("sharingType")
+								.compareTo("shortway") == 0) {
+							map.put("text", "已匹配订单：短途拼车");
+						}
+
+						map.put("requst", jasitem.getString("dealId")); // 隐藏的
+
+						String deal_readstatus = null;
+						if (i == 0) {
+							deal_readstatus = "receive";
+							map.put("deal_readstatus", "receive");// 隐藏的
+						} else if (i == 3) {
+							deal_readstatus = "reject";
+							map.put("deal_readstatus", "reject");// 隐藏的
+						} else if (i == 2) {
+							deal_readstatus = "assessOK";
+							map.put("deal_readstatus", "assessOK");// 隐藏的
+						} else if (i == 1) {
+							deal_readstatus = "unread";
+							map.put("deal_readstatus", "unread");// 隐藏的
+						}
+
+						Log.e(Logtag + "deal_readstat", deal_readstatus);
+						if (deal_readstatus.compareTo("unread") == 0) {// 未读消息
+							map.put("deal_readstatusIcon",
+									R.drawable.ic_dealunread);
+						} else if (deal_readstatus.compareTo("receive") == 0) {// 已接收订单（等价于“未评价”）
+							map.put("deal_readstatusIcon",
+									R.drawable.ic_noneassess);
+						} else if (deal_readstatus.compareTo("reject") == 0) {// 已拒绝订单
+							map.put("deal_readstatusIcon",
+									R.drawable.ic_action_dealreject);
+						} else if (deal_readstatus
+								.compareTo("assessOK") == 0) {// 订单完成（包括“评价完毕”）
+							map.put("deal_readstatusIcon",
+									R.drawable.ic_dealread);
+						}
+
+						mylist2.add(map);
+
+					}
+					getPairedOrderCallBack.getPairedOrderCallBack(jasitem, jasA.length());
+				} catch (JSONException e) {
+
+					e.printStackTrace();
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				Log.e("sharingresult", error.getMessage(), error);
+			}
+		}) {
+			protected Map<String, String> getParams() {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("phonenum", phonenum);
+				return params;
+			}
+		};
+
+		queue.add(stringRequest);
 	}
 
+	//结果回调函数
+	public interface GetordersCallBack {
+		public void getordersCallBack(boolean WriteToDb_ok, boolean empty);
+	}
+
+	public interface GetPairedOrderCallBack {
+		public void getPairedOrderCallBack(JSONObject jasitem, int jasA_length);
+	}
 }

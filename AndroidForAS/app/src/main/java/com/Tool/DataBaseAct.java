@@ -105,6 +105,7 @@ public class DataBaseAct {
 			return true;
 		}
 	}
+
 		//罗列集合
 
 	public Cursor showAll偏好地点() {

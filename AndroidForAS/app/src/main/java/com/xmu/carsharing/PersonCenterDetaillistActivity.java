@@ -8,23 +8,10 @@
 
 package com.xmu.carsharing;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-
-import com.Tool.AppStat;
-import com.Tool.DataBaseAct;
-import com.Tool.OrderReleasing;
-
-import com.Tool.DatabaseHelper;
-import com.Tool.ToolWithActivityIn;
-import com.google.android.gms.plus.model.people.Person;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -36,6 +23,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.Tool.AppStat;
+import com.Tool.DataBaseAct;
+import com.Tool.DatabaseHelper;
+import com.Tool.OrderReleasing;
+import com.Tool.ToolWithActivityIn;
 
 public class PersonCenterDetaillistActivity extends Activity implements OrderReleasing.GetordersCallBack {
 
@@ -200,6 +193,7 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 
 		String carsharing_type = dbresult.getString(dbresult.getColumnIndex
 				(mcontext.getString(R.string.dbstring_Carsharing_type)));
+		//todo 有错误 全部跳转长途了
 		bundle.putString("carsharing_type", carsharing_type);
 		bundle.putString("startplace", dbresult.getString(dbresult.getColumnIndex
 				(mcontext.getString(R.string.dbstring_StartplaceName))));

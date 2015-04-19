@@ -25,7 +25,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,7 +38,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.Tool.AppStat;
 import com.Tool.DataBaseAct;
@@ -227,11 +225,11 @@ public class OrderActivity extends ActionBarActivity {
 		star1 = (ImageView) findViewById(R.id.cummute_star);
 		star2 = (ImageView) findViewById(R.id.commute_star01);
 
-		depdate = (View) findViewById(R.id.order_layout_depdate);
-		detailtime = (View) findViewById(R.id.order_layout_detailtime);
-		lastingdate = (View) findViewById(R.id.order_layout_lastingdate);
-		repeat = (View) findViewById(R.id.order_layout_rep);
-		remark = (View) findViewById(R.id.order_layout_remark);
+		depdate = findViewById(R.id.order_layout_depdate);
+		detailtime = findViewById(R.id.order_layout_detailtime);
+		lastingdate = findViewById(R.id.order_layout_lastingdate);
+		repeat = findViewById(R.id.order_layout_rep);
+		remark = findViewById(R.id.order_layout_remark);
 
 		noteinfo = (EditText) findViewById(R.id.order_remarkText);
 		// 提取用户手机号
@@ -355,8 +353,6 @@ public class OrderActivity extends ActionBarActivity {
 
 		// database
 		dataBaseAct = new DataBaseAct(this, UserPhoneNumber);
-
-
 		// database end
 
 		star1.setOnClickListener(new OnClickListener() {
@@ -512,7 +508,6 @@ public class OrderActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View arg0) {
 
-				userPhoneNum = toolWithActivityIn.get用户手机号从偏好文件();
 				weekrepeat = Tool.getWeekRepeat(bmon, btue, bwed, bthu, bfri, bsat, bsun);
 
 				if (cstype.compareTo("workcs") == 0 || cstype.compareTo("reworkcs") == 0) {
@@ -577,7 +572,7 @@ public class OrderActivity extends ActionBarActivity {
 			public void onClick(View arg0) {
 
 				startActivityForResult(new Intent(OrderActivity.this,
-						ChooseAddressActivity.class), 1);
+						ChooseAddressActivity.class), AppStat.startOrDes地点Intent标号.start);
 			}
 		});
 
@@ -587,7 +582,7 @@ public class OrderActivity extends ActionBarActivity {
 			public void onClick(View arg0) {
 
 				startActivityForResult(new Intent(OrderActivity.this,
-						ChooseArrivalActivity.class), 2);
+						ChooseAddressActivity.class), AppStat.startOrDes地点Intent标号.des);
 			}
 		});
 
@@ -608,8 +603,8 @@ public class OrderActivity extends ActionBarActivity {
 			public void onClick(View arg0) {
 
 				sum--;
-				if (sum < 0) {
-					sum = 0;
+				if (sum < 1) {
+					sum = 1;
 				}
 				s1.setText("" + sum);
 				confirm();
@@ -668,6 +663,7 @@ public class OrderActivity extends ActionBarActivity {
 	public void onResume() {
 
 		super.onResume();
+		userPhoneNum = toolWithActivityIn.get用户手机号从偏好文件();
 
 	}
 
@@ -676,7 +672,7 @@ public class OrderActivity extends ActionBarActivity {
 
 		if (resultCode == Activity.RESULT_OK) {
 			switch (requestCode) {
-				case 1: {
+				case AppStat.startOrDes地点Intent标号.start: {
 					StartPointMapName = data
 							.getStringExtra(getString(R.string.dbstring_PlaceMapName));
 					StartPointUserName = data
@@ -706,7 +702,7 @@ public class OrderActivity extends ActionBarActivity {
 					break;
 
 				}
-				case 2: {
+				case AppStat.startOrDes地点Intent标号.des: {
 
 					EndPointMapName = data
 							.getStringExtra(getString(R.string.dbstring_PlaceMapName));
@@ -770,19 +766,12 @@ public class OrderActivity extends ActionBarActivity {
 		return null;
 	}
 
-	public void DisplayToast(String str) {
-		Toast toast = Toast.makeText(this, str, Toast.LENGTH_SHORT);
-		toast.setGravity(Gravity.BOTTOM, 0, 50);
-		toast.show();
-	}
-
 	private OnTimeSetListener mEarlyStartTimeListener = new OnTimeSetListener() {
 
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-			DisplayToast("时间为:" + String.valueOf(hourOfDay) + "时"
-					+ String.valueOf(minute) + "分" + "00秒");
+			//todo 删除00s
 			earlystarttime.setText(String.valueOf(hourOfDay) + "时"
 					+ String.valueOf(minute) + "分" + "00秒");
 			bearlystarttime = true;
@@ -795,8 +784,7 @@ public class OrderActivity extends ActionBarActivity {
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-			DisplayToast("时间为:" + String.valueOf(hourOfDay) + "时"
-					+ String.valueOf(minute) + "分" + "00秒");
+
 			latestarttime.setText(String.valueOf(hourOfDay) + "时"
 					+ String.valueOf(minute) + "分" + "00秒");
 			blatestarttime = true;
@@ -811,9 +799,7 @@ public class OrderActivity extends ActionBarActivity {
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 		                      int dayofMonth) {
 
-			DisplayToast(String.valueOf(year) + "年"
-					+ String.valueOf(monthofYear + 1) + "月"
-					+ String.valueOf(dayofMonth) + "日");
+
 			startDateButton.setText(String.valueOf(year) + "年"
 					+ String.valueOf(monthofYear + 1) + "月"
 					+ String.valueOf(dayofMonth) + "日");
@@ -829,9 +815,7 @@ public class OrderActivity extends ActionBarActivity {
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 		                      int dayofMonth) {
 
-			DisplayToast(String.valueOf(year) + "年"
-					+ String.valueOf(monthofYear + 1) + "月"
-					+ String.valueOf(dayofMonth) + "日");
+
 			startdate.setText(String.valueOf(year) + "年"
 					+ String.valueOf(monthofYear + 1) + "月"
 					+ String.valueOf(dayofMonth) + "日");
@@ -848,9 +832,7 @@ public class OrderActivity extends ActionBarActivity {
 		public void onDateSet(DatePicker arg0, int year, int monthofYear,
 		                      int dayofMonth) {
 
-			DisplayToast(String.valueOf(year) + "年"
-					+ String.valueOf(monthofYear + 1) + "月"
-					+ String.valueOf(dayofMonth) + "日");
+
 			enddate.setText(String.valueOf(year) + "年"
 					+ String.valueOf(monthofYear + 1) + "月"
 					+ String.valueOf(dayofMonth) + "日");
@@ -858,8 +840,12 @@ public class OrderActivity extends ActionBarActivity {
 			confirm();
 		}
 	};
+
+	//todo 整理或删除文本填写检测
 	TextWatcher numTextWatcher = new TextWatcher() {
 		private CharSequence temp;
+
+
 
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
@@ -869,10 +855,8 @@ public class OrderActivity extends ActionBarActivity {
 		}
 
 		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-		                              int after) {
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-			// mTextView.setText(s);//将输入的内容实时显示
 		}
 
 		@Override
