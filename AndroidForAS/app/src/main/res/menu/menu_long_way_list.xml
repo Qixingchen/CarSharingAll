@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.xmu.carsharing.LongWayList">
+
+    <!-- 默认是乘客,点这个会变成司机 -->
+    <item
+        android:id="@+id/LongWayLIst_I_Am_driver"
+        android:title="您是司机?"
+        android:onClick="I_Am_driver"
+        android:visible="true"
+        app:showAsAction="always"/>
+    <!-- 点这个会变成乘客 -->
+    <item
+        android:id="@+id/LongWayLIst_I_Am_Passage"
+        android:title="您是乘客?"
+        android:onClick="I_Am_Passage"
+        android:visible="false"
+        app:showAsAction="always"/>
+</menu>

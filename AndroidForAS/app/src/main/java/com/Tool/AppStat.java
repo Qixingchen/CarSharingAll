@@ -57,6 +57,10 @@ public class AppStat {
 				("HH:mm:ss", locale);
 		public static final SimpleDateFormat HH时mm分ss秒 = new SimpleDateFormat
 				("HH时mm分ss秒", locale);
+		public static final SimpleDateFormat yyyy_MM_dd_HH_mm_ss = new SimpleDateFormat
+				("yyyy-MM-dd HH:mm:ss.0", locale);
+		public static final SimpleDateFormat yy_M_d = new SimpleDateFormat(
+				"yy-M-d", locale);
 	}
 
 	//百度定位设置

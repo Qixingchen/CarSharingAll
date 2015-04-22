@@ -521,7 +521,7 @@
 </LinearLayout>
 <!-- 抽屉导航布局 -->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/RecyclerView"
+        android:id="@+id/DrawerRecyclerView"
         android:layout_width="320dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"

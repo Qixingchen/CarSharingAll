@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/LongwayListCardLineraLayout"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!--间隔-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="8sp"/>
+
+    <!--listItem-->
+    <LinearLayout
+        android:id="@+id/LongwayListCardItem"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--第一行-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48sp">
+
+            <ImageView
+                android:layout_width="64sp"
+                android:layout_height="48sp"
+                android:paddingLeft="16sp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/tianyiblue_shape"
+                android:id="@+id/LongwayListCardItemUserImage"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8sp"
+                android:layout_toRightOf="@id/LongwayListCardItemUserImage"
+                android:paddingTop="16dp"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:text="祈星辰"
+                android:id="@+id/LongwayListCardItemUserName"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12sp"
+                android:layout_toRightOf="@id/LongwayListCardItemUserName"
+                android:paddingTop="20dp"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                android:text="15/12/12"
+                android:id="@+id/LongwayListCardItemNeedTime"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:layout_alignParentRight="true"
+                android:paddingRight="24sp"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                android:text="15/12/10"
+                android:id="@+id/LongwayListCardItemPublishTime"/>
+
+        </RelativeLayout>
+        <!--详细内容-->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="24sp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="上海-杭州\n仅需50元"
+                android:id="@+id/LongwayListCardItemDetile"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

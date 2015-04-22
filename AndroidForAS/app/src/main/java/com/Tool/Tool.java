@@ -2,6 +2,9 @@ package com.Tool;
 
 import android.os.Environment;
 
+import java.text.ParseException;
+import java.util.Date;
+
 /**
  * @author XuZhiwei (xuzw13@gmail.com) Create at 2012-8-17 上午10:14:40
  */
@@ -40,5 +43,20 @@ public class Tool {
 						if (bsun)
 									weekrepeat += "7";
 		return weekrepeat;
+	}
+
+	public static String getSimpleDate(String olddate){
+		String Newdate ="";
+
+		try {
+			Date temp_date = AppStat.time格式化.yyyy_MM_dd_HH_mm_ss.parse(olddate);
+			Newdate = AppStat.time格式化.yy_M_d.format(temp_date);
+
+		} catch (ParseException e) {
+
+			e.printStackTrace();
+		}
+
+		return Newdate;
 	}
 }

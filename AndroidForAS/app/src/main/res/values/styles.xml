@@ -35,9 +35,11 @@
 
     <style name="ToolBarBaseTheme" parent="Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/Apptheme_500</item>
         <item name="colorPrimaryDark">@color/Apptheme_700</item>
         <item name="colorAccent">@color/Material_Deep_Orange_500</item>
+
 
         <!-- Set AppCompat’s actionBarStyle -->
         <!-- <item name="actionBarStyle">@style/MyActionBar</item> -->

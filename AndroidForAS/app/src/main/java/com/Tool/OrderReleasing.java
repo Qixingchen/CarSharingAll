@@ -325,7 +325,7 @@ public class OrderReleasing {
 				display_item, rest_seats);
 	}
 
-
+	//todo 同时调用3个查询,节约时间
 	public void orders(String UserPhoneNumber, GetordersCallBack getordersCB) {
 
 		queue = Volley.newRequestQueue(mactivity);
@@ -421,6 +421,7 @@ public class OrderReleasing {
 
 		queue.add(stringRequest);
 	}
+
 
 	//结果回调函数
 	public interface GetordersCallBack {

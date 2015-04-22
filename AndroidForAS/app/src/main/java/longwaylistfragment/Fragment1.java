@@ -1,19 +1,6 @@
 package longwaylistfragment;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -24,10 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,12 +21,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.xmu.carsharing.LoginActivity;
-import com.xmu.carsharing.LongWayArrangementDetail;
-import com.xmu.carsharing.PersonalCenterActivity;
-import com.xmu.carsharing.R;
 import com.viewlist.XListView;
 import com.viewlist.XListView.IXListViewListener;
+import com.xmu.carsharing.LongWayArrangementDetail;
+import com.xmu.carsharing.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Fragment1 extends Fragment implements IXListViewListener {
 	private static List<Map<String, String>> list = new ArrayList<Map<String, String>>();

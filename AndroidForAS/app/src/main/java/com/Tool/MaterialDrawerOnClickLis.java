@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
 import com.xmu.carsharing.AboutActivity;
+import com.xmu.carsharing.LongWayList;
 import com.xmu.carsharing.OrderActivity;
 import com.xmu.carsharing.PersonalCenterActivity;
 import com.xmu.carsharing.SettingActivity;
@@ -69,9 +70,7 @@ public  class MaterialDrawerOnClickLis {
 				}
 
 				mDrawerLayout.closeDrawers();
-				Intent longway = new Intent(activity, OrderActivity.class);
-				longway.putExtra(AppStat.order页面跳转意图.意图名称, AppStat.order页面跳转意图.长途);
-				longway.putExtra("pre_page", pageNmae);
+				Intent longway = new Intent(activity, LongWayList.class);
 				activity.startActivity(longway);
 				break;
 			case AppStat.MD材料抽屉按钮序号.出租车拼车:

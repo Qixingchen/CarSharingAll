@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import com.xmu.carsharing.R;
 
@@ -68,7 +67,7 @@ public class MaterialDrawer {
 						getExternalFilesDir(Environment.DIRECTORY_PICTURES),
 				IMAGE_FILE_NAME2));
 
-		mRecyclerView = (RecyclerView) mactivity.findViewById(R.id.RecyclerView);
+		mRecyclerView = (RecyclerView) mactivity.findViewById(R.id.DrawerRecyclerView);
 		// Assigning the RecyclerView Object to the xml View
 
 		mRecyclerView.setHasFixedSize(true);

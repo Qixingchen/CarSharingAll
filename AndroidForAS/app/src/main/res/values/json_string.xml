@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="LongWay_开始日期">startDate</string>
+    <string name="LongWay_开始地点">startPlace</string>
+    <string name="LongWay_目的地">destination</string>
+    <string name="LongWay_用户ID">userId</string>
+    <string name="LongWay_发布时间">publishTime</string>
+    <string name="LongWay_订单编号">id</string>
+    <string name="LongWay_备注信息">noteInfo</string>
+    <string name="LongWay_人员角色">userRole</string>
+</resources>

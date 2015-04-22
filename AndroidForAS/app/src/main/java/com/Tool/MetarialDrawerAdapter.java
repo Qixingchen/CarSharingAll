@@ -3,11 +3,13 @@ package com.Tool;
 /**
  * Created by 雨蓝 on 2015/4/4.
  */
+
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +41,8 @@ public class MetarialDrawerAdapter extends RecyclerView.Adapter<MetarialDrawerAd
 	DrawerLayout drawerLayout;
 
 	public MetarialDrawerAdapter(String Titles[], int Icons[], String Name,
-	                              String Email, Uri Profile,
-	                             Activity passedActivity,DrawerLayout drawerLayout){ // MetarialDrawerAdapter Constructor with titles and icons parameter
+	                             String Email, Uri Profile,
+	                             Activity passedActivity, DrawerLayout drawerLayout) { // MetarialDrawerAdapter Constructor with titles and icons parameter
 		// titles, icons, name, email, profile pic are passed from the main activity as we
 		mNavTitles = Titles;                //have seen earlier
 		mIcons = Icons;
@@ -68,7 +70,7 @@ public class MetarialDrawerAdapter extends RecyclerView.Adapter<MetarialDrawerAd
 		MaterialDrawerOnClickLis materialDrawerOnClickLis;
 		DrawerLayout drawerLayout;
 
-		public ViewHolder(View itemView,int ViewType,Activity ac,
+		public ViewHolder(View itemView, int ViewType, Activity ac,
 		                  DrawerLayout mdrawerLayout) {
 
 			super(itemView);
@@ -80,12 +82,11 @@ public class MetarialDrawerAdapter extends RecyclerView.Adapter<MetarialDrawerAd
 			materialDrawerOnClickLis = new MaterialDrawerOnClickLis();
 
 
-			if(ViewType == TYPE_ITEM) {
+			if (ViewType == TYPE_ITEM) {
 				textView = (TextView) itemView.findViewById(R.id.rowText);
 				imageView = (ImageView) itemView.findViewById(R.id.rowIcon);
 				Holderid = 1;
-			}
-			else{
+			} else {
 
 
 				Name = (TextView) itemView.findViewById(R.id.name);
@@ -98,7 +99,7 @@ public class MetarialDrawerAdapter extends RecyclerView.Adapter<MetarialDrawerAd
 		@Override
 		public void onClick(View v) {
 
-			materialDrawerOnClickLis.setDrawerIntent(activityinviewhold,getPosition(),drawerLayout);
+			materialDrawerOnClickLis.setDrawerIntent(activityinviewhold, getPosition(), drawerLayout);
 
 
 		}
@@ -111,12 +112,12 @@ public class MetarialDrawerAdapter extends RecyclerView.Adapter<MetarialDrawerAd
 	// and pass it to the view holder
 
 	@Override
-	public MetarialDrawerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
+	public MetarialDrawerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
 		if (viewType == TYPE_ITEM) {
-			View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.material_drawer_item_row,parent,false); //Inflating the layout
+			View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.material_drawer_item_row, parent, false); //Inflating the layout
 
-			ViewHolder vhItem = new ViewHolder(v,viewType,activity,drawerLayout); //Creating ViewHolder and passing the object of type view
+			ViewHolder vhItem = new ViewHolder(v, viewType, activity, drawerLayout); //Creating ViewHolder and passing the object of type view
 
 			return vhItem; // Returning the created object
 
@@ -124,10 +125,10 @@ public class MetarialDrawerAdapter extends RecyclerView.Adapter<MetarialDrawerAd
 
 		} else if (viewType == TYPE_HEADER) {
 
-			View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.material_toolbar_header,parent,
+			View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.material_toolbar_header, parent,
 					false); //Inflating the layout
 
-			ViewHolder vhHeader = new ViewHolder(v,viewType,activity,drawerLayout); //Creating ViewHolder and passing the object of type view
+			ViewHolder vhHeader = new ViewHolder(v, viewType, activity, drawerLayout); //Creating ViewHolder and passing the object of type view
 
 			return vhHeader; //returning the object created
 
@@ -139,14 +140,16 @@ public class MetarialDrawerAdapter extends RecyclerView.Adapter<MetarialDrawerAd
 
 	@Override
 	public void onBindViewHolder(MetarialDrawerAdapter.ViewHolder holder, int position) {
-		if(holder.Holderid ==1) {                              // as the list view is going to be called after the header view so we decrement the
+		if (holder.Holderid == 1) {                              // as the list view is going to be called after the header view so we decrement the
 			// position by 1 and pass it to the holder while setting the text and image
 			holder.textView.setText(mNavTitles[position - 1]); // Setting the Text with the array of our Titles
-			holder.imageView.setImageResource(mIcons[position -1]);// Settimg the image with array of our icons
-		}
-		else{
-
-			holder.profile.setImageURI(profile);
+			holder.imageView.setImageResource(mIcons[position - 1]);// Settimg the image with array of our icons
+		} else {
+			try {
+				holder.profile.setImageURI(profile);
+			} catch (Exception e) {
+				Log.e("材料都踢", "用户图片不存在");
+			}
 			// Similarly we set the resources
 			// for header
 			// view
@@ -158,7 +161,7 @@ public class MetarialDrawerAdapter extends RecyclerView.Adapter<MetarialDrawerAd
 	// This method returns the number of items present in the list
 	@Override
 	public int getItemCount() {
-		return mNavTitles.length+1; // the number of items in the list will be +1 the titles including the header view.
+		return mNavTitles.length + 1; // the number of items in the list will be +1 the titles including the header view.
 	}
 
 
