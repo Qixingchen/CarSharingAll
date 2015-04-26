@@ -20,7 +20,7 @@ import com.xmu.carsharing.SettingActivity;
  */
 public  class MaterialDrawerOnClickLis {
 
-	private String pageNmae = "Drawer";
+	private String pageName = "Drawer";
 
 
 	//设置抽屉的点击监听器
@@ -48,7 +48,7 @@ public  class MaterialDrawerOnClickLis {
 				mDrawerLayout.closeDrawers();
 				Intent commute = new Intent(activity, OrderActivity.class);
 				commute.putExtra(AppStat.order页面跳转意图.意图名称, AppStat.order页面跳转意图.上下班);
-				commute.putExtra("pre_page", pageNmae);
+				commute.putExtra("pre_page", pageName);
 				activity.startActivity(commute);
 				break;
 			case AppStat.MD材料抽屉按钮序号.短途拼车:
@@ -60,7 +60,7 @@ public  class MaterialDrawerOnClickLis {
 				mDrawerLayout.closeDrawers();
 				Intent shortway = new Intent(activity, OrderActivity.class);
 				shortway.putExtra(AppStat.order页面跳转意图.意图名称, AppStat.order页面跳转意图.短途);
-				shortway.putExtra("pre_page", pageNmae);
+				shortway.putExtra("pre_page", pageName);
 				activity.startActivity(shortway);
 				break;
 			case AppStat.MD材料抽屉按钮序号.长途拼车列表:
@@ -70,7 +70,13 @@ public  class MaterialDrawerOnClickLis {
 				}
 
 				mDrawerLayout.closeDrawers();
+<<<<<<< Updated upstream
 				Intent longway = new Intent(activity, LongWayList.class);
+=======
+				Intent longway = new Intent(activity, OrderActivity.class);
+				longway.putExtra(AppStat.order页面跳转意图.意图名称, AppStat.order页面跳转意图.长途);
+				longway.putExtra("pre_page", pageName);
+>>>>>>> Stashed changes
 				activity.startActivity(longway);
 				break;
 			case AppStat.MD材料抽屉按钮序号.出租车拼车:

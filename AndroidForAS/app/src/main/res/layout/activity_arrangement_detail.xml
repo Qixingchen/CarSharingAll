@@ -1,240 +1,352 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:scrollbars="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="${relativePackage}.${activityClass}" 
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:orientation="vertical"> <!--主线性布局 -->
+
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="#2196F3"> <!--次级线性布局,蓝色部分-->
 
-        <ImageView
-            android:id="@+id/arrangementdetail_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="8dp"
-            android:background="@color/white_ffffff"
-            android:src="@drawable/ic_launcher" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/arrangementdetail_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="18dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_launcher" />
 
             <TextView
                 android:id="@+id/arrangementdetail_orderstatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
                 android:layout_gravity="center"
                 android:text="订单状态"
-                android:textColor="#46A3FF"
-                android:textSize="18sp" />
-    </LinearLayout>
+                android:textColor="#ffffff"
+                android:textSize="23sp" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout1"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/arrangementdetail_startplace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:text="出发地"
-            android:textColor="#bfbfbf"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/arrangementdetail_startaddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:text="厦门市思明区厦大学生公寓"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="14sp" />
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="#696969" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout2"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/arrangementdetail_endplace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:text="目的地"
-            android:textColor="#bfbfbf"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/arrangementdetail_endaddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:text="厦门市思明区厦大西村"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="14sp" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="#696969" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout3"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/arrangementdetail_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:text="出发时间"
-            android:textColor="#bfbfbf"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/arrangementdetail_starttime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:text="2014年8月8日    12：30-14：:30"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="14sp" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="#696969" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout4"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/arrangementdetail_role"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:text="您的身份"
-            android:textColor="#bfbfbf"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/arrangementdetail_userrole"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:text="司机"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="14sp" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="#696969" />
-    </LinearLayout>
-    <LinearLayout 
-        android:id="@+id/linearLayout6"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout5"
-        android:gravity="center"
-        android:layout_gravity="bottom"
-        android:orientation="vertical" >
         <LinearLayout
-        android:id="@+id/linearLayout7"
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/linearLayout1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/arrangementdetail_startplace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="5dp"
+                android:text="出发地"
+                android:textColor="#424242"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/arrangementdetail_startaddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="5dp"
+                android:text="厦门市思明区厦大学生公寓"
+                android:textColor="#ffffff"
+                android:textSize="15sp" />
+
+         </LinearLayout>
+
+         <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/linearLayout2"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/arrangementdetail_endplace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="8dp"
+                android:text="目的地"
+                android:textColor="#424242"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/arrangementdetail_endaddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="5dp"
+                android:text="厦门市思明区厦大西村"
+                android:textColor="#ffffff"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/linearLayout3"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/arrangementdetail_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="8dp"
+                android:text="出发时间"
+                android:textColor="#424242"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/arrangementdetail_starttime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="2014年8月8日    12：30-14：:30"
+                android:textColor="#ffffff"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout1"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="#E3F2FD"> <!--次级线性布局，淡蓝色部分-->
 
         <TextView
-            android:id="@+id/arrangementdetail_remain"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:text="预约情况"
-            android:textColor="#bfbfbf"
-            android:textSize="16sp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="18dp"
+            android:text="订单信息"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
 
-        <TextView
-            android:id="@+id/arrangementdetail_remainsites"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:text="位置剩余2  已有 2人预约：1男 1女 "
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="14sp" />
+            android:layout_marginTop="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/linearLayout4"
+            android:orientation="horizontal" >
 
+            <TextView
+                android:id="@+id/arrangementdetail_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:text="下单时间"
+                android:textColor="#9E9E9E"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/arrangementdetail_userrole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="2015-04-21  20：49"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/linearLayout5"
+            android:layout_gravity="center"
+            android:orientation="horizontal" >
+
+
+            <TextView
+                android:id="@+id/arrangementdetail_remain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="订单号"
+                android:textColor="#9E9E9E"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/arrangementdetail_remainsites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="5dp"
+                android:text="123456789034387856"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/linearLayout5"
+            android:layout_gravity="center"
+            android:orientation="horizontal" > <!--id change-->
+
+
+            <TextView
+                android:id="@+id/arrangementdetail_identity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="您的身份"
+                android:textColor="#9E9E9E"
+                android:textSize="15sp" /> <!--id name change-->
+
+            <TextView
+                android:id="@+id/arrangementdetail_driver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="司机"
+                android:textSize="15sp" /> <!--id name change-->
+
+
+        </LinearLayout>
         <View
             android:layout_width="fill_parent"
             android:layout_height="0.5dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="#696969" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="18dp"
+            android:text="乘客信息"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:text="乘客1："
+                android:textColor="#9E9E9E"
+                android:textSize="15sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="18859278851"
+                android:textSize="15sp"
+                android:textColor="#000000"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:text="乘客2："
+                android:textColor="#9E9E9E"
+                android:textSize="15sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="18805920779"
+                android:textSize="15sp"
+                android:textColor="#000000"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:text="乘客3："
+                android:textColor="#9E9E9E"
+                android:textSize="15sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="18059250227"
+                android:textSize="15sp"
+                android:textColor="#000000"/>
+        </LinearLayout>
     </LinearLayout>
-    
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff">
+        <Button
+            android:id="@+id/arrangement_reorder"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:background="@drawable/blue_btn_selector"
+            android:text="重新下单"
+            android:textColor="#F8F8F8" />
+    </LinearLayout>
+
 </LinearLayout>
-
-    <Button
-        android:id="@+id/arrangement_reorder"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp"
-        android:background="@drawable/blue_btn_selector"
-        android:text="重新下单"
-        android:textColor="#F8F8F8" />
-
-</RelativeLayout>
+</ScrollView>
