@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xmu.carsharing.R;
 
@@ -17,18 +19,27 @@ import com.xmu.carsharing.R;
  * 历史订单列表适配器
  */
 public class HistoryOrderListAdapter extends RecyclerView.Adapter<HistoryOrderListAdapter.ViewHolder>{
-	private HistoryOrderListItemClass historyOrderListItemData;
+	private static HistoryOrderListItemClass historyOrderListItemData;
 	private static Activity mactivity;
 	private static String logtag = "长途列表适配器";
-
+	private RemoveHistoryOrder removeHistoryOrder;
 	//回调
 	private OnViewHolderListener onViewHolderListener;
 
+	public HistoryOrderListAdapter(HistoryOrderListItemClass historyOrderListItemData,
+	                               Activity activity,OnViewHolderListener onViewHolderListener) {
+		this.historyOrderListItemData = historyOrderListItemData;
+		mactivity = activity;
+		this.onViewHolderListener = onViewHolderListener;
+		removeHistoryOrder = new RemoveHistoryOrder(mactivity,mactivity);
+	}
 	public static class ViewHolder extends RecyclerView.ViewHolder {
 		// each data item is just a string in this case
 		public ImageView carsharing_type_image;
 		public TextView carsharing_type_text, dealstatus,
 				needdate_time, startplace,endplace;
+		public ImageButton history_order_alarm,history_order_delete,
+				getHistory_order_ItemDetail;
 
 		public ViewHolder(View v) {
 			super(v);
@@ -45,14 +56,33 @@ public class HistoryOrderListAdapter extends RecyclerView.Adapter<HistoryOrderLi
 			needdate_time = (TextView) v.findViewById(R.id.HistoryOrder_starttime);
 			startplace = (TextView) v.findViewById(R.id.HistoryOrder_startplace);
 			endplace = (TextView) v.findViewById(R.id.HistoryOrder_endplace);
-		}
-	}
+			history_order_alarm = (ImageButton) v.findViewById(R.id
+					.HistoryOrderList_anounceBtn);
+			history_order_delete = (ImageButton) v.findViewById(R.id
+					.HistoryOrderList_deleteBtn);
+			getHistory_order_ItemDetail = (ImageButton) v.findViewById(R.id
+					.HistoryOrder_ItemDetail);
 
-	public HistoryOrderListAdapter(HistoryOrderListItemClass historyOrderListItemData,
-	                          Activity activity,OnViewHolderListener onViewHolderListener) {
-		this.historyOrderListItemData = historyOrderListItemData;
-		mactivity = activity;
-		this.onViewHolderListener = onViewHolderListener;
+			history_order_alarm.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Toast.makeText(mactivity.getApplicationContext(),
+							"alarm被点击"+getAdapterPosition(),
+							Toast.LENGTH_SHORT).show();
+				}
+			});
+			history_order_delete.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Toast.makeText(mactivity.getApplicationContext(),
+							"delete被点击"+getAdapterPosition(),
+							Toast.LENGTH_SHORT).show();
+					removeHistoryOrder.removeItem(historyOrderListItemData,
+							getAdapterPosition());
+					notifyItemRemoved(getAdapterPosition());
+				}
+			});
+		}
 	}
 
 	@Override
@@ -68,8 +98,9 @@ public class HistoryOrderListAdapter extends RecyclerView.Adapter<HistoryOrderLi
 	@Override
 	public void onBindViewHolder(HistoryOrderListAdapter.ViewHolder holder, int position) {
 
-		holder.dealstatus.setText(historyOrderListItemData.HistoryOrderListItems[position]
-				.DealStatus);
+		holder.dealstatus.setText(String.valueOf(historyOrderListItemData
+				.HistoryOrderListItems[position]
+				.DealStatus));
 		holder.needdate_time.setText(historyOrderListItemData.HistoryOrderListItems[position]
 				.NeedDate_time);
 		holder.startplace.setText(historyOrderListItemData.HistoryOrderListItems[position]

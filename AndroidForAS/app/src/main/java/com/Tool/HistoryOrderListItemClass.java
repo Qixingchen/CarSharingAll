@@ -10,14 +10,17 @@ public class HistoryOrderListItemClass {
 		public String Carsharing_type;
 		public String NeedDate_time;
 		public String StartPlace, EndPlace;
+		public String Requesttime;
 		public int DealStatus;
 
 		public HistoryOrderListEveryItem(String type, String date_time, String startPlace,
-		                                 String endPlace,int dealstatus) {
+		                                 String endPlace,String requesttime,
+		                                 int dealstatus) {
 			this.Carsharing_type = type;
 			this.NeedDate_time = date_time;
 			this.StartPlace = startPlace;
 			this.EndPlace = endPlace;
+			this.Requesttime = requesttime;
 			this.DealStatus = dealstatus;
 		}
 	}
@@ -29,13 +32,14 @@ public class HistoryOrderListItemClass {
 	}
 
 	public HistoryOrderListItemClass(String type[], String date_time[], String startPlace[],
-	                            String endPlace[],int dealstatus[]) {
+	                            String endPlace[],String requesttime[],int dealstatus[]) {
 		int length = type.length;
 		HistoryOrderListItems = new HistoryOrderListEveryItem[length];
 
 		for (int i = 0; i < length; i++) {
 			HistoryOrderListItems[i] = new HistoryOrderListEveryItem(type[i],
-					date_time[i], startPlace[i], endPlace[i], dealstatus[i]);
+					date_time[i], startPlace[i], endPlace[i],
+					requesttime[i], dealstatus[i]);
 
 		}
 	}

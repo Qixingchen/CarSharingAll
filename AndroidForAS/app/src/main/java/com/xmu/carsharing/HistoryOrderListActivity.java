@@ -5,15 +5,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import com.Tool.HistoryOrderItems产生;
 import com.Tool.HistoryOrderListAdapter;
 import com.Tool.HistoryOrderListItemClass;
+import com.Tool.MaterialDrawer;
 
 public class HistoryOrderListActivity extends ActionBarActivity implements
 		HistoryOrderItems产生.GetHistoryOrderAnsCallBack,
 		SwipeRefreshLayout.OnRefreshListener,
 		HistoryOrderListAdapter.OnViewHolderListener{
+
+	// actionbar!!
+	private Toolbar toolbar;
+	// actionbarend!!
 
 	//RecyclerView
 	private RecyclerView mRecyclerView;
@@ -41,6 +47,11 @@ public class HistoryOrderListActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_history_order_list);
+
+		//actionbar
+		toolbar = (Toolbar) findViewById(R.id.tool_bar);
+		setSupportActionBar(toolbar);
+		//actionbar end
 
 		//RecyclerView
 		mRecyclerView = (RecyclerView) findViewById(R.id.HistoryOrderListRecyclerView);

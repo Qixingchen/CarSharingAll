@@ -70,13 +70,8 @@ public  class MaterialDrawerOnClickLis {
 				}
 
 				mDrawerLayout.closeDrawers();
-<<<<<<< Updated upstream
+
 				Intent longway = new Intent(activity, LongWayList.class);
-=======
-				Intent longway = new Intent(activity, OrderActivity.class);
-				longway.putExtra(AppStat.order页面跳转意图.意图名称, AppStat.order页面跳转意图.长途);
-				longway.putExtra("pre_page", pageName);
->>>>>>> Stashed changes
 				activity.startActivity(longway);
 				break;
 			case AppStat.MD材料抽屉按钮序号.出租车拼车:

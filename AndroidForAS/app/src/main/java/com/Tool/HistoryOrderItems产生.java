@@ -40,6 +40,7 @@ public class HistoryOrderItems产生 {
 		String[] Carsharing_type;
 		String[] NeedDate_time;
 		String[] StartPlace, EndPlace;
+		String[] Requesttime;
 		int[] DealStatus;
 
 		int theEndPoistion = end;
@@ -65,6 +66,7 @@ public class HistoryOrderItems产生 {
 		NeedDate_time = new String[length];
 		StartPlace = new String[length];
 		EndPlace = new String[length];
+		Requesttime = new String[length];
 		DealStatus = new int[length];
 
 		int i = 0;
@@ -81,7 +83,9 @@ public class HistoryOrderItems产生 {
 					("StartplaceName"));
 			EndPlace[i] = dbresult1.getString(dbresult1.getColumnIndex("EndplaceName"));
 
-			DealStatus[i] = dbresult1.getInt(dbresult1.getColumnIndex("requesttime"));
+			DealStatus[i] = dbresult1.getInt(dbresult1.getColumnIndex("Dealstatus"));
+
+			Requesttime[i] = dbresult1.getString(dbresult1.getColumnIndex("requesttime"));
 			i ++;
 
 		}
@@ -91,13 +95,16 @@ public class HistoryOrderItems产生 {
 			Carsharing_type[i] = "commute";
 			NeedDate_time[i] = dbresult2.getString(dbresult2.getColumnIndex("Starttime"))
 					+ " "
-					+ dbresult1.getString(dbresult2.getColumnIndex("Weekrepeat")); //出发时间
+					+ "每周"
+					+ dbresult2.getString(dbresult2.getColumnIndex("Weekrepeat")); //出发时间
 
 			StartPlace[i] = dbresult2.getString(dbresult2.getColumnIndex
 					("StartplaceName"));
 			EndPlace[i] = dbresult2.getString(dbresult2.getColumnIndex("EndplaceName"));
 
-			DealStatus[i] = dbresult2.getInt(dbresult2.getColumnIndex("requesttime"));
+			DealStatus[i] = dbresult2.getInt(dbresult2.getColumnIndex("Dealstatus"));
+
+			Requesttime[i] = dbresult2.getString(dbresult2.getColumnIndex("requesttime"));
 			i ++;
 
 		}
@@ -113,14 +120,15 @@ public class HistoryOrderItems产生 {
 			EndPlace[i] = dbresult3.getString(dbresult3.getColumnIndex
 					("EndplaceName"));
 
-			DealStatus[i] = dbresult3.getInt(dbresult3.getColumnIndex
-					("requesttime"));
+			DealStatus[i] = dbresult3.getInt(dbresult3.getColumnIndex("Dealstatus"));
+
+			Requesttime[i] = dbresult3.getString(dbresult3.getColumnIndex("requesttime"));
 			i ++;
 
 		}
 		HistoryOrderListItemClass historyOrderListItemClass = new
 				HistoryOrderListItemClass(Carsharing_type,
-				NeedDate_time, StartPlace, EndPlace, DealStatus);
+				NeedDate_time, StartPlace, EndPlace,Requesttime, DealStatus);
 		getLongWayAnsCallBack.getHistoryOrderAnsCallBack(isend, historyOrderListItemClass);
 		if (swipeLayout != null) {
 			swipeLayout.setRefreshing(false);
