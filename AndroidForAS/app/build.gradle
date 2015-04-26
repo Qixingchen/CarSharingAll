@@ -37,7 +37,7 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:22.1.0'
     compile 'com.android.support:appcompat-v7:22.1.0'
-    compile "com.google.android.gms:play-services:7.0.0"
+    compile 'com.google.android.gms:play-services:7.0.0'
     compile 'com.android.support:recyclerview-v7:22.1.0'
     compile 'de.hdodenhof:circleimageview:1.2.1'
     compile files('libs/baidumapapi_v3_3_0.jar')

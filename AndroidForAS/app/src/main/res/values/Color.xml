@@ -5,6 +5,10 @@
     <color name="Apptheme_300">#81C784</color>
     <color name="Apptheme_700">#388E3C</color>
     <color name="Apptheme_900">#1B5E20</color>
+    <color name="Apptheme_blue_500">#5677fc</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="gray">#424242</color>
     <color name="Material_Deep_Orange_500">#F44336</color>
 
 </resources>

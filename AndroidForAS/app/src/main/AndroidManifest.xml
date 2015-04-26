@@ -117,6 +117,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".HistoryOrderListActivity"
+            android:label="@string/title_activity_history_order_list"
+            android:theme="@style/ToolbarTheme"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ChooseAddressActivity"
             android:label="@string/title_activity_choose_address"
             android:theme="@style/StyleForActionbarActivity"
@@ -200,7 +211,7 @@
             android:name=".Newyige"
             android:label="@string/title_activity_newyige" >
         </activity>
-        <!--todo 删除-->
+        <!-- todo 删除 -->
         <activity
             android:name=".testForMateralDrawer"
             android:label="@string/title_activity_test_for_materal_drawer"
@@ -209,7 +220,7 @@
         <activity
             android:name=".LongWayList"
             android:label="@string/title_activity_long_way_list"
-            android:theme="@style/ToolbarTheme">
+            android:theme="@style/ToolbarTheme" >
         </activity>
     </application>
 

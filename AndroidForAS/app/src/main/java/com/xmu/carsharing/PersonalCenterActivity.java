@@ -175,9 +175,13 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 
 			@Override
 			public void onClick(View arg0) {
+				Intent historymore = new Intent();
+				historymore.setClass(PersonalCenterActivity.this,
+						HistoryOrderListActivity.class);
+				startActivity(historymore);
 
 				//	Log.e("write_ok?",String.valueOf(writetodb));
-				if (writetodb == true) {
+		/*		if (writetodb == true) {
 					Intent historymore = new Intent();
 					historymore.putExtra("intent", AppStat.个人中心_详情界面跳转代号.发布的消息);
 					historymore.setClass(PersonalCenterActivity.this, PersonCenterDetaillistActivity.class);
@@ -186,7 +190,7 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 					Toast.makeText(getApplicationContext(),
 							getString(R.string.warningInfo_dataRead),
 							Toast.LENGTH_SHORT).show();
-				}
+				}*/
 			}
 		});
 
@@ -264,12 +268,12 @@ public class PersonalCenterActivity extends ActionBarActivity implements OrderRe
 		mylist1.clear();
 		firsthistory.setText(R.string.first_history);
 		//产生mylist1，供personalcenterdetail界面使用
-		getMylist1 = new Mylist1(this);
+		/*getMylist1 = new Mylist1(this);
 		mylist1 = getMylist1.mylist1产生();
 		if (writetodb == true) {
 			if (empty == false)
 				firsthistory.setText(mylist1.get(0).get("text"));
-		}
+		}*/
 
 		// 查询订单结果信息
 		sharingresult(UserPhoneNumber);

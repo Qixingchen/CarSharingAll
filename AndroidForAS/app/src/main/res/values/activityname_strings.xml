@@ -19,7 +19,6 @@
     <string name="title_activity_register_second">注册</string>
     <string name="title_activity_about">反馈与关于</string>
     <string name="title_activity_setting">设置</string>
-    <string name="action_settings">Settings</string>
     <string name="title_activity_forget_password">忘记密码</string>
     <string name="title_activity_arrangement_detail">订单详情 </string>
     <string name="user_phonenum">user_phonenum</string>
@@ -32,5 +31,6 @@
     <string name="title_activity_re_order_commute">重新下单</string>
     <string name="title_activity_test_for_materal_drawer">材料设计</string>
     <string name="title_activity_order">提交订单</string>
+    <string name="title_activity_history_order_list">历史订单</string>
 
 </resources>

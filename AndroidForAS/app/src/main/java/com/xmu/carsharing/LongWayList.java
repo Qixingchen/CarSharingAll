@@ -52,7 +52,6 @@ public class LongWayList extends ActionBarActivity implements ServerQues.GetLong
 	private SwipeRefreshLayout swipeLayout;
 	private int nowLastItemIndex = 0;
 
-
 	private String logtag = "长途拼车列表";
 
 	@Override

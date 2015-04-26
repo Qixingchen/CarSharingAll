@@ -26,9 +26,6 @@ public class LongWayListItemClass {
 			DetailString = detailString;
 			ID = id;
 		}
-//
-//		public LongWayListEveryItem() {
-//		}
 
 	}
 
