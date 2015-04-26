@@ -2,24 +2,26 @@ package com.xmu.carsharing;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import com.Tool.LongWayListAdapter;
 import com.Tool.LongWayListItemClass;
 import com.Tool.MaterialDrawer;
 import com.Tool.ServerQues;
+import com.Tool.Tool;
 
-import java.security.cert.CertificateFactorySpi;
-
-
-public class LongWayList extends ActionBarActivity implements ServerQues.GetLongWayAnsCallBack
+/**
+ * 长途拼车所有数据列表界面
+ *
+ * todo 显示订单界面
+ * todo 搜索,按省内省外
+ * */
+public class LongWayList extends AppCompatActivity implements ServerQues.GetLongWayAnsCallBack
 ,SwipeRefreshLayout.OnRefreshListener,LongWayListAdapter.OnViewHolderListener{
 
 	// actionbar!!
@@ -45,7 +47,7 @@ public class LongWayList extends ActionBarActivity implements ServerQues.GetLong
 	private String userrole = "p";
 
 	//菜单按钮
-	private MenuItem IAmDriver,IAmPassagr;
+	private MenuItem IAmDriver,IAmPassagr,SearchItem;
 
 	//下拉刷新
 	private boolean isRefresh = false;
@@ -73,6 +75,7 @@ public class LongWayList extends ActionBarActivity implements ServerQues.GetLong
 
 		//SwipeRefresh
 		swipeLayout = (SwipeRefreshLayout) findViewById(R.id.LongwaySwipeToRefreash);
+		Tool.set下拉刷新颜色(swipeLayout);
 		swipeLayout.setOnRefreshListener(this);
 		//SwipeRefresh END
 
@@ -95,10 +98,7 @@ public class LongWayList extends ActionBarActivity implements ServerQues.GetLong
 		getMenuInflater().inflate(R.menu.menu_long_way_list, menu);
 		IAmDriver = menu.findItem(R.id.LongWayLIst_I_Am_driver);
 		IAmPassagr = menu.findItem(R.id.LongWayLIst_I_Am_Passage);
-		if (IAmDriver == null || IAmPassagr == null){
-			Log.e(logtag,"menuitem is null");
-		}
-
+		SearchItem = menu.findItem(R.id.LongwayListFind);
 		return true;
 	}
 

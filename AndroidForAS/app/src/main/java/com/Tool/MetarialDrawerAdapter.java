@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xmu.carsharing.R;
 
@@ -148,7 +147,7 @@ public class MetarialDrawerAdapter extends RecyclerView.Adapter<MetarialDrawerAd
 			try {
 				holder.profile.setImageURI(profile);
 			} catch (Exception e) {
-				Log.e("材料都踢", "用户图片不存在");
+				Log.e("材料主题", "用户图片不存在");
 			}
 			// Similarly we set the resources
 			// for header

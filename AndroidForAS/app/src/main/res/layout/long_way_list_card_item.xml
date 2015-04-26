@@ -9,7 +9,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="8sp"/>
+        android:layout_height="12sp"/>
 
     <!--listItem-->
     <LinearLayout
@@ -75,10 +75,18 @@
                 android:paddingLeft="24sp"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:text="上海-杭州\n仅需50元"
+                android:text="上海-杭州仅需50元"
                 android:id="@+id/LongwayListCardItemDetile"/>
 
         </LinearLayout>
+
+        <!--间隔-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#696969" />
 
     </LinearLayout>
 

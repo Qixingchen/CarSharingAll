@@ -3,18 +3,28 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.xmu.carsharing.LongWayList">
 
+    <item
+        android:id="@+id/LongwayListFind"
+        android:checkable="true"
+        android:icon="@android:drawable/ic_menu_search"
+        android:actionViewClass="android.support.v7.widget.SearchView"
+        android:title="@string/LongwayListFind"
+        android:iconifiedByDefault="true"
+        app:showAsAction="ifRoom|collapseActionView">
+    </item>
+
     <!-- 默认是乘客,点这个会变成司机 -->
     <item
         android:id="@+id/LongWayLIst_I_Am_driver"
         android:title="您是司机?"
         android:onClick="I_Am_driver"
         android:visible="true"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
     <!-- 点这个会变成乘客 -->
     <item
         android:id="@+id/LongWayLIst_I_Am_Passage"
         android:title="您是乘客?"
         android:onClick="I_Am_Passage"
         android:visible="false"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 </menu>

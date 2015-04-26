@@ -20,7 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -51,7 +51,7 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.Calendar;
 
-public class OrderActivity extends ActionBarActivity {
+public class OrderActivity extends AppCompatActivity {
 
 	static final int TIME最早开始 = 0;
 	static final int DATE_出发另一个 = 1;

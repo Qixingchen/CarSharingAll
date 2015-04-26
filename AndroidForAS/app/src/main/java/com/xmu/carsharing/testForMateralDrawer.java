@@ -1,7 +1,7 @@
 package com.xmu.carsharing;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.Tool.MaterialDrawer;
 
 
-public class testForMateralDrawer extends ActionBarActivity {
+public class testForMateralDrawer extends AppCompatActivity {
 
 
 	private Toolbar toolbar;
