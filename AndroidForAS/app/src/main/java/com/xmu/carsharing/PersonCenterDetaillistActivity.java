@@ -193,7 +193,7 @@ public class PersonCenterDetaillistActivity extends Activity implements OrderRel
 
 		String carsharing_type = dbresult.getString(dbresult.getColumnIndex
 				(mcontext.getString(R.string.dbstring_Carsharing_type)));
-		//todo 有错误 全部跳转长途了
+
 		bundle.putString("carsharing_type", carsharing_type);
 		bundle.putString("startplace", dbresult.getString(dbresult.getColumnIndex
 				(mcontext.getString(R.string.dbstring_StartplaceName))));

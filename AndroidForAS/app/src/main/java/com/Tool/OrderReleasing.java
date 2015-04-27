@@ -198,46 +198,6 @@ public class OrderReleasing {
 								if (empty = true) empty = false;
 							commute_selectrequest(phonenum);
 
-                    /*------------PersonalCenterActivity .java---start--------------------*/
-						/*	if (act == AppStat.is个人中心Or详情界面.个人中心) {
-								for (i = 0; i < jasA.length(); i++) {
-									jasitem = jasA.getJSONObject(i);
-									HashMap<String, String> map = new HashMap<String, String>();
-									map.put("Title", jasitem.getString("startDate"));
-									map.put("text",
-											jasitem.getString("startPlace")
-													+ "  "
-													+ " 至  "
-													+ "  "
-													+ jasitem
-													.getString("destination")
-													+ "  ");
-									map.put("requst",
-											jasitem.getString("requestTime"));
-									mylist1_0.add(map);
-									if (bfirsthistory == false) {
-
-										firstItem_type = "shortway";
-										startplace = jasitem.getString(
-												"startPlace").split(",");
-										endplace = jasitem.getString(
-												"destination").split(",");
-
-										bfirsthistory = true;
-									}
-
-								}
-								if (bfirsthistory == true)
-									Log.e("历史订单第一条记录:", "shortwayyes");
-								else
-									Log.e("历史订单第一条记录:", "shortwayno");
-
-								Log.e("bfirsthistory_order", String.valueOf(bfirsthistory));
-								commute_selectrequest(phonenum, request, act);
-							}*/
-	             /*   ------------PersonalCenterActivity .java---end-----------------------*/
-
-
 						} catch (JSONException e) {
 
 							e.printStackTrace();
