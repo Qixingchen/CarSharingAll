@@ -47,7 +47,7 @@ public class DataBaseAct {
 		db1 = db.getWritableDatabase();
 	}
 
-		//判断集合
+	//判断集合
 
 	public boolean is历史地点记录中有该记录(String mapname) {
 		Cursor dbresult = db1.query(
@@ -79,34 +79,34 @@ public class DataBaseAct {
 
 	}
 
-	private boolean is历史订单中有该记录(String request,String type){
+	private boolean is历史订单中有该记录(String request, String type) {
 		Cursor dbresult;
-		if(type == "shortway") {
+		if (type == "shortway") {
 			dbresult = db1.query(
 					mcontext.getString(R.string.dbtable_shortwayOrders), null,
 					mcontext.getString(R.string.dbstring_requesttime) + "=?",
 					new String[]{request}, null, null, null);
-		}else if(type == "commute"){
+		} else if (type == "commute") {
 			dbresult = db1.query(
 					mcontext.getString(R.string.dbtable_commuteOrders), null,
 					mcontext.getString(R.string.dbstring_requesttime) + "=?",
 					new String[]{request}, null, null, null);
-		}else{//shortway
+		} else {//shortway
 			dbresult = db1.query(
 					mcontext.getString(R.string.dbtable_longwayOrders), null,
 					mcontext.getString(R.string.dbstring_requesttime) + "=?",
 					new String[]{request}, null, null, null);
 		}
-		if(0 == dbresult.getCount()){
+		if (0 == dbresult.getCount()) {
 			dbresult.close();
 			return false;
-		}else {
+		} else {
 			dbresult.close();
 			return true;
 		}
 	}
 
-		//罗列集合
+	//罗列集合
 
 	public Cursor showAll偏好地点() {
 		Cursor result = db1.query(mcontext.getString(R.string.dbtable_placeliked), null,
@@ -123,10 +123,10 @@ public class DataBaseAct {
 	}
 
 
-		//增加集合
+	//增加集合
 
 	public void add偏好地点(String mapname, String UserMapname, double longitude,
-	                    double latitude){
+	                    double latitude) {
 		ContentValues content = new ContentValues();
 		content.put(mcontext.getString(R.string.dbstring_PlaceUserName),
 				UserMapname);
@@ -171,9 +171,9 @@ public class DataBaseAct {
 
 	}
 
-		//删除集合
+	//删除集合
 
-	public void delete偏好地点(String[] selelectionArgs){
+	public void delete偏好地点(String[] selelectionArgs) {
 		// Define 'where' part of query.
 		String selection = mcontext.getString(R.string.dbstring_PlaceMapName)
 				+ " LIKE ?";
@@ -185,7 +185,7 @@ public class DataBaseAct {
 
 	}
 
-	public void delete历史地点(String[] selelectionArgs){
+	public void delete历史地点(String[] selelectionArgs) {
 		// Define 'where' part of query.
 		String selection = mcontext.getString(R.string.dbstring_PlaceMapName)
 				+ " LIKE ?";
@@ -198,31 +198,34 @@ public class DataBaseAct {
 	}
 
 	public void add_OdersToDb(String carsharing_type, String requesttime,
-	                          float longitude_latitude[],String place_name[],
-	                         String date_time[],String dealstatus,String userrole,
-	                         String weekrepeat,String  display_firstitem,
-	                         Integer rest_seats){
+	                          float longitude_latitude[], String place_name[],
+	                          String date_time[], String dealstatus, String userrole,
+	                          String weekrepeat, String display_firstitem,
+	                          Integer rest_seats) {
 
-		Log.e("write to db","writing");
+		Log.e("write to db", "writing");
 
 		ContentValues content = new ContentValues();
 
 		/*判断是否已经有该记录*/
-		if(is历史订单中有该记录(requesttime,carsharing_type)){return;};
+		if (is历史订单中有该记录(requesttime, carsharing_type)) {
+			return;
+		}
+		;
 
 		/*3个表的公共字段*/
-		content.put(mcontext.getString(R.string.dbstring_requesttime),requesttime);
+		content.put(mcontext.getString(R.string.dbstring_requesttime), requesttime);
 		Log.e("requesttime", requesttime);
 		content.put(mcontext.getString(R.string.dbstring_StartplaceName), place_name[0]);
-		Log.e("place_name[0]",place_name[0]);
-		content.put(mcontext.getString(R.string.dbstring_EndplaceName),place_name[1]);
-		content.put(mcontext.getString(R.string.dbstring_Display_firstItem),display_firstitem);
-		content.put(mcontext.getString(R.string.dbstring_Startdate),date_time[0]);
-		content.put(mcontext.getString(R.string.dbstring_Userrole),userrole);
-		content.put(mcontext.getString(R.string.dbstring_Restseats),rest_seats);
-		content.put(mcontext.getString(R.string.dbstring_Carsharing_type),carsharing_type);
+		Log.e("place_name[0]", place_name[0]);
+		content.put(mcontext.getString(R.string.dbstring_EndplaceName), place_name[1]);
+		content.put(mcontext.getString(R.string.dbstring_Display_firstItem), display_firstitem);
+		content.put(mcontext.getString(R.string.dbstring_Startdate), date_time[0]);
+		content.put(mcontext.getString(R.string.dbstring_Userrole), userrole);
+		content.put(mcontext.getString(R.string.dbstring_Restseats), rest_seats);
+		content.put(mcontext.getString(R.string.dbstring_Carsharing_type), carsharing_type);
 
-		if(carsharing_type.compareTo("longway") != 0) {
+		if (carsharing_type.compareTo("longway") != 0) {
 
 			/*2个表的公共字段*/
 			content.put(mcontext.getString(R.string.dbstring_StartplaceX),
@@ -233,80 +236,88 @@ public class DataBaseAct {
 					longitude_latitude[2]);
 			content.put(mcontext.getString(R.string.dbstring_EndplaceY),
 					longitude_latitude[3]);
-			content.put(mcontext.getString(R.string.dbstring_Starttime),date_time[2]);
-			content.put(mcontext.getString(R.string.dbstring_Endtime),date_time[3]);
-			content.put(mcontext.getString(R.string.dbstring_Dealstatus),dealstatus);
+			content.put(mcontext.getString(R.string.dbstring_Starttime), date_time[2]);
+			content.put(mcontext.getString(R.string.dbstring_Endtime), date_time[3]);
+			content.put(mcontext.getString(R.string.dbstring_Dealstatus), dealstatus);
 
 			if (carsharing_type.compareTo("commute") == 0) {
 
-				content.put(mcontext.getString(R.string.dbstring_Enddate),date_time[1]);
+				content.put(mcontext.getString(R.string.dbstring_Enddate), date_time[1]);
 				content.put(mcontext.getString(R.string.dbstring_Weekrepeat),
 						weekrepeat);
 				db1.insert(mcontext.getString(R.string.dbtable_commuteOrders), null, content);
-				Log.e("write to db","commute write ok!");
+				Log.e("write to db", "commute write ok!");
 			} else if (carsharing_type.compareTo("shortway") == 0) {
-				db1.insert(mcontext.getString(R.string.dbtable_shortwayOrders),null, content);
+				db1.insert(mcontext.getString(R.string.dbtable_shortwayOrders), null, content);
 				Log.e("write to db", "shortway write ok!");
 			}
-		}
-		else { //longway
+		} else { //longway
 			db1.insert(mcontext.getString(R.string.dbtable_longwayOrders), null, content);
-			Log.e("write to db","longway write ok!");
+			Log.e("write to db", "longway write ok!");
 		}
 
 	}
 
-		//shortway>commute>longway  查询第一条历史记录
+	//shortway>commute>longway  查询第一条历史记录
 
-		//获取被点击的item的详细信息
-	public Cursor read某条历史订单(String requesttime){  //用requesttime来确定被点击的是哪一条
-		Log.e("dbact-requesttime",requesttime);
+	//获取被点击的item的详细信息
+	public Cursor read某条历史订单(String requesttime) {  //用requesttime来确定被点击的是哪一条
+		String selection = mcontext.getString(R.string.dbstring_requesttime) + "=?";
 		Cursor dbresult = db1.query(
-				mcontext.getString(R.string.dbtable_shortwayOrders),null,
-				mcontext.getString(R.string.dbstring_requesttime) + "=?",
+				mcontext.getString(R.string.dbtable_shortwayOrders), null,
+				selection,
 				new String[]{requesttime}, null, null, null);
-		Log.e("read某条历史订单-count-shortway",String.valueOf(dbresult.getCount()));
-
-	/*	Log.e("dbresult-requesttime",String.valueOf(dbresult.getInt(dbresult
-				.getColumnIndex(
-				"requesttime"))));*/
-
+		Log.e(logtag,"shortway-dbresult数量"+dbresult.getCount());
 		if (0 == dbresult.getCount()) {
-			dbresult = db1.query(mcontext.getString(R.string.dbtable_commuteOrders),null,
-					mcontext.getString(R.string.dbstring_requesttime) +"=?",
+			dbresult = db1.query(mcontext.getString(R.string.dbtable_commuteOrders), null,
+					selection,
 					new String[]{requesttime}, null, null, null);
-			Log.e("read某条历史订单-count-commute",String.valueOf(dbresult.getCount()));
-			if(0 == dbresult.getCount()){
-				dbresult = db1.query(mcontext.getString(R.string.dbtable_longwayOrders),null,
-						mcontext.getString(R.string.dbstring_requesttime)+ "=?",
+			Log.e(logtag,"commute-dbresult数量"+dbresult.getCount());
+			if (0 == dbresult.getCount()) {
+				dbresult = db1.query(mcontext.getString(R.string.dbtable_longwayOrders), null,
+						selection,
 						new String[]{requesttime}, null, null, null);
-				Log.e("read某条历史订单-count-longway",String.valueOf(dbresult.getCount()));
+				Log.e(logtag,"longway-dbresult数量"+dbresult.getCount());
 			}
 		}
 		return dbresult;
 	}
 
-		//All orders
-	public Cursor[] read所有订单(){
+	public void delete某条历史订单(String type, String requesttime) {
+		String selection = mcontext.getString(R.string.dbstring_requesttime) + "=?";
+
+		if (type.compareTo("shortway") == 0)
+			db1.delete(mcontext.getString(R.string.dbtable_shortwayOrders),
+					selection, new String[]{requesttime});
+		else if (type.compareTo("commute") == 0)
+			db1.delete(mcontext.getString(R.string.dbtable_commuteOrders),
+					selection, new String[]{requesttime});
+		else if (type.compareTo("longway") == 0)
+			db1.delete(mcontext.getString(R.string.dbtable_longwayOrders),
+					selection, new String[]{requesttime});
+	}
+
+	//All orders
+	public Cursor[] read所有订单() {
 
 		Cursor[] cursors = new Cursor[3];
 		cursors[0] = db1.query(
 				mcontext.getString(R.string.dbtable_shortwayOrders),
 				null,
 				null, null, null, null, null);
-		Log.e("cursors[0].getCount()",String.valueOf(cursors[0].getCount()));
+		Log.e("cursors[0].getCount()", String.valueOf(cursors[0].getCount()));
 
 		cursors[1] = db1.query(
 				mcontext.getString(R.string.dbtable_commuteOrders),
 				null,
 				null, null, null, null, null);
-		Log.e("cursors[1].getCount()",String.valueOf(cursors[1].getCount()));
+		Log.e("cursors[1].getCount()", String.valueOf(cursors[1].getCount()));
 
 		cursors[2] = db1.query(
 				mcontext.getString(R.string.dbtable_longwayOrders),
 				null,
 				null, null, null, null, null);
-		Log.e("cursors[2].getCount()",String.valueOf(cursors[2].getCount()));
+		Log.e("cursors[2].getCount()", String.valueOf(cursors[2].getCount()));
 
 		return cursors;  //Cursor数组
 

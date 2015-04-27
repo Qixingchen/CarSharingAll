@@ -26,16 +26,20 @@ import java.util.Map;
 public class RemoveHistoryOrder {
 
 	private Activity activity;
-	private String UserPhoneNumber;
-	private ToolWithActivityIn getPhone;
 	private Context context;
 	public static RequestQueue queue;
+	String logtag = "historyitem删除界面：";
+
+	DataBaseAct dbact;
+	private String UserPhoneNumber;
+	private ToolWithActivityIn getPhone;
 
 	public RemoveHistoryOrder(Activity act,Context context){
 		this.activity = act;
 		this.context = context;
 		getPhone = new ToolWithActivityIn(activity);
 		UserPhoneNumber = getPhone.get用户手机号从偏好文件();
+		dbact = new DataBaseAct(act,UserPhoneNumber);
 		queue = Volley.newRequestQueue(context);
 	}
 	public void removeItem(HistoryOrderListItemClass historyOrderListItemData,
@@ -45,21 +49,27 @@ public class RemoveHistoryOrder {
 				.Carsharing_type;
 		String requesttime = historyOrderListItemData
 				.HistoryOrderListItems[position].Requesttime;
+		Log.e(logtag,"下单时间"+requesttime);
+		if(type.compareTo("shortway") == 0){
+			// 向服务器发起删除短途拼车的请求start!
+			shortway_deleterequest(UserPhoneNumber, requesttime);
+			// 向服务器发起删除短途拼车的请求end!
+			dbact.delete某条历史订单("shortway",requesttime);
+		}else if(type.compareTo("commute") == 0){
+			// 向服务器发起删除上下班拼车订单的请求start!
+			commute_deleterequest(UserPhoneNumber, requesttime);
+			// 向服务器发起删除上下班拼车订单的请求end!
+			dbact.delete某条历史订单("commute",requesttime);
+		}else if(type.compareTo("longway") == 0){
+			// 向服务器发起删除长途拼车的请求start!
+			longway_deleterequest(UserPhoneNumber, requesttime);
+			// 向服务器发起删除长途拼车的请求end!
+			dbact.delete某条历史订单("longway",requesttime);
+		}
 
-		// 向服务器发起删除上下班拼车订单的请求start!
-		commute_deleterequest(UserPhoneNumber, requesttime, position);
-		// 向服务器发起删除上下班拼车订单的请求end!
-
-		// 向服务器发起删除短途拼车的请求start!
-		shortway_deleterequest(UserPhoneNumber, requesttime, position);
-		// 向服务器发起删除短途拼车的请求end!
-
-		// 向服务器发起删除长途拼车的请求start!
-		longway_deleterequest(UserPhoneNumber, requesttime, position);
-		// 向服务器发起删除长途拼车的请求end!
 	}
 	private void longway_deleterequest(final String phonenum,
-	                                   final String time,final int position) {
+	                                   final String time) {
 
 		String longway_deleterequest_baseurl = context
 				.getString(R.string.uri_base)
@@ -107,7 +117,7 @@ public class RemoveHistoryOrder {
 	}
 
 	private void shortway_deleterequest(final String phonenum,
-	                                    final String time,final int position) {
+	                                    final String time) {
 
 		String shortway_deleterequest_baseurl = context
 				.getString(R.string.uri_base)
@@ -155,7 +165,7 @@ public class RemoveHistoryOrder {
 	}
 
 	private void commute_deleterequest(final String phonenum,
-	                                   final String time,final int position) {
+	                                   final String time) {
 
 
 		String commute_deleterequst_baseurl = context

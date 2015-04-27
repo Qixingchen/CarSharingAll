@@ -120,7 +120,7 @@ public class HistoryOrderItems产生 {
 			EndPlace[i] = dbresult3.getString(dbresult3.getColumnIndex
 					("EndplaceName"));
 
-			DealStatus[i] = dbresult3.getInt(dbresult3.getColumnIndex("Dealstatus"));
+			DealStatus[i] = -1;
 
 			Requesttime[i] = dbresult3.getString(dbresult3.getColumnIndex("requesttime"));
 			i ++;

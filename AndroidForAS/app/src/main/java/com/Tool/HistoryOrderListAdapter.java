@@ -33,7 +33,25 @@ public class HistoryOrderListAdapter extends RecyclerView.Adapter<HistoryOrderLi
 		this.onViewHolderListener = onViewHolderListener;
 		removeHistoryOrder = new RemoveHistoryOrder(mactivity,mactivity);
 	}
-	public static class ViewHolder extends RecyclerView.ViewHolder {
+
+	/**
+	 * Item的回调接口
+	 */
+	public interface OnItemClickListener {
+		void onItemClickListener(View view, int position);
+	}
+
+	private OnItemClickListener listener; // 点击Item的回调对象
+
+	/**
+	 * 设置回调监听
+	 * @param listener
+	 */
+	public void setOnItemClickListener(OnItemClickListener listener) {
+		this.listener = listener;
+	}
+
+	public class ViewHolder extends RecyclerView.ViewHolder {
 		// each data item is just a string in this case
 		public ImageView carsharing_type_image;
 		public TextView carsharing_type_text, dealstatus,
@@ -85,6 +103,9 @@ public class HistoryOrderListAdapter extends RecyclerView.Adapter<HistoryOrderLi
 		}
 	}
 
+	/**
+	 * 创建ViewHolder
+	 */
 	@Override
 	public HistoryOrderListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		// create a new view
@@ -95,8 +116,12 @@ public class HistoryOrderListAdapter extends RecyclerView.Adapter<HistoryOrderLi
 		return vh;
 	}
 
+	/**
+	 * 将数据绑定到ViewHolder上
+	 */
 	@Override
-	public void onBindViewHolder(HistoryOrderListAdapter.ViewHolder holder, int position) {
+	public void onBindViewHolder(HistoryOrderListAdapter.ViewHolder holder,
+	                             final int position) {
 
 		holder.dealstatus.setText(String.valueOf(historyOrderListItemData
 				.HistoryOrderListItems[position]
@@ -126,6 +151,15 @@ public class HistoryOrderListAdapter extends RecyclerView.Adapter<HistoryOrderLi
 
 		if (position == getItemCount() - 1) onViewHolderListener.onRequestedLastItem();
 
+		if (listener != null) {
+			holder.getHistory_order_ItemDetail.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					listener.onItemClickListener(v, position);
+				}
+			});
+		}
 	}
 
 	//到底加载回调
