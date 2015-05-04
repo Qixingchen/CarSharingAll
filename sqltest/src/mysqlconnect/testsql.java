@@ -11,10 +11,10 @@ import java.util.Map;
 public class testsql {
 	public static Connection getConnection() throws SQLException,
 			java.lang.ClassNotFoundException {
-		String url = "jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_carsharingxmu";
+		String url = "jdbc:mysql://car.qixingchen.me:3306/carsharing";
 		Class.forName("com.mysql.jdbc.Driver");
-		String userName = "no423n1m4n";
-		String password = "k0l2y0lm14xiwy1hm543h2imm4wkyjl1m3hhyyl0";
+		String userName = "carsharingremote";
+		String password = "qwQ!zlB*C5TOJoEc";
 		Connection con = DriverManager.getConnection(url, userName, password);
 		return con;
 	}
@@ -31,10 +31,10 @@ public class testsql {
 			Integer d = 0; // the number of the drivers
 			Integer k = 0; // the max permit drivers
 			// String query = "select * from commute_request";
-			String query = "select * from commute_request where DealStatus=0"; // ´ÓÉêÇëÆ´³µµÄÈËÖĞ½øĞĞËã·¨¼ÆËã
+			String query = "select * from commute_request where DealStatus=0"; // ä»ç”³è¯·æ‹¼è½¦çš„äººä¸­è¿›è¡Œç®—æ³•è®¡ç®—
 			// String
 			// query1="select count(*) as dcount from commute_request where SupplyCar='y'";
-			// //²éÑ¯ÓĞ³µµÄÈËµÄÊıÁ¿
+			// //æŸ¥è¯¢æœ‰è½¦çš„äººçš„æ•°é‡
 			String query1 = null;
 			String query2 = "select DestinationX,DestinationY,count(UserID) as co from commute_request where DealStatus=0 Group by DestinationX,DestinationY";
 			String query3 = null;
@@ -44,10 +44,10 @@ public class testsql {
 			String city1 = "";
 			String city2 = "";
 			String city3 = "";
-			System.out.println("commute_                  request±íÊı¾İÈçÏÂ£º");
+			System.out.println("commute_                  requestè¡¨æ•°æ®å¦‚ä¸‹ï¼š");
 			System.out.println("---------------------------------");
-			System.out.println("³ö·¢µØ¾­¶È" + " " + "³ö·¢µØÎ³¶È" + " " + "Ä¿µÄµØ¾­¶È" + " "
-					+ "Ä¿µÄµØÎ³¶È");
+			System.out.println("å‡ºå‘åœ°ç»åº¦" + " " + "å‡ºå‘åœ°çº¬åº¦" + " " + "ç›®çš„åœ°ç»åº¦" + " "
+					+ "ç›®çš„åœ°çº¬åº¦");
 			System.out.println("---------------------------------");
 			result.last();
 			int rowCount = result.getRow();
@@ -79,9 +79,9 @@ public class testsql {
 			}
 			result.close();
 			int j = 0;
-			String type = "ÉÏÏÂ°àÆ´³µ";
+			String type = "ä¸Šä¸‹ç­æ‹¼è½¦";
 			int sum = 0;
-			while (j < rowCount) { // ¸ù¾İ²»Í¬Ä¿µÄµØ·Ö±ğµ÷ÓÃËã·¨
+			while (j < rowCount) { // æ ¹æ®ä¸åŒç›®çš„åœ°åˆ†åˆ«è°ƒç”¨ç®—æ³•
 				city = "";
 				String[] StartPlacelng = new String[totalPerson[j]];
 				String[] StartPlacelat = new String[totalPerson[j]];
@@ -89,7 +89,7 @@ public class testsql {
 				/*
 				 * PreparedStatement ps=con.prepareStatement(
 				 * "insert into carshare_deal values(?,?,?,?)");
-				 * //Íùcarshare_dealÖĞ²åÈëÊı¾İ sum=itersum+1; ps.setLong(1,sum);
+				 * //å¾€carshare_dealä¸­æ’å…¥æ•°æ® sum=itersum+1; ps.setLong(1,sum);
 				 * ps.setString(2,GetNowTime.getTime()); ps.setString(3,type);
 				 * ps.setLong(4,0); ps.executeUpdate(); System.out.println(sum);
 				 */
@@ -103,7 +103,7 @@ public class testsql {
 				int num = 0;
 				mes = "";
 				ids = "";
-				while (result1.next()) { // »ñÈ¡Ã¿¸öµãµÄ¾­Î³¶È
+				while (result1.next()) { // è·å–æ¯ä¸ªç‚¹çš„ç»çº¬åº¦
 					isd = 0;
 					StartPlacelng[num] = result1.getString("StartPlaceX");
 					StartPlacelat[num] = result1.getString("StartPlaceY");
@@ -129,8 +129,8 @@ public class testsql {
 				// System.out.println(mes);
 				Map<String, String> json1 = province.testcity(Destinationlng,
 						Destinationlat);
-				city = city + json1.get("addre"); // »ñÈ¡¸ÃµØµãËùÔÚµÄÊ¡·İ
-				for (int it = 0; it < totalPerson[j]; it++) { // »ñÈ¡ÈÎÒâÁ½µã¼äµÄÊµ¼Ê¾àÀë
+				city = city + json1.get("addre"); // è·å–è¯¥åœ°ç‚¹æ‰€åœ¨çš„çœä»½
+				for (int it = 0; it < totalPerson[j]; it++) { // è·å–ä»»æ„ä¸¤ç‚¹é—´çš„å®é™…è·ç¦»
 					for (int it1 = 0; it1 < totalPerson[j]; it1++) {
 						try {
 							city1 = "";
@@ -147,7 +147,7 @@ public class testsql {
 									StartPlacelng[it1], StartPlacelat[it1],
 									city1, city2);
 							// System.out.println("address :" +
-							// json.get("address")+"Ã×");
+							// json.get("address")+"ç±³");
 
 							distance = distance + json.get("distance") + " ";
 
@@ -156,7 +156,7 @@ public class testsql {
 						}
 					}
 				}
-				for (int it = 0; it < totalPerson[j]; it++) { // »ñÈ¡ÈÎÒâµãµ½Ä¿µÄµØµÄÊµ¼Ê¾àÀë
+				for (int it = 0; it < totalPerson[j]; it++) { // è·å–ä»»æ„ç‚¹åˆ°ç›®çš„åœ°çš„å®é™…è·ç¦»
 					city3 = "";
 					Map<String, String> json2 = province.testcity(
 							StartPlacelng[it], StartPlacelat[it]);
@@ -181,7 +181,7 @@ public class testsql {
 				k = d;
 				// System.out.println(k);
 				result2.close();
-				// sql.addBatch("insert into carshare_deal (DealID,DealTime,SharingType,FinshStatus) values("+j+","+GetNowTime.getTime()+",'ÉÏÏÂ°àÆ´³µ',0)");
+				// sql.addBatch("insert into carshare_deal (DealID,DealTime,SharingType,FinshStatus) values("+j+","+GetNowTime.getTime()+",'ä¸Šä¸‹ç­æ‹¼è½¦',0)");
 				// sql.executeBatch();
 				command = pathname + " " + totalPerson[j] + " " + d + " " + k
 						+ " " + DesX[j] + " " + DesY[j] + mes + " " + distance
@@ -233,7 +233,7 @@ public class testsql {
 		// TODO Auto-generated catch block
 		/*
 		 * e.printStackTrace(); } } }; Timer time=new Timer();
-		 * time.schedule(task, 0,5000*60*24); //Ã¿¸ô2Ğ¡Ê±µ÷ÓÃ1´ÎËã·¨
+		 * time.schedule(task, 0,5000*60*24); //æ¯éš”2å°æ—¶è°ƒç”¨1æ¬¡ç®—æ³•
 		 */
 	}
 }

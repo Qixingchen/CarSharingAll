@@ -19,22 +19,22 @@ public class SendRequestWithHttpClient {
 	public String sendRequst(URI uri) {
 		httpgeturi = uri;
 		String response = null;
-		// ÓÃHttpClient·¢ËÍÇëÇó£¬·ÖÎªÎå²½
-		// µÚÒ»²½£º´´½¨HttpClient¶ÔÏó
+		// ç”¨HttpClientå‘é€è¯·æ±‚ï¼Œåˆ†ä¸ºäº”æ­¥
+		// ç¬¬ä¸€æ­¥ï¼šåˆ›å»ºHttpClientå¯¹è±¡
 		HttpClient httpCient = new DefaultHttpClient();
 		HttpClientParams.setCookiePolicy(httpCient.getParams(),
 				CookiePolicy.BROWSER_COMPATIBILITY);
-		// µÚ¶ş²½£º´´½¨´ú±íÇëÇóµÄ¶ÔÏó,²ÎÊıÊÇ·ÃÎÊµÄ·şÎñÆ÷µØÖ·
+		// ç¬¬äºŒæ­¥ï¼šåˆ›å»ºä»£è¡¨è¯·æ±‚çš„å¯¹è±¡,å‚æ•°æ˜¯è®¿é—®çš„æœåŠ¡å™¨åœ°å€
 		HttpGet httpGet = new HttpGet(httpgeturi);
 
 		try {
-			// µÚÈı²½£ºÖ´ĞĞÇëÇó£¬»ñÈ¡·şÎñÆ÷·¢»¹µÄÏàÓ¦¶ÔÏó
+			// ç¬¬ä¸‰æ­¥ï¼šæ‰§è¡Œè¯·æ±‚ï¼Œè·å–æœåŠ¡å™¨å‘è¿˜çš„ç›¸åº”å¯¹è±¡
 			HttpResponse httpResponse = httpCient.execute(httpGet);
-			// µÚËÄ²½£º¼ì²éÏàÓ¦µÄ×´Ì¬ÊÇ·ñÕı³££º¼ì²é×´Ì¬ÂëµÄÖµÊÇ200±íÊ¾Õı³£
+			// ç¬¬å››æ­¥ï¼šæ£€æŸ¥ç›¸åº”çš„çŠ¶æ€æ˜¯å¦æ­£å¸¸ï¼šæ£€æŸ¥çŠ¶æ€ç çš„å€¼æ˜¯200è¡¨ç¤ºæ­£å¸¸
 			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				// µÚÎå²½£º´ÓÏàÓ¦¶ÔÏóµ±ÖĞÈ¡³öÊı¾İ£¬·Åµ½entityµ±ÖĞ
+				// ç¬¬äº”æ­¥ï¼šä»ç›¸åº”å¯¹è±¡å½“ä¸­å–å‡ºæ•°æ®ï¼Œæ”¾åˆ°entityå½“ä¸­
 				HttpEntity entity = httpResponse.getEntity();
-				response = EntityUtils.toString(entity, "utf-8");// ½«entityµ±ÖĞµÄÊı¾İ×ª»»Îª×Ö·û´®
+				response = EntityUtils.toString(entity, "utf-8");// å°†entityå½“ä¸­çš„æ•°æ®è½¬æ¢ä¸ºå­—ç¬¦ä¸²
 
 			}
 

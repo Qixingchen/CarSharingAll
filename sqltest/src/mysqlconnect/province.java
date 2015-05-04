@@ -34,8 +34,8 @@ public class province {
 
 		// URLConnection connection = url.openConnection();
 		// /**
-		// * È»ºó°ÑÁ¬½ÓÉèÎªÊä³öÄ£Ê½¡£URLConnectionÍ¨³£×÷ÎªÊäÈëÀ´Ê¹ÓÃ£¬±ÈÈçÏÂÔØÒ»¸öWebÒ³¡£
-		// * Í¨¹ı°ÑURLConnectionÉèÎªÊä³ö£¬Äã¿ÉÒÔ°ÑÊı¾İÏòÄã¸öWebÒ³´«ËÍ¡£ÏÂÃæÊÇÈçºÎ×ö£º
+		// * ç„¶åæŠŠè¿æ¥è®¾ä¸ºè¾“å‡ºæ¨¡å¼ã€‚URLConnectioné€šå¸¸ä½œä¸ºè¾“å…¥æ¥ä½¿ç”¨ï¼Œæ¯”å¦‚ä¸‹è½½ä¸€ä¸ªWebé¡µã€‚
+		// * é€šè¿‡æŠŠURLConnectionè®¾ä¸ºè¾“å‡ºï¼Œä½ å¯ä»¥æŠŠæ•°æ®å‘ä½ ä¸ªWebé¡µä¼ é€ã€‚ä¸‹é¢æ˜¯å¦‚ä½•åšï¼š
 		// */
 		// connection.setDoOutput(true);
 		// OutputStreamWriter out = new
@@ -43,7 +43,7 @@ public class province {
 		// // remember to clean up
 		// out.flush();
 		// out.close();
-		// // Ò»µ©·¢ËÍ³É¹¦£¬ÓÃÒÔÏÂ·½·¨¾Í¿ÉÒÔµÃµ½·şÎñÆ÷µÄ»ØÓ¦£º
+		// // ä¸€æ—¦å‘é€æˆåŠŸï¼Œç”¨ä»¥ä¸‹æ–¹æ³•å°±å¯ä»¥å¾—åˆ°æœåŠ¡å™¨çš„å›åº”ï¼š
 		// String res;
 		// InputStream l_urlStream;
 		// l_urlStream = connection.getInputStream();

@@ -51,6 +51,6 @@ public class maphttp {
 	 * public static void main(String[] args) throws IOException { Map<String,
 	 * String> json =
 	 * maphttp.testPost("39.915285","116.403857","40.056878","116.30815"
-	 * ,"±±¾©","±±¾©"); System.out.println("address :" + json.get("address")+"Ã×"); }
+	 * ,"åŒ—äº¬","åŒ—äº¬"); System.out.println("address :" + json.get("address")+"ç±³"); }
 	 */
 }

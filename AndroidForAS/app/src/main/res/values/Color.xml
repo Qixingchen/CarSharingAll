@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="Apptheme_500">#4CAF50</color>
+<!--todo 修改-->
+    <color name="Apptheme_500">#2196F3</color>
     <color name="Apptheme_300">#81C784</color>
     <color name="Apptheme_700">#388E3C</color>
     <color name="Apptheme_900">#1B5E20</color>
